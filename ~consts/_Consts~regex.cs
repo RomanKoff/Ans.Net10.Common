@@ -30,6 +30,12 @@ namespace Ans.Net10.Common
 		public const string REGEX_EMAIL_STRICT
 			= @"^(?("")(""[^""]+""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$";
 
+		public const string REGEX_NODENAME
+			= @"^([0-9a-z_-]+)$";
+
+		public const string REGEX_PAGENAME
+			= REGEX_NODENAME;
+
 		public const string REGEX_URL
 			= @"(https?://)[-_./:\?=&%#a-zA-Z0-9]+";
 
@@ -69,6 +75,12 @@ namespace Ans.Net10.Common
 
 		[GeneratedRegex(REGEX_EMAIL_STRICT)]
 		public static partial Regex G_REGEX_EMAIL_STRICT();
+
+		[GeneratedRegex(REGEX_NODENAME)]
+		public static partial Regex G_REGEX_NODENAME();
+
+		[GeneratedRegex(REGEX_PAGENAME)]
+		public static partial Regex G_REGEX_PAGENAME();
 
 		[GeneratedRegex(REGEX_URL)]
 		public static partial Regex G_REGEX_URL();
