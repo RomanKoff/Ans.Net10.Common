@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 
-namespace Ans.Net8.Common
+namespace Ans.Net10.Common
 {
 
 	public static class SuppCache
