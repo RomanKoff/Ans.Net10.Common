@@ -47,4 +47,13 @@
 		AbsoluteUnique
 	}
 
+
+
+	public enum CrudFieldRegistryModeEnum
+	{
+		Auto,
+		Inputs,
+		Select
+	}
+
 }
