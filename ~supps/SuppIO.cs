@@ -67,6 +67,28 @@ namespace Ans.Net10.Common
 		}
 
 
+		public static string GetNewName(
+			FileInfo file,
+			string newName)
+		{
+			var path1 = $"{file.Directory}/{newName}";
+			if (!File.Exists(path1))
+				return path1;
+			var name1 = Path.GetFileName(path1);
+			var ext1 = Path.GetExtension(path1);
+			return GetNewName(file, $"{name1}_.{ext1}");
+		}
+
+
+		public static void Rename(
+			FileInfo file,
+			string newName)
+		{
+			var s1 = GetNewName(file, newName);
+			file.MoveTo(s1);
+		}
+
+
 		public static void FileWrite(
 			string path,
 			string content,
