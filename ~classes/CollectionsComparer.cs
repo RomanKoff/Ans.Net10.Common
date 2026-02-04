@@ -21,6 +21,8 @@ namespace Ans.Net10.Common
 			var deleting1 = new List<TCurrent>();
 			var added1 = new List<TNewest>();
 			bool f1;
+			CurrentCount = current.Count();
+			NewestCount = newest.Count();
 			foreach (var item1 in current1)
 			{
 				f1 = false;
@@ -71,6 +73,8 @@ namespace Ans.Net10.Common
 
 		/* readonly properties */
 
+		public int CurrentCount { get; }
+		public int NewestCount { get; }
 
 		public IEnumerable<TNewest> Added { get; }
 		public int AddedCount { get; }
@@ -92,6 +96,8 @@ namespace Ans.Net10.Common
 		public void TestDebug()
 		{
 			Debug.WriteLine($"[Ans.Net10.Common] CollectionsComparer.TestDebug()");
+			Debug.WriteLine($"   Current: {CurrentCount}");
+			Debug.WriteLine($"   Newest: {NewestCount}");
 			Debug.WriteLine($"   Added: {AddedCount}");
 			Debug.WriteLine($"   Deleted: {DeletedCount}");
 			Debug.WriteLine($"   Remaining: {RemainingCount}");

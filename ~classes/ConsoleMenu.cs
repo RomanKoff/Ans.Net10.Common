@@ -13,14 +13,29 @@
 
 
 
-	public class ConsoleMenu(
-		string title)
+	public class ConsoleMenu
 	{
+
+		/* ctors */
+
+
+		public ConsoleMenu()
+		{
+		}
+
+
+		public ConsoleMenu(
+			string title)
+			: this()
+		{
+			Title = title;
+		}
+
 
 		/* properties */
 
 
-		public string Title { get; set; } = title;
+		public string Title { get; set; }
 		public bool UseExit { get; set; } = false;
 
 
@@ -40,6 +55,15 @@
 		}
 
 
+		public void Add(
+			ConsoleKey key,
+			string title,
+			Action action)
+		{
+			Items.Add(new ConsoleMenuItem(key, title, action));
+		}
+
+
 		public void Release()
 		{
 			bool pressEscape = false;
@@ -50,6 +74,7 @@
 					Console.WriteLine($"{Title}:");
 				foreach (var item1 in Items)
 					Console.WriteLine($"[{(char)item1.Key}] — {item1.Title}");
+				Console.WriteLine("---------------------------");
 				Console.WriteLine(Resources.Common.Text_PressEscToExit);
 				Console.WriteLine();
 				do

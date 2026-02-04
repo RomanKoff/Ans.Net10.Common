@@ -17,6 +17,16 @@ namespace Ans.Net10.Common
 		/* methods */
 
 
+		public static void MakeMenu(
+			IEnumerable<ConsoleMenuItem> items)
+		{
+			var menu1 = new ConsoleMenu();
+			foreach (var item1 in items)
+				menu1.Add(item1);
+			menu1.Release();
+		}
+
+
 		public static void WriteDict<T>(
 			string title,
 			IDictionary<string, T> dictionary,
