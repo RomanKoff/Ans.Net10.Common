@@ -180,7 +180,7 @@ namespace Ans.Net10.Common
 		{
 			if (string.IsNullOrEmpty(source))
 				return string.Empty;
-			return cultureInfo.TextInfo.ToTitleCase(source);
+			return cultureInfo.TextInfo.ToTitleCase(source.ToLower());
 		}
 
 

@@ -6,9 +6,20 @@ namespace Ans.Net10.Common
 	public enum TextCaseEnum
 	{
 		Original,
-		Upper,
 		Lower,
+		Upper,
+		FirstUpper,
 		StartWithACapital
+	}
+
+
+
+	public enum GenderEnum
+		: int
+	{
+		NotSpecified = 0, // не указан
+		Male = 1, // мужской
+		Female = 2, // женский
 	}
 
 
@@ -42,40 +53,89 @@ namespace Ans.Net10.Common
 		}
 
 
+		private static readonly char[] _famioSeps = [' ', '.', ','];
+
+
 		/// <summary>
 		/// Возвращает фамилию и инициалы из строки содержащей фамилию имя и отчество
+		/// (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
+		/// [Пушкин А.С., Салтыков-Щедрин М.Е., Эфендиев Э.И.]
 		/// </summary>
-		/// <param name="fio">Исходная строка</param>
-		/// <param name="useDots">Использовать точку после букв инициалов, иначе пробел</param>
+		/// <param name="fullname">Исходная строка</param>
 		/// <param name="textCase">Операция преобразования регистра букв</param>
-		/// <returns></returns>
-		public static string GetFamIO(
-			string fio,
-			bool useDots = true,
+		public static (string family, string initials) GetFamilyAndInitials(
+			string fullname,
 			TextCaseEnum textCase = TextCaseEnum.StartWithACapital)
 		{
-			if (string.IsNullOrEmpty(fio))
-				return string.Empty;
-			var a1 = fio.Split(_famioSeps,
+			if (string.IsNullOrEmpty(fullname))
+				return (null, null);
+			var a1 = fullname.Split(_famioSeps,
 				StringSplitOptions.RemoveEmptyEntries);
-			var sb1 = new StringBuilder(a1[0]);
+			var family1 = SuppString.GetModCase(a1[0], textCase);
+			var sb1 = new StringBuilder();
 			if (a1.Length > 1)
-			{
-				sb1.Append(' ');
-				var d1 = useDots ? '.' : ' ';
-				foreach (var item1 in a1.Skip(1))
-					sb1.Append($"{item1[0]}{d1}");
-			}
-			var s1 = sb1.ToString();
-			return textCase switch
-			{
-				TextCaseEnum.Upper => s1.ToUpper(),
-				TextCaseEnum.Lower => s1.ToLower(),
-				TextCaseEnum.StartWithACapital => s1.GetStartWithACapital(),
-				_ => s1
-			};
+				sb1.Append($"{a1[1].First()}.");
+			if (a1.Length > 2)
+				sb1.Append($"{a1[2].First()}.");
+			var initials1 = SuppString.GetModCase(sb1.ToString(), textCase);
+			return (family1, initials1);
 		}
-		private static readonly char[] _famioSeps = [' ', '.', ',', '-'];
+
+
+		/// <summary>
+		/// Возвращает строку содержащую фамилию и инициалы из строки содержащей фамилию имя и отчество
+		/// (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
+		/// [Пушкин А.С., Салтыков-Щедрин М.Е., Эфендиев Э.И.]
+		/// </summary>
+		/// <param name="fullname">Фамилию имя и отчество</param>
+		/// <param name="textCase">Операция преобразования регистра букв</param>
+		public static string GetFamilyAndInitialsString(
+			string fullname,
+			TextCaseEnum textCase = TextCaseEnum.StartWithACapital)
+		{
+			var (family1, initials1) = GetFamilyAndInitials(fullname, textCase);
+			return $"{family1}{initials1.Make(" {0}")}";
+		}
+
+
+		/// <summary>
+		/// Возвращает строку содержащую латинскую транслитерацию для использования в идентификаторе
+		/// ГОСТ Р 7.0.34-2014
+		/// (https://www.ifap.ru/library/gost/70342014.pdf)
+		/// (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
+		/// [pushkin_as, saltikovtschedrin_me, efendiev_ei]
+		/// </summary>
+		public static string GetFamilyAndInitialsTranslit(
+			string family,
+			string initials)
+		{
+			var sb1 = new StringBuilder($"{family.Replace("-", "")}");
+			if (!string.IsNullOrEmpty(initials))
+				sb1.Append($"_{initials.Replace(".", "")}");
+			return SuppLangRu.GetTranslitRuToEn(sb1.ToString().ToLower());
+		}
+
+
+		/// <summary>
+		/// Возвращает пол по фамилии имени и отчеству
+		/// (Пушкин Александр Сергеевич, Эфендиев Эльчин Ильяс оглы)
+		/// [pushkin_as, saltikovtschedrin_me, efendiev_ei]
+		/// </summary>
+		public static GenderEnum GetGender(
+			string fullname)
+		{
+			if (string.IsNullOrEmpty(fullname))
+				return GenderEnum.NotSpecified;
+			if (fullname.EndsWith("ич"))
+				return GenderEnum.Male;
+			if (fullname.EndsWith("на"))
+				return GenderEnum.Female;
+			if (fullname.EndsWith("глы"))
+				return GenderEnum.Male;
+			if (fullname.EndsWith("ызы"))
+				return GenderEnum.Female;
+			return GenderEnum.NotSpecified;
+		}
 
 
 		public static string FixTelephoneRuCityCode(
@@ -181,8 +241,8 @@ namespace Ans.Net10.Common
 			long h2 = ((long)Math.Round(amount * 100)) % 100;
 			return string.Format("{0}={1:00}", h1, h2);
 		}
-		
-		
+
+
 		public static string GetCurrencyBuh(
 			double amount)
 		{

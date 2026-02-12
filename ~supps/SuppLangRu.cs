@@ -56,6 +56,7 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Возвращает транслитерацию char с русского на английский
+		/// ГОСТ Р 7.0.34-2014
 		/// (https://www.ifap.ru/library/gost/70342014.pdf)
 		/// </summary>
 		public static string GetTranslitRuToEn(
@@ -103,6 +104,7 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Возвращает транслитерацию string с русского на английский
+		/// ГОСТ Р 7.0.34-2014
 		/// (https://www.ifap.ru/library/gost/70342014.pdf)
 		/// </summary>
 		public static string GetTranslitRuToEn(
@@ -119,6 +121,7 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Возвращает транслитерацию StringBuilder с русского на английский
+		/// ГОСТ Р 7.0.34-2014
 		/// (https://www.ifap.ru/library/gost/70342014.pdf)
 		/// </summary>
 		public static StringBuilder GetTranslitRuToEn(

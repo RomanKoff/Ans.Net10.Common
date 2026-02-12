@@ -38,7 +38,7 @@ namespace Ans.Net10.Common
 		}
 
 
-		public static void AddClaimsRoles(
+		public static void AddRolesClaims(
 			this ClaimsPrincipal principal,
 			string[] roles)
 		{
@@ -114,14 +114,14 @@ namespace Ans.Net10.Common
 		}
 
 
-		public static IEnumerable<string> GetClaims(
-			this ClaimsPrincipal principal,
-			string typePrefix)
-		{
-			return principal?.Claims
-				.Where(x => x.Type.StartsWith(typePrefix))
-				.Select(x => $"{x.Type} {x.Value}");
-		}
+		//public static IEnumerable<string> GetClaims(
+		//	this ClaimsPrincipal principal,
+		//	string typePrefix)
+		//{
+		//	return principal?.Claims
+		//		.Where(x => x.Type.StartsWith(typePrefix))
+		//		.Select(x => $"{x.Type} {x.Value}");
+		//}
 
 	}
 

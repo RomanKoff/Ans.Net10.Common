@@ -123,6 +123,24 @@ namespace Ans.Net10.Common
 		}
 
 
+		public static string GetModCase(
+			string value,
+			TextCaseEnum textCase,
+			bool forcedToLower = true)
+		{
+			if (value == null)
+				return null;
+			return textCase switch
+			{
+				TextCaseEnum.Lower => value.ToLower(),
+				TextCaseEnum.Upper => value.ToUpper(),
+				TextCaseEnum.FirstUpper => value.GetFirstUpper(forcedToLower),
+				TextCaseEnum.StartWithACapital => value.GetStartWithACapital(),
+				_ => value,
+			};
+		}
+
+
 		public static string GetFixSpecChars(
 			string value)
 		{
