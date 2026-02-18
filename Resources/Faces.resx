@@ -162,6 +162,9 @@
   <data name="Email" xml:space="preserve">
     <value>Адрес эл. почты|Эл. почта</value>
   </data>
+  <data name="Emails" xml:space="preserve">
+    <value>Адреса эл. почты (через ;)|Эл. почта</value>
+  </data>
   <data name="Expires" xml:space="preserve">
     <value>Истекает</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="FullTitleRu" xml:space="preserve">
     <value>Полное название (рус.)</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Пол</value>
   </data>
   <data name="GivenName" xml:space="preserve">
     <value>Имя</value>
@@ -228,6 +234,9 @@
   <data name="Link" xml:space="preserve">
     <value>Ссылка</value>
   </data>
+  <data name="Links" xml:space="preserve">
+    <value>Ссылки (через ;)</value>
+  </data>
   <data name="Log" xml:space="preserve">
     <value>Лог</value>
   </data>
@@ -257,6 +266,9 @@
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Телефон||+7-000-000-00-00</value>
+  </data>
+  <data name="Phones" xml:space="preserve">
+    <value>Телефоны (через ;)|Тел.|+7-000-000-00-00</value>
   </data>
   <data name="Place" xml:space="preserve">
     <value>Место</value>

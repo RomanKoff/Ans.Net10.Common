@@ -196,6 +196,15 @@ namespace Ans.Net10.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адреса эл. почты (через ;)|Эл. почта.
+        /// </summary>
+        public static string Emails {
+            get {
+                return ResourceManager.GetString("Emails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Истекает.
         /// </summary>
         public static string Expires {
@@ -246,6 +255,15 @@ namespace Ans.Net10.Common.Resources {
         public static string FullTitleRu {
             get {
                 return ResourceManager.GetString("FullTitleRu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пол.
+        /// </summary>
+        public static string Gender {
+            get {
+                return ResourceManager.GetString("Gender", resourceCulture);
             }
         }
         
@@ -394,6 +412,15 @@ namespace Ans.Net10.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ссылки (через ;).
+        /// </summary>
+        public static string Links {
+            get {
+                return ResourceManager.GetString("Links", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Лог.
         /// </summary>
         public static string Log {
@@ -480,6 +507,15 @@ namespace Ans.Net10.Common.Resources {
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Телефоны (через ;)|Тел.|+7-000-000-00-00.
+        /// </summary>
+        public static string Phones {
+            get {
+                return ResourceManager.GetString("Phones", resourceCulture);
             }
         }
         
