@@ -438,7 +438,9 @@ namespace Ans.Net10.Common
 		/// </summary>
 		public int GetMaxWidth()
 		{
-			return _items.Max(x => x.Value?.Length ?? 1) + 2;
+			return (_items?.Count > 0)
+				? _items.Max(x => x.Value?.Length ?? 1) + 2
+				: 3;
 		}
 
 
