@@ -360,9 +360,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сравнение файлов
+		/// Полное сравнение файлов
 		/// </summary>
-		public static bool IsFilesEqual(
+		public static bool IsFilesEqualFull(
 			FileInfo file1,
 			FileInfo file2)
 		{
@@ -370,11 +370,30 @@ namespace Ans.Net10.Common
 				return false;
 			using var stream1 = file1.OpenRead();
 			using var stream2 = file2.OpenRead();
-			if (!GetFileBegin(stream1).Equals(GetFileBegin(stream2)))
-				return false;
-			if (!GetFileSHA1(stream1).Equals(GetFileSHA1(stream2)))
-				return false;
+			int b1, b2;
+			do
+			{
+				b1 = stream1.ReadByte();
+				b2 = stream2.ReadByte();
+				if (b1 != b2)
+					return false;
+			} while (b1 != -1);
 			return true;
+		}
+
+
+		/// <summary>
+		/// Ленивое сравнение файлов
+		/// </summary>
+		public static bool IsFilesEqualLazy(
+			FileInfo file1,
+			FileInfo file2)
+		{
+			if (file1.Length != file2.Length)
+				return false;
+			if (file1.LastWriteTime == file2.LastWriteTime)
+				return true;
+			return IsFilesEqualFull(file1, file2);
 		}
 
 	}
