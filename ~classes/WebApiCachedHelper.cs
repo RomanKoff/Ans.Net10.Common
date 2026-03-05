@@ -5,7 +5,6 @@ namespace Ans.Net10.Common
 {
 
 	public class WebApiCachedHelper<T>
-		: IWebApiHelper<T>
 	{
 
 		private readonly WebApiHelper<T> _api;

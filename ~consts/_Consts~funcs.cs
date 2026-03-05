@@ -5,13 +5,13 @@
 	{
 
 		public static readonly Func<char, char> FuncSelf
-			= new(x => x);
+			= x => x;
 
 		public static readonly Func<char, char> FuncToLower
-			= new(char.ToLower);
+			= char.ToLower;
 
 		public static readonly Func<char, char> FuncToUpper
-			= new(char.ToUpper);
+			= char.ToUpper;
 
 	}
 

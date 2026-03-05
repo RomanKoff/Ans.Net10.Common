@@ -67,7 +67,7 @@ namespace Ans.Net10.Common
 			int length1 = value.Length;
 			int max1 = (sb.Length - length1) + 1;
 			var value1 = (ignoreCase) ? value.ToLower() : value;
-			var func1 = (ignoreCase) ? _Consts.FuncToLower : _Consts.FuncSelf;
+			var func1 = (ignoreCase) ? new Func<char, char>(x => char.ToLower(x)) : x => x;
 			for (int i1 = startIndex; i1 < max1; ++i1)
 				if (func1(sb[i1]) == value1[0])
 				{

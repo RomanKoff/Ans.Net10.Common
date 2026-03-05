@@ -5,18 +5,6 @@ using System.Text.Json;
 namespace Ans.Net10.Common
 {
 
-	public interface IWebApiHelper<T>
-	{
-		string BaseUrl { get; }
-		JsonSerializerOptions JsonOptions { get; }
-		ParamsBuilder Params { get; }
-
-		WebApiResult<T> SendQuery();
-		WebApiResult<T> SendQuery(string queryString);
-	}
-
-
-
 	public class WebApiResult<T>
 	{
 		public HttpStatusCode StatusCode { get; set; }
@@ -26,7 +14,6 @@ namespace Ans.Net10.Common
 
 
 	public class WebApiHelper<T>
-		: IWebApiHelper<T>
 	{
 
 		private readonly HttpClient _httpClient;
