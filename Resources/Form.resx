@@ -192,6 +192,10 @@
   <data name="Text_SubmitAdd" xml:space="preserve">
     <value>Создать</value>
   </data>
+  <data name="Text_SubmitAddAndEdit" xml:space="preserve">
+    <value>Создать и продолжить редактирование</value>
+    <comment>Create and continue editing</comment>
+  </data>
   <data name="Text_SubmitDelete" xml:space="preserve">
     <value>Удалить</value>
   </data>

@@ -241,6 +241,15 @@ namespace Ans.Net10.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Создать и продолжить редактирование.
+        /// </summary>
+        public static string Text_SubmitAddAndEdit {
+            get {
+                return ResourceManager.GetString("Text_SubmitAddAndEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Удалить.
         /// </summary>
         public static string Text_SubmitDelete {
