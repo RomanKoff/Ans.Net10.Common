@@ -23,6 +23,9 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Замена в строке по словарю
+		/// </summary>
 		public static string ReplaceFromDict(
 			this string source,
 			Dictionary<string, string> dict)
@@ -31,26 +34,9 @@ namespace Ans.Net10.Common
 			foreach (var item1 in dict)
 				sb1.Replace(item1.Key, item1.Value);
 			return sb1.ToString();
-
-			/*
-			
-			:start
-			ch1
-			:next
-			items.Where(x=>x.StartWith(ch1))
-			items.Count
-				0
-					add(ch1); start;
-				1
-					replace(ch1, item.value); start;
-				*
-					ch1 += ch2; next;
-
-			 */
-
 		}
 
-		
+
 		public static string ReplaceIfEqual(
 			this string source,
 			string compared,
@@ -80,7 +66,10 @@ namespace Ans.Net10.Common
 		}
 
 
-		public static string ReplaceKeysFromDict(
+		/// <summary>
+		/// Замена хештегов в строке по словалю
+		/// </summary>
+		public static string ReplaceHashtagsFromDict(
 			this string source,
 			Dictionary<string, string> dictionary,
 			char marker = '#')
@@ -124,21 +113,68 @@ namespace Ans.Net10.Common
 		}
 
 
-		public static string GetTrimEnd(
+		public static string ReplaceStart(
 			this string source,
-			string trimString)
+			string mask,
+			string replacement = null)
 		{
-			var s1 = SuppRegex.ParamEncode(trimString);
-			return Regex.Replace(source, $"(?:{s1})+", string.Empty);
+			int sourceLen1 = source.Length;
+			int maskLen1 = mask.Length;
+			int curr1 = 0;
+			int end1 = curr1 + maskLen1;
+			var sb1 = new StringBuilder();
+			while (end1 <= sourceLen1 && source[curr1..end1].Equals(mask))
+			{
+				sb1.Append(replacement);
+				curr1 = end1;
+				end1 += maskLen1;
+			}
+			sb1.Append(source[curr1..]);
+			return sb1.ToString();
+		}
+
+
+		public static string ReplaceEnd(
+			this string source,
+			string mask,
+			string replacement = null)
+		{
+			int maskLen1 = mask.Length;
+			int curr1 = source.Length;
+			int begin1 = curr1 - maskLen1;
+			var sb1 = new StringBuilder();
+			while (begin1 >= 0 && source[begin1..curr1].Equals(mask))
+			{
+				sb1.Insert(0, replacement);
+				curr1 = begin1;
+				begin1 -= maskLen1;
+			}
+			sb1.Insert(0, source[0..curr1]);
+			return sb1.ToString();
 		}
 
 
 		public static string GetTrimStart(
 			this string source,
-			string trimString)
+			string trimString,
+			string replacement = null)
 		{
 			var s1 = SuppRegex.ParamEncode(trimString);
-			return Regex.Replace(source, $"({s1}:?)+", string.Empty);
+			return Regex.Replace(
+				source, $"({s1}:?)+",
+				replacement ?? string.Empty);
+		}
+
+
+		public static string GetTrimEnd(
+			this string source,
+			string trimString,
+			string replacement = null)
+		{
+			var s1 = SuppRegex.ParamEncode(trimString);
+			return Regex.Replace(
+				source, $"(?:{s1})+",
+				replacement ?? string.Empty);
 		}
 
 
@@ -241,6 +277,54 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
+		/// Возвращает правую часть сторки до первого вхождения 'find' слева
+		/// </summary>
+		public static string GetCropLeft(
+			this string source,
+			char find)
+		{
+			if (string.IsNullOrEmpty(source))
+				return string.Empty;
+			int i1 = source.LastIndexOf(find);
+			if (i1 == -1)
+				return string.Empty;
+			return source[..i1];
+		}
+
+
+		/// <summary>
+		/// Возвращает правую часть сторки до первого вхождения 'find' слева
+		/// </summary>
+		public static string GetCropLeft(
+			this string source,
+			string find)
+		{
+			if (string.IsNullOrEmpty(source))
+				return string.Empty;
+			int i1 = source.LastIndexOf(find);
+			if (i1 == -1)
+				return string.Empty;
+			return source[..i1];
+		}
+
+
+		/// <summary>
+		/// Возвращает правую часть сторки без 'count' символов слева
+		/// </summary>
+		public static string GetCropLeft(
+			this string source,
+			int count)
+		{
+			if (string.IsNullOrEmpty(source))
+				return string.Empty;
+			int l1 = source.Length;
+			if (l1 <= count)
+				return source;
+			return source[0..^count];
+		}
+
+
+		/// <summary>
 		/// Возвращает правую часть сторки до символа 'find'
 		/// </summary>
 		public static string GetRight(
@@ -285,6 +369,54 @@ namespace Ans.Net10.Common
 			if (l1 <= count)
 				return source;
 			return source[(l1 - count)..];
+		}
+
+
+		/// <summary>
+		/// Возвращает левую часть сторки до первого вхождения 'find' справа
+		/// </summary>
+		public static string GetCropRight(
+			this string source,
+			char find)
+		{
+			if (string.IsNullOrEmpty(source))
+				return string.Empty;
+			int i1 = source.IndexOf(find);
+			if (i1 == -1)
+				return string.Empty;
+			return source[i1..];
+		}
+
+
+		/// <summary>
+		/// Возвращает левую часть сторки до первого вхождения 'find' справа
+		/// </summary>
+		public static string GetCropRight(
+			this string source,
+			string find)
+		{
+			if (string.IsNullOrEmpty(source))
+				return string.Empty;
+			int i1 = source.IndexOf(find);
+			if (i1 == -1)
+				return string.Empty;
+			return source[i1..];
+		}
+
+
+		/// <summary>
+		/// Возвращает левую часть сторки без 'count' символов справа
+		/// </summary>
+		public static string GetCropRight(
+			this string source,
+			int count)
+		{
+			if (string.IsNullOrEmpty(source))
+				return string.Empty;
+			int l1 = source.Length;
+			if (l1 <= count)
+				return source;
+			return source[count..];
 		}
 
 

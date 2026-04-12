@@ -15,14 +15,21 @@
 
 
 		public DictInt(
-			string serialization)
+			IEnumerable<string> serialization)
 			: base(serialization)
 		{
 		}
 
 
 		public DictInt(
-			IEnumerable<string> serialization)
+			params string[] serialization)
+			: base(serialization)
+		{
+		}
+
+
+		public DictInt(
+			string serialization)
 			: base(serialization)
 		{
 		}

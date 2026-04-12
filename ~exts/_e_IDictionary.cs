@@ -7,6 +7,17 @@
 		/* functions */
 
 
+		public static string GetSerialization(
+			this KeyValuePair<string, string> item,
+			string valueTemplate = null)
+		{
+			var value1 = valueTemplate == null
+				? item.Value
+				: item.Value?.Make(valueTemplate);
+			return item.Key + value1;
+		}
+
+
 		public static T Get<T>(
 			this IDictionary<string, T> dictionary,
 			string key)

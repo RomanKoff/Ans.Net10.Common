@@ -1,4 +1,6 @@
-﻿namespace Ans.Net10.Common
+﻿using System.Text;
+
+namespace Ans.Net10.Common
 {
 
 	public class DictString
@@ -15,14 +17,21 @@
 
 
 		public DictString(
-			string serialization)
+			IEnumerable<string> serialization)
 			: base(serialization)
 		{
 		}
 
 
 		public DictString(
-			IEnumerable<string> serialization)
+			params string[] serialization)
+			: base(serialization)
+		{
+		}
+
+
+		public DictString(
+			string serialization)
 			: base(serialization)
 		{
 		}

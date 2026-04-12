@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Web;
 
 namespace Ans.Net10.Common
 {
@@ -58,6 +59,25 @@ namespace Ans.Net10.Common
 			string value)
 		{
 			return value?.ReplaceFromDict(_DICT_TEXT2HTML);
+		}
+
+
+		public static string GetHtml2TextAndSaveStruct(
+			string value)
+		{
+			if (string.IsNullOrWhiteSpace(value))
+				return null;
+			var content1 = GetHtml2Text(value.TrimEnd());
+			var lines1 = content1
+				.Split(["\r\n", "\r", "\n"], StringSplitOptions.None)
+				.SkipWhile(string.IsNullOrWhiteSpace);
+			var s1 = lines1.First();
+			var len1 = s1.TakeWhile(char.IsWhiteSpace).Count();
+			var tab1 = len1 > 0 ? s1[..len1] : " ";
+			var sb1 = new StringBuilder();
+			foreach (var line1 in lines1)
+				sb1.AppendLine(line1[len1..].ReplaceStart(tab1, "&Tab;"));
+			return sb1.ToString();
 		}
 
 

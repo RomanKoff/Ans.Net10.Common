@@ -90,11 +90,13 @@ namespace Ans.Net10.Common
 		}
 
 
-		public string GetValueOrKey(
+		public TValue GetValueOrKey(
 			TKey key)
 		{
+			if (key == null)
+				return default;
 			return TryGetValue(key, out TValue value1)
-				? ValueToString(value1) : KeyToString(key);
+				? value1 : StringToValue(KeyToString(key));
 		}
 
 	}

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel;
+using System.Dynamic;
+using System.Reflection;
 using System.Text;
 
 namespace Ans.Net10.Common
@@ -8,6 +10,16 @@ namespace Ans.Net10.Common
 	{
 
 		/* functions */
+
+
+		public static dynamic ToDynamic(
+			this object value)
+		{
+			IDictionary<string, object> expando1 = new ExpandoObject();
+			foreach (PropertyDescriptor property1 in TypeDescriptor.GetProperties(value.GetType()))
+				expando1.Add(property1.Name, property1.GetValue(value));
+			return expando1;
+		}
 
 
 		public static T GetAttribute<T>(

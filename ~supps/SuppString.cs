@@ -49,6 +49,26 @@ namespace Ans.Net10.Common
 		}
 
 
+		public static bool HasAny(
+			params string[] values)
+		{
+			foreach (var value1 in values)
+				if (!string.IsNullOrEmpty(value1))
+					return true;
+			return false;
+		}
+
+
+		public static bool HasAll(
+			params string[] values)
+		{
+			foreach (var value1 in values)
+				if (string.IsNullOrEmpty(value1))
+					return false;
+			return true;
+		}
+
+
 		public static string GetParamEncode(
 			string source)
 		{

@@ -1,0 +1,38 @@
+﻿
+	Css-Classes
+		
+		row row-cols-1 row-cols-md-2 row-cols-lg-4 g-5 mb-5
+			row
+			row-cols- : 1
+			row-cols-md- : 2
+			row-cols-lg- : 4
+			g- : 5
+			mb- : 5
+
+		border border-primary border-2 border-top
+			border
+			border- : primary, 2, top
+
+
+		Stylist
+			Key
+			IsRemove
+			Value
+
+		Page
+		{
+			.page-styles
+			List
+			{
+				.list-stylist(.page-styles)
+				Item
+				{
+					default-styles(TagStylist())
+				}
+			}
+		}
+		
+
+
+			
+					

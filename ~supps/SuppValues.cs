@@ -53,6 +53,26 @@ namespace Ans.Net10.Common
 		}
 
 
+		public static bool HasAny(
+			params object[] values)
+		{
+			foreach (var value1 in values)
+				if (!string.IsNullOrEmpty(value1?.ToString()))
+					return true;
+			return false;
+		}
+
+
+		public static bool HasAll(
+			params object[] values)
+		{
+			foreach (var value1 in values)
+				if (string.IsNullOrEmpty(value1?.ToString()))
+					return false;
+			return true;
+		}
+
+
 		private static readonly char[] _famioSeps = [' ', '.', ','];
 
 
@@ -189,6 +209,27 @@ namespace Ans.Net10.Common
 				p1++;
 			}
 			return $"+{new string(a1, 0, p1)}";
+		}
+
+
+		public static string GetSubstitutionAddress(
+			string address,
+			Dictionary<string, string> dict)
+		{
+			foreach (var item1 in dict)
+			{
+				var i1 = address.IndexOf($"{item1.Key}:");
+				if (i1 > -1)
+				{
+					var i2 = i1 + item1.Key.Length + 1;
+					var s1 = address[..i1] + item1.Value;
+					var s2 = address[i2..];
+					address = "0123456789".Contains(address[i2])
+						? $"{s1}, каб. {s2}"
+						: $"{s1}, {s2}";
+				}
+			}
+			return address;
 		}
 
 
