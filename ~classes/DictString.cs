@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Ans.Net10.Common
+﻿namespace Ans.Net10.Common
 {
 
 	public class DictString

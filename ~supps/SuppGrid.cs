@@ -25,12 +25,10 @@
 			Func<string, T> parser,
 			string source)
 		{
-			var items1 = new List<T>();
-			var a1 = source.Split(['\r', '\n']);
-			foreach (var item1 in a1)
-				if (!string.IsNullOrWhiteSpace(item1) && !item1.StartsWith("//"))
-					items1.Add(parser(item1));
-			return items1.AsEnumerable();
+			return source
+				.Split(["\r\n", "\r", "\n"], StringSplitOptions.None)
+				.Where(x => !string.IsNullOrWhiteSpace(x) && !x.StartsWith("//"))
+				.Select(x => parser(x));
 		}
 
 
