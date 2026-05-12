@@ -10,6 +10,7 @@
 			Id = id;
 			Item = item;
 		}
+
 		public int Id { get; }
 		public T Item { get; }
 	}

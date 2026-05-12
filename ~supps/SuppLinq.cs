@@ -14,7 +14,8 @@ namespace Ans.Net10.Common
 			Expression<Func<T, bool>> expression)
 		{
 			return filter == null
-				? expression : filter.And(expression);
+				? expression 
+				: filter.And(expression);
 		}
 
 

@@ -36,7 +36,11 @@ namespace Ans.Net10.Common.Services
 	public class FakeMailerService
 		: IMailerService
 	{
-		Task IMailerService.SendAsync(MailMessageModel message) { return null; }
+		Task IMailerService.SendAsync(
+			MailMessageModel message)
+		{
+			return null;
+		}
 	}
 
 

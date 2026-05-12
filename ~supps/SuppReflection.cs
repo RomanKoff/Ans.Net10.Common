@@ -49,7 +49,7 @@ namespace Ans.Net10.Common
 				"Int64" or
 				"Single" or
 				"Double" or
-				"Decimal" => $"{value}",
+				"Decimal" => value.ToString(),
 				"Boolean" => (bool)value
 					? "true"
 					: "false",
@@ -77,17 +77,20 @@ namespace Ans.Net10.Common
 			Type type)
 		{
 			if (type.IsEnum)
-			{
-				var value1 = Convert.ChangeType(value, Enum.GetUnderlyingType(type));
-				return $"[{value1}]";
-			}
+				return $"[{Convert.ChangeType(value, Enum.GetUnderlyingType(type))}]";
+
 			if (name.Contains("[]"))
 				return $"[{((IEnumerable<object>)value).Count()}]";
+
 			if (!name.Contains('`'))
-				return "[object]"; // todo date time
+				return "[object]";
+
+			// todo date time
+
 			if (name.Contains("Dictionary"))
 				return "[dict]";
-			return $"[({((IEnumerable<object>)value).Count()})]";
+
+			return $"[{((IEnumerable<object>)value).Count()}]";
 		}
 
 	}

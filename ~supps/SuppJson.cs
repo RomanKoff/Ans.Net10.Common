@@ -82,9 +82,7 @@ namespace Ans.Net10.Common
 				filename,
 				FileMode.Open,
 				FileAccess.Read);
-			return GetObjectFromJson<T>(
-				stream1,
-				options);
+			return GetObjectFromJson<T>(stream1, options);
 		}
 
 
@@ -134,10 +132,7 @@ namespace Ans.Net10.Common
 				filename,
 				FileMode.Create,
 				FileAccess.Write);
-			WriteObjectToStreamJson(
-				obj,
-				stream1,
-				options);
+			WriteObjectToStreamJson(obj, stream1, options);
 		}
 
 	}

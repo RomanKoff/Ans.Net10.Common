@@ -27,10 +27,8 @@
 			string oldKeys,
 			string newKeys)
 		{
-			string[] a1 = string.IsNullOrEmpty(oldKeys)
-				? [] : oldKeys.Split(',');
-			string[] a2 = string.IsNullOrEmpty(newKeys)
-				? [] : newKeys.Split(',');
+			var a1 = oldKeys?.Split(',') ?? [];
+			var a2 = newKeys?.Split(',') ?? [];
 			_keysComparer(a1, a2);
 		}
 

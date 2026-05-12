@@ -4,10 +4,6 @@
 	public class PaginatedQueryableHelper<TEntity>
 		where TEntity : class
 	{
-
-		/* ctor */
-
-
 		public PaginatedQueryableHelper(
 			IQueryable<TEntity> query,
 			int page,
@@ -20,13 +16,8 @@
 			PaginationHelper = new(itemsOnPage, totalItems1, page);
 		}
 
-
-		/* readonly properties */
-
-
 		public PaginationHelper PaginationHelper { get; }
 		public IQueryable<TEntity> Query { get; }
-
 	}
 
 }

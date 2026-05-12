@@ -6,11 +6,10 @@ namespace Ans.Net10.Common
 	public static class SuppCache
 	{
 
-		public static readonly MemoryCacheEntryOptions DEFAULT_CACHE_OPTIONS
-			= new()
-			{
-				AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
-			};
+		public static readonly MemoryCacheEntryOptions DEFAULT_CACHE_OPTIONS = new()
+		{
+			AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
+		};
 
 
 		/* functions */

@@ -51,6 +51,12 @@ namespace Ans.Net10.Common
 		public const string REGEX_TAGS
 			= @"(?<=</?)([^ >/]+)";
 
+		public const string REGEX_SHARP_TAGS
+			= @"#[-_a-zA-Zа-яА-Я0-9]+";
+
+		public const string REGEX_LINKS
+			= @"\\^(https?://)[-_./:\\?=&%#a-zA-Z0-9]+";
+
 
 		[GeneratedRegex(REGEX_NAME)]
 		public static partial Regex G_REGEX_NAME();
@@ -96,6 +102,12 @@ namespace Ans.Net10.Common
 
 		[GeneratedRegex(REGEX_TAGS)]
 		public static partial Regex G_REGEX_TAGS();
+
+		[GeneratedRegex(REGEX_SHARP_TAGS)]
+		public static partial Regex G_REGEX_SHARP_TAGS();
+
+		[GeneratedRegex(REGEX_LINKS)]
+		public static partial Regex G_REGEX_LINKS();
 
 
 		[GeneratedRegex(@"\d")]

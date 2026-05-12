@@ -3,27 +3,6 @@
 namespace Ans.Net10.Common
 {
 
-	public enum TextCaseEnum
-	{
-		Original,
-		Lower,
-		Upper,
-		FirstUpper,
-		StartWithACapital
-	}
-
-
-
-	public enum GenderEnum
-		: int
-	{
-		NotSpecified = 0, // не указан
-		Male = 1, // мужской
-		Female = 2, // женский
-	}
-
-
-
 	public static class SuppValues
 	{
 
@@ -85,7 +64,7 @@ namespace Ans.Net10.Common
 		/// <param name="textCase">Операция преобразования регистра букв</param>
 		public static (string family, string initials) GetFamilyAndInitials(
 			string fullname,
-			TextCaseEnum textCase = TextCaseEnum.StartWithACapital)
+			LetterCasesEnum textCase = LetterCasesEnum.StartWithACapital)
 		{
 			if (string.IsNullOrEmpty(fullname))
 				return (null, null);
@@ -111,7 +90,7 @@ namespace Ans.Net10.Common
 		/// <param name="textCase">Операция преобразования регистра букв</param>
 		public static string GetFamilyAndInitialsString(
 			string fullname,
-			TextCaseEnum textCase = TextCaseEnum.StartWithACapital)
+			LetterCasesEnum textCase = LetterCasesEnum.StartWithACapital)
 		{
 			var (family1, initials1) = GetFamilyAndInitials(fullname, textCase);
 			return $"{family1}{initials1.Make(" {0}")}";

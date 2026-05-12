@@ -3,41 +3,6 @@
 namespace Ans.Net10.Common
 {
 
-	public enum TextCasesEnum
-	{
-		/// <summary>
-		/// Именительный падеж (кто, что)
-		/// </summary>
-		Nominative,
-
-		/// <summary>
-		/// Родительный падеж (кого, чего)
-		/// </summary>
-		Genitive,
-
-		/// <summary>
-		/// Дательный падеж (кому, чему)
-		/// </summary>
-		Dative,
-
-		/// <summary>
-		/// Винительный падеж (кого, что)
-		/// </summary>
-		Accusative,
-
-		/// <summary>
-		/// Творительный падеж (кем, чем)
-		/// </summary>
-		Instrumental,
-
-		/// <summary>
-		/// Предложный падеж (о ком, о чём)
-		/// </summary>
-		Prepositional
-	}
-
-
-
 	public static class SuppLangRu
 	{
 
@@ -278,7 +243,7 @@ namespace Ans.Net10.Common
 		/// </summary>
 		public static string GetWordsRu(
 			long value,
-			TextCasesEnum textCase = TextCasesEnum.Nominative,
+			WordCasesEnum textCase = WordCasesEnum.Nominative,
 			bool isMale = true,
 			bool firstCapital = false)
 		{
@@ -324,7 +289,7 @@ namespace Ans.Net10.Common
 					case 3:
 						switch (textCase)
 						{
-							case TextCasesEnum.Accusative:
+							case WordCasesEnum.Accusative:
 								sb1.Insert(0, _makeText(r1,
 									const_100s,
 									const_10s,
@@ -348,7 +313,7 @@ namespace Ans.Net10.Common
 						string[] a1 = [];
 						switch (textCase)
 						{
-							case TextCasesEnum.Genitive:
+							case WordCasesEnum.Genitive:
 								sb1.Insert(0, _makeText(r1,
 									const_100s_genetive,
 									const_10s_genetive,
@@ -356,7 +321,7 @@ namespace Ans.Net10.Common
 									((isMale) ? const_2_male_genetive : const_2_female_genetive),
 									((isMale) ? const_1_male_genetive : const_1_female), a1));
 								break;
-							case TextCasesEnum.Accusative:
+							case WordCasesEnum.Accusative:
 								sb1.Insert(0, _makeText(r1,
 									const_100s,
 									const_10s,
@@ -392,7 +357,7 @@ namespace Ans.Net10.Common
 		public static string GetWordsRu(
 			double source,
 			int power,
-			TextCasesEnum textCase = TextCasesEnum.Nominative,
+			WordCasesEnum textCase = WordCasesEnum.Nominative,
 			bool firstCapital = false)
 		{
 			double p1 = Math.Pow(10, power);
@@ -416,7 +381,7 @@ namespace Ans.Net10.Common
 			int lastCopecks1 = _getLastDigit(cop1);
 			var sb1 = new StringBuilder();
 			sb1.AppendFormat("{0} ",
-				GetWordsRu(rub1, TextCasesEnum.Nominative, true, firstCapital));
+				GetWordsRu(rub1, WordCasesEnum.Nominative, true, firstCapital));
 			if (_isPluralGenitive(lastRubles1))
 				sb1.AppendFormat("{0} ", const_rubles[3]);
 			else if (_isSingularGenitive(lastRubles1))

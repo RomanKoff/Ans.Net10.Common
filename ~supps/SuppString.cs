@@ -145,17 +145,17 @@ namespace Ans.Net10.Common
 
 		public static string GetModCase(
 			string value,
-			TextCaseEnum textCase,
+			LetterCasesEnum textCase,
 			bool forcedToLower = true)
 		{
 			if (value == null)
 				return null;
 			return textCase switch
 			{
-				TextCaseEnum.Lower => value.ToLower(),
-				TextCaseEnum.Upper => value.ToUpper(),
-				TextCaseEnum.FirstUpper => value.GetFirstUpper(forcedToLower),
-				TextCaseEnum.StartWithACapital => value.GetStartWithACapital(),
+				LetterCasesEnum.Lower => value.ToLower(),
+				LetterCasesEnum.Upper => value.ToUpper(),
+				LetterCasesEnum.FirstUpper => value.GetFirstUpper(forcedToLower),
+				LetterCasesEnum.StartWithACapital => value.GetStartWithACapital(),
 				_ => value,
 			};
 		}

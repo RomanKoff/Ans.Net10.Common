@@ -8,8 +8,7 @@
 		public bool IsRequired { get; set; }
 		public string[] Errors { get; set; }
 
-		public bool HasErrors
-			=> Errors?.Length > 0;
+		public bool HasErrors => Errors?.Length > 0;
 	}
 
 }

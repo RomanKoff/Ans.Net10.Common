@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Web;
 
 namespace Ans.Net10.Common
 {
@@ -13,7 +12,7 @@ namespace Ans.Net10.Common
 		public static void FixTextLine(
 			StringBuilder sb)
 		{
-			sb.ReplaceSpecChars();
+			SuppStringBuilder.FixSpecChars(sb);
 			sb.ReplaceRecursively("  ", " ", false);
 			sb.Trim([' ']);
 		}

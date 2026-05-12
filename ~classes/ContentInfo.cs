@@ -24,7 +24,6 @@ namespace Ans.Net10.Common
 		bool isWebImage = false,
 		bool isJpeg = false)
 	{
-
 		public string Extention { get; } = extention;
 		public string ContentType { get; } = contentType;
 		public ContentGroupEnum Group { get; } = group;
@@ -34,7 +33,6 @@ namespace Ans.Net10.Common
 
 		public MediaTypeHeaderValue MediaType
 			=> field ??= new MediaTypeHeaderValue(ContentType);
-
 	}
 
 }

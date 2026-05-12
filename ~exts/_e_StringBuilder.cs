@@ -94,16 +94,7 @@ namespace Ans.Net10.Common
 				.Replace(oldValue, newValue)
 				.ReplaceRecursively(oldValue, newValue, ignoreCase);
 		}
-
-
-		public static void ReplaceSpecChars(
-			this StringBuilder sb)
-		{
-			for (int i1 = 0; i1 < sb.Length; ++i1)
-				if (sb[i1] < 32)
-					sb[i1] = ' ';
-		}
-
+				
 
 		public static void Trim(
 			this StringBuilder sb)

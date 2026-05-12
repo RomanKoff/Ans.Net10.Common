@@ -23,10 +23,7 @@ namespace Ans.Net10.Common
 			using var writer1 = new StringWriter(
 				sb1,
 				CultureInfo.InvariantCulture);
-			serializer1.Serialize(
-				writer1,
-				obj,
-				ns1);
+			serializer1.Serialize(writer1, obj, ns1);
 			return sb1.ToString();
 		}
 
@@ -70,10 +67,6 @@ namespace Ans.Net10.Common
 			var xml1 = new XmlDocument();
 			xml1.Load(stream);
 			return GetObjectFromXmlDocument<T>(xml1, defaultNamespace);
-			//Type t1 = typeof(T);
-			//var serializer1 = new XmlSerializer(t1, defaultNamespace);
-			//var obj1 = (T)serializer1.Deserialize(stream);
-			//return obj1;
 		}
 
 
@@ -104,10 +97,7 @@ namespace Ans.Net10.Common
 					filename,
 					FileMode.Create,
 					FileAccess.Write);
-				serializer1.Serialize(
-					stream1,
-					obj,
-					ns1);
+				serializer1.Serialize(stream1, obj, ns1);
 			}
 		}
 

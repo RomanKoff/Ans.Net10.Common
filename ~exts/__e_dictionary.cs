@@ -1,7 +1,7 @@
 ﻿namespace Ans.Net10.Common
 {
 
-	public static partial class _e_IDictionary
+	public static partial class __e_dictionary
 	{
 
 		/* functions */

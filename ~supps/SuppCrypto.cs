@@ -17,7 +17,8 @@ namespace Ans.Net10.Common
 			using var alg1 = new HMACSHA1(salt);
 			try
 			{
-				return alg1.ComputeHash(Encoding.UTF8.GetBytes(value));
+				var a1 = Encoding.UTF8.GetBytes(value);
+				return alg1.ComputeHash(a1);
 			}
 			finally { alg1.Clear(); }
 		}
@@ -29,7 +30,7 @@ namespace Ans.Net10.Common
 		{
 			var hash1 = GetHash(value, salt);
 			return string.Join(
-				"", hash1.Select(x => x.ToString("x2"))); // Convert.ToBase64String(result);
+				"", hash1.Select(x => x.ToString("x2")));
 		}
 
 
@@ -37,7 +38,8 @@ namespace Ans.Net10.Common
 			string value,
 			string salt)
 		{
-			return GetHashString(value, Encoding.Unicode.GetBytes(salt));
+			var a1 = Encoding.Unicode.GetBytes(salt);
+			return GetHashString(value, a1);
 		}
 
 	}

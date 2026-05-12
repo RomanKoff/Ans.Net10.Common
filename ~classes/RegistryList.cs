@@ -3,28 +3,6 @@
 namespace Ans.Net10.Common
 {
 
-	public enum RegistryModeEnum
-	{
-		Auto,
-		Inputs,
-		Select
-	}
-
-
-
-	public enum WidthEnum
-	{
-		Nothing,
-		ExtraSmall,
-		Small,
-		Medium,
-		Large,
-		ExtraLarge,
-		Full,
-	}
-
-
-
 	public class RegistryItemEventArgs
 		: EventArgs
 	{

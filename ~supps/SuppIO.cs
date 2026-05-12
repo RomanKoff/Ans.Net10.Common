@@ -4,17 +4,6 @@ using System.Text;
 namespace Ans.Net10.Common
 {
 
-	public enum EncodingsEnum
-	{
-		UTF8,
-		WINDOWS1251,
-		KOI8R,
-		CP866,
-		ISO88591,
-	}
-
-
-
 	public static class SuppIO
 	{
 
