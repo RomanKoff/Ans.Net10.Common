@@ -4,6 +4,9 @@
 	public static partial class _Consts
 	{
 
+		// Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+
 		public static string GET_RANDOM_SAMPLE_RU()
 			=> SAMPLES_RU[SuppRandom.Next(0, SAMPLES_RU.Length - 1)];
 

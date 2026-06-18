@@ -3,6 +3,9 @@
 namespace Ans.Net10.Common.Crud
 {
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public interface IMasterEntity
 	{
 		int Id { get; set; }

@@ -3,6 +3,9 @@
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public interface ICrudFace
 	{
 		string Name { get; set; }
@@ -35,6 +38,15 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="title"></param>
+		/// <param name="shortTitle"></param>
+		/// <param name="description"></param>
+		/// <param name="sample"></param>
+		/// <param name="helpLink"></param>
 		public CrudFaceHelper(
 			string name,
 			string title,

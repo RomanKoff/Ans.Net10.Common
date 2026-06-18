@@ -45,12 +45,12 @@
 			ITreeItem item)
 		{
 			if (item == this)
-				throw new ArgumentException("An object cannot be its own Child.");
+				throw new ArgumentException("[Ans.Net10.Common] An object cannot be its own Child.");
 			ITreeItem temp1 = this;
 			while (temp1 != null)
 			{
 				if (temp1 == item)
-					throw new InvalidOperationException("The detected loop: this object is already a Parent in the chain above, the object cannot be its own Child.");
+					throw new InvalidOperationException("[Ans.Net10.Common] The detected loop: this object is already a Parent in the chain above, the object cannot be its own Child.");
 				temp1 = temp1.Parent;
 			}
 			_childs ??= [];
