@@ -6,12 +6,14 @@
 		ITreeItem Parent { get; set; }
 
 		IEnumerable<ITreeItem> Parents { get; }
-		IEnumerable<ITreeItem> Childs { get; }
+		IEnumerable<ITreeItem> Children { get; }
 		bool HasParent { get; }
-		bool HasChilds { get; }
+		bool HasChildren { get; }
 
 		void AppendChild(ITreeItem item);
-		void AppendChilds(params ITreeItem[] items);
+		void AppendChildren(params ITreeItem[] items);
+
+		T FindItem<T>(Func<T, bool> func);
 	}
 
 
@@ -20,7 +22,7 @@
 		: ITreeItem
 	{
 
-		private List<ITreeItem> _childs;
+		private List<ITreeItem> _children;
 
 
 		/* properties */
@@ -32,9 +34,11 @@
 		/* readonly properties */
 
 
-		public IEnumerable<ITreeItem> Parents => field ?? _getParents();
-		public IEnumerable<ITreeItem> Childs => _childs;
-		public bool HasChilds => _childs?.Count > 0;
+		private List<ITreeItem> _parents;
+		public IEnumerable<ITreeItem> Parents => _parents ??= [.. _getParents()];
+
+		public IEnumerable<ITreeItem> Children => _children ?? Enumerable.Empty<ITreeItem>();
+		public bool HasChildren => _children?.Count > 0;
 		public bool HasParent => Parent != null;
 
 
@@ -53,18 +57,42 @@
 					throw new InvalidOperationException("[Ans.Net10.Common] The detected loop: this object is already a Parent in the chain above, the object cannot be its own Child.");
 				temp1 = temp1.Parent;
 			}
-			_childs ??= [];
-			_childs.Add(item);
+			_children ??= [];
+			_children.Add(item);
 			item.Parent = this;
 		}
 
 
-		public void AppendChilds(
+		public void AppendChildren(
 			params ITreeItem[] items)
 		{
 			if (items != null)
 				foreach (var item1 in items)
 					AppendChild(item1);
+		}
+
+
+		/* functions */
+
+
+		public T FindItem<T>(
+			Func<T, bool> func)
+		{
+			if (HasChildren)
+			{
+				foreach (var item1 in Children)
+				{
+					if (item1 is T item2 && func(item2))
+						return item2;
+					if (item1 is _TreeItem_Base baseItem)
+					{
+						T found1 = baseItem.FindItem(func);
+						if (found1 != null)
+							return found1;
+					}
+				}
+			}
+			return default;
 		}
 
 

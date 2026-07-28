@@ -1,0 +1,2785 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ans.Net10.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Ans.Net10.Common.Crud.IMasterEntity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Ans.Net10.Common.Resources.Common">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Array_DaysOfWeek">
+            <summary>
+              Looks up a localized string similar to ;Понедельник;Вторник;Среда;Четверг;Пятница;Суббота;Воскресенье.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Array_DaysOfWeek2">
+            <summary>
+              Looks up a localized string similar to ;Пн;Вт;Ср;Чт;Пт;Сб;Вс.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Array_DaysOfWeek3">
+            <summary>
+              Looks up a localized string similar to ;Пон;Вто;Сре;Чет;Пят;Суб;Вос.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Array_Months">
+            <summary>
+              Looks up a localized string similar to ;января;февраля;марта;апреля;мая;июня;июля;августа;сентября;октября;ноября;декабря.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Array_Months2">
+            <summary>
+              Looks up a localized string similar to ;янв;фев;мар;апр;мая;июн;июл;авг;сен;окт;ноя;дек.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_Date_Day">
+            <summary>
+              Looks up a localized string similar to %d.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_Date_DayAndMonth">
+            <summary>
+              Looks up a localized string similar to d MMMM.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_Date_Full">
+            <summary>
+              Looks up a localized string similar to d MMMM yyyy.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_Date_Today">
+            <summary>
+              Looks up a localized string similar to &apos;сегодня&apos;.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_Date_Tomorrow">
+            <summary>
+              Looks up a localized string similar to &apos;завтра&apos;.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_Date_Yesterday">
+            <summary>
+              Looks up a localized string similar to &apos;вчера&apos;.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_DateTime_DayAndMonth">
+            <summary>
+              Looks up a localized string similar to d MMMM&apos; в &apos;H:mmmm.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_DateTime_Full">
+            <summary>
+              Looks up a localized string similar to d MMMM yyyy&apos; в &apos;H:mmmm.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_DateTime_Today">
+            <summary>
+              Looks up a localized string similar to &apos;сегодня в &apos;H:mmmm.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_DateTime_Tomorrow">
+            <summary>
+              Looks up a localized string similar to &apos;завтра в &apos;H:mmmm.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_DateTime_Yesterday">
+            <summary>
+              Looks up a localized string similar to &apos;вчера в &apos;H:mmmm.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Format_LengthKB">
+            <summary>
+              Looks up a localized string similar to ### ### ### ###&apos; КБ&apos;.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Registry_Months">
+            <summary>
+              Looks up a localized string similar to 1=январь;2=февраль;3=март;4=апрель;5=май;6=июнь;7=июль;8=август;9=сентябрь;10=октябрь;11=ноябрь;12=декабрь;0=нет.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Registry_Months2">
+            <summary>
+              Looks up a localized string similar to 1=янв;2=фев;3=мар;4=апр;5=май;6=июн;7=июл;8=авг;9=сен;10=окт;11=ноя;12=дек;0=нет.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Template_DataCreate">
+            <summary>
+              Looks up a localized string similar to Создано: {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Template_DataUpdate">
+            <summary>
+              Looks up a localized string similar to Обновлено: {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Template_ParentPtr">
+            <summary>
+              Looks up a localized string similar to Вышестоящий {0} (в структуре).
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Text_AllItems">
+            <summary>
+              Looks up a localized string similar to –все–.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Text_EmptyItem">
+            <summary>
+              Looks up a localized string similar to –нет–.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Text_Never">
+            <summary>
+              Looks up a localized string similar to никогда.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Text_PressAnyKeyToExit">
+            <summary>
+              Looks up a localized string similar to Нажмите любую клавишу для выхода.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Common.Text_PressEscToExit">
+            <summary>
+              Looks up a localized string similar to Нажмите ESC для выхода.
+            </summary>
+        </member>
+        <member name="T:Ans.Net10.Common.Resources.Exceptions">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Exceptions.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Exceptions.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Exceptions.IPSubnet_Length">
+            <summary>
+              Looks up a localized string similar to Поддерживаются только маски подсетей с заданной длиной префикса..
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Exceptions.IPSubnet_LengthAddressAndMaskNotMatch">
+            <summary>
+              Looks up a localized string similar to Длина IP-адреса и маска подсети не совпадают..
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Exceptions.IPSubnet_Less0">
+            <summary>
+              Looks up a localized string similar to Значение маски подсети не должно быть меньше 0..
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Exceptions.IPSubnet_OnlyIPv4orIPv6">
+            <summary>
+              Looks up a localized string similar to Поддерживаются только семейства IPv4 или IPv6..
+            </summary>
+        </member>
+        <member name="T:Ans.Net10.Common.Resources.Faces">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Address">
+            <summary>
+              Looks up a localized string similar to Адрес.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Code">
+            <summary>
+              Looks up a localized string similar to Код.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Comment">
+            <summary>
+              Looks up a localized string similar to Комментарий.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.CreateUser">
+            <summary>
+              Looks up a localized string similar to Автор.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.CreatorUser">
+            <summary>
+              Looks up a localized string similar to Автор.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Date">
+            <summary>
+              Looks up a localized string similar to Дата.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.DateCreate">
+            <summary>
+              Looks up a localized string similar to Дата создания|Создан.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.DateLock">
+            <summary>
+              Looks up a localized string similar to Дата блокировки|Блокировка.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.DateUpdate">
+            <summary>
+              Looks up a localized string similar to Дата редактирования|Изменен.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Day">
+            <summary>
+              Looks up a localized string similar to День.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Department">
+            <summary>
+              Looks up a localized string similar to Подразделение.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Description">
+            <summary>
+              Looks up a localized string similar to Описание.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.DisplayedName">
+            <summary>
+              Looks up a localized string similar to Отображаемое имя.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.EditorUser">
+            <summary>
+              Looks up a localized string similar to Редактор.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Email">
+            <summary>
+              Looks up a localized string similar to Адрес эл. почты|Эл. почта.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Emails">
+            <summary>
+              Looks up a localized string similar to Адреса эл. почты (через ;)|Эл. почта.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Expires">
+            <summary>
+              Looks up a localized string similar to Истекает.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Filename">
+            <summary>
+              Looks up a localized string similar to Имя файла|Файл.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.FIO">
+            <summary>
+              Looks up a localized string similar to ФИО.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.FullTitle">
+            <summary>
+              Looks up a localized string similar to Полное название.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.FullTitleEn">
+            <summary>
+              Looks up a localized string similar to Полное название (англ.).
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.FullTitleRu">
+            <summary>
+              Looks up a localized string similar to Полное название (рус.).
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Gender">
+            <summary>
+              Looks up a localized string similar to Пол.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.GivenName">
+            <summary>
+              Looks up a localized string similar to Имя.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Height">
+            <summary>
+              Looks up a localized string similar to Высота.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Id">
+            <summary>
+              Looks up a localized string similar to Ключ.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IdUsername">
+            <summary>
+              Looks up a localized string similar to Логин.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Info">
+            <summary>
+              Looks up a localized string similar to Дополнительная информация.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IsActive">
+            <summary>
+              Looks up a localized string similar to Активно.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IsClose">
+            <summary>
+              Looks up a localized string similar to Закрыто.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IsDisabled">
+            <summary>
+              Looks up a localized string similar to Отключено|Откл..
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IsEnabled">
+            <summary>
+              Looks up a localized string similar to Включено|Вкл..
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IsHidden">
+            <summary>
+              Looks up a localized string similar to Скрытый.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IsLost">
+            <summary>
+              Looks up a localized string similar to Потерянный.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IsPublished">
+            <summary>
+              Looks up a localized string similar to Опубликовано.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.IsRemoved">
+            <summary>
+              Looks up a localized string similar to Удалено.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Keywords">
+            <summary>
+              Looks up a localized string similar to Ключевые слова.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Length">
+            <summary>
+              Looks up a localized string similar to Длина.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Link">
+            <summary>
+              Looks up a localized string similar to Ссылка.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Links">
+            <summary>
+              Looks up a localized string similar to Ссылки (через ;).
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Log">
+            <summary>
+              Looks up a localized string similar to Лог.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.MasterPtr">
+            <summary>
+              Looks up a localized string similar to Родительский элемент.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Month">
+            <summary>
+              Looks up a localized string similar to Месяц.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Name">
+            <summary>
+              Looks up a localized string similar to Имя.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.NameIdentifier">
+            <summary>
+              Looks up a localized string similar to Уникальный идентификатор.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Number">
+            <summary>
+              Looks up a localized string similar to Номер.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Ord">
+            <summary>
+              Looks up a localized string similar to Сортировка.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Order">
+            <summary>
+              Looks up a localized string similar to Сортировка.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.ParentPtr">
+            <summary>
+              Looks up a localized string similar to Вышестоящий элемент (в структуре)|В структуре.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Phone">
+            <summary>
+              Looks up a localized string similar to Телефон||+7-000-000-00-00.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Phones">
+            <summary>
+              Looks up a localized string similar to Телефоны (через ;)|Тел.|+7-000-000-00-00.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Place">
+            <summary>
+              Looks up a localized string similar to Место.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Properties">
+            <summary>
+              Looks up a localized string similar to Свойства.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Props">
+            <summary>
+              Looks up a localized string similar to Настраиваемые свойства (служебное поле)|Свойства.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Ratio">
+            <summary>
+              Looks up a localized string similar to Соотношение.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Remark">
+            <summary>
+              Looks up a localized string similar to Примечание.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.ShortTitle">
+            <summary>
+              Looks up a localized string similar to Короткое название.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.ShortTitleEn">
+            <summary>
+              Looks up a localized string similar to Короткое название (англ.)|Сокр. (en).
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.ShortTitleRu">
+            <summary>
+              Looks up a localized string similar to Короткое название (рус.)|Сокр. (ru).
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Site">
+            <summary>
+              Looks up a localized string similar to Сайт.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Status">
+            <summary>
+              Looks up a localized string similar to Статус.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Summary">
+            <summary>
+              Looks up a localized string similar to Краткое описание.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Surname">
+            <summary>
+              Looks up a localized string similar to Фамилия.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Tags">
+            <summary>
+              Looks up a localized string similar to Теги.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Title">
+            <summary>
+              Looks up a localized string similar to Название.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.TitleEn">
+            <summary>
+              Looks up a localized string similar to Название (англ.).
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.TitleRu">
+            <summary>
+              Looks up a localized string similar to Название (рус.).
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.UpdateUser">
+            <summary>
+              Looks up a localized string similar to Редактор.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Url">
+            <summary>
+              Looks up a localized string similar to Url-адрес.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Width">
+            <summary>
+              Looks up a localized string similar to Ширина.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Faces.Year">
+            <summary>
+              Looks up a localized string similar to Год.
+            </summary>
+        </member>
+        <member name="T:Ans.Net10.Common.Resources.Form">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_DataMaxValueLimit">
+            <summary>
+              Looks up a localized string similar to Не может быть позже {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_DataMinValueLimit">
+            <summary>
+              Looks up a localized string similar to Не может быть раньше {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_LengthMaxLimit">
+            <summary>
+              Looks up a localized string similar to Не может содержать больше {0} символов.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_LengthMinLimit">
+            <summary>
+              Looks up a localized string similar to Не может содержать меньше {0} символов.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_NumberMaxValueLimit">
+            <summary>
+              Looks up a localized string similar to Не может быть больше {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_NumberMinValueLimit">
+            <summary>
+              Looks up a localized string similar to Не может быть меньше {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_PageTitle_Add">
+            <summary>
+              Looks up a localized string similar to Создание {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_PageTitle_Delete">
+            <summary>
+              Looks up a localized string similar to Удаление {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_PageTitle_Details">
+            <summary>
+              Looks up a localized string similar to Параметры {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_PageTitle_Edit">
+            <summary>
+              Looks up a localized string similar to Редактирование {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Template_PageTitle_List">
+            <summary>
+              Looks up a localized string similar to {0}.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_Add">
+            <summary>
+              Looks up a localized string similar to Создать.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_Cancel">
+            <summary>
+              Looks up a localized string similar to Отменить.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_EmptyItems">
+            <summary>
+              Looks up a localized string similar to Нет элементов..
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_Help">
+            <summary>
+              Looks up a localized string similar to Справка.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_ObjectContainsData">
+            <summary>
+              Looks up a localized string similar to Запись не может быть удалена, поскольку на нее ссылаются другие объекты.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_RequiredField">
+            <summary>
+              Looks up a localized string similar to Обязательное поле.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_RequiresAUniqueValue">
+            <summary>
+              Looks up a localized string similar to Требуется уникальное значение.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_Save">
+            <summary>
+              Looks up a localized string similar to Сохранить.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_SubmitAdd">
+            <summary>
+              Looks up a localized string similar to Создать.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_SubmitAddAndEdit">
+            <summary>
+              Looks up a localized string similar to Создать и продолжить редактирование.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_SubmitDelete">
+            <summary>
+              Looks up a localized string similar to Удалить.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_SubmitSave">
+            <summary>
+              Looks up a localized string similar to Сохранить.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_SuchAnObjectExists">
+            <summary>
+              Looks up a localized string similar to Такой объект уже существует.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_ValueAndConfirmDoNotMatch">
+            <summary>
+              Looks up a localized string similar to Подтверждение не совпадает с исходным значением.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_ValueDoesNotFit">
+            <summary>
+              Looks up a localized string similar to Значение не соответствует формату.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Text_ValueIsRequired">
+            <summary>
+              Looks up a localized string similar to Требуется значение.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Title_Delete">
+            <summary>
+              Looks up a localized string similar to удалить.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Title_Detail">
+            <summary>
+              Looks up a localized string similar to просмотр.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.Resources.Form.Title_Edit">
+            <summary>
+              Looks up a localized string similar to редактировать.
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.CollectionsComparer`3.Added">
+            <summary>
+            Добавленные новые элементы
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.CollectionsComparer`3.Deleted">
+            <summary>
+            Удаленные текущие элементы
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.CollectionsComparer`3.ActualCurrent">
+            <summary>
+            Актуальные текущие (есть и в текущей и в новой коллекции)
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.CollectionsComparer`3.ActualNewest">
+            <summary>
+            Актуальные новые (есть и в новой коллекции и в текущей)
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.CollectionsComparer`3.Changed">
+            <summary>
+            Измененные (одинаковые ключи, но разное содержимое)
+            </summary>
+        </member>
+        <member name="T:Ans.Net10.Common.ICrudFace">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.CrudFaceHelper.#ctor(System.String,System.String)">
+            <param name="face">
+            "title|shortTitle|description|sample|helpLink"
+            </param>
+        </member>
+        <member name="M:Ans.Net10.Common.CrudFaceHelper.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="title"></param>
+            <param name="shortTitle"></param>
+            <param name="description"></param>
+            <param name="sample"></param>
+            <param name="helpLink"></param>
+        </member>
+        <member name="F:Ans.Net10.Common.TensesEnum.Past">
+            <summary>Прошло</summary>
+        </member>
+        <member name="F:Ans.Net10.Common.TensesEnum.Present">
+            <summary>Сейчас</summary>
+        </member>
+        <member name="F:Ans.Net10.Common.TensesEnum.Future">
+            <summary>Будет</summary>
+        </member>
+        <member name="P:Ans.Net10.Common.DateTimeHelper.Current">
+            <summary>
+            Текущая дата и время
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.DateTimeHelper.CurrentYearBegin">
+            <summary>
+            Дата начала текущего года
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.DateTimeHelper.NextYearBegin">
+            <summary>
+            Дата начала следующего года
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.DateTimeHelper.Today">
+            <summary>
+            Дата сегодня
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.DateTimeHelper.Yesterday">
+            <summary>
+            Дата вчера
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.DateTimeHelper.Tomorrow">
+            <summary>
+            Дата завтра
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.DateTimeHelper.TomorrowAfter">
+            <summary>
+            Дата послезавтра
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.DateTimeHelper.GetDayTenses(System.DateTime)">
+            <summary>
+            Возвращает для указанной даты значение "прошло", "сейчас" или "будет".
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.DateTimeHelper.GetPassed(System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Возвращает дату (и время) события (для блога)
+            - будет в будущих годах
+            	d MMMM yyyy г.[ в H:mmmm] / MMMM d, yyyy[ at h:mmmm]
+            - будет в этом году
+            	d MMMM[ в H:mmmm] / MMMM d[ at h:mmmm]
+            - завтра
+            	завтра[ в H:mmmm] / Tomorrow[ at h:mmmm]
+            - сегодня
+            	сегодня[ в H:mmmm] / Today[ at h:mmmm]
+            - вчера
+            	вчера[ в H:mmmm] / Yesterday[ at H:mmmm]
+            - было в этом году
+            	d MMMM[ в H:mmmm] / MMMM d[ at h:mmmm]
+            - было в прошлые годы
+            	d MMMM yyyy г.[ в H:mmmm] / MMMM d, yyyy[ at h:mmmm]
+            </summary>
+            <param name="datetime"></param>
+            <param name="addTime">Добавить время</param>
+            <param name="useYesterdayTodayTomorrow">Использовать «вчера», «сегодня» и «завтра»</param>
+        </member>
+        <member name="M:Ans.Net10.Common.DateTimeHelper.GetPassed(System.Nullable{System.DateTime},System.Boolean,System.Boolean)">
+            <summary>
+            Возвращает дату (и время) прошедшего события (для блогов)
+            </summary>
+            <param name="datetime"></param>
+            <param name="addTime">Добавить время</param>
+            <param name="useYesterdayTodayTomorrow">Использовать «вчера», «сегодня» и «завтра»</param>
+        </member>
+        <member name="M:Ans.Net10.Common.ImageResizeHelper.Scale(System.Single)">
+            <summary>
+            Масштабировать
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.ImageResizeHelper.ScaleInside(System.Single,System.Single,System.Boolean)">
+            <summary>
+            Масштабировать внутри
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.ImageResizeHelper.ScaleAround(System.Single,System.Single)">
+            <summary>
+            Масштабировать снаружи
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.ImageResizeHelper.ScaleAverage(System.UInt32)">
+            <summary>
+            Масштабировать усреднением
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.ImageResizeHelper.ScaleToWidth(System.UInt32,System.Boolean)">
+            <summary>
+            Масштабировать до ширины
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.ImageResizeHelper.ScaleToHeight(System.UInt32,System.Boolean)">
+            <summary>
+            Масштабировать до высоты
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.ImageResizeHelper.GetCropStart(System.UInt32,System.UInt32,System.Byte)">
+            <summary>
+            Возвращает стартовое значение обрезки
+            </summary>
+            <param name="length">Исходная длина</param>
+            <param name="crop">Длина обрезки</param>
+            <param name="percentageOfDisplacement">
+            Процент смещения [0..100]
+            (0 - начало, 50 - середина, 100 - конец)
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:Ans.Net10.Common.ImageResizeHelper.GetCropStart(System.UInt32,System.UInt32,Ans.Net10.Common.ImageShiftEnum)">
+            <summary>
+            Возвращает стартовое значение обрезки
+            </summary>
+            <param name="length">Исходная длина</param>
+            <param name="crop">Длина обрезки</param>
+            <param name="shift">Смещение</param>
+            <returns></returns>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.CurrentPage">
+            <summary>
+            Возвращает и устанавливает текущую страницу
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.ItemsOnPage">
+            <summary>
+            Элементов на странице
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.Offset">
+            <summary>
+            Смещение от границ пагинатора
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.TotalItems">
+            <summary>
+            Всего элементов
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.TotalPages">
+            <summary>
+            Всего страниц
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.SkipItems">
+            <summary>
+            Пропущего элементов
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.PreviousPage">
+            <summary>
+            Предыдущая страница пагинатора
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.NextPage">
+            <summary>
+            Следующая страница пагинатора
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.StartPage">
+            <summary>
+            Стартовая страница пагинатора
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.EndPage">
+            <summary>
+            Конечная страница пагинатора
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.ActiveFirstPage">
+            <summary>
+            Признак активности первой страницы
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.ActiveLastPage">
+            <summary>
+            Признак активности последней страницы
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.HasItemsBefore">
+            <summary>
+            Есть элементы до
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.HasItemsAfter">
+            <summary>
+            Есть элементы после
+            </summary>
+        </member>
+        <member name="P:Ans.Net10.Common.PaginationHelper.NotValidIndex">
+            <summary>
+            Некорректный индекс
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryItem.#ctor(System.String)">
+            <summary>
+            Десериализация элемента из строки
+            "key=[#][:0]value".
+            Символы ';=#:' экранируются '\'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryItem.ToString">
+            <summary>
+            Возвращает строку сериализации элемента
+            "key=[#][:0]value".
+            Символы ';=#:' экранируются '\'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryItem.FillFromString(System.String)">
+            <summary>
+            Десериализация элемента из строки
+            "key=[#][:0]value".
+            Символы ';=#:' экранируются '\'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.#ctor(System.String)">
+            <summary>
+            Сериализация реестра из строки
+            </summary>
+            <param name="serialization">
+            Строка сериализации реестра в виде
+            "item1;item2;...".
+            Символы ';=#:' экранируются '\'
+            </param>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.FillFromString(System.String[])">
+            <summary>
+            Десериализация реестра из строки
+            </summary>
+            <param name="items">
+            "!" — добавляет элемент «нулевое значение».
+            "*" — добавляет элемент «все значения».
+            Символы ';=#:' экранируются '\'
+            </param>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.FillFromString(System.String)">
+            <summary>
+            Сериализация реестра из строки
+            </summary>
+            <param name="serialization">
+            Строка сериализации реестра в виде
+            "item1;item2;...".
+            Символы ';=#:' экранируются '\'
+            </param>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.ToString">
+            <summary>
+            Возвращает сериализацию реестра в виде строки
+            "item1;item2;...".
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetItem(System.String)">
+            <summary>
+            Возвращает элемент по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetItem(System.Int32)">
+            <summary>
+            Возвращает элемент по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetItem(System.Nullable{System.Int32})">
+            <summary>
+            Возвращает элемент по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetKey(System.String)">
+            <summary>
+            Возвращает ключ по значению
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetKeyForValue(System.String,System.String)">
+            <summary>
+            Возвращает ключ элемента.
+            Если элемент отсутствует, то создает его
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetValue(System.String)">
+            <summary>
+            Возвращает значение по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetValue(System.Int32)">
+            <summary>
+            Возвращает значение по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetValue(System.Nullable{System.Int32})">
+            <summary>
+            Возвращает значение по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetValueOrKey(System.String)">
+            <summary>
+            Возвращает значение по ключу.
+            Если значение не найдено, то ключ.
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetValueOrKey(System.Int32)">
+            <summary>
+            Возвращает значение по ключу.
+            Если значение не найдено, то ключ.
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetLevel(System.String)">
+            <summary>
+            Возвращает уровень в дереве по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetLevel(System.Int32)">
+            <summary>
+            Возвращает уровень в дереве по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetLevel(System.Nullable{System.Int32})">
+            <summary>
+            Возвращает уровень в дереве по ключу
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetValueInclusion(System.String)">
+            <summary>
+            Возвращает значение если ключ содержит 'inclusion'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetValueExpansion(System.String)">
+            <summary>
+            Возвращает значение если 'expansion' содержит ключ
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetMaxWidth">
+            <summary>
+            Возвращает максимальную длину значения элемента реестра
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetProposeMode">
+            <summary>
+            Возвращает предложение по режиму отображения реестра
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetProposeWidth(System.Int32)">
+            <summary>
+            Возвращает предожение по ширине элемента ввода
+            для отображение реестра
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.RegistryList.GetProposeWidth">
+            <summary>
+            Возвращает предожение по ширине элемента ввода
+            для отображение реестра
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_NAME">
+            <remarks>
+            Pattern:<br/>
+            <code>^([a-z_][0-9a-z._-]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [_a-z].<br/>
+                ○ Match a character in the set [\-.0-9_a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_NAME_STRICT">
+            <remarks>
+            Pattern:<br/>
+            <code>^([a-z_][0-9a-z_-]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [_a-z].<br/>
+                ○ Match a character in the set [\-0-9_a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_VARNAME">
+            <remarks>
+            Pattern:<br/>
+            <code>^([a-zA-Z_][0-9a-zA-Z_]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [A-Z_a-z].<br/>
+                ○ Match a character in the set [0-9A-Z_a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_VARNAME_STRICT">
+            <remarks>
+            Pattern:<br/>
+            <code>^([a-z_][0-9a-z_]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [_a-z].<br/>
+                ○ Match a character in the set [0-9_a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_IPATH">
+            <remarks>
+            Pattern:<br/>
+            <code>^(([a-zA-Z_][0-9a-zA-Z_-]+)/){0,}([a-zA-Z_][0-9a-zA-Z_-]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Loop greedily any number of times.<br/>
+                ○ 1st capture group.<br/>
+                    ○ 2nd capture group.<br/>
+                        ○ Match a character in the set [A-Z_a-z].<br/>
+                        ○ Match a character in the set [\-0-9A-Z_a-z] atomically at least once.<br/>
+                    ○ Match '/'.<br/>
+            ○ 3rd capture group.<br/>
+                ○ Match a character in the set [A-Z_a-z].<br/>
+                ○ Match a character in the set [\-0-9A-Z_a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_IPATH_STRICT">
+            <remarks>
+            Pattern:<br/>
+            <code>^(([a-z_][0-9a-z_-]+)/){0,}([a-z_][0-9a-z_-]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Loop greedily any number of times.<br/>
+                ○ 1st capture group.<br/>
+                    ○ 2nd capture group.<br/>
+                        ○ Match a character in the set [_a-z].<br/>
+                        ○ Match a character in the set [\-0-9_a-z] atomically at least once.<br/>
+                    ○ Match '/'.<br/>
+            ○ 3rd capture group.<br/>
+                ○ Match a character in the set [_a-z].<br/>
+                ○ Match a character in the set [\-0-9_a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_EMAIL">
+            <remarks>
+            Pattern:<br/>
+            <code>^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a character in the set [\-.\w] atomically at least once.<br/>
+            ○ Match '@'.<br/>
+            ○ Loop greedily at least once.<br/>
+                ○ 1st capture group.<br/>
+                    ○ Match a character in the set [\-\w] atomically at least once.<br/>
+                    ○ Match '.'.<br/>
+            ○ Match a character in the set [\-\w] atomically at least 2 and at most 4 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_EMAIL_STRICT">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?(")("[^"]+"@)|(([0-9a-z]((\\.(?!\\.))|[-!#\\$%&amp;'\\*\\+/=\\?\\^`\\{\\}\\|~\\w])*)(?&lt;=[0-9a-z])@))(?(\\[)(\\[(\\d{1,3}\\.){3}\\d{1,3}\\])|(([0-9a-z][-\\w]*[0-9a-z]*\\.)+[a-z0-9]{2,17}))$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Conditionally match one of two expressions depending on whether an initial expression matches.<br/>
+                ○ Condition: Match '"'.<br/>
+                ○ Matched: 1st capture group.<br/>
+                    ○ Match '"'.<br/>
+                    ○ Match a character other than '"' atomically at least once.<br/>
+                    ○ Match the string "\"@".<br/>
+                ○ Not Matched: 2nd capture group.<br/>
+                    ○ 3rd capture group.<br/>
+                        ○ Match a character in the set [0-9a-z].<br/>
+                        ○ Loop greedily any number of times.<br/>
+                            ○ 4th capture group.<br/>
+                                ○ Match with 2 alternative expressions.<br/>
+                                    ○ 5th capture group.<br/>
+                                        ○ Match '.'.<br/>
+                                        ○ Zero-width negative lookahead.<br/>
+                                            ○ Match '.'.<br/>
+                                    ○ Match a character in the set [!#-'*+\-/=?^`{-~\w].<br/>
+                    ○ Zero-width positive lookbehind.<br/>
+                        ○ Match a character in the set [0-9a-z] right-to-left.<br/>
+                    ○ Match '@'.<br/>
+            ○ Conditionally match one of two expressions depending on whether an initial expression matches.<br/>
+                ○ Condition: Match '['.<br/>
+                ○ Matched: 6th capture group.<br/>
+                    ○ Match '['.<br/>
+                    ○ Loop exactly 3 times.<br/>
+                        ○ 7th capture group.<br/>
+                            ○ Match a Unicode digit atomically at least 1 and at most 3 times.<br/>
+                            ○ Match '.'.<br/>
+                    ○ Match a Unicode digit atomically at least 1 and at most 3 times.<br/>
+                    ○ Match ']'.<br/>
+                ○ Not Matched: 8th capture group.<br/>
+                    ○ Loop greedily at least once.<br/>
+                        ○ 9th capture group.<br/>
+                            ○ Match a character in the set [0-9a-z].<br/>
+                            ○ Match a character in the set [\-\w] greedily any number of times.<br/>
+                            ○ Match a character in the set [0-9a-z] atomically any number of times.<br/>
+                            ○ Match '.'.<br/>
+                    ○ Match a character in the set [0-9a-z] atomically at least 2 and at most 17 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_NODENAME">
+            <remarks>
+            Pattern:<br/>
+            <code>^([0-9a-z_-]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [\-0-9_a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_PAGENAME">
+            <remarks>
+            Pattern:<br/>
+            <code>^([0-9a-z_-]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [\-0-9_a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_URL">
+            <remarks>
+            Pattern:<br/>
+            <code>(https?://)[-_./:\\?=&amp;%#a-zA-Z0-9]+</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ 1st capture group.<br/>
+                ○ Match the string "http".<br/>
+                ○ Match 's' atomically, optionally.<br/>
+                ○ Match the string "://".<br/>
+            ○ Match a character in the set [#%&amp;\--:=?A-Z_a-z] atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_IP4">
+            <remarks>
+            Pattern:<br/>
+            <code>\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at a word boundary.<br/>
+            ○ Loop exactly 3 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a sequence of expressions.<br/>
+                        ○ Match '2'.<br/>
+                        ○ Match with 2 alternative expressions.<br/>
+                            ○ Match a sequence of expressions.<br/>
+                                ○ Match '5'.<br/>
+                                ○ Match a character in the set [0-5].<br/>
+                            ○ Match a sequence of expressions.<br/>
+                                ○ Match a character in the set [0-4].<br/>
+                                ○ Match a character in the set [0-9].<br/>
+                    ○ Match a sequence of expressions.<br/>
+                        ○ Match a character in the set [01] greedily, optionally.<br/>
+                        ○ Match a character in the set [0-9] atomically at least 1 and at most 2 times.<br/>
+                ○ Match '.'.<br/>
+            ○ Match with 2 alternative expressions.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match '2'.<br/>
+                    ○ Match with 2 alternative expressions.<br/>
+                        ○ Match a sequence of expressions.<br/>
+                            ○ Match '5'.<br/>
+                            ○ Match a character in the set [0-5].<br/>
+                        ○ Match a sequence of expressions.<br/>
+                            ○ Match a character in the set [0-4].<br/>
+                            ○ Match a character in the set [0-9].<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match a character in the set [01] greedily, optionally.<br/>
+                    ○ Match a character in the set [0-9] atomically at least 1 and at most 2 times.<br/>
+            ○ Match if at a word boundary.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_PASSWORD">
+            <remarks>
+            Pattern:<br/>
+            <code>^([0-9a-zA-Z `\\'":;,\\.&lt;&gt;+=\\~_\\?\\!\\@#\\$%\\^\\&amp;\\*\\(\\)\\[\\]\\{\\}/\\\\\\|-]+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [ -~] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_FIO_RU">
+            <remarks>
+            Pattern:<br/>
+            <code>^[A-Za-zА-ЯЁа-яё-]{1,23}( [A-Za-zА-ЯЁа-яё-]{1,23})+$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a character in the set [\-A-Za-z\u0401\u0410-\u044F\u0451] atomically at least 1 and at most 23 times.<br/>
+            ○ Loop greedily at least once.<br/>
+                ○ 1st capture group.<br/>
+                    ○ Match ' '.<br/>
+                    ○ Match a character in the set [\-A-Za-z\u0401\u0410-\u044F\u0451] atomically at least 1 and at most 23 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_TAGS">
+            <remarks>
+            Pattern:<br/>
+            <code>(?&lt;=&lt;/?)([^ &gt;/]+)</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Zero-width positive lookbehind.<br/>
+                ○ Match '/' greedily, optionally right-to-left.<br/>
+                ○ Match '&lt;' right-to-left.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [^ /&gt;] atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_SHARP_TAGS">
+            <remarks>
+            Pattern:<br/>
+            <code>#[-_a-zA-Zа-яА-Я0-9]+</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '#'.<br/>
+            ○ Match a character in the set [\-0-9A-Z_a-z\u0410-\u044F] atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_LINKS">
+            <remarks>
+            Pattern:<br/>
+            <code>\\\\^(https?://)[-_./:\\\\?=&amp;%#a-zA-Z0-9]+</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '\\'.<br/>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match the string "http".<br/>
+                ○ Match 's' atomically, optionally.<br/>
+                ○ Match the string "://".<br/>
+            ○ Match a character in the set [#%&amp;\--:=?A-Z\\_a-z] atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_ONLY_NUMBER">
+            <remarks>
+            Pattern:<br/>
+            <code>\\d</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a Unicode digit.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_NOT_NUMBER">
+            <remarks>
+            Pattern:<br/>
+            <code>\\D</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match any character other than a Unicode digit.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_MULTYSPACE">
+            <remarks>
+            Pattern:<br/>
+            <code>[\\s]{2,}</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a whitespace character atomically at least twice.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_SMALLNUMBER">
+            <remarks>
+            Pattern:<br/>
+            <code>([0..9.,_-]{1,3})</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [,-.09_] atomically at least 1 and at most 3 times.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Ans.Net10.Common._Consts.G_REGEX_ENCODE">
+            <remarks>
+            Pattern:<br/>
+            <code>[]^\\\\-]</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a character in the set [\-\\-^].<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="F:Ans.Net10.Common.LetterCasesEnum.Original">
+            <summary>
+            Без изменений
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.LetterCasesEnum.Lower">
+            <summary>
+            Нижний регистр (строчные)
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.LetterCasesEnum.Upper">
+            <summary>
+            Верхний регистр (ПРОПИСНЫЕ, ЗАГЛАВНЫЕ)
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.LetterCasesEnum.FirstUpper">
+            <summary>
+            Первая буква строки заглавная
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.LetterCasesEnum.StartWithACapital">
+            <summary>
+            Заглавная Первая Буква В Каждом Слове Строки
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.WordCasesEnum.Nominative">
+            <summary>
+            Именительный падеж (кто, что)
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.WordCasesEnum.Genitive">
+            <summary>
+            Родительный падеж (кого, чего)
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.WordCasesEnum.Dative">
+            <summary>
+            Дательный падеж (кому, чему)
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.WordCasesEnum.Accusative">
+            <summary>
+            Винительный падеж (кого, что)
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.WordCasesEnum.Instrumental">
+            <summary>
+            Творительный падеж (кем, чем)
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.WordCasesEnum.Prepositional">
+            <summary>
+            Предложный падеж (о ком, о чём)
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.GenderEnum.NotSpecified">
+            <summary>
+            Не указан
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.GenderEnum.Male">
+            <summary>
+            Мужской
+            </summary>
+        </member>
+        <member name="F:Ans.Net10.Common.GenderEnum.Female">
+            <summary>
+            Женский
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_DateTime.GetStartOfWeek(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Возвращает дату ближайшего дня начала недели
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_DateTime.GetStartOfMonth(System.DateTime)">
+            <summary>
+            Возвращает дату ближайшего дня начала месяца
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_DateTime.GetTotalMinutes(System.TimeSpan)">
+            <summary>
+            Возвращает количество минут в диапазоне
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_DateTime.IsEqual(System.DateTime,System.DateTime,System.Int32)">
+            <summary>
+            Сравнивает значения даты и времени с точностью minutesDiff
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_DateTime.HasDayTime(System.DateTime)">
+            <summary>
+            Определяет наличие данных о времени (часы, минуты, секунды)
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_DateTime.GetAnsDate(System.DateTime)">
+            <summary>
+            Возвращает значение даты в виде строки
+            в формате yyyy-0MM-dd
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_DateTime.GetAnsDateTime(System.DateTime)">
+            <summary>
+            Возвращает значение даты и времени в виде строки
+            в формате yyyy-0MM-dd HH:mmmm:ss
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_DateTime.GetAnsDateTimeForFile(System.DateTime)">
+            <summary>
+            Возвращает значение даты и времени в виде строки
+            в формате yyyy-0MM-dd_HH-mmmm-ss для именования файлов
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.ReplaceFromDict(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Замена в строке по словарю
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.ReplaceHashtagsFromDict(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Char)">
+            <summary>
+            Замена хештегов в строке по словалю
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetLeft(System.String,System.Char)">
+            <summary>
+            Возвращает левую часть сторки до символа 'find'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetLeft(System.String,System.String)">
+            <summary>
+            Возвращает левую часть сторки до подстроки 'find'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetLeft(System.String,System.Int32)">
+            <summary>
+            Возвращает левую часть сторки из 'count' символов
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetCropLeft(System.String,System.Char)">
+            <summary>
+            Возвращает правую часть сторки до первого вхождения 'find' слева
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetCropLeft(System.String,System.String)">
+            <summary>
+            Возвращает правую часть сторки до первого вхождения 'find' слева
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetCropLeft(System.String,System.Int32)">
+            <summary>
+            Возвращает правую часть сторки без 'count' символов слева
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetRight(System.String,System.Char)">
+            <summary>
+            Возвращает правую часть сторки до символа 'find'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetRight(System.String,System.String)">
+            <summary>
+            Возвращает правую часть сторки до подстроки 'find'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetRight(System.String,System.Int32)">
+            <summary>
+            Возвращает правую часть сторки из 'count' символов
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetCropRight(System.String,System.Char)">
+            <summary>
+            Возвращает левую часть сторки до первого вхождения 'find' справа
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetCropRight(System.String,System.String)">
+            <summary>
+            Возвращает левую часть сторки до первого вхождения 'find' справа
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetCropRight(System.String,System.Int32)">
+            <summary>
+            Возвращает левую часть сторки без 'count' символов справа
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetBackTo(System.String,System.Char,System.Int32)">
+            <summary>
+            Возвращает левую часть сторки до символа 'find'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetCrop(System.String,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Возвращает подстроку с подстановкой по обрезанным краям
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetSafeText(System.String)">
+            <summary>
+            Возвращает результат преобразования символов
+            с кодом меньше 33 в '_' и больше 126 в их кодовый эквивалент
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetTag(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            Возвращает из строки подстроку находящуюся между 'before' и 'after'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_String.GetReplaceRecursively(System.String,System.String,System.String)">
+            <summary>
+            Производит рекурсивную замену 'oldValue' на 'newValue'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common._e_StringBuilder.IndexOf(System.Text.StringBuilder,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Возвращает индекс начала вхождения строки
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.__e_collections.WithIndex``1(System.Collections.Generic.IEnumerable{``0})">
+            <example>
+            foreach (var (item1, i1) in data1.WithIndex())
+            </example>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppConsole.CursorSavePos">
+            <summary>
+            Сохраняет текущую позицию курсора
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppConsole.CursorRestopePos">
+            <summary>
+            Восстанавливает сохраненную ранее позицию курсора
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppConsole.CursorToBeginLine">
+            <summary>
+            Переводит курсов в начало текущей строки
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppDateTime.GetSpan(System.DateTime,System.Nullable{System.DateTime},System.Boolean)">
+            <summary>
+            Возвращает диапазон дат (для блога)
+            - одна или равные даты
+            - разные года
+            - разные месяцы года
+            - разные дни месяца
+            </summary>
+            <param name="showCurrentYear">Отображать текущий год</param>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppDateTime.GetSpan(System.DateOnly,System.Nullable{System.DateOnly},System.Boolean)">
+            <summary>
+            Возвращает диапазон дат (для блога)
+            </summary>
+            <param name="showCurrentYear">Отображать текущий год</param>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppDateTime.GetSpan(System.String,System.Boolean)">
+            <summary>
+            Возвращает диапазон дат (для блога)
+            </summary>
+            <param name="span">
+            Строка диапазона дат в формате:
+            "datetime1_datetime2"
+            </param>
+            <param name="showCurrentYear">Отображать текущий год</param>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppDateTime.GetDays(System.DateTime,System.DateTime)">
+            <summary>
+            Возвращает коллекцию дней от start до end
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppDateTime.GetDays(System.DateOnly,System.DateOnly)">
+            <summary>
+            Возвращает коллекцию дней от start до end
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppDateTime.GetDateFromUniDate(System.String)">
+            <summary>
+            Возвращает DateTime из короткой строки даты в формате
+            YYYY-MM-DD
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppDateTime.GetDateFromAnsDate(System.String)">
+            <summary>
+            Возвращает DateTime из короткой строки даты в формате
+            YYYY-0MM-DD
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.CreateDirectoryIfNotExists(System.String)">
+            <summary>
+            Создает директорию, если ее не существует
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.DeleteDirectoryIfExists(System.String)">
+            <summary>
+            Удаляет директорию и все ее содержимое, если она существует
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.DeleteFileIfExists(System.String)">
+            <summary>
+            Удаляет файл, если он существует
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.GetFileLastModified(System.String)">
+            <summary>
+            Возвращает относительное время последнего изменения файла
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.GetLastWriteTimeFiles(System.IO.DirectoryInfo)">
+            <summary>
+            Возвращает самое последнее время изменения файлов в каталоге
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.GetFileExtension(System.String,System.Boolean)">
+            <summary>
+            Возвращает расширение файла из path
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.GetFilenameHalfs(System.String)">
+            <summary>
+            Возвращает части имени файла разделенные '.'
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.IsFilesEqualFull(System.IO.FileInfo,System.IO.FileInfo)">
+            <summary>
+            Полное сравнение файлов
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppIO.IsFilesEqualLazy(System.IO.FileInfo,System.IO.FileInfo)">
+            <summary>
+            Ленивое сравнение файлов
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppJson.GetObjectFromJsonString``1(System.String,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Возвращает объект типа T из строки json
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppJson.GetObjectFromJson``1(System.IO.Stream,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Возвращает объект типа T из потока json
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppJson.GetObjectFromJsonAsync``1(System.IO.Stream,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            (async) Возвращает объект типа T из потока json 
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppJson.GetObjectFromJsonFile``1(System.String,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Возвращает объект типа T из файла json
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppJson.GetJsonStringFromObject(System.Object,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Возвращает строку json из объекта
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppJson.WriteObjectToStreamJson(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Записывает объект в поток json
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppJson.SaveObjectToJsonFile(System.Object,System.String,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Сохраняет объект в файл json
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangEn.GetDeclineEn(System.Int32,System.String,System.String)">
+            <summary>
+            Возвращает склонение для числа
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangEn.GetDeclineEn(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Возвращает склонение для числа по шаблону
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetTranslitRuToEn(System.Char)">
+            <summary>
+            Возвращает транслитерацию char с русского на английский
+            ГОСТ Р 7.0.34-2014
+            (https://www.ifap.ru/library/gost/70342014.pdf)
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetTranslitRuToEn(System.String)">
+            <summary>
+            Возвращает транслитерацию string с русского на английский
+            ГОСТ Р 7.0.34-2014
+            (https://www.ifap.ru/library/gost/70342014.pdf)
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetTranslitRuToEn(System.Text.StringBuilder)">
+            <summary>
+            Возвращает транслитерацию StringBuilder с русского на английский
+            ГОСТ Р 7.0.34-2014
+            (https://www.ifap.ru/library/gost/70342014.pdf)
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetFixUmlautRu(System.Char)">
+            <summary>
+            ё --> е
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetFixUmlautRu(System.String)">
+            <summary>
+            ё --> е
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetFixUmlautRu(System.Text.StringBuilder)">
+            <summary>
+            ё --> е
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetFixNumberRu(System.Char)">
+            <summary>
+            № --> Nº
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetFixNumberRu(System.String)">
+            <summary>
+            № --> Nº
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetFixNumberRu(System.Text.StringBuilder)">
+            <summary>
+            № --> Nº
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetDeclineRu(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Возвращает склонение для числа
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetDeclineRu(System.String,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Возвращает склонение для числа по шаблону 
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetAgeStringRu(System.Int32)">
+            <summary>
+            Возвращает склонение для числа лет
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetWordsRu(System.Int64,Ans.Net10.Common.WordCasesEnum,System.Boolean,System.Boolean)">
+            <summary>
+            Возвращает значение целого числа прописью
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetWordsRu(System.Double,System.Int32,Ans.Net10.Common.WordCasesEnum,System.Boolean)">
+            <summary>
+            Возвращает значение дробного числа прописью
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppLangRu.GetAmountInRublesInWords(System.Double,System.Boolean)">
+            <summary>
+            Возвращает сумму в рублях прописью
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppMath.RoundToInt(System.Double)">
+            <summary>
+            Округление до ближайшего целого (.4,.5)
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppMath.RoundToInt(System.Decimal)">
+            <summary>
+            Округление до ближайшего целого (.4,.5)
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppMath.RoundToUInt(System.Double)">
+            <summary>
+            Округление до ближайшего целого (.4,.5)
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppMath.RoundToUInt(System.Decimal)">
+            <summary>
+            Округление до ближайшего целого (.4,.5)
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppMath.Map(System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Масштабирование по подобию
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppMath.Map(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Масштабирование по подобию
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppMath.GetRangeIndex(System.Int32,System.Int32[])">
+            <summary>
+            Возвращает индекс ближайшей точки, после которой находится value
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppRegex.ParamEncode(System.String)">
+            <summary>
+            Кодировка спецсимволов для regex-выражений
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppValues.GetFamilyAndInitials(System.String,Ans.Net10.Common.LetterCasesEnum)">
+            <summary>
+            Возвращает фамилию и инициалы из строки содержащей фамилию имя и отчество
+            (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
+            [Пушкин А.С., Салтыков-Щедрин М.Е., Эфендиев Э.И.]
+            </summary>
+            <param name="fullname">Исходная строка</param>
+            <param name="textCase">Операция преобразования регистра букв</param>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppValues.GetFamilyAndInitialsString(System.String,Ans.Net10.Common.LetterCasesEnum)">
+            <summary>
+            Возвращает строку содержащую фамилию и инициалы из строки содержащей фамилию имя и отчество
+            (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
+            [Пушкин А.С., Салтыков-Щедрин М.Е., Эфендиев Э.И.]
+            </summary>
+            <param name="fullname">Фамилию имя и отчество</param>
+            <param name="textCase">Операция преобразования регистра букв</param>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppValues.GetFamilyAndInitialsTranslit(System.String,System.String)">
+            <summary>
+            Возвращает строку содержащую латинскую транслитерацию для использования в идентификаторе
+            ГОСТ Р 7.0.34-2014
+            (https://www.ifap.ru/library/gost/70342014.pdf)
+            (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
+            [pushkin_as, saltikovtschedrin_me, efendiev_ei]
+            </summary>
+        </member>
+        <member name="M:Ans.Net10.Common.SuppValues.GetGender(System.String)">
+            <summary>
+            Возвращает пол по фамилии имени и отчеству
+            (Пушкин Александр Сергеевич, Эфендиев Эльчин Ильяс оглы)
+            [pushkin_as, saltikovtschedrin_me, efendiev_ei]
+            </summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_NAME method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_NAME_STRICT method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NAME_STRICT_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_VARNAME method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_VARNAME_STRICT method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_VARNAME_STRICT_3.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_IPATH method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_4.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_IPATH_STRICT method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IPATH_STRICT_5.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_EMAIL method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_6.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_EMAIL_STRICT method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_EMAIL_STRICT_7.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_NODENAME method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NODENAME_8.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_URL_9">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_URL method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_URL_9.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_URL_9.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_URL_9.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_URL_9.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_URL_9.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_URL_9.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_URL_9.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_URL_9.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_IP4 method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_IP4_10.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_PASSWORD method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_PASSWORD_11.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_FIO_RU method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_FIO_RU_12.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_TAGS method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_TAGS_13.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_SHARP_TAGS method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SHARP_TAGS_14.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_LINKS method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_LINKS_15.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_ONLY_NUMBER_16">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_ONLY_NUMBER method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_ONLY_NUMBER_16.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_ONLY_NUMBER_16.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_ONLY_NUMBER_16.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_ONLY_NUMBER_16.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_ONLY_NUMBER_16.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_ONLY_NUMBER_16.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_ONLY_NUMBER_16.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NOT_NUMBER_17">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_NOT_NUMBER method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_NOT_NUMBER_17.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NOT_NUMBER_17.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NOT_NUMBER_17.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NOT_NUMBER_17.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_NOT_NUMBER_17.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NOT_NUMBER_17.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_NOT_NUMBER_17.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_MULTYSPACE method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_MULTYSPACE_18.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_SMALLNUMBER method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_SMALLNUMBER_19.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_ENCODE_20">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the G_REGEX_ENCODE method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.G_REGEX_ENCODE_20.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_ENCODE_20.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_ENCODE_20.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_ENCODE_20.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.G_REGEX_ENCODE_20.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_ENCODE_20.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.G_REGEX_ENCODE_20.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IndexOfAnyDigit(System.ReadOnlySpan{System.Char})">
+            <summary>Finds the next index of any character that matches a Unicode digit.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IndexOfAnyExceptDigit(System.ReadOnlySpan{System.Char})">
+            <summary>Finds the next index of any character that matches any character other than a Unicode digit.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsBoundaryWordChar(System.Char)">
+            <summary>Determines whether the specified index is a boundary word character.</summary>
+            <remarks>This is the same as \w plus U+200C ZERO WIDTH NON-JOINER and U+200D ZERO WIDTH JOINER.</remarks>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsPostWordCharBoundary(System.ReadOnlySpan{System.Char},System.Int32)">
+            <summary>Determines whether the specified index is a boundary.</summary>
+            <remarks>This variant is only employed when the previous character has already been validated as a word character.</remarks>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsPreWordCharBoundary(System.ReadOnlySpan{System.Char},System.Int32)">
+            <summary>Determines whether the specified index is a boundary.</summary>
+            <remarks>This variant is only employed when the subsequent character will separately be validated as a word character.</remarks>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPop(System.Int32[],System.Int32@,System.Int32@,System.Int32@)">
+            <summary>Pops 2 values from the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32)">
+            <summary>Pushes 1 value onto the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32)">
+            <summary>Pushes 2 values onto the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32,System.Int32)">
+            <summary>Pushes 3 values onto the backtracking stack.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
+            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
+        </member>
+        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
+            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiDigits">
+            <summary>Supports searching for characters in or not in "0123456789".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiExceptDigits">
+            <summary>Supports searching for characters in or not in "\0\u0001\u0002\u0003\u0004\u0005\u0006\a\b\t\n\v\f\r\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f !\"#$%&amp;'()*+,-./:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007f".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiLettersAndDigitsAndDashUnderscore">
+            <summary>Supports searching for characters in or not in "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiLettersLowerAndDigits">
+            <summary>Supports searching for characters in or not in "0123456789abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiWordChars">
+            <summary>Supports searching for characters in or not in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_2000000000007000000000">
+            <summary>Supports searching for characters in or not in "-\\]^".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_20FF0300000080FEFFFF07">
+            <summary>Supports searching for characters in or not in "-0123456789_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_60FF0300000080FEFFFF07">
+            <summary>Supports searching for characters in or not in "-.0123456789_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_68E0FFA7FEFFFF87FEFFFF07">
+            <summary>Supports searching for characters in or not in "#%&amp;-./0123456789:=?ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_68E0FFA7FEFFFF97FEFFFF07">
+            <summary>Supports searching for characters in or not in "#%&amp;-./0123456789:=?ABCDEFGHIJKLMNOPQRSTUVWXYZ\\_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_7001020000008000000000">
+            <summary>Supports searching for characters in or not in ",-.09_".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_FF0300000080FEFFFF07">
+            <summary>Supports searching for characters in or not in "0123456789_abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_8B6C8BC07D3B2F7595B61ED5924B344F6B28F4628FFDCCA0726512D9F73CC2D4">
+            <summary>Supports searching for the string "\\http".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_http_Ordinal">
+            <summary>Supports searching for the string "http".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_nonAscii_89DCBF0F683E25FE49329098A3892508D3CD960B61AB45DFF5C2F59F4156BC16">
+            <summary>Supports searching for characters in or not in "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyzАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_whitespace">
+            <summary>Supports searching for characters in or not in "\t\n\v\f\r \u0085             \u2028\u2029  　".</summary>
+        </member>
+    </members>
+</doc>

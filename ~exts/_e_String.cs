@@ -8,6 +8,13 @@ namespace Ans.Net10.Common
 	public static partial class _e_String
 	{
 
+		public static string NullIfEmpty(
+			this string source)
+		{
+			return source is "" ? null : source;
+		}
+
+
 		public static string[] SplitFix(
 			this string source,
 			string separator,
