@@ -37,6 +37,8 @@
       "modern"
     ],
     "globalMetadata": {
+      "locale": "ru",
+      "_lang": "ru",
       "_appName": "Ans.Net10.Common Docs",
       "_appTitle": "Ans.Net10.Common Docs",
       "_enableSearch": true,
