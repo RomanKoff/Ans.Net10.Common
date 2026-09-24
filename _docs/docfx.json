@@ -33,11 +33,12 @@
     ],
     "output": "_site",
     "template": [
+      "ans-template",
       "default",
       "modern"
     ],
     "globalMetadata": {
-      "locale": "ru",
+      "lang": "ru",
       "_lang": "ru",
       "_appName": "Ans.Net10.Common Docs",
       "_appTitle": "Ans.Net10.Common Docs",
