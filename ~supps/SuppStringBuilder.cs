@@ -1,9 +1,14 @@
-﻿using System.Buffers;
+﻿// rev 2026-09-16
+
+using System.Buffers;
 using System.Text;
 
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Вспомогательный класс для оптимизированной работы с объектами <see cref="StringBuilder"/>.
+	/// </summary>
 	public static class SuppStringBuilder
 	{
 
@@ -14,34 +19,41 @@ namespace Ans.Net10.Common
 		/* methods */
 
 
+		/// <summary>
+		/// Заменяет все управляющие спецсимволы (с ASCII-кодом меньше 32)
+		/// внутри <see cref="StringBuilder"/> на обычные пробелы.
+		/// </summary>
+		/// <param name="sb">Модифицируемый экземпляр StringBuilder.</param>
 		public static void FixSpecChars(
 			StringBuilder sb)
 		{
-			int length1 = sb.Length;
-			if (length1 == 0)
+			ArgumentNullException.ThrowIfNull(sb);
+			if (sb.Length == 0)
 				return;
-
-			bool f1 = false;
+			bool hasInvalid1 = false;
 			foreach (var chunk1 in sb.GetChunks())
 				if (chunk1.Span.IndexOfAny(_invalidChars) != -1)
 				{
-					f1 = true;
+					hasInvalid1 = true;
 					break;
 				}
-			if (!f1)
+			if (!hasInvalid1)
 				return;
-
-			var buffer1 = ArrayPool<char>.Shared.Rent(length1);
+			int len1 = sb.Length;
+			var rented1 = ArrayPool<char>.Shared.Rent(len1);
 			try
 			{
-				sb.CopyTo(0, buffer1, 0, length1);
-				for (int i1 = 0; i1 < length1; i1++)
-					if (buffer1[i1] < 32)
-						sb[i1] = ' ';									
+				sb.CopyTo(0, rented1, 0, len1);
+				var span1 = rented1.AsSpan(0, len1);
+				int i1;
+				while ((i1 = span1.IndexOfAny(_invalidChars)) != -1)
+					span1[i1] = ' ';
+				sb.Clear();
+				sb.Append(span1);
 			}
 			finally
 			{
-				ArrayPool<char>.Shared.Return(buffer1);
+				ArrayPool<char>.Shared.Return(rented1);
 			}
 		}
 

@@ -1,49 +1,51 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-16
+
+using System.Collections.Frozen;
+
+namespace Ans.Net10.Common
 {
+
+	/*
+	 * Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+	 */
+
+
 
 	public static partial class _Consts
 	{
 
-		public static readonly string[] FORBIDDEN_FILE_NAMES
-			= [
-				"con", "prn", "aux", "nul",
-				"com0", "com1", "com2", "com3", "com4", "com5", "com6", "com7", "com8", "com9",
-				"lpt0", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", "lpt8", "lpt9"
-			];
-
-
-		public static readonly ContentInfo CONTENTINFO_BIN
-			= new("*", "application/octet-stream", ContentGroupEnum.Bin);
-
-
-		public static readonly ContentInfo[] CONTENTINFOS =
+		/// <summary>
+		/// Список имен файлов, зарезервированных операционной системой Windows и запрещенных для использования.
+		/// </summary>
+		public static readonly string[] FORBIDDEN_FILE_NAMES =
 		[
-			// Arcive
+			"con", "prn", "aux", "nul",
+			"com0", "com1", "com2", "com3", "com4", "com5", "com6", "com7", "com8", "com9",
+			"lpt0", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", "lpt8", "lpt9"
+		];
+
+
+		/// <summary>
+		/// Дефолтный объект информации о контенте для неопознанных бинарных данных.
+		/// </summary>
+		public static readonly ContentInfo CONTENTINFO_BIN = new("*", "application/octet-stream", ContentGroupEnum.Bin);
+
+
+		/// <summary>
+		/// Замороженный (Frozen) оптимизированный словарь сопоставления расширений файлов (ключ, включая точку) 
+		/// и метаданных типов контента <see cref="ContentInfo"/>. Регистронезависимый.
+		/// </summary>
+		public static FrozenDictionary<string, ContentInfo> CONTENTINFOS => field ??= new ContentInfo[]
+		{
+			// Archive
 			new(".apk", "application/vnd.android.package-archive", ContentGroupEnum.Archive),
 			new(".gtar", "application/x-gtar", ContentGroupEnum.Archive),
 			new(".gz", "application/x-gzip", ContentGroupEnum.Archive),
 			new(".tar", "application/x-tar", ContentGroupEnum.Archive),
 			new(".tgz", "application/x-compressed", ContentGroupEnum.Archive),
 			new(".z", "application/x-compress", ContentGroupEnum.Archive),
-			new(".z", "application/x-compress", ContentGroupEnum.Archive),
 			new(".zip", "application/zip", ContentGroupEnum.Archive),
-
-			// Audio                           
-			new(".aif", "audio/x-aiff", ContentGroupEnum.Audio),
-			new(".aifc", "audio/x-aiff", ContentGroupEnum.Audio),
-			new(".aiff", "audio/x-aiff", ContentGroupEnum.Audio),
-			new(".au", "audio/basic", ContentGroupEnum.Audio),
-			new(".m3u", "audio/x-mpegurl", ContentGroupEnum.Audio),
-			new(".mid", "audio/mid", ContentGroupEnum.Audio),
-			new(".mp3", "audio/mpeg", ContentGroupEnum.Audio),
-			new(".ogg", "audio/ogg", ContentGroupEnum.Audio),
-			new(".ra", "audio/x-pn-realaudio", ContentGroupEnum.Audio),
-			new(".ram", "audio/x-pn-realaudio", ContentGroupEnum.Audio),
-			new(".rmi", "audio/mid", ContentGroupEnum.Audio),
-			new(".snd", "audio/basic", ContentGroupEnum.Audio),
-			new(".wav", "audio/x-wav", ContentGroupEnum.Audio),
-
-			// Document
+			// Document
 			new(".accdb", "application/msaccess", ContentGroupEnum.Document),
 			new(".ai", "application/postscript", ContentGroupEnum.Document),
 			new(".doc", "application/msword", ContentGroupEnum.Document),
@@ -80,8 +82,7 @@
 			new(".xlt", "application/vnd.ms-excel", ContentGroupEnum.Document),
 			new(".xltx", "application/vnd.openxmlformats-officedocument.spreadsheetml.template", ContentGroupEnum.Document),
 			new(".xlw", "application/vnd.ms-excel", ContentGroupEnum.Document),
-
-			// Image                           
+			// Image                        	   
 			new(".bmp", "image/bmp", ContentGroupEnum.Image, isWebImage: true),
 			new(".cmx", "image/x-cmx", ContentGroupEnum.Image),
 			new(".cod", "image/cis-cod", ContentGroupEnum.Image),
@@ -108,8 +109,7 @@
 			new(".xbm", "image/x-xbitmap", ContentGroupEnum.Image),
 			new(".xpm", "image/x-xpixmap", ContentGroupEnum.Image),
 			new(".xwd", "image/x-xwindowdump", ContentGroupEnum.Image),
-
-			// Text                            
+			// Text                         	   
 			new(".323", "text/h323", ContentGroupEnum.Text),
 			new(".bas", "text/plain", ContentGroupEnum.Text),
 			new(".c", "text/plain", ContentGroupEnum.Text),
@@ -123,7 +123,7 @@
 			new(".htm", "text/html", ContentGroupEnum.Text),
 			new(".html", "text/html", ContentGroupEnum.Text),
 			new(".htt", "text/webviewhtml", ContentGroupEnum.Text),
-			new(".js", "text/javascript", ContentGroupEnum.Text),
+			new(".js", "application/javascript", ContentGroupEnum.Text),
 			new(".json", "application/json", ContentGroupEnum.Text),
 			new(".less", "text/css", ContentGroupEnum.Text),
 			new(".rss", "application/rss+xml", ContentGroupEnum.Text),
@@ -139,8 +139,23 @@
 			new(".vb", "text/plain", ContentGroupEnum.Text),
 			new(".vcf", "text/x-vcard", ContentGroupEnum.Text),
 			new(".xml", "application/xml", ContentGroupEnum.Text),
-
-			// Video                           
+			// Audio                        	   
+			new(".aif", "audio/x-aiff", ContentGroupEnum.Audio),
+			new(".aifc", "audio/x-aiff", ContentGroupEnum.Audio),
+			new(".aiff", "audio/x-aiff", ContentGroupEnum.Audio),
+			new(".au", "audio/basic", ContentGroupEnum.Audio),
+			new(".flac", "audio/flac", ContentGroupEnum.Audio),
+			new(".m3u", "audio/x-mpegurl", ContentGroupEnum.Audio),
+			new(".m4a", "audio/mp4", ContentGroupEnum.Audio),
+			new(".mid", "audio/mid", ContentGroupEnum.Audio),
+			new(".mp3", "audio/mpeg", ContentGroupEnum.Audio),
+			new(".ogg", "audio/ogg", ContentGroupEnum.Audio),
+			new(".ra", "audio/x-pn-realaudio", ContentGroupEnum.Audio),
+			new(".ram", "audio/x-pn-realaudio", ContentGroupEnum.Audio),
+			new(".rmi", "audio/mid", ContentGroupEnum.Audio),
+			new(".snd", "audio/basic", ContentGroupEnum.Audio),
+			new(".wav", "audio/x-wav", ContentGroupEnum.Audio),
+			// Video                        	   
 			new(".asf", "video/x-ms-asf", ContentGroupEnum.Video),
 			new(".asr", "video/x-ms-asf", ContentGroupEnum.Video),
 			new(".asx", "video/x-ms-asf", ContentGroupEnum.Video),
@@ -149,6 +164,7 @@
 			new(".flv", "video/x-flv", ContentGroupEnum.Video),
 			new(".lsf", "video/x-la-asf", ContentGroupEnum.Video),
 			new(".lsx", "video/x-la-asf", ContentGroupEnum.Video),
+			new(".mkv", "video/x-matroska", ContentGroupEnum.Video),
 			new(".mov", "video/quicktime", ContentGroupEnum.Video),
 			new(".movie", "video/x-sgi-movie", ContentGroupEnum.Video),
 			new(".mp2", "video/mpeg", ContentGroupEnum.Video),
@@ -161,7 +177,13 @@
 			new(".ogv", "video/ogg", ContentGroupEnum.Video),
 			new(".qt", "video/quicktime", ContentGroupEnum.Video),
 			new(".webm", "video/webm", ContentGroupEnum.Video),
-		];
+			// Fonts                        	   
+			new(".eot", "application/vnd.ms-fontobject", ContentGroupEnum.Font),
+			new(".otf", "font/otf", ContentGroupEnum.Font),
+			new(".ttf", "font/ttf", ContentGroupEnum.Font),
+			new(".woff", "font/woff", ContentGroupEnum.Font),
+			new(".woff2", "font/woff2", ContentGroupEnum.Font)
+		}.ToFrozenDictionary(x => x.Extension, StringComparer.OrdinalIgnoreCase);
 
 	}
 

@@ -1,19 +1,29 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-15
+
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+
+namespace Ans.Net10.Common
 {
 
-	public static class SuppRegex
+	/// <summary>
+	/// Вспомогательный класс для работы с регулярными выражениями.
+	/// </summary>
+	public static partial class SuppRegex
 	{
 
-		/* functions */
-
-
 		/// <summary>
-		/// Кодировка спецсимволов для regex-выражений
+		/// Экранирует спецсимволы в строке, заменяя их эквивалентами, безопасными для использования в регулярных выражениях.
 		/// </summary>
-		public static string ParamEncode(
-			string source)
+		/// <param name="source">Исходная строка, содержащая спецсимволы регулярных выражений, или null.</param>
+		/// <returns>Строка с экранированными спецсимволами. Если передана пустая строка или null, возвращается исходное значение.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string Escape(
+			string? source)
 		{
-			return _Consts.G_REGEX_ENCODE().Replace(source, @"\$&");
+			if (string.IsNullOrEmpty(source))
+				return source ?? string.Empty;
+			return Regex.Escape(source);
 		}
 
 	}

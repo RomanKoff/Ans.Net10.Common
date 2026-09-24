@@ -1,78 +1,300 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-16
+
+using System.Runtime.CompilerServices;
+
+namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Вспомогательный класс для работы с английским языком.
+	/// </summary>
 	public static class SuppLangEn
 	{
 
-		/* functions */
+		/// <summary>
+		/// Возвращает грамматически корректную форму английского существительного в зависимости от числа.
+		/// </summary>
+		/// <param name="count">Количество элементов.</param>
+		/// <param name="form1">Форма единственного числа (например, "apple").</param>
+		/// <param name="formOther">Форма множественного числа. Если не задана, автоматически добавляется суффикс "s".</param>
+		/// <returns>Строка с корректной формой слова.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetPlural(
+			int count,
+			string form1,
+			string? formOther = null)
+		{
+			return count == 1
+				? form1 : formOther ?? $"{form1}s";
+		}
 
 
-		public static string GetPluralizeEn(
+		/// <summary>
+		/// Возвращает грамматически корректную форму английского существительного, подставленную в указанный шаблон.
+		/// </summary>
+		/// <param name="template">Шаблон форматирования (например, "Found {0} {1}"). Параметр {0} — число, {1} — слово.</param>
+		/// <param name="count">Количество элементов.</param>
+		/// <param name="form1">Форма единственного числа.</param>
+		/// <param name="formOther">Форма множественного числа (опционально).</param>
+		/// <returns>Форматированная строка, либо <see cref="string.Empty"/>, если шаблон пуст.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetPlural(
+			string? template,
+			int count,
+			string form1,
+			string? formOther = null)
+		{
+			if (string.IsNullOrEmpty(template))
+				return string.Empty;
+			var s1 = GetPlural(count, form1, formOther);
+			return string.Format(template, count, s1);
+		}
+
+
+		/// <summary>
+		/// Переводит английское слово во множественное число на основе комплексных правил суффиксов,
+		/// исключений и заимствований
+		/// (https://engblog.ru/app/uploads/2009/12/Plurals-in-English-table.pdf).
+		/// </summary>
+		/// <param name="word">Исходное слово в единственном числе.</param>
+		/// <returns>Слово во множественном числе с гарантированным сохранением исходного регистра
+		/// (TitleCase или UPPERCASE).</returns>
+		public static string ToPlural(
 			string word)
 		{
-			// https://engblog.ru/app/uploads/2009/12/Plurals-in-English-table.pdf
-			// ay = ays
-			// ey = eys
-			// oy = oys
-			// sh = shes
-			// ch = ches
-			// y = ies
-			// s = ses
-			// x = xes
-			// +s
-			if (word.Length < 3)
-				return $"{word}";
-			var lastTwo1 = word[^2..];
-			var withoutLastTwo1 = word[..^2];
-			var withoutLastOne1 = word[..^1];
-			return lastTwo1 switch
+			if (string.IsNullOrWhiteSpace(word))
+				return word;
+
+			// Обработка сложных слов через дефис
+			if (word.Contains('-'))
+				return _getPluralizeHyphenatedWord(word);
+
+			var lowerWord1 = word.ToLowerInvariant();
+
+			// 1. Неисчисляемые и совпадающие формы
+			if (_UNCOUNTABLE_AND_MATCHING.Contains(lowerWord1))
+				return _getMatchCase(word, word);
+
+			// 2. Стандартные исключения (существительные, изменяющиеся не по правилам)
+			if (_IRREGULARS.TryGetValue(lowerWord1, out var irregular1))
+				return _getMatchCase(word, irregular1);
+
+			// 3. Исключения на -о и -f/-fe из таблицы
+			if (_SPECIAL_O_EXCEPTIONS.TryGetValue(lowerWord1, out var oException1))
+				return _getMatchCase(word, oException1);
+
+			if (_SPECIAL_F_EXCEPTIONS.TryGetValue(lowerWord1, out var fException1))
+				return _getMatchCase(word, fException1);
+
+			// 4. Латинские и греческие заимствования
+			if (_LATIN_US_TO_I.TryGetValue(lowerWord1, out var latinUs1))
+				return _getMatchCase(word, latinUs1);
+
+			if (_LATIN_A_TO_AE.TryGetValue(lowerWord1, out var latinA1))
+				return _getMatchCase(word, latinA1);
+
+			if (_LATIN_UM_TO_A.TryGetValue(lowerWord1, out var latinUm1))
+				return _getMatchCase(word, latinUm1);
+
+			if (_LATIN_EXIX_TO_CES.TryGetValue(lowerWord1, out var latinExIx1))
+				return _getMatchCase(word, latinExIx1);
+
+			if (_GREEK_IS_TO_ES.TryGetValue(lowerWord1, out var greekIs1))
+				return _getMatchCase(word, greekIs1);
+
+			if (_GREEK_ON_TO_A.TryGetValue(lowerWord1, out var greekOn1))
+				return _getMatchCase(word, greekOn1);
+
+			// 5. Правила суффиксов на основе окончаний (используем высокоэффективный Span)
+			var span1 = lowerWord1.AsSpan();
+
+			if (span1.EndsWith("ss")
+				|| span1.EndsWith("sh")
+				|| span1.EndsWith("ch")
+				|| span1.EndsWith("tch")
+				|| span1.EndsWith("x")
+				|| span1.EndsWith("z")
+				|| span1.EndsWith("s"))
+				return _getMatchCase(word, string.Concat(word, "es"));
+
+			if (span1.EndsWith("y"))
 			{
-				"ay" => $"{withoutLastTwo1}ays",
-				"ey" => $"{withoutLastTwo1}eys",
-				"oy" => $"{withoutLastTwo1}oys",
-				"sh" => $"{withoutLastTwo1}shes",
-				"ch" => $"{withoutLastTwo1}ches",
-				_ => lastTwo1[1] switch
+				if (span1.EndsWith("ay")
+					|| span1.EndsWith("ey")
+					|| span1.EndsWith("oy")
+					|| span1.EndsWith("uy"))
+					return _getMatchCase(word, string.Concat(word, "s"));
+				return _getMatchCase(word, string.Concat(word.AsSpan(0, word.Length - 1), "ies"));
+			}
+
+			if (span1.EndsWith("o"))
+				return _getMatchCase(word, string.Concat(word, "es"));
+
+			if (span1.EndsWith("fe"))
+				return _getMatchCase(word, string.Concat(word.AsSpan(0, word.Length - 2), "ves"));
+
+			if (span1.EndsWith("f"))
+				return _getMatchCase(word, string.Concat(word.AsSpan(0, word.Length - 1), "ves"));
+
+			return _getMatchCase(word, string.Concat(word, "s"));
+		}
+
+
+		/* privates */
+
+
+		private static string _getPluralizeHyphenatedWord(
+			string word)
+		{
+			var a1 = word.Split('-');
+			if (a1.Length == 0)
+				return word;
+			var s1 = a1[0].ToLowerInvariant();
+			if (s1 == "man" || s1 == "woman")
+			{
+				a1[0] = ToPlural(a1[0]);
+				a1[^1] = ToPlural(a1[^1]);
+				return string.Join("-", a1);
+			}
+			if (a1.Length > 1
+				&& (a1[1].Equals("in", StringComparison.OrdinalIgnoreCase)
+				|| a1[1].Equals("by", StringComparison.OrdinalIgnoreCase)))
+			{
+				a1[0] = ToPlural(a1[0]);
+				return string.Join("-", a1);
+			}
+			a1[^1] = ToPlural(a1[^1]);
+			return string.Join("-", a1);
+		}
+
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static string _getMatchCase(
+			string original,
+			string result)
+		{
+			if (string.IsNullOrEmpty(original) || string.IsNullOrEmpty(result))
+				return result;
+			// Если оригинальное слово всё в ВЕРХНЕМ регистре (например, "BOOK")
+			if (char.IsUpper(original[0]) && original.Length > 1 && char.IsUpper(original[1]))
+				return result.ToUpperInvariant();
+			// Если оригинальное слово с заглавной буквы (например, "Book")
+			if (char.IsUpper(original[0]))
+			{
+				// Оптимизированное zero-allocation изменение первого символа на заглавный через string.Create
+				return string.Create(result.Length, result, (span, state) =>
 				{
-					'y' => $"{withoutLastOne1}ies",
-					's' => $"{withoutLastOne1}ses",
-					'x' => $"{withoutLastOne1}xes",
-					_ => $"{word}s"
-				}
-			};
-			//var ps1 = PluralizationService.CreateService(new CultureInfo("en-gb"));
-			//return ps1.Pluralize(word);
+					state.AsSpan().CopyTo(span);
+					span[0] = char.ToUpperInvariant(span[0]);
+				});
+			}
+			return result;
 		}
 
 
-		/// <summary>
-		/// Возвращает склонение для числа
-		/// </summary>
-		public static string GetDeclineEn(
-			int number,
-			string for1,
-			string forOther)
+		/* privates data */
+
+
+		private static readonly HashSet<string> _UNCOUNTABLE_AND_MATCHING = new(StringComparer.OrdinalIgnoreCase)
 		{
-			return (number % 10) switch
-			{
-				1 => for1,
-				_ => forOther
-			};
-		}
+			"fish", "deer", "sheep", "trout", "swine", "aircraft", "means",
+			"advice", "education", "hair", "information", "knowledge", "luck",
+			"luggage", "money", "music", "news", "progress", "seaside", "shopping",
+			"traffic", "trouble", "weather", "work"
+		};
 
 
-		/// <summary>
-		/// Возвращает склонение для числа по шаблону
-		/// </summary>
-		public static string GetDeclineEn(
-			string template,
-			int number,
-			string for1,
-			string forOther)
+		private static readonly Dictionary<string, string> _IRREGULARS = new(StringComparer.OrdinalIgnoreCase)
 		{
-			var s1 = GetDeclineEn(number, for1, forOther);
-			return string.Format(template, number, s1);
-		}
+			{ "man", "men" },
+			{ "woman", "women" },
+			{ "child", "children" },
+			{ "ox", "oxen" },
+			{ "foot", "feet" },
+			{ "tooth", "teeth" },
+			{ "goose", "geese" },
+			{ "mouse", "mice" },
+			{ "louse", "lice" },
+			{ "brother", "brethren" }
+		};
+
+
+		private static readonly Dictionary<string, string> _SPECIAL_O_EXCEPTIONS = new(StringComparer.OrdinalIgnoreCase)
+		{
+			{ "piano", "pianos" },
+			{ "kilo", "kilos" },
+			{ "photo", "photos" },
+			{ "video", "videos" },
+			{ "flamingo", "flamingos" },
+			{ "volcano", "volcanos" }
+		};
+
+
+		private static readonly Dictionary<string, string> _SPECIAL_F_EXCEPTIONS = new(StringComparer.OrdinalIgnoreCase)
+		{
+			{ "chief", "chiefs" },
+			{ "roof", "roofs" },
+			{ "safe", "safes" },
+			{ "cliff", "cliffs" },
+			{ "belief", "beliefs" },
+			{ "scarf", "scarfs" },
+			{ "wharf", "wharfs" },
+			{ "dwarf", "dwarfs" },
+			{ "hoof", "hoofs" }
+		};
+
+
+		private static readonly Dictionary<string, string> _LATIN_US_TO_I = new(StringComparer.OrdinalIgnoreCase)
+		{
+			{ "stimulus", "stimuli" },
+			{ "genius", "genii" },
+			{ "syllabus", "syllabi" },
+			{ "radius", "radii" },
+			{ "cactus", "cacti" },
+			{ "nucleus", "nuclei" }
+		};
+
+
+		private static readonly Dictionary<string, string> _LATIN_A_TO_AE = new(StringComparer.OrdinalIgnoreCase)
+		{
+			{ "larva", "larvae" },
+			{ "alumna", "alumnae" },
+			{ "formula", "formulae" }
+		};
+
+
+		private static readonly Dictionary<string, string> _LATIN_UM_TO_A = new(StringComparer.OrdinalIgnoreCase)
+		{
+			{ "datum", "data" },
+			{ "curriculum", "curricula" },
+			{ "bacterium", "bacteria" },
+			{ "symposium", "symposia" },
+			{ "memorandum", "memoranda" },
+			{ "medium", "media" }
+		};
+
+
+		private static readonly Dictionary<string, string> _LATIN_EXIX_TO_CES = new(StringComparer.OrdinalIgnoreCase)
+		{
+			{ "index", "indices" },
+			{ "appendix", "appendices" },
+			{ "codex", "codices" }
+		};
+
+
+		private static readonly Dictionary<string, string> _GREEK_IS_TO_ES = new(StringComparer.OrdinalIgnoreCase)
+		{
+			{ "thesis", "theses" },
+			{ "crisis", "crises" },
+			{ "analysis", "analyses" }
+		};
+
+
+		private static readonly Dictionary<string, string> _GREEK_ON_TO_A = new(StringComparer.OrdinalIgnoreCase)
+		{
+			{ "criterion", "criteria" },
+			{ "phenomenon", "phenomena" }
+		};
 
 	}
 

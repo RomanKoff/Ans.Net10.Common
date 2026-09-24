@@ -1,33 +1,89 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-19
+
+namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Определяет варианты стандартной ширины для контентных блоков и элементов интерфейса.
+	/// </summary>
 	public enum WidthsEnum
 	{
+		/// <summary>
+		/// Вся доступная ширина (100%).
+		/// </summary>
 		Full,
+
+		/// <summary>
+		/// Очень широкая область (40rem).
+		/// </summary>
 		ExtraLarge,
+
+		/// <summary>
+		/// Широкая область (30rem).
+		/// </summary>
 		Large,
+
+		/// <summary>
+		/// Средняя область (20rem).
+		/// </summary>
 		Medium,
+
+		/// <summary>
+		/// Узкая область (15rem).
+		/// </summary>
 		Small,
+
+		/// <summary>
+		/// Очень узкая область (10rem).
+		/// </summary>
 		ExtraSmall,
+
+		/// <summary>
+		/// Ширина не задается (свободное поведение).
+		/// </summary>
 		Nothing
 	}
 
 
 
+	/// <summary>
+	/// Компонент-обертка для создания HTML-контейнеров с фиксированной или адаптивной шириной.
+	/// </summary>
+	/// <param name="html">Внутреннее HTML-содержимое блока.</param>
+	/// <param name="width">Режим ширины из перечисления <see cref="WidthsEnum"/>.</param>
+	/// <param name="cssClass">CSS-класс, добавляемый к тегу контейнера.</param>
 	public class WidthWrapper(
-		string html,
+		string? html,
 		WidthsEnum width,
-		string cssClass)
+		string? cssClass)
 	{
 
 		/* readonly properties */
 
 
-		public string Html { get; } = html;
-		public WidthsEnum Width { get; } = width;
-		public string CssClass { get; } = cssClass;
+		/// <summary>
+		/// Возвращает внутреннее HTML-содержимое блока.
+		/// </summary>
+		public string Html { get; } = html ?? string.Empty;
 
-		public string AutoStyle
+
+		/// <summary>
+		/// Возвращает выбранный режим ширины контейнера.
+		/// </summary>
+		public WidthsEnum Width { get; } = width;
+
+
+		/// <summary>
+		/// Возвращает CSS-класс контейнера.
+		/// </summary>
+		public string CssClass { get; } = cssClass ?? string.Empty;
+
+
+		/// <summary>
+		/// Возвращает инлайновый инкапсулированный CSS-стиль ширины на основе выбранного режима. 
+		/// Если выбран режим <see cref="WidthsEnum.Nothing"/>, возвращает <see langword="null"/>.
+		/// </summary>
+		public string? AutoStyle
 			=> field ??= Width switch
 			{
 				WidthsEnum.Full => "width:100%",
@@ -36,6 +92,7 @@
 				WidthsEnum.Medium => "width:20rem",
 				WidthsEnum.Small => "width:15rem",
 				WidthsEnum.ExtraSmall => "width:10rem",
+				WidthsEnum.Nothing => null,
 				_ => "width:6rem"
 			};
 
@@ -43,9 +100,19 @@
 		/* functions */
 
 
+		/// <summary>
+		/// Формирует итоговую HTML-строку контейнера &lt;div&gt; с подстановкой класса и стилей.
+		/// </summary>
+		/// <returns>Строка валидного HTML-кода.</returns>
 		public override string ToString()
 		{
-			return $"<div class=\"{CssClass}\" style=\"{AutoStyle}\">{Html}</div>";
+			string styleAttribute1 = string.IsNullOrEmpty(AutoStyle)
+				? string.Empty
+				: $" style=\"{AutoStyle}\"";
+			string classAttribute1 = string.IsNullOrEmpty(CssClass)
+				? string.Empty
+				: $" class=\"{CssClass}\"";
+			return $"<div{classAttribute1}{styleAttribute1}>{Html}</div>";
 		}
 
 	}

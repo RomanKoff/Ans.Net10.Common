@@ -1,542 +1,98 @@
-﻿using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿// rev 2026-09-14
+
+using System.Runtime.CompilerServices;
 
 namespace Ans.Net10.Common
 {
 
-	public static partial class _e_String
+	public static partial class _e_string
 	{
 
-		public static string NullIfEmpty(
-			this string source)
-		{
-			return source is "" ? null : source;
-		}
-
-
+		/// <summary>
+		/// Разделяет строку на фиксированное количество элементов.
+		/// Недостающие элементы заполняются пустой строкой, лишние — отсекаются.
+		/// </summary>
+		/// <param name="instance">Исходная строка для разделения.</param>
+		/// <param name="separator">Строка-разделитель.</param>
+		/// <param name="count">Требуемое фиксированное количество элементов в возвращаемом массиве.</param>
+		/// <returns>Массив строк фиксированной длины.</returns>
 		public static string[] SplitFix(
-			this string source,
+			this string? instance,
 			string separator,
 			int count)
 		{
-			var a1 = source.Split(separator);
-			if (a1.Length >= count)
-				return [.. a1.Take(count)];
-			var a2 = new string[count];
-			foreach (var (item1, index1) in a1.WithIndex())
-				a2[index1] = item1;
-			return a2;
+			if (count <= 0)
+				return [];
+			if (string.IsNullOrEmpty(instance))
+			{
+				var result = new string[count];
+				Array.Fill(result, string.Empty);
+				return result;
+			}
+			var a0 = instance.Split(separator, count + 1, StringSplitOptions.TrimEntries);
+			var a1 = new string[count];
+			int copyCount = Math.Min(a0.Length, count);
+			Array.Copy(a0, a1, copyCount);
+			if (copyCount < count)
+				Array.Fill(a1, string.Empty, copyCount, count - copyCount);
+			return a1;
 		}
 
 
 		/// <summary>
-		/// Замена в строке по словарю
+		/// Удаляет повторяющуюся подстроку в НАЧАЛЕ строки или заменяет ее на альтернативную подстроку.
 		/// </summary>
-		public static string ReplaceFromDict(
-			this string source,
-			Dictionary<string, string> dict)
-		{
-			var sb1 = new StringBuilder(source);
-			foreach (var item1 in dict)
-				sb1.Replace(item1.Key, item1.Value);
-			return sb1.ToString();
-		}
-
-
-		public static string ReplaceIfEqual(
-			this string source,
-			string compared,
-			string newest)
-		{
-			return (source == compared)
-				? newest : source;
-		}
-
-
-		public static string ReplaceByChars(
-			this string source,
-			string mask,
-			string charsPattern)
-		{
-			var r1 = new Regex($"[{charsPattern}]");
-			return r1.Replace(source, mask);
-		}
-
-
-		public static string ReplaceByChars(
-			this string source,
-			string mask,
-			params char[] chars)
-		{
-			return source.ReplaceByChars(mask, string.Join("", chars));
-		}
-
-
-		/// <summary>
-		/// Замена хештегов в строке по словалю
-		/// </summary>
-		public static string ReplaceHashtagsFromDict(
-			this string source,
-			Dictionary<string, string> dictionary,
-			char marker = '#')
-		{
-			var sb1 = new StringBuilder();
-			for (int i1 = 0; i1 < source.Length; i1++)
-			{
-				var c1 = source[i1];
-				if (c1 != marker)
-				{
-					sb1.Append(c1);
-					continue;
-				}
-				int i2 = i1 + 1;
-				int l1 = source.Length - i2 + 1;
-				bool notFound1 = true;
-				foreach (var item1 in dictionary)
-					if (item1.Key.Length < l1)
-					{
-						bool isMatch1 = true;
-						for (int i3 = 0; i3 < item1.Key.Length; i3++)
-						{
-							if (item1.Key[i3] != source[i2 + i3])
-							{
-								isMatch1 = false;
-								break;
-							}
-						}
-						if (isMatch1)
-						{
-							notFound1 = false;
-							sb1.Append(item1.Value);
-							i1 += item1.Key.Length;
-							break;
-						}
-					}
-				if (notFound1)
-					sb1.Append(c1);
-			}
-			return sb1.ToString();
-		}
-
-
-		public static string ReplaceStart(
-			this string source,
-			string mask,
-			string replacement = null)
-		{
-			int sourceLen1 = source.Length;
-			int maskLen1 = mask.Length;
-			int curr1 = 0;
-			int end1 = curr1 + maskLen1;
-			var sb1 = new StringBuilder();
-			while (end1 <= sourceLen1 && source[curr1..end1].Equals(mask))
-			{
-				sb1.Append(replacement);
-				curr1 = end1;
-				end1 += maskLen1;
-			}
-			sb1.Append(source[curr1..]);
-			return sb1.ToString();
-		}
-
-
-		public static string ReplaceEnd(
-			this string source,
-			string mask,
-			string replacement = null)
-		{
-			int maskLen1 = mask.Length;
-			int curr1 = source.Length;
-			int begin1 = curr1 - maskLen1;
-			var sb1 = new StringBuilder();
-			while (begin1 >= 0 && source[begin1..curr1].Equals(mask))
-			{
-				sb1.Insert(0, replacement);
-				curr1 = begin1;
-				begin1 -= maskLen1;
-			}
-			sb1.Insert(0, source[0..curr1]);
-			return sb1.ToString();
-		}
-
-
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetTrimStart(
 			this string source,
 			string trimString,
-			string replacement = null)
+			string? replacement = null)
 		{
-			var s1 = SuppRegex.ParamEncode(trimString);
-			return Regex.Replace(
-				source, $"({s1}:?)+",
-				replacement ?? string.Empty);
+			return source.ReplaceStart(trimString, replacement);
 		}
 
 
+		/// <summary>
+		/// Удаляет повторяющуюся подстроку в КОНЦЕ строки или заменяет ее на альтернативную подстроку.
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetTrimEnd(
 			this string source,
 			string trimString,
-			string replacement = null)
+			string? replacement = null)
 		{
-			var s1 = SuppRegex.ParamEncode(trimString);
-			return Regex.Replace(
-				source, $"(?:{s1})+",
-				replacement ?? string.Empty);
-		}
-
-
-		public static string GetFirstUpper(
-			this string source,
-			bool forcedToLower)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int l1 = source.Length;
-			if (l1 == 1)
-				return source.ToUpper();
-			string s1 = (forcedToLower)
-				? source[1..].ToLower()
-				: source[1..];
-			return $"{char.ToUpper(source[0])}{s1}";
-		}
-
-
-		public static string GetFirstLower(
-			this string source,
-			bool forcedToUpper)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int l1 = source.Length;
-			if (l1 == 1)
-				return source.ToLower();
-			string s1 = (forcedToUpper)
-				? source[1..].ToUpper()
-				: source[1..];
-			return $"{char.ToLower(source[0])}{s1}";
-		}
-
-
-		public static string GetStartWithACapital(
-			this string source,
-			CultureInfo cultureInfo)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			return cultureInfo.TextInfo.ToTitleCase(source.ToLower());
-		}
-
-
-		public static string GetStartWithACapital(
-			this string source)
-		{
-			return source.GetStartWithACapital(
-				CultureInfo.CurrentCulture);
+			return source.ReplaceEnd(trimString, replacement);
 		}
 
 
 		/// <summary>
-		/// Возвращает левую часть сторки до символа 'find'
+		/// Возвращает из строки подстроку, находящуюся между подстроками <paramref name="before"/>
+		/// и <paramref name="after"/>.
 		/// </summary>
-		public static string GetLeft(
-			this string source,
-			char find)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int i1 = source.IndexOf(find);
-			if (i1 == -1)
-				return string.Empty;
-			return source[..i1];
-		}
-
-
-		/// <summary>
-		/// Возвращает левую часть сторки до подстроки 'find'
-		/// </summary>
-		public static string GetLeft(
-			this string source,
-			string find)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int i1 = source.IndexOf(find);
-			if (i1 == -1)
-				return string.Empty;
-			return source[..i1];
-		}
-
-
-		/// <summary>
-		/// Возвращает левую часть сторки из 'count' символов
-		/// </summary>
-		public static string GetLeft(
-			this string source,
-			int count)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int l1 = source.Length;
-			if (l1 <= count)
-				return source;
-			return source[..count];
-		}
-
-
-		/// <summary>
-		/// Возвращает правую часть сторки до первого вхождения 'find' слева
-		/// </summary>
-		public static string GetCropLeft(
-			this string source,
-			char find)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int i1 = source.LastIndexOf(find);
-			if (i1 == -1)
-				return string.Empty;
-			return source[..i1];
-		}
-
-
-		/// <summary>
-		/// Возвращает правую часть сторки до первого вхождения 'find' слева
-		/// </summary>
-		public static string GetCropLeft(
-			this string source,
-			string find)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int i1 = source.LastIndexOf(find);
-			if (i1 == -1)
-				return string.Empty;
-			return source[..i1];
-		}
-
-
-		/// <summary>
-		/// Возвращает правую часть сторки без 'count' символов слева
-		/// </summary>
-		public static string GetCropLeft(
-			this string source,
-			int count)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int l1 = source.Length;
-			if (l1 <= count)
-				return source;
-			return source[0..^count];
-		}
-
-
-		/// <summary>
-		/// Возвращает правую часть сторки до символа 'find'
-		/// </summary>
-		public static string GetRight(
-			this string source,
-			char find)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int i1 = source.LastIndexOf(find);
-			if (i1 == -1)
-				return string.Empty;
-			return source[(i1 + 1)..];
-		}
-
-
-		/// <summary>
-		/// Возвращает правую часть сторки до подстроки 'find'
-		/// </summary>
-		public static string GetRight(
-			this string source,
-			string find)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int i1 = source.LastIndexOf(find);
-			if (i1 == -1)
-				return string.Empty;
-			return source[(i1 + find.Length)..];
-		}
-
-
-		/// <summary>
-		/// Возвращает правую часть сторки из 'count' символов
-		/// </summary>
-		public static string GetRight(
-			this string source,
-			int count)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int l1 = source.Length;
-			if (l1 <= count)
-				return source;
-			return source[(l1 - count)..];
-		}
-
-
-		/// <summary>
-		/// Возвращает левую часть сторки до первого вхождения 'find' справа
-		/// </summary>
-		public static string GetCropRight(
-			this string source,
-			char find)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int i1 = source.IndexOf(find);
-			if (i1 == -1)
-				return string.Empty;
-			return source[i1..];
-		}
-
-
-		/// <summary>
-		/// Возвращает левую часть сторки до первого вхождения 'find' справа
-		/// </summary>
-		public static string GetCropRight(
-			this string source,
-			string find)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int i1 = source.IndexOf(find);
-			if (i1 == -1)
-				return string.Empty;
-			return source[i1..];
-		}
-
-
-		/// <summary>
-		/// Возвращает левую часть сторки без 'count' символов справа
-		/// </summary>
-		public static string GetCropRight(
-			this string source,
-			int count)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int l1 = source.Length;
-			if (l1 <= count)
-				return source;
-			return source[count..];
-		}
-
-
-		/// <summary>
-		/// Возвращает левую часть сторки до символа 'find'
-		/// </summary>
-		public static string GetBackTo(
-			this string source,
-			char find,
-			int skip = 0)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int step1 = 0;
-			int i1 = source.Length - 1;
-			int i2;
-			do
-			{
-				i2 = source.LastIndexOf(find, i1);
-				i1 = i2 - 1;
-				step1++;
-			} while (step1 <= skip && i2 != -1);
-			if (i2 == -1)
-				return string.Empty;
-			return source[..i2];
-		}
-
-
-		/// <summary>
-		/// Возвращает подстроку с подстановкой по обрезанным краям
-		/// </summary>
-		public static string GetCrop(
-			this string source,
-			int startIndex,
-			int length,
-			string beginCropMask = null,
-			string endCropMask = null)
-		{
-			if (string.IsNullOrEmpty(source))
-				return string.Empty;
-			int l1 = source.Length;
-			if (source == null || l1 == 0 || startIndex >= l1)
-				return string.Empty;
-			int i1 = l1 - startIndex;
-			bool f1 = startIndex > 0;
-			bool f2 = false;
-			if (i1 > length)
-			{
-				f2 = true;
-				i1 = length;
-			}
-			string s1 = source[startIndex..(startIndex + i1)];
-			return string.Concat(f1.Make(beginCropMask ??= "…"), s1, f2.Make(endCropMask ?? beginCropMask));
-		}
-
-
-		/// <summary>
-		/// Возвращает результат преобразования символов
-		/// с кодом меньше 33 в '_' и больше 126 в их кодовый эквивалент
-		/// </summary>
-		public static string GetSafeText(
-			this string source)
-		{
-			var sb1 = new StringBuilder(source);
-			foreach (char ch1 in source)
-			{
-				int code1 = ch1;
-				sb1.Append(
-					(code1 < 33) ? '_' : (code1 > 126) ? $"~{code1}~" : ch1);
-			}
-			return sb1.ToString();
-		}
-
-
-		/// <summary>
-		/// Возвращает из строки подстроку находящуюся между 'before' и 'after'
-		/// </summary>
+		/// <param name="instance">Исходная строка.</param>
+		/// <param name="before">Подстрока, идущая перед целевым фрагментом.</param>
+		/// <param name="after">Подстрока, идущая после целевого фрагмента.</param>
+		/// <param name="comparisonType">Правила сравнения строк.</param>
+		/// <returns>Найденная подстрока или пустая строка, если условия не выполнены.</returns>
 		public static string GetTag(
-			this string source,
+			this string? instance,
 			string before,
 			string after,
 			StringComparison comparisonType = StringComparison.InvariantCulture)
 		{
-			if (string.IsNullOrEmpty(source))
+			if (string.IsNullOrEmpty(instance))
 				return string.Empty;
-			int i1 = (string.IsNullOrEmpty(before))
-				? 0 : source.IndexOf(before, comparisonType);
+			int i1 = string.IsNullOrEmpty(before)
+				? 0 : instance.IndexOf(before, comparisonType);
 			if (i1 < 0)
 				return string.Empty;
-			i1 += before.Length;
-			int i2 = (string.IsNullOrEmpty(after))
-				? source.Length
-				: source.IndexOf(after, i1, comparisonType);
+			i1 += string.IsNullOrEmpty(before) ? 0 : before.Length;
+			int i2 = string.IsNullOrEmpty(after)
+				? instance.Length
+				: instance.IndexOf(after, i1, comparisonType);
 			if (i2 < 0)
 				return string.Empty;
-			return source[i1..i2];
-		}
-
-
-		/// <summary>
-		/// Производит рекурсивную замену 'oldValue' на 'newValue'
-		/// </summary>
-		public static string GetReplaceRecursively(
-			this string source,
-			string oldValue,
-			string newValue)
-		{
-			int i1 = source.IndexOf(oldValue, 0);
-			if (i1 < 0)
-				return source;
-			return source
-				.Replace(oldValue, newValue)
-				.GetReplaceRecursively(oldValue, newValue);
+			return instance[i1..i2];
 		}
 
 	}

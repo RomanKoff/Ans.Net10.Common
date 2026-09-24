@@ -1,27 +1,72 @@
-﻿using System.Text;
+﻿// rev 2026-09-21
+
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Определяет варианты биологического пола человека.
+	/// </summary>
+	public enum GenderEnum : int
+	{
+		/// <summary>
+		/// Не указан.
+		/// </summary>
+		NotSpecified = 0,
+
+		/// <summary>
+		/// Мужской.
+		/// </summary>
+		Male = 1,
+
+		/// <summary>
+		/// Женский.
+		/// </summary>
+		Female = 2
+	}
+
+
+
+	/// <summary>
+	/// Вспомогательный класс для работы
+	/// со значениями входящих переменных.
+	/// </summary>
 	public static class SuppValues
 	{
 
-		/* functions */
-
-
+		/// <summary>
+		/// Возвращает исходную строку, если она не пустая; в противном случае возвращает
+		/// первое непустое значение из списка альтернатив.
+		/// </summary>
+		/// <param name="current">Проверяемая строка.</param>
+		/// <param name="defaultValues">
+		/// Набор альтернативных значений по умолчанию (передается без аллокаций в куче через ReadOnlySpan).
+		/// </param>
+		/// <returns>Первая непустая строка или <see langword="null"/>, если все значения пусты.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string Default(
 			string current,
-			params string[] defaultValues)
+			params ReadOnlySpan<string?> defaultValues)
 		{
 			if (!string.IsNullOrEmpty(current))
 				return current;
 			foreach (var value1 in defaultValues)
 				if (!string.IsNullOrEmpty(value1))
 					return value1;
-			return null;
+			return null!;
 		}
 
 
+		/// <summary>
+		/// Возвращает значение по умолчанию, если текущее число совпадает со значением, интерпретируемым как null.
+		/// </summary>
+		/// <param name="current">Текущее числовое значение.</param>
+		/// <param name="defaultValue">Значение по умолчанию.</param>
+		/// <param name="nullValue">Значение, которое считается эквивалентом отсутствия данных (по умолчанию 0).</param>
+		/// <returns>Исходное число или альтернативное значение по умолчанию.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static int Default(
 			int current,
 			int defaultValue,
@@ -32,214 +77,204 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Проверяет, является ли хотя бы один из переданных объектов непустым
+		/// (не null и не пустой строкой) без лишних строковых аллокаций.
+		/// </summary>
+		/// <param name="values">Набор проверяемых объектов произвольного типа.</param>
+		/// <returns>
+		/// <see langword="true"/>, если найден хотя бы один заполненный объект; иначе — <see langword="false"/>.
+		/// </returns>
 		public static bool HasAny(
-			params object[] values)
+			params ReadOnlySpan<object?> values)
 		{
 			foreach (var value1 in values)
-				if (!string.IsNullOrEmpty(value1?.ToString()))
+			{
+				if (value1 == null)
+					continue;
+				if (value1 is string str1)
+				{
+					if (!string.IsNullOrEmpty(str1))
+						return true;
+				}
+				else if (value1 is IFormattable
+					|| value1.GetType().IsPrimitive)
 					return true;
+				else if (!string.IsNullOrEmpty(value1.ToString()))
+					return true;
+			}
 			return false;
 		}
 
 
+		/// <summary>
+		/// Проверяет, что все переданные объекты являются непустыми (не null и не содержат пустых строк).
+		/// </summary>
+		/// <param name="values">Набор проверяемых объектов произвольного типа.</param>
+		/// <returns>
+		/// <see langword="true"/>, если все объекты заполнены; иначе — <see langword="false"/>.
+		/// </returns>
 		public static bool HasAll(
-			params object[] values)
+			params ReadOnlySpan<object> values)
 		{
 			foreach (var value1 in values)
-				if (string.IsNullOrEmpty(value1?.ToString()))
+			{
+				if (value1 == null)
 					return false;
+				if (value1 is string str1)
+				{
+					if (string.IsNullOrEmpty(str1))
+						return false;
+				}
+				else if (value1 is IFormattable
+					|| value1.GetType().IsPrimitive)
+					continue;
+				else if (string.IsNullOrEmpty(value1.ToString()))
+					return false;
+			}
 			return true;
 		}
 
 
-		private static readonly char[] _famioSeps = [' ', '.', ','];
-
-
 		/// <summary>
-		/// Возвращает фамилию и инициалы из строки содержащей фамилию имя и отчество
-		/// (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
-		/// [Пушкин А.С., Салтыков-Щедрин М.Е., Эфендиев Э.И.]
+		/// Возвращает максимальное значение из двух.
+		/// Если второе значение не задано, возвращает первое.
 		/// </summary>
-		/// <param name="fullname">Исходная строка</param>
-		/// <param name="textCase">Операция преобразования регистра букв</param>
-		public static (string family, string initials) GetFamilyAndInitials(
-			string fullname,
-			LetterCasesEnum textCase = LetterCasesEnum.StartWithACapital)
+		/// <typeparam name="T">Тип структуры, поддерживающий операторы сравнения.</typeparam>
+		/// <param name="value1">Первое сравниваемое значение.</param>
+		/// <param name="value2">Второе сравниваемое значение (может быть <see langword="null"/>).</param>
+		/// <returns>
+		/// Наибольшее из двух значений, либо <paramref name="value1"/>,
+		/// если <paramref name="value2"/> равно <see langword="null"/>.
+		/// </returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static T MaxValue<T>(
+			T value1,
+			T? value2)
+			where T : struct, IComparable<T>
 		{
-			if (string.IsNullOrEmpty(fullname))
-				return (null, null);
-			var a1 = fullname.Split(_famioSeps,
-				StringSplitOptions.RemoveEmptyEntries);
-			var family1 = SuppString.GetModCase(a1[0], textCase);
-			var sb1 = new StringBuilder();
-			if (a1.Length > 1)
-				sb1.Append($"{a1[1].First()}.");
-			if (a1.Length > 2)
-				sb1.Append($"{a1[2].First()}.");
-			var initials1 = SuppString.GetModCase(sb1.ToString(), textCase);
-			return (family1, initials1);
+			if (!value2.HasValue)
+				return value1;
+			T v2 = value2.Value;
+			return value1.CompareTo(v2) > 0
+				? value1 : v2;
 		}
 
 
 		/// <summary>
-		/// Возвращает строку содержащую фамилию и инициалы из строки содержащей фамилию имя и отчество
-		/// (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
-		/// [Пушкин А.С., Салтыков-Щедрин М.Е., Эфендиев Э.И.]
+		/// Возвращает минимальное значение из двух.
+		/// Если второе значение не задано, возвращает первое.
 		/// </summary>
-		/// <param name="fullname">Фамилию имя и отчество</param>
-		/// <param name="textCase">Операция преобразования регистра букв</param>
-		public static string GetFamilyAndInitialsString(
-			string fullname,
-			LetterCasesEnum textCase = LetterCasesEnum.StartWithACapital)
+		/// <typeparam name="T">Тип структуры, поддерживающий операторы сравнения.</typeparam>
+		/// <param name="value1">Первое сравниваемое значение.</param>
+		/// <param name="value2">Второе сравниваемое значение (может быть <see langword="null"/>).</param>
+		/// <returns>
+		/// Наименьшее из двух значений, либо <paramref name="value1"/>,
+		/// если <paramref name="value2"/> равно <see langword="null"/>.
+		/// </returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static T MinValue<T>(
+			T value1,
+			T? value2)
+			where T : struct, IComparable<T>
 		{
-			var (family1, initials1) = GetFamilyAndInitials(fullname, textCase);
-			return $"{family1}{initials1.Make(" {0}")}";
+			if (!value2.HasValue)
+				return value1;
+			T v2 = value2.Value;
+			return value1.CompareTo(v2) < 0
+				? value1 : v2;
 		}
 
 
 		/// <summary>
-		/// Возвращает строку содержащую латинскую транслитерацию для использования в идентификаторе
-		/// ГОСТ Р 7.0.34-2014
-		/// (https://www.ifap.ru/library/gost/70342014.pdf)
-		/// (Пушкин Александр Сергеевич, Салтыков-Щедрин Михаил Евграфович, Эфендиев Эльчин Ильяс оглы)
-		/// [pushkin_as, saltikovtschedrin_me, efendiev_ei]
+		/// Возвращает максимальное числовое значение из двух.
+		/// Если второе число не задано, возвращает первое.
 		/// </summary>
-		public static string GetFamilyAndInitialsTranslit(
-			string family,
-			string initials)
+		/// <typeparam name="T">Тип числа, реализующий интерфейс <see cref="INumber{T}"/>.</typeparam>
+		/// <param name="value1">Первое сравниваемое число.</param>
+		/// <param name="value2">Второе сравниваемое число (может быть <see langword="null"/>).</param>
+		/// <returns>
+		/// Наибольшее из двух чисел, либо <paramref name="value1"/>,
+		/// если <paramref name="value2"/> равно <see langword="null"/>.
+		/// </returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static T MaxNum<T>(
+			T value1,
+			T? value2)
+			where T : struct, INumber<T>
 		{
-			var sb1 = new StringBuilder($"{family.Replace("-", "")}");
-			if (!string.IsNullOrEmpty(initials))
-				sb1.Append($"_{initials.Replace(".", "")}");
-			return SuppLangRu.GetTranslitRuToEn(sb1.ToString().ToLower());
+			return value2.HasValue
+				? T.Max(value1, value2.Value)
+				: value1;
 		}
 
 
 		/// <summary>
-		/// Возвращает пол по фамилии имени и отчеству
-		/// (Пушкин Александр Сергеевич, Эфендиев Эльчин Ильяс оглы)
-		/// [pushkin_as, saltikovtschedrin_me, efendiev_ei]
+		/// Возвращает минимальное числовое значение из двух.
+		/// Если второе число не задано, возвращает первое.
 		/// </summary>
-		public static GenderEnum GetGender(
-			string fullname)
+		/// <typeparam name="T">Тип числа, реализующий интерфейс <see cref="INumber{T}"/>.</typeparam>
+		/// <param name="value1">Первое сравниваемое число.</param>
+		/// <param name="value2">Второе сравниваемое число (может быть <see langword="null"/>).</param>
+		/// <returns>
+		/// Наименьшее из двух чисел, либо <paramref name="value1"/>,
+		/// если <paramref name="value2"/> равно <see langword="null"/>.
+		/// </returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static T MinNum<T>(
+			T value1,
+			T? value2)
+			where T : struct, INumber<T>
 		{
-			if (string.IsNullOrEmpty(fullname))
-				return GenderEnum.NotSpecified;
-			if (fullname.EndsWith("ич"))
-				return GenderEnum.Male;
-			if (fullname.EndsWith("на"))
-				return GenderEnum.Female;
-			if (fullname.EndsWith("глы"))
-				return GenderEnum.Male;
-			if (fullname.EndsWith("ызы"))
-				return GenderEnum.Female;
-			return GenderEnum.NotSpecified;
+			return value2.HasValue
+				? T.Min(value1, value2.Value)
+				: value1;
 		}
 
 
-		public static string FixTelephoneRuCityCode(
-			string phone)
-		{
-			if (string.IsNullOrEmpty(phone))
-				return null;
-			return phone[0] == '8'
-				? $"7{phone[1..]}" : phone;
-		}
-
-
-		public static string GetDocNumber(
-			string number)
-		{
-			var sb1 = new StringBuilder();
-			foreach (var ch1 in number)
-			{
-				var code1 = (int)ch1;
-				if (code1 > 47 && code1 < 58)
-					sb1.Append(ch1);
-				else
-					sb1.Append('-');
-			}
-			return sb1.ToString()
-				.GetReplaceRecursively("--", "-")
-				.Trim('-');
-		}
-
-
-		public static string GetTelephoneNumber(
-			string number)
-		{
-			if (string.IsNullOrEmpty(number))
-				return null;
-			int l1 = number.Length;
-			if (l1 > 11 || l1 < 5)
-				return number;
-			var stops1 = new int[] { l1 - 2, l1 - 4, l1 - 7, l1 - 10 };
-			var a1 = new char[16];
-			int p1 = 1;
-			a1[0] = number[0];
-			for (int i1 = 1; i1 < l1; i1++)
-			{
-				if (stops1.Contains(i1))
-				{
-					a1[p1] = '-';
-					p1++;
-				}
-				a1[p1] = number[i1];
-				p1++;
-			}
-			return $"+{new string(a1, 0, p1)}";
-		}
-
-
-		public static string GetSubstitutionAddress(
-			string address,
-			Dictionary<string, string> dict)
-		{
-			foreach (var item1 in dict)
-			{
-				var i1 = address.IndexOf($"{item1.Key}:");
-				if (i1 > -1)
-				{
-					var i2 = i1 + item1.Key.Length + 1;
-					var s1 = address[..i1] + item1.Value;
-					var s2 = address[i2..];
-					address = "0123456789".Contains(address[i2])
-						? $"{s1}, каб. {s2}"
-						: $"{s1}, {s2}";
-				}
-			}
-			return address;
-		}
-
-
-		public static string GetValueStringForWeb(
+		/// <summary>
+		/// Преобразует базовые типы данных (.NET структуры дат, времени и логики)
+		/// в их строковые веб-эквиваленты.
+		/// </summary>
+		/// <param name="value">Объект для сериализации.</param>
+		/// <returns>Строковое веб-представление объекта.</returns>
+		public static string GetStringForWeb(
 			object value)
 		{
 			if (value == null)
-				return null;
-			var type1 = value.GetType().ToString();
-			return type1 switch
+				return string.Empty;
+			return value switch
 			{
-				"System.DateTime"
-					=> ((DateTime)value).ToString("u"),
-				"System.DateOnly"
-					=> ((DateOnly)value).ToString("yyyy-MM-dd"),
-				"System.TimeOnly"
-					=> ((TimeOnly)value).ToString("HH\\:mm\\:ss.fff"),
-				"System.Boolean"
-					=> ((bool)value).Make("true", "false"),
-				_ => $"{value}",
+				DateTime dt1 => dt1.ToString("u"),
+				DateOnly do1 => do1.ToString("yyyy-MM-dd"),
+				TimeOnly to1 => to1.ToString("HH\\:mm\\:ss.fff"),
+				bool b1 => b1.Make("true", "false"),
+				_ => value.ToString() ?? string.Empty
 			};
 		}
 
 
+		/// <summary>
+		/// Извлекает из строки исключительно цифровые символы
+		/// на основе регулярного выражения фильтрации.
+		/// </summary>
+		/// <param name="number">Входящая алфавитно-цифровая строка.</param>
+		/// <returns>Строка, состоящая только из цифр.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetDigitalOnly(
 			string number)
 		{
+			if (string.IsNullOrEmpty(number))
+				return string.Empty;
 			return _Consts.G_REGEX_NOT_NUMBER().Replace(number, "");
 		}
 
 
+		/// <summary>
+		/// Форматирует вещественное число в локализованную денежную строку
+		/// с двумя знаками после запятой.
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetCurrencyLoc(
 			float amount)
 		{
@@ -247,6 +282,11 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Форматирует число двойной точности в локализованную денежную строку
+		/// с двумя знаками после запятой.
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetCurrencyLoc(
 			double amount)
 		{
@@ -254,21 +294,57 @@ namespace Ans.Net10.Common
 		}
 
 
-		public static string GetCurrencyBuh(
-			float amount)
+		/// <summary>
+		/// Форматирует высокоточное десятичное число в локализованную денежную строку
+		/// с двумя знаками после запятой.
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetCurrencyLoc(
+			decimal amount)
 		{
-			long h1 = (long)Math.Floor(amount);
-			long h2 = ((long)Math.Round(amount * 100)) % 100;
-			return string.Format("{0}={1:00}", h1, h2);
+			return string.Format("{0:N2}", amount);
 		}
 
 
+		/// <summary>
+		/// Форматирует вещественное число в бухгалтерский вид разделителя рублей
+		/// и копеек через знак равенства (Рубли=Копейки).
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetCurrencyBuh(
+			float amount)
+		{
+			long rub1 = (long)amount;
+			long kop1 = Math.Abs((long)Math.Round(amount * 100)) % 100;
+			return string.Format("{0}={1:00}", rub1, kop1);
+		}
+
+
+		/// <summary>
+		/// Форматирует число двойной точности в бухгалтерский вид разделителя рублей
+		/// и копеек через знак равенства (Рубли=Копейки).
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetCurrencyBuh(
 			double amount)
 		{
-			long h1 = (long)Math.Floor(amount);
-			long h2 = ((long)Math.Round(amount * 100)) % 100;
-			return string.Format("{0}={1:00}", h1, h2);
+			long rub1 = (long)amount;
+			long kop1 = Math.Abs((long)Math.Round(amount * 100)) % 100;
+			return string.Format("{0}={1:00}", rub1, kop1);
+		}
+
+
+		/// <summary>
+		/// Форматирует высокоточное десятичное число в бухгалтерский вид разделителя рублей
+		/// и копеек через знак равенства (Рубли=Копейки).
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetCurrencyBuh(
+			decimal amount)
+		{
+			long rub1 = (long)amount;
+			long kop1 = Math.Abs((long)Math.Round(amount * 100)) % 100;
+			return string.Format("{0}={1:00}", rub1, kop1);
 		}
 
 	}

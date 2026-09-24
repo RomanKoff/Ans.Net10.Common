@@ -1,264 +1,107 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-15
+
+using System.Runtime.CompilerServices;
+
+namespace Ans.Net10.Common
 {
 
-	public static class SuppDateTime
+	public enum TensesEnum
+	{
+		/// <summary>Прошло</summary>
+		Past,
+
+		/// <summary>Сейчас</summary>
+		Present,
+
+		/// <summary>Будет</summary>
+		Future
+	}
+
+
+
+	public static partial class SuppDateTime
 	{
 
-		/* functions */
+		public static readonly Dictionary<string, string> RTC3339FORMATS
+			= new(StringComparer.Ordinal) {
+				{ "date", "{0:yyyy-MM-dd}" },
+				{ "datetime", @"{0:yyyy-MM-ddTHH\:mm\:ss.fffK}" },
+				{ "datetime-local", @"{0:yyyy-MM-ddTHH\:mm\:ss.fff}" },
+				{ "time", @"{0:HH\:mm\:ss.fff}" },
+			};
+
+		public const string ANS_DATETIME_FORMAT = "yyyy-'0'MM-dd HH:mm:ss";
+		public const string ANS_DATE_FORMAT = "yyyy-'0'MM-dd";
+		public const string ANS_DATETIME_FILE_FORMAT = "yyyy-'0'MM-dd_HH-mm-ss";
 
 
 		/// <summary>
-		/// Возвращает диапазон дат (для блога)
-		/// - одна или равные даты
-		/// - разные года
-		/// - разные месяцы года
-		/// - разные дни месяца
+		/// Получает текущую системную дату и время.
 		/// </summary>
-		/// <param name="showCurrentYear">Отображать текущий год</param>
-		public static string GetSpan(
-			DateTime date1,
-			DateTime? date2,
-			bool showCurrentYear)
+		public static DateTime Current
 		{
-			// одна или равные даты
-			if (date2 == null || date1.Date.Equals(date2.Value.Date))
-				return (showCurrentYear)
-					? date1.ToString(Resources.Common.Format_Date_Full)
-					: date1.ToString(Resources.Common.Format_Date_DayAndMonth);
-			DateTime d2 = date2.Value;
-			if (date1 > d2)
-				(date1, d2) = (d2, date1);
-			if (date1.Year != d2.Year)
-			{
-				// разные года
-				return string.Format("{0} – {1}",
-					date1.ToString(Resources.Common.Format_Date_Full),
-					d2.ToString(Resources.Common.Format_Date_Full));
-			}
-			if (date1.Month != d2.Month)
-			{
-				// разные месяцы года
-				return string.Format("{0} – {1}",
-					date1.ToString(Resources.Common.Format_Date_DayAndMonth),
-					(showCurrentYear)
-						? d2.ToString(Resources.Common.Format_Date_Full)
-						: d2.ToString(Resources.Common.Format_Date_DayAndMonth));
-			}
-			// разные дни месяца
-			return string.Format("{0}–{1}",
-				date1.ToString(Resources.Common.Format_Date_Day),
-				(showCurrentYear)
-					? d2.ToString(Resources.Common.Format_Date_Full)
-					: d2.ToString(Resources.Common.Format_Date_DayAndMonth));
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => DateTime.Now;
 		}
 
 
 		/// <summary>
-		/// Возвращает диапазон дат (для блога)
+		/// Получает дату текущего дня без времени.
 		/// </summary>
-		/// <param name="showCurrentYear">Отображать текущий год</param>
-		public static string GetSpan(
-			DateOnly date1,
-			DateOnly? date2,
-			bool showCurrentYear)
+		public static DateTime Today
 		{
-			return GetSpan(
-				date1.GetDateTime(),
-				date2?.GetDateTime(),
-				showCurrentYear);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Current.Date;
 		}
 
 
 		/// <summary>
-		/// Возвращает диапазон дат (для блога)
+		/// Получает дату начала текущего календарного года.
 		/// </summary>
-		/// <param name="span">
-		/// Строка диапазона дат в формате:
-		/// "datetime1_datetime2"
-		/// </param>
-		/// <param name="showCurrentYear">Отображать текущий год</param>
-		public static string GetSpan(
-			string span,
-			bool showCurrentYear)
+		public static DateTime CurrentYearBegin
 		{
-			var a1 = span.SplitFix("|", 2);
-			var d1 = a1[0].ToDateTime();
-			if (d1 == null)
-				return null;
-			var d2 = a1[1].ToDateTime();
-			return GetSpan(d1.Value, d2, showCurrentYear);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => new(Current.Year, 1, 1);
 		}
 
 
 		/// <summary>
-		/// Возвращает коллекцию дней от start до end
+		/// Получает дату начала следующего календарного года.
 		/// </summary>
-		public static IEnumerable<DateTime> GetDays(
-			DateTime start,
-			DateTime end)
+		public static DateTime NextYearBegin
 		{
-			var a1 = Enumerable.Range(0, end.Date.Subtract(start.Date).Days + 1)
-				.Select(x => start.Date.AddDays(x));
-			return [.. a1];
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => CurrentYearBegin.AddYears(1);
 		}
 
 
 		/// <summary>
-		/// Возвращает коллекцию дней от start до end
+		/// Получает дату вчерашнего дня.
 		/// </summary>
-		public static IEnumerable<DateTime> GetDays(
-			DateOnly start,
-			DateOnly end)
+		public static DateTime Yesterday
 		{
-			return GetDays(
-				start.GetDateTime(),
-				end.GetDateTime());
-		}
-
-
-		public static DateTime Max(
-			DateTime value1,
-			DateTime? value2)
-		{
-			if (value2 == null)
-				return value1;
-			return (value1 > value2) ? value1 : value2.Value;
-		}
-
-
-		public static DateOnly Max(
-			DateOnly value1,
-			DateOnly? value2)
-		{
-			if (value2 == null)
-				return value1;
-			return (value1 > value2) ? value1 : value2.Value;
-		}
-
-
-		public static TimeOnly Max(
-			TimeOnly value1,
-			TimeOnly? value2)
-		{
-			if (value2 == null)
-				return value1;
-			return (value1 > value2) ? value1 : value2.Value;
-		}
-
-
-		public static DateTime Min(
-			DateTime value1,
-			DateTime? value2)
-		{
-			if (value2 == null)
-				return value1;
-			return (value1 < value2) ? value1 : value2.Value;
-		}
-
-
-		public static DateOnly Min(
-			DateOnly value1,
-			DateOnly? value2)
-		{
-			if (value2 == null)
-				return value1;
-			return (value1 < value2) ? value1 : value2.Value;
-		}
-
-
-		public static TimeOnly Min(
-			TimeOnly value1,
-			TimeOnly? value2)
-		{
-			if (value2 == null)
-				return value1;
-			return (value1 < value2) ? value1 : value2.Value;
-		}
-
-
-		public static DateTime GetDateTimeFromUnixTimeStamp(
-			double value)
-		{
-			// Unix timestamp is seconds past epoch
-			var date1 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-			date1 = date1.AddSeconds(value).ToLocalTime();
-			return date1;
-		}
-		
-		
-		public static DateTime? GetDateTimeFromUnixTimeStamp(
-			double? value)
-		{
-			// Unix timestamp is seconds past epoch
-			return value == null
-				? null
-				: GetDateTimeFromUnixTimeStamp(value.Value);
-		}
-
-
-		public static DateTime GetDateTimeFromJavaTimeStamp(
-			double value)
-		{
-			// Java timestamp is milliseconds past epoch
-			var date1 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-			date1 = date1.AddMilliseconds(value).ToLocalTime();
-			return date1;
-		}
-		
-		
-		public static DateTime? GetDateTimeFromJavaTimeStamp(
-			double? value)
-		{
-			// Java timestamp is milliseconds past epoch
-			return value == null
-				? null
-				: GetDateTimeFromJavaTimeStamp(value.Value);
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Today.AddDays(-1);
 		}
 
 
 		/// <summary>
-		/// Возвращает DateTime из короткой строки даты в формате
-		/// YYYY-MM-DD
+		/// Получает дату завтрашнего дня.
 		/// </summary>
-		public static DateTime? GetDateFromUniDate(
-			string value)
+		public static DateTime Tomorrow
 		{
-			if (value.Length != 10)
-				return null;
-			try
-			{
-				var year1 = value[..4].ToInt(0);
-				var month1 = value[5..7].ToInt(0);
-				var day1 = value[8..10].ToInt(0);
-				return new DateTime(year1, month1, day1);
-			}
-			catch (Exception)
-			{
-				return null;
-			}
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Today.AddDays(1);
 		}
 
 
 		/// <summary>
-		/// Возвращает DateTime из короткой строки даты в формате
-		/// YYYY-0MM-DD
+		/// Получает дату послезавтрашнего дня.
 		/// </summary>
-		public static DateTime? GetDateFromAnsDate(
-			string value)
+		public static DateTime TomorrowAfter
 		{
-			if (value.Length != 10)
-				return null;
-			try
-			{
-				var year1 = value[..4].ToInt(0);
-				var month1 = value[6..8].ToInt(0);
-				var day1 = value[9..11].ToInt(0);
-				return new DateTime(year1, month1, day1);
-			}
-			catch (Exception)
-			{
-				return null;
-			}
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Today.AddDays(2);
 		}
 
 	}

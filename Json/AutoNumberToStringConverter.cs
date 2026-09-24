@@ -1,16 +1,25 @@
-﻿using System.Text.Json;
+﻿// rev 2026-09-20
+
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Ans.Net10.Common.Json
 {
 
+	/// <summary>
+	/// Конвертер для автоматического преобразования числовых значений из JSON
+	/// в строковое представление при десериализации.
+	/// </summary>
 	public class AutoNumberToStringConverter
-		: JsonConverter<object>
+		: JsonConverter<string>
 	{
 
 		/* functions */
 
 
+		/// <inheritdoc />
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public override bool CanConvert(
 			Type typeToConvert)
 		{
@@ -18,31 +27,38 @@ namespace Ans.Net10.Common.Json
 		}
 
 
-		public override object Read(
+		/// <inheritdoc />
+		public override string? Read(
 			ref Utf8JsonReader reader,
 			Type typeToConvert,
 			JsonSerializerOptions options)
 		{
-			if (reader.TokenType == JsonTokenType.Number)
-				return reader.TryGetInt64(out long l1)
+			return reader.TokenType switch
+			{
+				JsonTokenType.String => reader.GetString(),
+				JsonTokenType.Number => reader.TryGetInt64(out long l1)
 					? l1.ToString()
-					: reader.GetDouble().ToString();
-			if (reader.TokenType == JsonTokenType.String)
-				return reader.GetString();
-			using var document1 = JsonDocument.ParseValue(ref reader);
-			return document1.RootElement.Clone().ToString();
+					: reader.GetDouble().ToString(),
+				JsonTokenType.True => "True",
+				JsonTokenType.False => "False",
+				JsonTokenType.Null => null,
+				_ => throw new JsonException(
+					$"[Ans.Net10.Common] Unsupported token for conversion to a string: {reader.TokenType}")
+			};
 		}
 
 
 		/* methods */
 
 
+		/// <inheritdoc />
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public override void Write(
 			Utf8JsonWriter writer,
-			object value,
+			string value,
 			JsonSerializerOptions options)
 		{
-			writer.WriteStringValue(value.ToString());
+			writer.WriteStringValue(value);
 		}
 
 	}

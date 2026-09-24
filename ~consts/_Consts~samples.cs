@@ -1,20 +1,51 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-16
+
+using System.Runtime.CompilerServices;
+
+namespace Ans.Net10.Common
 {
 
 	public static partial class _Consts
 	{
 
-		// Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+		/*
+		 * Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+		 * Console.InputEncoding = Encoding.UTF8;
+		 * Console.OutputEncoding = Encoding.UTF8;
+		 */
 
 
-		public static string GET_RANDOM_SAMPLE_RU()
-			=> SAMPLES_RU[SuppRandom.Next(0, SAMPLES_RU.Length - 1)];
+		/// <summary>
+		/// Возвращает случайную текстовую панграмму на русском языке.
+		/// </summary>
+		/// <returns>Строка, содержащая случайный полный семпл.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetRandomSampleRu()
+		{
+			return SAMPLES_RU[SuppRandom.GetInt(0, SAMPLES_RU.Length - 1)];
+		}
 
-		public static string GET_RANDOM_SAMPLE_SMALL_RU()
-			=> SAMPLES_SMALL_RU[SuppRandom.Next(0, SAMPLES_SMALL_RU.Length - 1)];
 
-		public static string GET_RANDOM_SAMPLE_SMALLER_RU()
-			=> SAMPLES_SMALLER_RU[SuppRandom.Next(0, SAMPLES_SMALLER_RU.Length - 1)];
+		/// <summary>
+		/// Возвращает случайную укороченную фразу на русском языке.
+		/// </summary>
+		/// <returns>Строка, содержащая случайный средний семпл.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetRandomSampleSmallRu()
+		{
+			return SAMPLES_SMALL_RU[SuppRandom.GetInt(0, SAMPLES_SMALL_RU.Length - 1)];
+		}
+
+
+		/// <summary>
+		/// Возвращает случайное короткое словосочетание на русском языке.
+		/// </summary>
+		/// <returns>Строка, содержащая случайный минимальный семпл.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetRandomSampleSmallerRu()
+		{
+			return SAMPLES_SMALLER_RU[SuppRandom.GetInt(0, SAMPLES_SMALLER_RU.Length - 1)];
+		}
 
 
 		public static readonly string[] SAMPLES_RU =

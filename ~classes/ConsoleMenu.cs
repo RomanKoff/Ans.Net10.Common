@@ -1,4 +1,8 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-16
+
+using System.Runtime.CompilerServices;
+
+namespace Ans.Net10.Common
 {
 
 	public class ConsoleMenuItem(
@@ -35,8 +39,8 @@
 		/* properties */
 
 
-		public string Title { get; set; }
-		public bool UseExit { get; set; } = false;
+		public string? Title { get; set; }
+		public bool IsExitRequested { get; set; } = false;
 
 
 		/* readonly properties */
@@ -48,6 +52,7 @@
 		/* methods */
 
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Add(
 			ConsoleMenuItem item)
 		{
@@ -55,6 +60,7 @@
 		}
 
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Add(
 			ConsoleKey key,
 			string title,
@@ -64,32 +70,38 @@
 		}
 
 
-		public void Release()
+		public void Run()
 		{
-			bool pressEscape = false;
-			do
+			IsExitRequested = false;
+			while (!IsExitRequested)
 			{
 				Console.WriteLine();
 				if (!string.IsNullOrEmpty(Title))
 					Console.WriteLine($"{Title}:");
 				foreach (var item1 in Items)
-					Console.WriteLine($"[{(char)item1.Key}] — {item1.Title}");
-				Console.WriteLine("---------------------------");
-				Console.WriteLine(Resources.Common.Text_PressEscToExit);
-				Console.WriteLine();
-				do
 				{
-					UseExit = false;
-					var key1 = SuppConsole.ReadKey();
-					foreach (var item1 in Items)
-						if (item1.Key == key1.Key)
-						{
-							UseExit = true;
-							item1.Action();
-						}
-					pressEscape = key1.Key == ConsoleKey.Escape;
-				} while (!UseExit && !pressEscape);
-			} while (!pressEscape);
+					string s1 = item1.Key switch
+					{
+						>= ConsoleKey.A and <= ConsoleKey.Z
+							=> item1.Key.ToString(),
+						>= ConsoleKey.D0 and <= ConsoleKey.D9
+							=> ((int)item1.Key - (int)ConsoleKey.D0).ToString(),
+						_ => ((char)item1.Key).ToString()
+					};
+					Console.WriteLine($"[{s1}] — {item1.Title}");
+				}
+				Console.WriteLine("---------------------------");
+				Console.Write("Введите требуемый пункт или нажмите Esc для выхода: ");
+				var key1 = Console.ReadKey(intercept: true);
+				Console.WriteLine();
+				if (key1.Key == ConsoleKey.Escape)
+				{
+					IsExitRequested = true;
+					break;
+				}
+				var match1 = Items.FirstOrDefault(i => i.Key == key1.Key);
+				match1?.Action();
+			}
 		}
 
 	}

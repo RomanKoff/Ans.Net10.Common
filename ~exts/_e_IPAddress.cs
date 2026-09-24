@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿// rev 2026-09-18
+
+using System.Buffers.Binary;
 using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace Ans.Net10.Common
 {
@@ -10,28 +13,42 @@ namespace Ans.Net10.Common
 		/* functions */
 
 
+		/// <summary>
+		/// Проверяет, входит ли указанный IP-адрес в заданную подсеть.
+		/// </summary>
+		/// <param name="address">Проверяемый IP-адрес.</param>
+		/// <param name="subnet">Целевая подсеть для проверки.</param>
+		/// <returns><see langword="true"/>, если адрес принадлежит подсети; иначе — <see langword="false"/>.</returns>
+		/// <exception cref="ArgumentException">Вызывается при несовпадении семейств адресов (IPv4/IPv6) у адреса и подсети.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsInSubnet(
 			this IPAddress address,
 			IPSubnet subnet)
 		{
 			if (subnet.MaskLength == 0)
 				return true;
-			var a1 = address.GetAddressBytes().Reverse().ToArray();
-			if (subnet.IsV6)
+			if (address.AddressFamily != subnet.Address.AddressFamily)
+				throw new ArgumentException(
+					Resources.Exceptions.IPSubnet_LengthAddressAndMaskNotMatch);
+			Span<byte> a1 = stackalloc byte[16];
+			address.TryWriteBytes(a1, out int _);
+			if (!subnet.IsV6)
 			{
-				var bits1 = new BitArray(a1);
-				var l1 = bits1.Length;
-				if (subnet.MaskV6.Length != bits1.Length)
-					throw new ArgumentException(
-						Resources.Exceptions.IPSubnet_LengthAddressAndMaskNotMatch);
-				for (var i2 = l1 - 1; i2 >= l1 - subnet.MaskLength; i2--)
-					if (bits1[i2] != subnet.MaskV6[i2])
-						return false;
-				return true;
+				uint ipInt1 = BinaryPrimitives.ReadUInt32BigEndian(a1[..4]);
+				return (ipInt1 & subnet.MaskV4Template) == subnet.MaskV4Result;
 			}
-			var bits2 = BitConverter.ToUInt32(a1, 0);
-			var result2 = bits2 & subnet.MaskV4Template;
-			return (subnet.MaskV4Result == result2);
+			int fullBytes1 = subnet.MaskLength / 8;
+			int remainingBits1 = subnet.MaskLength % 8;
+			for (int i1 = 0; i1 < fullBytes1; i1++)
+				if (a1[i1] != subnet.MaskV6Bytes[i1])
+					return false;
+			if (remainingBits1 > 0)
+			{
+				byte mask1 = (byte)(0xFF << (8 - remainingBits1));
+				if ((a1[fullBytes1] & mask1) != subnet.MaskV6Bytes[fullBytes1])
+					return false;
+			}
+			return true;
 		}
 
 	}

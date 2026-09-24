@@ -1,209 +1,173 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-16
+
+using System.Numerics;
+using System.Runtime.CompilerServices;
+
+namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Предоставляет обобщенные и оптимизированные математические функции общего назначения.
+	/// </summary>
 	public static class SuppMath
 	{
 
-		/* functions */
-
-
 		/// <summary>
-		/// Округление до ближайшего целого (.4,.5)
+		/// Удерживает значение в заданных пределах (аналог T.Clamp), используя операторы сравнения.
 		/// </summary>
-		public static int RoundToInt(
-			double value)
+		/// <typeparam name="T">Тип сравниваемых данных, поддерживающий операторы сравнения.</typeparam>
+		/// <param name="value">Проверяемое значение.</param>
+		/// <param name="minLimit">Минимально допустимая граница.</param>
+		/// <param name="maxLimit">Максимально допустимая граница.</param>
+		/// <returns>Ограниченное значение, не выходящее за рамки указанных лимитов.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static T GetRestrict<T>(
+			T value,
+			T minLimit,
+			T maxLimit)
+			where T : IComparisonOperators<T, T, bool>
 		{
-			return (int)Math.Round(
-				value, MidpointRounding.AwayFromZero);
+			if (value < minLimit)
+				return minLimit;
+			return value > maxLimit ? maxLimit : value;
 		}
 
 
 		/// <summary>
-		/// Округление до ближайшего целого (.4,.5)
+		/// Округляет число с плавающей запятой до ближайшего целого значения <see cref="int"/>.
 		/// </summary>
-		public static int RoundToInt(
-			decimal value)
+		/// <typeparam name="T">Тип числа, реализующий интерфейс <see cref="IFloatingPoint{T}"/>.</typeparam>
+		/// <param name="value">Исходное значение для округления.</param>
+		/// <returns>Округленное значение, приведенное к типу <see cref="int"/>.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int RoundToInt<T>(
+			T value)
+			where T : IFloatingPoint<T>
 		{
-			return (int)Math.Round(
-				value, MidpointRounding.AwayFromZero);
+			T rounded1 = T.Round(value, MidpointRounding.AwayFromZero);
+			return int.CreateChecked(rounded1);
 		}
 
 
 		/// <summary>
-		/// Округление до ближайшего целого (.4,.5)
+		/// Округляет число с плавающей запятой до ближайшего целого значения <see cref="uint"/>. 
+		/// Если значение отрицательное, возвращает 0.
 		/// </summary>
-		public static uint RoundToUInt(
-			double value)
+		/// <typeparam name="T">Тип числа, реализующий интерфейс <see cref="IFloatingPoint{T}"/>.</typeparam>
+		/// <param name="value">Исходное значение для округления.</param>
+		/// <returns>Округленное значение, приведенное к типу <see cref="uint"/>, либо 0.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static uint RoundToUInt<T>(
+			T value)
+			where T : IFloatingPoint<T>
 		{
-			return (uint)Math.Round(
-				value, MidpointRounding.AwayFromZero);
+			if (value < T.Zero)
+				return 0;
+			T rounded1 = T.Round(value, MidpointRounding.AwayFromZero);
+			return uint.CreateChecked(rounded1);
 		}
 
 
 		/// <summary>
-		/// Округление до ближайшего целого (.4,.5)
+		/// Пропорционально переносит (маппит) значение из одного числового диапазона в другой для типов с плавающей запятой.
 		/// </summary>
-		public static uint RoundToUInt(
-			decimal value)
+		/// <typeparam name="T">Тип числа, реализующий интерфейс <see cref="IFloatingPoint{T}"/>.</typeparam>
+		/// <param name="value">Исходное значение.</param>
+		/// <param name="fromMin">Нижняя граница исходного диапазона.</param>
+		/// <param name="fromMax">Верхняя граница исходного диапазона.</param>
+		/// <param name="toMin">Нижняя граница целевого диапазона.</param>
+		/// <param name="toMax">Верхняя граница целевого диапазона.</param>
+		/// <param name="useCrop">Если <see langword="true"/>, результат будет жестко ограничен рамками целевого диапазона.</param>
+		/// <returns>Преобразованное число в целевом диапазоне.</returns>
+		public static T Map<T>(
+			T value,
+			T fromMin,
+			T fromMax,
+			T toMin,
+			T toMax,
+			bool useCrop)
+			where T : IFloatingPoint<T>
 		{
-			return (uint)Math.Round(
-				value, MidpointRounding.AwayFromZero);
-		}
-
-
-		/// <summary>
-		/// Масштабирование по подобию
-		/// </summary>
-		public static double Map(
-			double value,
-			double fromMin,
-			double fromMax,
-			double toMin,
-			double toMax,
-			bool crop)
-		{
-			if (crop && value < fromMin)
+			if (fromMax == fromMin)
 				return toMin;
-			if (crop && value > fromMax)
-				return toMax;
-			double normal1 = (value - fromMin) / (fromMax - fromMin);
-			double abs1 = (toMax - toMin) * normal1;
-			return abs1 + toMin;
+			T normal1 = (value - fromMin) / (fromMax - fromMin);
+			T abs1 = (toMax - toMin) * normal1;
+			T result1 = abs1 + toMin;
+			if (useCrop)
+			{
+				T min1 = T.Min(toMin, toMax);
+				T max1 = T.Max(toMin, toMax);
+				return GetRestrict(result1, min1, max1);
+			}
+			return result1;
 		}
 
 
 		/// <summary>
-		/// Масштабирование по подобию
+		/// Пропорционально переносит (маппит) значение типа <see cref="int"/> из одного диапазона в другой с округлением результата.
 		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static int Map(
 			int value,
 			int fromMin,
 			int fromMax,
 			int toMin,
 			int toMax,
-			bool crop = true)
+			bool useCrop)
 		{
-			return RoundToInt(Map(
-				(double)value,
-				fromMin,
-				fromMax,
-				toMin,
-				toMax,
-				crop));
-		}
-
-
-		public static int GetNextDivisible(
-			int value,
-			int div = 8)
-		{
-			int v1 = value, t1;
-			if ((t1 = value % div) != 0)
-				v1 += (value > -1) ? (div - t1) : -t1;
-			return v1;
-		}
-
-
-		public static float GetNextDivisible(
-			float value,
-			int div = 8)
-		{
-			float v1 = value, t1;
-			if ((t1 = value % div) != 0)
-				v1 += (value > -1) ? (div - t1) : -t1;
-			return v1;
-		}
-
-
-		public static int GetRestrict(
-			int value,
-			int minLimit,
-			int maxLimit)
-		{
-			return (value < minLimit)
-				? minLimit
-				: (value > maxLimit)
-					? maxLimit
-					: value;
-		}
-
-
-		public static long GetRestrict(
-			long value,
-			long minLimit,
-			long maxLimit)
-		{
-			return (value < minLimit)
-				? minLimit
-				: (value > maxLimit)
-					? maxLimit
-					: value;
-		}
-
-
-		public static double GetRestrict(
-			double value,
-			double minLimit,
-			double maxLimit)
-		{
-			return (value < minLimit)
-				? minLimit
-				: (value > maxLimit)
-					? maxLimit
-					: value;
-		}
-
-
-		public static float GetRestrict(
-			float value,
-			float minLimit,
-			float maxLimit)
-		{
-			return (value < minLimit)
-				? minLimit
-				: (value > maxLimit)
-					? maxLimit
-					: value;
-		}
-
-
-		public static decimal GetRestrict(
-			decimal value,
-			decimal minLimit,
-			decimal maxLimit)
-		{
-			return (value < minLimit)
-				? minLimit
-				: (value > maxLimit)
-					? maxLimit
-					: value;
-		}
-
-
-		public static DateTime GetRestrict(
-			DateTime value,
-			DateTime minLimit,
-			DateTime maxLimit)
-		{
-			return (value < minLimit)
-				? minLimit
-				: (value > maxLimit)
-					? maxLimit
-					: value;
+			double value1 = Map((double)value, fromMin, fromMax, toMin, toMax, useCrop);
+			return RoundToInt(value1);
 		}
 
 
 		/// <summary>
-		/// Возвращает индекс ближайшей точки, после которой находится value
+		/// Возвращает ближайшее число, которое делится на заданный делитель без остатка в большую сторону (по модулю).
 		/// </summary>
-		public static int GetRangeIndex(
-			int value,
-			params int[] points)
+		/// <typeparam name="T">Тип числа, реализующий интерфейс <see cref="INumber{T}"/>.</typeparam>
+		/// <param name="value">Исходное число.</param>
+		/// <param name="div">Делитель.</param>
+		/// <returns>Ближайшее число, кратное <paramref name="div"/>.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static T GetNextDivisible<T>(
+			T value,
+			T div)
+			where T : INumber<T>
 		{
-			for (var i1 = 0; i1 < points.GetUpperBound(0); i1++)
-				if (value >= points[i1] && value < points[i1 + 1])
-					return i1;
-			return -1;
+			if (div == T.Zero)
+				return value;
+			T rem1 = value % div;
+			if (rem1 == T.Zero)
+				return value;
+			if (value < T.Zero)
+				return value - rem1;
+			return value + (div - rem1);
+		}
+
+
+		/// <summary>
+		/// Возвращает индекс ближайшей точки, после которой находится значение, используя оптимизированный бинарный поиск.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс <see cref="IComparable{T}"/>.</typeparam>
+		/// <param name="value">Проверяемое значение.</param>
+		/// <param name="points">Набор упорядоченных контрольных точек (границ диапазонов).</param>
+		/// <returns>
+		/// Индекс зоны (начиная с 0). Если значение находится до первой точки — возвращает -1. 
+		/// Если выходит за рамки последней точки — возвращает индекс последней зоны.
+		/// </returns>
+		public static int GetRangeIndex<T>(
+			T value,
+			params ReadOnlySpan<T> points)
+			where T : IComparable<T>
+		{
+			if (points.Length < 2 || value.CompareTo(points[0]) < 0)
+				return -1;
+			int index = points.BinarySearch(value);
+			if (index >= 0)
+				return index == points.Length - 1
+					? index - 1 : index;
+			int bitwiseComplement = ~index;
+			return bitwiseComplement >= points.Length
+				? points.Length - 2 : bitwiseComplement - 1;
 		}
 
 	}

@@ -1,63 +1,53 @@
-﻿namespace Ans.Net10.Common
+﻿// rev 2026-09-18
+
+namespace Ans.Net10.Common
 {
 
-	public class PaginationModel
+	/// <summary>
+	/// Неизменяемая структура-модель данных пагинации для передачи состояния на интерфейсный слой.
+	/// </summary>
+	public readonly record struct PaginationModel(
+		int CurrentPage,
+		int TotalItems,
+		int TotalPages,
+		int SkipItems,
+		int ItemsOnPage,
+		int StartPage,
+		int PreviousPage,
+		int NextPage,
+		int EndPage,
+		bool ActiveFirstPage,
+		bool ActiveLastPage,
+		bool HasItemsBefore,
+		bool HasItemsAfter,
+		bool NotValidIndex,
+		int Offset)
 	{
 
-		/* ctor */
-
-
-		public PaginationModel()
-		{
-		}
-
-
+		/// <summary>
+		/// Инициализирует модель пагинации на основе вычисленного состояния хелпера.
+		/// </summary>
+		/// <param name="source">Экземпляр хелпера пагинации.</param>
 		public PaginationModel(
 			PaginationHelper source)
-			: this()
+			: this(
+				source.CurrentPage,
+				source.TotalItems,
+				source.TotalPages,
+				source.SkipItems,
+				source.ItemsOnPage,
+				source.StartPage,
+				source.PreviousPage,
+				source.NextPage,
+				source.EndPage,
+				source.ActiveFirstPage,
+				source.ActiveLastPage,
+				source.HasItemsBefore,
+				source.HasItemsAfter,
+				source.NotValidIndex,
+				source.Offset)
 		{
-			CurrentPage = source.CurrentPage;
-			TotalItems = source.TotalItems;
-			TotalPages = source.TotalPages;
-			SkipItems = source.SkipItems;
-			ItemsOnPage = source.ItemsOnPage;
-
-			StartPage = source.StartPage;
-			PreviousPage = source.PreviousPage;
-			NextPage = source.NextPage;
-			EndPage = source.EndPage;
-
-			ActiveFirstPage = source.ActiveFirstPage;
-			ActiveLastPage = source.ActiveLastPage;
-			HasItemsBefore = source.HasItemsBefore;
-			HasItemsAfter = source.HasItemsAfter;
-
-			NotValidIndex = source.NotValidIndex;
-			Offset = source.Offset;
 		}
-
-
-		/* properties */
-
-
-		public int CurrentPage { get; }
-		public int TotalItems { get; }
-		public int TotalPages { get; }
-		public int SkipItems { get; }
-		public int ItemsOnPage { get; }
-
-		public int StartPage { get; }
-		public int PreviousPage { get; }
-		public int NextPage { get; }
-		public int EndPage { get; }
-
-		public bool ActiveFirstPage { get; }
-		public bool ActiveLastPage { get; }
-		public bool HasItemsBefore { get; }
-		public bool HasItemsAfter { get; }
-
-		public bool NotValidIndex { get; }
-		public int Offset { get; }
 
 	}
 

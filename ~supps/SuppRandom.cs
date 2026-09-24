@@ -1,59 +1,69 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿// rev 2026-09-11
+
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Вспомогательный класс для генерации
+	/// криптографически стойких случайных данных.
+	/// </summary>
 	public static class SuppRandom
 	{
 
-		/* functions */
-
-
-		public static int Next()
-		{
-			using var gen1 = RandomNumberGenerator.Create();
-			var a1 = new byte[4];
-			gen1.GetBytes(a1);
-			return Math.Abs(BitConverter.ToInt32(a1, 0));
-		}
-
-
-		public static int Next(
-			int max)
-		{
-			return Next() % (max + 1);
-		}
-
-
-		public static int Next(
+		/// <summary>
+		/// Возвращает криптографически стойкое случайное число в диапазоне от min до max включительно.
+		/// </summary>
+		/// <remarks>
+		/// Автоматически переворачивает диапазон, если <paramref name="min"/> &gt; <paramref name="max"/>.
+		/// </remarks>
+		/// <param name="min">Нижняя граница диапазона.</param>
+		/// <param name="max">Верхняя граница диапазона.</param>
+		/// <returns>Случайное целое число внутри заданного диапазона включительно.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int GetInt(
 			int min,
 			int max)
 		{
-			return Next(max - min) + min;
+			if (min > max)
+				(min, max) = (max, min);
+			if (max < int.MaxValue)
+				return RandomNumberGenerator.GetInt32(min, max + 1);
+			if (min > int.MinValue)
+				return RandomNumberGenerator.GetInt32(min - 1, int.MaxValue) + 1;
+			Span<byte> bytes = stackalloc byte[4];
+			RandomNumberGenerator.Fill(bytes);
+			return BitConverter.ToInt32(bytes);
 		}
 
 
-		public static string Generate(
+		/// <summary>
+		/// Генерирует случайную строку на основе маски символов и диапазона длин.
+		/// </summary>
+		/// <param name="mask">Строка-маска, содержащая набор доступных символов.</param>
+		/// <param name="minLength">Минимально возможная длина строки.</param>
+		/// <param name="maxLength">Максимально возможная длина строки.</param>
+		/// <returns>Случайная строка заданной длины, состоящая из символов маски.</returns>
+		/// <exception cref="ArgumentException">Выбрасывается, если маска пустая или равна <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentOutOfRangeException">Выбрасывается, если вычисленная минимальная длина меньше 0.</exception>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string GetString(
 			string mask,
 			int minLength,
 			int maxLength)
 		{
-			var a1 = mask.ToCharArray();
-			int l1 = (minLength == maxLength)
-				? minLength : Next(minLength, maxLength);
-			var sb1 = new StringBuilder(l1);
-			for (int i1 = 0; i1 < l1; i1++)
-				sb1.Append(a1[Next(a1.Length - 1)]);
-			return sb1.ToString();
-		}
-
-
-		public static string Generate(
-			string mask,
-			int length)
-		{
-			return Generate(mask, length, length);
+			ArgumentException.ThrowIfNullOrEmpty(
+				mask, nameof(mask));
+			if (minLength > maxLength)
+				(minLength, maxLength) = (maxLength, minLength);
+			ArgumentOutOfRangeException.ThrowIfLessThan(
+				minLength, 0, nameof(minLength));
+			int length1 = GetInt(minLength, maxLength);
+			return length1 == 0
+				? string.Empty
+				: RandomNumberGenerator.GetString(mask, length1);
 		}
 
 	}
