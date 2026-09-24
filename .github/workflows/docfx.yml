@@ -34,7 +34,7 @@ jobs:
     - name: Build DocFX Site
       # Переходим в подпапку и запускаем изолированную сборку сайта
       run: |
-        cd _Docs
+        cd _docs
         docfx metadata
         docfx build
       
