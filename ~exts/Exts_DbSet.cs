@@ -10,7 +10,7 @@ namespace Ans.Net10.Common
 	/// <summary>
 	/// Предоставляет методы расширения для работы с объектами <see cref="DbSet{TEntity}"/>.
 	/// </summary>
-	public static partial class _e_DbSet
+	public static partial class Exts_DbSet
 	{
 
 		/// <summary>

@@ -5,7 +5,7 @@ using System.Reflection;
 namespace Ans.Net10.Common
 {
 
-	public static partial class _e_Assembly
+	public static partial class Exts_Assembly
 	{
 
 		extension(Assembly? instance)

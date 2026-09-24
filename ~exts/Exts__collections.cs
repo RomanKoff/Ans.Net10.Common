@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 namespace Ans.Net10.Common
 {
 
-	public static partial class __e_collections
+	public static partial class Exts__collections
 	{
 
 		/// <summary>

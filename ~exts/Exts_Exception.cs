@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 namespace Ans.Net10.Common
 {
 
-	public static partial class _e_Exception
+	public static partial class Exts_Exception
 	{
 
 		/* functions */

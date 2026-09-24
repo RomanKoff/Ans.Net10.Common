@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 namespace Ans.Net10.Common
 {
 
-	public static partial class __e_reflection
+	public static partial class Exts__reflection
 	{
 
 		/* functions */

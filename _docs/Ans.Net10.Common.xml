@@ -3845,7 +3845,7 @@
             Инициализирует новый экземпляр класса <see cref="T:Ans.Net10.Common.WebApiHelper`1"/> с поддержкой кэширования и REST-операций.
             </summary>
             <param name="httpClient">Экземпляр HTTP-клиента (рекомендуется использовать фабричный HttpClient).</param>
-            <param name="baseUrl">Базовый URL-адрес宝 целевого API шлюза.</param>
+            <param name="baseUrl">Базовый URL-адрес целевого API шлюза.</param>
             <param name="cache">Интерфейс службы нативного кэширования в памяти.</param>
             <param name="jsonOptions">
             Опциональные параметры конфигурации сериализации JSON.
@@ -4802,43 +4802,43 @@
             </summary>
             <returns>Строка, содержащая случайный минимальный семпл.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Assembly.get_Name(System.Reflection.Assembly)">
-            <inheritdoc cref="P:Ans.Net10.Common._e_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Name"/>
+        <member name="M:Ans.Net10.Common.Exts_Assembly.get_Name(System.Reflection.Assembly)">
+            <inheritdoc cref="P:Ans.Net10.Common.Exts_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Name"/>
         </member>
-        <member name="M:Ans.Net10.Common._e_Assembly.get_Version(System.Reflection.Assembly)">
-            <inheritdoc cref="P:Ans.Net10.Common._e_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Version"/>
+        <member name="M:Ans.Net10.Common.Exts_Assembly.get_Version(System.Reflection.Assembly)">
+            <inheritdoc cref="P:Ans.Net10.Common.Exts_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Version"/>
         </member>
-        <member name="M:Ans.Net10.Common._e_Assembly.get_FullVersion(System.Reflection.Assembly)">
-            <inheritdoc cref="P:Ans.Net10.Common._e_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.FullVersion"/>
+        <member name="M:Ans.Net10.Common.Exts_Assembly.get_FullVersion(System.Reflection.Assembly)">
+            <inheritdoc cref="P:Ans.Net10.Common.Exts_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.FullVersion"/>
         </member>
-        <member name="M:Ans.Net10.Common._e_Assembly.get_Description(System.Reflection.Assembly)">
-            <inheritdoc cref="P:Ans.Net10.Common._e_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Description"/>
+        <member name="M:Ans.Net10.Common.Exts_Assembly.get_Description(System.Reflection.Assembly)">
+            <inheritdoc cref="P:Ans.Net10.Common.Exts_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Description"/>
         </member>
-        <member name="P:Ans.Net10.Common._e_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Name">
+        <member name="P:Ans.Net10.Common.Exts_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Name">
             <summary>
             Возвращает имя сборки.
             </summary>
             <value>Имя сборки. Если сборка не задана, возвращает "UnknownAssembly".</value>
         </member>
-        <member name="P:Ans.Net10.Common._e_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Version">
+        <member name="P:Ans.Net10.Common.Exts_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Version">
             <summary>
             Возвращает версию сборки без учета хеша коммита.
             </summary>
             <value>Строка версии. Если сборка не задана или версию определить не удалось, возвращает "1.0.0".</value>
         </member>
-        <member name="P:Ans.Net10.Common._e_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.FullVersion">
+        <member name="P:Ans.Net10.Common.Exts_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.FullVersion">
             <summary>
             Возвращает полную версию сборки, включая хеш коммита Git (при его наличии).
             </summary>
             <value>Полная строка информационной версии. Если сборка не задана, возвращает "1.0.0".</value>
         </member>
-        <member name="P:Ans.Net10.Common._e_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Description">
+        <member name="P:Ans.Net10.Common.Exts_Assembly.&lt;G&gt;$9EA1809196CC07098857FF38CF65557B.Description">
             <summary>
             Возвращает описание сборки из метаданных.
             </summary>
             <value>Текст описания сборки или <see langword="null"/>, если описание отсутствует.</value>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.AddClaim(System.Security.Claims.ClaimsIdentity,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.AddClaim(System.Security.Claims.ClaimsIdentity,System.String,System.String)">
             <summary>
             Безопасно добавляет утверждение в удостоверение,
             если такое утверждение (тип и значение) еще не существует.
@@ -4847,7 +4847,7 @@
             <param name="type">Тип добавляемого утверждения.</param>
             <param name="value">Значение добавляемого утверждения.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.AddClaims(System.Security.Claims.ClaimsPrincipal,System.String,System.String[])">
+        <member name="M:Ans.Net10.Common.Exts_Claims.AddClaims(System.Security.Claims.ClaimsPrincipal,System.String,System.String[])">
             <summary>
             Добавляет группу утверждений одного типа с множеством значений в виде новой идентичности субъекта.
             </summary>
@@ -4855,75 +4855,75 @@
             <param name="type">Тип добавляемых утверждений.</param>
             <param name="values">Список значений для утверждений.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.AddRolesClaims(System.Security.Claims.ClaimsPrincipal,System.String[])">
+        <member name="M:Ans.Net10.Common.Exts_Claims.AddRolesClaims(System.Security.Claims.ClaimsPrincipal,System.String[])">
             <summary>
             Добавляет субъекту группу утверждений о ролях (ClaimTypes.Role).
             </summary>
             <param name="principal">Субъект, которому добавляются роли.</param>
             <param name="roles">Массив наименований ролей.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.GetNameIdentifierFromClaim(System.Security.Claims.ClaimsPrincipal)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.GetNameIdentifierFromClaim(System.Security.Claims.ClaimsPrincipal)">
             <summary>
             Возвращает значение утверждения уникального идентификатора пользователя (ClaimTypes.NameIdentifier).
             </summary>
             <param name="principal">Субъект для анализа.</param>
             <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.GetIdUsernameFromClaim(System.Security.Claims.ClaimsPrincipal)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.GetIdUsernameFromClaim(System.Security.Claims.ClaimsPrincipal)">
             <summary>
             Возвращает значение утверждения логина пользователя (id_username).
             </summary>
             <param name="principal">Субъект для анализа.</param>
             <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.GetEmailFromClaim(System.Security.Claims.ClaimsPrincipal)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.GetEmailFromClaim(System.Security.Claims.ClaimsPrincipal)">
             <summary>
             Возвращает значение утверждения адреса электронной почты (ClaimTypes.Email).
             </summary>
             <param name="principal">Субъект для анализа.</param>
             <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.GetNameFromClaim(System.Security.Claims.ClaimsPrincipal)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.GetNameFromClaim(System.Security.Claims.ClaimsPrincipal)">
             <summary>
             Возвращает значение утверждения отображаемого имени пользователя (name).
             </summary>
             <param name="principal">Субъект для анализа.</param>
             <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.GetSurnameFromClaim(System.Security.Claims.ClaimsPrincipal)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.GetSurnameFromClaim(System.Security.Claims.ClaimsPrincipal)">
             <summary>
             Возвращает значение утверждения фамилии (ClaimTypes.Surname).
             </summary>
             <param name="principal">Субъект для анализа.</param>
             <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.GetGivenNameFromClaim(System.Security.Claims.ClaimsPrincipal)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.GetGivenNameFromClaim(System.Security.Claims.ClaimsPrincipal)">
             <summary>
             Возвращает значение утверждения личного имени (ClaimTypes.GivenName).
             </summary>
             <param name="principal">Субъект для анализа.</param>
             <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.GetGenderFromClaim(System.Security.Claims.ClaimsPrincipal)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.GetGenderFromClaim(System.Security.Claims.ClaimsPrincipal)">
             <summary>
             Возвращает значение утверждения пола пользователя (ClaimTypes.Gender).
             </summary>
             <param name="principal">Субъект для анализа.</param>
             <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Claims.GetRolesFromClaim(System.Security.Claims.ClaimsPrincipal)">
+        <member name="M:Ans.Net10.Common.Exts_Claims.GetRolesFromClaim(System.Security.Claims.ClaimsPrincipal)">
             <summary>
             Возвращает коллекцию значений всех утверждений о ролях (ClaimTypes.Role) текущего субъекта.
             </summary>
             <param name="principal">Субъект для анализа.</param>
             <returns>Последовательность строковых названий ролей. Если субъект не задан, возвращает пустую коллекцию.</returns>
         </member>
-        <member name="T:Ans.Net10.Common._e_DbSet">
+        <member name="T:Ans.Net10.Common.Exts_DbSet">
             <summary>
             Предоставляет методы расширения для работы с объектами <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/>.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_DbSet.GetDbContext``1(Microsoft.EntityFrameworkCore.DbSet{``0})">
+        <member name="M:Ans.Net10.Common.Exts_DbSet.GetDbContext``1(Microsoft.EntityFrameworkCore.DbSet{``0})">
             <summary>
             Возвращает экземпляр <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>, к которому
             принадлежит данный набор <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/>.
@@ -4935,14 +4935,14 @@
             если контекст не удалось извлечь из инфраструктуры.
             </returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Exception.GetExceptionMessage(System.Exception)">
+        <member name="M:Ans.Net10.Common.Exts_Exception.GetExceptionMessage(System.Exception)">
             <summary>
             Возвращает текстовое сообщение самого глубокого (первичного) исключения в цепочке InnerException.
             </summary>
             <param name="exception">Исходное исключение.</param>
             <returns>Текст сообщения об ошибке первичного исключения.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Exception.TestContains(System.Exception,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_Exception.TestContains(System.Exception,System.String)">
             <summary>
             Рекурсивно проверяет, содержит ли сообщение текущего
             или любого вложенного исключения указанную подстроку.
@@ -4952,7 +4952,7 @@
             <param name="value">Искомая подстрока.</param>
             <returns><see langword="true"/>, если подстрока найдена в цепочке исключений; иначе — <see langword="false"/>.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_Exception.TestStartsWith(System.Exception,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_Exception.TestStartsWith(System.Exception,System.String)">
             <summary>
             Рекурсивно проверяет, начинается ли сообщение текущего
             или любого вложенного исключения с указанной подстроки.
@@ -4962,13 +4962,13 @@
             <param name="value">Искомая подстрока начала сообщения.</param>
             <returns><see langword="true"/>, если сообщение в цепочке начинается с указанной подстроки; иначе — <see langword="false"/>.</returns>
         </member>
-        <member name="T:Ans.Net10.Common._e_HttpClient">
+        <member name="T:Ans.Net10.Common.Exts_HttpClient">
             <summary>
             Предоставляет высокопроизводительные методы расширения для <see cref="T:System.Net.Http.HttpClient"/>, 
             обеспечивающие асинхронное получение и автоматическую десериализацию данных в форматах JSON, XML и GRID.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_HttpClient.GetJsonResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Text.Json.JsonSerializerOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Text.Encoding,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
+        <member name="M:Ans.Net10.Common.Exts_HttpClient.GetJsonResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Text.Json.JsonSerializerOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Text.Encoding,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
             <summary>
             Выполняет асинхронный GET-запрос с поддержкой нативного кэширования <see cref="T:Microsoft.Extensions.Caching.Memory.IMemoryCache"/> 
             и десериализует JSON-ответ в объект типа T. Безопасно обрабатывает сетевые сбои и ошибки парсинга.
@@ -4999,7 +4999,7 @@
             из кэша или напрямую от API, либо метаданные возникшей ошибки.
             </returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_HttpClient.GetJsonGenResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Text.Json.Serialization.Metadata.JsonTypeInfo{``0},Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Text.Encoding,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
+        <member name="M:Ans.Net10.Common.Exts_HttpClient.GetJsonGenResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Text.Json.Serialization.Metadata.JsonTypeInfo{``0},Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Text.Encoding,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
             <summary>
             (Source Gen) Выполняет асинхронный GET-запрос с поддержкой нативного кэширования <see cref="T:Microsoft.Extensions.Caching.Memory.IMemoryCache"/> 
             и десериализует JSON-ответ без использования рантайм-рефлексии. Безопасно обрабатывает сетевые сбои.
@@ -5029,7 +5029,7 @@
             из кэша или напрямую от API, либо метаданные возникшей ошибки.
             </returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_HttpClient.GetXmlResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.String,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Text.Encoding,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
+        <member name="M:Ans.Net10.Common.Exts_HttpClient.GetXmlResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.String,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Text.Encoding,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
             <summary>
             Выполняет асинхронный GET-запрос с поддержкой нативного кэширования <see cref="T:Microsoft.Extensions.Caching.Memory.IMemoryCache"/> 
             и десериализует XML-ответ в объект типа T. Безопасно перехватывает ошибки валидации схемы.
@@ -5057,7 +5057,7 @@
             из кэша или напрямую от API, либо метаданные возникшей ошибки.
             </returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_HttpClient.GetGridResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Func{Ans.Net10.Common.GridRowParser,``0},System.IFormatProvider,System.Text.Encoding,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
+        <member name="M:Ans.Net10.Common.Exts_HttpClient.GetGridResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Func{Ans.Net10.Common.GridRowParser,``0},System.IFormatProvider,System.Text.Encoding,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
             <summary>
             Выполняет асинхронный GET-запрос с поддержкой нативного кэширования <see cref="T:Microsoft.Extensions.Caching.Memory.IMemoryCache"/>, 
             безопасно парсит построчные текстовые данные в формате GRID и проецирует их в материализованную коллекцию объектов.
@@ -5086,7 +5086,7 @@
             из кэша или напрямую от API, либо метаданные возникшей ошибки.
             </returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_HttpClient.InvalidateHttpCache(System.Net.Http.HttpClient,System.String,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+        <member name="M:Ans.Net10.Common.Exts_HttpClient.InvalidateHttpCache(System.Net.Http.HttpClient,System.String,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache)">
             <summary>
             Принудительно удаляет (инвалидирует) ранее сохраненную запись HTTP-ответа из нативного кэша по заданному формату и URI ресурса.
             </summary>
@@ -5095,7 +5095,7 @@
             <param name="requestUri">Относительный или абсолютный URI запроса, для которого требуется аннулировать кэш.</param>
             <param name="cache">Интерфейс службы нативного кэширования, из которой удаляется запись.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_IPAddress.IsInSubnet(System.Net.IPAddress,Ans.Net10.Common.IPSubnet)">
+        <member name="M:Ans.Net10.Common.Exts_IPAddress.IsInSubnet(System.Net.IPAddress,Ans.Net10.Common.IPSubnet)">
             <summary>
             Проверяет, входит ли указанный IP-адрес в заданную подсеть.
             </summary>
@@ -5104,7 +5104,7 @@
             <returns><see langword="true"/>, если адрес принадлежит подсети; иначе — <see langword="false"/>.</returns>
             <exception cref="T:System.ArgumentException">Вызывается при несовпадении семейств адресов (IPv4/IPv6) у адреса и подсети.</exception>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.SplitFix(System.String,System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.SplitFix(System.String,System.String,System.Int32)">
             <summary>
             Разделяет строку на фиксированное количество элементов.
             Недостающие элементы заполняются пустой строкой, лишние — отсекаются.
@@ -5114,17 +5114,17 @@
             <param name="count">Требуемое фиксированное количество элементов в возвращаемом массиве.</param>
             <returns>Массив строк фиксированной длины.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetTrimStart(System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetTrimStart(System.String,System.String,System.String)">
             <summary>
             Удаляет повторяющуюся подстроку в НАЧАЛЕ строки или заменяет ее на альтернативную подстроку.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetTrimEnd(System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetTrimEnd(System.String,System.String,System.String)">
             <summary>
             Удаляет повторяющуюся подстроку в КОНЦЕ строки или заменяет ее на альтернативную подстроку.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetTag(System.String,System.String,System.String,System.StringComparison)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetTag(System.String,System.String,System.String,System.StringComparison)">
             <summary>
             Возвращает из строки подстроку, находящуюся между подстроками <paramref name="before"/>
             и <paramref name="after"/>.
@@ -5135,7 +5135,7 @@
             <param name="comparisonType">Правила сравнения строк.</param>
             <returns>Найденная подстрока или пустая строка, если условия не выполнены.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetAsFirstUpper(System.String,System.Boolean,System.Globalization.CultureInfo)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetAsFirstUpper(System.String,System.Boolean,System.Globalization.CultureInfo)">
             <summary>
             Преобразует регистр строки, делая первую букву заглавной.
             </summary>
@@ -5144,7 +5144,7 @@
             <param name="cultureInfo">Информация о культуре. Если не указана, используется <see cref="P:System.Globalization.CultureInfo.InvariantCulture"/>.</param>
             <returns>Строка с первой заглавной буквой.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetAsFirstLower(System.String,System.Boolean,System.Globalization.CultureInfo)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetAsFirstLower(System.String,System.Boolean,System.Globalization.CultureInfo)">
             <summary>
             Преобразует регистр строки, делая первую букву строчной.
             </summary>
@@ -5153,7 +5153,7 @@
             <param name="cultureInfo">Информация о культуре. Если не указана, используется <see cref="P:System.Globalization.CultureInfo.InvariantCulture"/>.</param>
             <returns>Строка с первой строчной буквой.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetAsTitleCase(System.String,System.Boolean,System.Globalization.CultureInfo)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetAsTitleCase(System.String,System.Boolean,System.Globalization.CultureInfo)">
             <summary>
             Преобразует регистр строки, начиная каждое слово с заглавной буквы (Title Case).
             </summary>
@@ -5161,7 +5161,7 @@
             <param name="cultureInfo">Информация о культуре. Если не указана, используется <see cref="P:System.Globalization.CultureInfo.InvariantCulture"/>.</param>
             <returns>Строка в регистре Title Case.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetReplaceRecursively(System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetReplaceRecursively(System.String,System.String,System.String)">
             <summary>
             Производит замену <paramref name="oldValue"/> на <paramref name="newValue"/>
             рекурсивно до тех пор, пока заменяемая подстрока полностью не исчезнет из текста.
@@ -5171,7 +5171,7 @@
             <param name="newValue">Подстрока, на которую производится замена.</param>
             <returns>Результирующая строка после всех рекурсивных замен.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ReplaceFromDict(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+        <member name="M:Ans.Net10.Common.Exts_String.ReplaceFromDict(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
             Производит замену подстрок в строке на основе переданного словаря соответствий.
             </summary>
@@ -5179,7 +5179,7 @@
             <param name="dict">Словарь, где ключ — заменяемое значение, а значение — новая подстрока.</param>
             <returns>Строка с выполненными заменами.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ReplaceIfEqual(System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.ReplaceIfEqual(System.String,System.String,System.String)">
             <summary>
             Возвращает новую строку, если исходная строка полностью эквивалентна сравниваемой.
             В противном случае возвращает исходную строку.
@@ -5189,7 +5189,7 @@
             <param name="newest">Строка, на которую нужно заменить в случае равенства.</param>
             <returns>Результат условной замены строки.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ReplaceByChars(System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.ReplaceByChars(System.String,System.String,System.String)">
             <summary>
             Заменяет любые символы из указанного паттерна заданной строкой-маской.
             </summary>
@@ -5198,7 +5198,7 @@
             <param name="charsPattern">Строка, содержащая набор заменяемых символов.</param>
             <returns>Строка, в которой целевые символы заменены маской.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ReplaceByChars(System.String,System.String,System.Char[])">
+        <member name="M:Ans.Net10.Common.Exts_String.ReplaceByChars(System.String,System.String,System.Char[])">
             <summary>
             Заменяет любые символы из указанного массива заданной строкой-маской. Zero-allocation перегрузка.
             </summary>
@@ -5207,7 +5207,7 @@
             <param name="chars">Массив заменяемых символов.</param>
             <returns>Строка, в которой целевые символы заменены маской.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ReplaceHashtagsFromDict(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Char)">
+        <member name="M:Ans.Net10.Common.Exts_String.ReplaceHashtagsFromDict(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Char)">
             <summary>
             Производит замену хэштегов в строке на основе переданного словаря.
             </summary>
@@ -5216,7 +5216,7 @@
             <param name="marker">Символ-маркер хэштега (по умолчанию '#').</param>
             <returns>Строка с замененными хэштегами.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ReplaceStart(System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.ReplaceStart(System.String,System.String,System.String)">
             <summary>
             Находит непрерывно повторяющуюся строку-маску в НАЧАЛЕ строки и заменяет все ее вхождения указанной подстрокой.
             </summary>
@@ -5225,7 +5225,7 @@
             <param name="replacement">Строка, на которую заменяется каждое вхождение маски (опционально).</param>
             <returns>Результирующая строка с произведенной заменой в начале.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ReplaceEnd(System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.ReplaceEnd(System.String,System.String,System.String)">
             <summary>
             Находит непрерывно повторяющуюся строку-маску в КОНЦЕ строки и заменяет все ее вхождения указанной подстрокой.
             </summary>
@@ -5234,7 +5234,7 @@
             <param name="replacement">Строка, на которую заменяется каждое вхождение маски (опционально).</param>
             <returns>Результирующая строка с произведенной заменой в конце.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetLeftTo(System.String,System.Char,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetLeftTo(System.String,System.Char,System.Int32)">
             <summary>
             Возвращает левую часть строки до указанного символа, пропуская заданное количество вхождений с конца строки.
             </summary>
@@ -5243,7 +5243,7 @@
             <param name="skip">Количество вхождений символа с конца строки, которые нужно пропустить.</param>
             <returns>Левая часть строки до найденного символа или пустая строка.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetLeftTo(System.String,System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetLeftTo(System.String,System.String,System.Int32)">
             <summary>
             Возвращает левую часть строки до указанной подстроки, пропуская заданное количество вхождений с конца строки.
             </summary>
@@ -5252,57 +5252,57 @@
             <param name="skip">Количество вхождений подстроки с конца строки, которые нужно пропустить.</param>
             <returns>Левая часть строки до найденной подстроки или пустая строка.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetLeft(System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetLeft(System.String,System.Int32)">
             <summary>
             Возвращает левую часть строки из первых <paramref name="count"/> символов.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetRightFrom(System.String,System.Char,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetRightFrom(System.String,System.Char,System.Int32)">
             <summary>
             Возвращает правую часть строки после указанного символа, пропуская заданное количество вхождений с конца строки.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetRightFrom(System.String,System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetRightFrom(System.String,System.String,System.Int32)">
             <summary>
             Возвращает правую часть строки после указанной подстроки, пропуская заданное количество вхождений с конца строки.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetRight(System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetRight(System.String,System.Int32)">
             <summary>
             Возвращает правую часть строки из последних <paramref name="count"/> символов.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetRightSide(System.String,System.Char)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetRightSide(System.String,System.Char)">
             <summary>
             Возвращает правую часть строки, отрезая все, что находится до ПЕРВОГО вхождения символа слева (включая сам символ).
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetRightSide(System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetRightSide(System.String,System.String)">
             <summary>
             Возвращает правую часть строки, отрезая все, что находится до ПЕРВОГО вхождения подстроки слева (включая саму подстроку).
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetRightSide(System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetRightSide(System.String,System.Int32)">
             <summary>
             Возвращает правую часть строки БЕЗ указанного количества символов слева.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetLeftSide(System.String,System.Char)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetLeftSide(System.String,System.Char)">
             <summary>
             Возвращает левую часть строки, отрезая все, что находится после ПЕРВОГО вхождения символа справа (включая сам символ).
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetLeftSide(System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetLeftSide(System.String,System.String)">
             <summary>
             Возвращает левую часть строки, отрезая все, что находится после ПЕРВОГО вхождения подстроки справа (включая саму подстроку).
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetLeftSide(System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetLeftSide(System.String,System.Int32)">
             <summary>
             Возвращает левую часть строки БЕЗ указанного количества символов справа.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetCropToWords(System.String,System.Int32,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetCropToWords(System.String,System.Int32,System.String)">
             <summary>
             Сокращает текст до указанной максимальной длины, не разрывая слова на полуслове. 
             Если текст обрезан, в конец добавляется многоточие.
@@ -5311,7 +5311,7 @@
             <param name="maxLength">Максимально допустимая длина результирующей строки.</param>
             <param name="ellipsis">Строка-суффикс, добавляемая при обрезке.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetCrop(System.String,System.Int32,System.Int32,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetCrop(System.String,System.Int32,System.Int32,System.String,System.String)">
             <summary>
             Возвращает подстроку с подстановкой маски по обрезанным краям.
             </summary>
@@ -5321,7 +5321,7 @@
             <param name="beginCropMask">Маска, подставляемая в начало, если левый край был обрезан.</param>
             <param name="endCropMask">Маска, подставляемая в конец, если правый край был обрезан.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.GetSafeText(System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.GetSafeText(System.String)">
             <summary>
             Возвращает результат преобразования символов. 
             Заменяет символы с кодом меньше 33 на '_' и больше 126 на их кодовый эквивалент вида ~код~.
@@ -5329,7 +5329,7 @@
             <param name="instance">Исходная строка.</param>
             <returns>Безопасное текстовое представление.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.CollapseSpaces(System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.CollapseSpaces(System.String)">
             <summary>
             Схлопывает последовательности из нескольких горизонтальных пробелов в один обычный пробел.
             Переносы строк (\r, \n) и знаки табуляции (\t) при этом сохраняются.
@@ -5338,7 +5338,7 @@
             <param name="instance">Исходная строка.</param>
             <returns>Строка с нормализованными пробелами.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.HasForbiddenSymbols(System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.HasForbiddenSymbols(System.String)">
             <summary>
             Проверяет, содержит ли строка запрещенные спецсимволы.
             Разрешены: буквы, цифры, стандартные знаки препинания, базовые символы (№, §, %, @, ?, *, $, €, ₽), пробелы и переносы строк.
@@ -5346,28 +5346,28 @@
             <param name="instance">Исходная строка.</param>
             <returns><see langword="true"/>, если найден хотя бы один запрещенный спецсимвол; иначе <see langword="false"/>.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ClearForbiddenSymbols(System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.ClearForbiddenSymbols(System.String)">
             <summary>
             Удаляет из строки все запрещенные спецсимволы, оставляя только разрешенный «белый список».
             </summary>
             <param name="instance">Исходная строка.</param>
             <returns>Очищенная строка без запрещенных символов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.HasEmoji(System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.HasEmoji(System.String)">
             <summary>
             Проверяет, содержит ли строка эмодзи, смайлики, пиктограммы или их модификаторы.
             </summary>
             <param name="instance">Исходная строка.</param>
             <returns><see langword="true"/>, если найден хотя бы один символ эмодзи; иначе <see langword="false"/>.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_string.ClearEmoji(System.String)">
+        <member name="M:Ans.Net10.Common.Exts_String.ClearEmoji(System.String)">
             <summary>
             Полностью удаляет любые эмодзи, смайлики, пиктограммы и их модификаторы из текста.
             </summary>
             <param name="instance">Исходный текст.</param>
             <returns>Очищенная строка без эмодзи.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_StringBuilder.AppendIfPresent(System.Text.StringBuilder,System.String,System.Object[])">
+        <member name="M:Ans.Net10.Common.Exts_StringBuilder.AppendIfPresent(System.Text.StringBuilder,System.String,System.Object[])">
             <summary>
             Добавляет отформатированную строку в конец, если строка шаблона не является пустой.
             </summary>
@@ -5375,7 +5375,7 @@
             <param name="template">Шаблон строки форматирования.</param>
             <param name="templateArgs">Аргументы форматирования.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_StringBuilder.InsertFormat(System.Text.StringBuilder,System.Int32,System.String,System.Object[])">
+        <member name="M:Ans.Net10.Common.Exts_StringBuilder.InsertFormat(System.Text.StringBuilder,System.Int32,System.String,System.Object[])">
             <summary>
             Вставляет отформатированную строку по указанному индексу.
             </summary>
@@ -5384,7 +5384,7 @@
             <param name="template">Шаблон строки форматирования.</param>
             <param name="templateArgs">Аргументы форматирования.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_StringBuilder.InsertIfPresent(System.Text.StringBuilder,System.Int32,System.String,System.Object[])">
+        <member name="M:Ans.Net10.Common.Exts_StringBuilder.InsertIfPresent(System.Text.StringBuilder,System.Int32,System.String,System.Object[])">
             <summary>
             Вставляет отформатированную строку по указанному индексу, если строка шаблона не является пустой.
             </summary>
@@ -5393,7 +5393,7 @@
             <param name="template">Шаблон строки форматирования.</param>
             <param name="templateArgs">Аргументы форматирования.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_StringBuilder.InsertIf(System.Text.StringBuilder,System.Boolean,System.Int32,System.String,System.Object[])">
+        <member name="M:Ans.Net10.Common.Exts_StringBuilder.InsertIf(System.Text.StringBuilder,System.Boolean,System.Int32,System.String,System.Object[])">
             <summary>
             Вставляет отформатированную строку по указанному индексу, если логическое условие истинно.
             </summary>
@@ -5403,7 +5403,7 @@
             <param name="template">Шаблон строки форматирования.</param>
             <param name="templateArgs">Аргументы форматирования.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_StringBuilder.IndexOf(System.Text.StringBuilder,System.String,System.Int32,System.Boolean)">
+        <member name="M:Ans.Net10.Common.Exts_StringBuilder.IndexOf(System.Text.StringBuilder,System.String,System.Int32,System.Boolean)">
             <summary>
             Возвращает индекс первого вхождения указанной строки в StringBuilder начиная с заданной позиции.
             </summary>
@@ -5413,7 +5413,7 @@
             <param name="ignoreCase">Признак игнорирования регистра символов (используется инвариантная культура).</param>
             <returns>Индекс начала вхождения подстроки или -1, если подстрока не найдена.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_StringBuilder.ReplaceRecursively(System.Text.StringBuilder,System.String,System.String,System.Boolean)">
+        <member name="M:Ans.Net10.Common.Exts_StringBuilder.ReplaceRecursively(System.Text.StringBuilder,System.String,System.String,System.Boolean)">
             <summary>
             Производит рекурсивную замену всех вхождений указанной подстроки
             на новую строку (включая поддержку ignoreCase).
@@ -5424,20 +5424,20 @@
             <param name="ignoreCase">Признак игнорирования регистра символов при поиске заменяемой подстроки.</param>
             <returns>Текущий экземпляр StringBuilder с выполненными заменами.</returns>
         </member>
-        <member name="M:Ans.Net10.Common._e_StringBuilder.Trim(System.Text.StringBuilder)">
+        <member name="M:Ans.Net10.Common.Exts_StringBuilder.Trim(System.Text.StringBuilder)">
             <summary>
             Удаляет все начальные и конечные пробельные символы из текущего объекта StringBuilder.
             </summary>
             <param name="sb">Модифицируемый экземпляр StringBuilder.</param>
         </member>
-        <member name="M:Ans.Net10.Common._e_StringBuilder.Trim(System.Text.StringBuilder,System.ReadOnlySpan{System.Char})">
+        <member name="M:Ans.Net10.Common.Exts_StringBuilder.Trim(System.Text.StringBuilder,System.ReadOnlySpan{System.Char})">
             <summary>
             Удаляет все начальные и конечные вхождения указанных символов из текущего объекта StringBuilder.
             </summary>
             <param name="sb">Модифицируемый экземпляр StringBuilder.</param>
             <param name="chars">Набор символов, подлежащих удалению.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetArrayAdd``1(``0[],``0)">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetArrayAdd``1(``0[],``0)">
             <summary>
             Возвращает новый массив, добавляя указанный элемент в конец исходного массива.
             </summary>
@@ -5446,7 +5446,7 @@
             <param name="item">Элемент для добавления.</param>
             <returns>Новый массив, содержащий все исходные элементы и добавленный элемент.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetArrayInsert``1(``0[],System.Int32,``0)">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetArrayInsert``1(``0[],System.Int32,``0)">
             <summary>
             Возвращает новый массив, вставляя указанный элемент по заданному индексу.
             </summary>
@@ -5457,7 +5457,7 @@
             <returns>Новый массив с вставленным элементом.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Вызывается, если индекс находится вне диапазонов массива.</exception>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetArrayRemoveAt``1(``0[],System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetArrayRemoveAt``1(``0[],System.Int32)">
             <summary>
             Возвращает новый массив, удаляя элемент по указанному индексу.
             </summary>
@@ -5467,7 +5467,7 @@
             <returns>Новый массив без удаленного элемента.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Вызывается, если индекс находится вне границ массива.</exception>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetArrayRemove``1(``0[],``0)">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetArrayRemove``1(``0[],``0)">
             <summary>
             Возвращает новый массив, удаляя первое вхождение указанного элемента. 
             Если элемент не найден, возвращает исходный массив.
@@ -5477,7 +5477,7 @@
             <param name="item">Элемент, который необходимо удалить.</param>
             <returns>Новый массив без удаленного элемента или исходный массив.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetDiffLazy``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetDiffLazy``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
             Синхронизирует коллекции и возвращает изменения в виде именованного кортежа с ленивыми потоками.
             </summary>
@@ -5489,7 +5489,7 @@
             <param name="comparer">Компаратор для сравнения ключей. Если не задан, используется компаратор по умолчанию.</param>
             <returns>Именованный кортеж, содержащий ленивые потоки добавленных, удаленных и обновленных элементов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetDiffList``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetDiffList``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Collections.Generic.IEqualityComparer{``1})">
             <summary>
             Синхронизирует коллекции и возвращает изменения в виде именованного кортежа с материализованными списками.
             </summary>
@@ -5501,7 +5501,7 @@
             <param name="comparer">Компаратор для сравнения ключей. Если не задан, используется компаратор по умолчанию.</param>
             <returns>Именованный кортеж, содержащий списки добавленных, удаленных и обновленных элементов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetActual``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetActual``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Возвращает текущие версии элементов, которые все еще присутствуют в новой коллекции.
             </summary>
@@ -5512,7 +5512,7 @@
             <param name="keySelector">Функция извлечения ключа из элемента.</param>
             <returns>Ленивый поток актуальных текущих элементов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetUpdated``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetUpdated``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Возвращает обновленные версии элементов из новой коллекции, которые уже существовали в текущей коллекции.
             </summary>
@@ -5523,7 +5523,7 @@
             <param name="keySelector">Функция извлечения ключа из элемента.</param>
             <returns>Ленивый поток обновленных версий элементов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetAdded``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetAdded``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Возвращает элементы, которые появились в новой коллекции, но отсутствовали в текущей.
             </summary>
@@ -5534,7 +5534,7 @@
             <param name="keySelector">Функция извлечения ключа из элемента.</param>
             <returns>Ленивый поток добавленных элементов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetRemoved``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetRemoved``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>
             Возвращает элементы, которые присутствовали в текущей коллекции, но отсутствуют в новой.
             </summary>
@@ -5545,28 +5545,28 @@
             <param name="keySelector">Функция извлечения ключа из элемента.</param>
             <returns>Ленивый поток удаленных элементов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetItemsClean(System.Collections.Generic.IEnumerable{System.String})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetItemsClean(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Очищает элементы последовательности строк от начальных и конечных пробелов, удаляя пустые элементы и null.
             </summary>
             <param name="source">Исходная последовательность строк, допускающих значение null.</param>
             <returns>Ленивый поток очищенных непустых строк.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetItemsTrim(System.Collections.Generic.IEnumerable{System.String})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetItemsTrim(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Обрезает начальные и конечные пробелы у всех элементов последовательности строк.
             </summary>
             <param name="source">Исходная последовательность строк, допускающих значение null.</param>
             <returns>Последовательность строк с обрезанными пробелами, где null-элементы сохраняются.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetItemsWithoutEmpty(System.Collections.Generic.IEnumerable{System.String})">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetItemsWithoutEmpty(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Исключает из последовательности строк все пустые элементы и элементы со значением null.
             </summary>
             <param name="source">Исходная последовательность строк, допускающих значение null.</param>
             <returns>Последовательность строк, не содержащая null и пустые значения.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetItemsUnique(System.Collections.Generic.IEnumerable{System.String},System.StringComparer)">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetItemsUnique(System.Collections.Generic.IEnumerable{System.String},System.StringComparer)">
             <summary>
             Возвращает уникальные элементы последовательности строк с возможностью настройки сравнения.
             </summary>
@@ -5574,7 +5574,7 @@
             <param name="comparer">Компаратор для определения уникальности строк. Если не задан, используется Ordinal.</param>
             <returns>Последовательность уникальных строк.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_collections.GetItemsCleanUnique(System.Collections.Generic.IEnumerable{System.String},System.StringComparer)">
+        <member name="M:Ans.Net10.Common.Exts__collections.GetItemsCleanUnique(System.Collections.Generic.IEnumerable{System.String},System.StringComparer)">
             <summary>
             Очищает элементы от пробелов, удаляет пустые/null значения и возвращает только уникальные строки.
             </summary>
@@ -5582,92 +5582,92 @@
             <param name="comparer">Компаратор для определения уникальности строк. Если не задан, используется Ordinal.</param>
             <returns>Ленивый поток очищенных уникальных непустых строк.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetTimeOnly(System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetTimeOnly(System.DateTime)">
             <summary>
             Преобразует текущий объект <see cref="T:System.DateTime"/> в объект <see cref="T:System.TimeOnly"/>.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetDateOnly(System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetDateOnly(System.DateTime)">
             <summary>
             Преобразует текущий объект <see cref="T:System.DateTime"/> в объект <see cref="T:System.DateOnly"/>.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetTenses(System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetTenses(System.DateTime)">
             <summary>
             Определяет временную эпоху для указанной даты относительно сегодняшнего дня.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetStartOfWeek(System.DateTime,System.DayOfWeek)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetStartOfWeek(System.DateTime,System.DayOfWeek)">
             <summary>
             Возвращает дату начала недели для указанной даты с учетом заданного дня начала недели.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetStartOfMonth(System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetStartOfMonth(System.DateTime)">
             <summary>
             Возвращает дату начала календарного месяца (1-е число) для указанной даты.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.IsEqual(System.DateTime,System.DateTime,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.IsEqual(System.DateTime,System.DateTime,System.Int32)">
             <summary>
             Проверяет равенство двух дат с точностью до указанного количества минут.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.HasTimeOfDay(System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.HasTimeOfDay(System.DateTime)">
             <summary>
             Проверяет, содержит ли текущий объект <see cref="T:System.DateTime"/>
             время суток (отличное от полночи 00:00:00).
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetAnsDate(System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetAnsDate(System.DateTime)">
             <summary>
             Возвращает строковое представление даты
             в специализированном формате "yyyy-'0'MM-dd".
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetAnsDateTime(System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetAnsDateTime(System.DateTime)">
             <summary>
             Возвращает строковое представление даты и времени
             в специализированном формате "yyyy-'0'MM-dd HH:mm:ss".
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetAnsDateTimeForFile(System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetAnsDateTimeForFile(System.DateTime)">
             <summary>
             Возвращает строковое представление даты и времени,
             адаптированное для имени файла.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetDateTime(System.DateOnly)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetDateTime(System.DateOnly)">
             <summary>
             Преобразует объект <see cref="T:System.DateOnly"/> в тип <see cref="T:System.DateTime"/>
             на начало суток (00:00:00).
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetTenses(System.DateOnly)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetTenses(System.DateOnly)">
             <summary>
             Определяет временную эпоху для объекта <see cref="T:System.DateOnly"/>
             относительно сегодняшнего дня.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_datetime.GetTotalMinutes(System.TimeSpan)">
+        <member name="M:Ans.Net10.Common.Exts__datetime.GetTotalMinutes(System.TimeSpan)">
             <summary>
             Возвращает общее количество минут во временном интервале,
             округленное до целого числа.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_di.HasService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
+        <member name="M:Ans.Net10.Common.Exts__di.HasService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
             <summary>
             Проверяет, зарегистрирована ли служба указанного типа в коллекции дескрипторов служб.
             </summary>
             <param name="services">Коллекция дескрипторов служб.</param>
             <param name="type">Тип проверяемой службы.</param>
         </member>
-        <member name="T:Ans.Net10.Common.__e_dictionary">
+        <member name="T:Ans.Net10.Common.Exts__dictionary">
             <summary>
             Предоставляет методы расширения для безопасного
             и типизированного извлечения данных из словарей.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetSerialization(System.Collections.Generic.KeyValuePair{System.String,System.String},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetSerialization(System.Collections.Generic.KeyValuePair{System.String,System.String},System.String)">
             <summary>
             Преобразует пару "ключ-значение" в сериализованную строку. 
             Если задан шаблон, значение форматируется перед объединением.
@@ -5676,7 +5676,7 @@
             <param name="valueTemplate">Опциональный шаблон форматирования значения.</param>
             <returns>Строка, объединяющая ключ и обработанное значение.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetFromDict``1(System.Collections.Generic.IDictionary{System.String,``0},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetFromDict``1(System.Collections.Generic.IDictionary{System.String,``0},System.String)">
             <summary>
             Безопасно возвращает значение по строковому ключу из изменяемого словаря. 
             Если словарь равен <see langword="null"/> или ключ не найден, возвращает значение по умолчанию.
@@ -5686,7 +5686,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <returns>Найденное значение или <see langword="default"/>.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.Get``1(System.Collections.Generic.IReadOnlyDictionary{System.String,``0},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.Get``1(System.Collections.Generic.IReadOnlyDictionary{System.String,``0},System.String)">
             <summary>
             Безопасно возвращает значение по строковому ключу из словаря только для чтения. 
             Если словарь равен <see langword="null"/> или ключ не найден, возвращает значение по умолчанию.
@@ -5696,7 +5696,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <returns>Найденное значение или <see langword="default"/>.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetValueStringOrKey``1(System.Collections.Generic.IDictionary{System.String,``0},System.String,System.Func{``0,System.String},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetValueStringOrKey``1(System.Collections.Generic.IDictionary{System.String,``0},System.String,System.Func{``0,System.String},System.String)">
             <summary>
             Преобразует найденное по строковому ключу значение в строку с помощью переданной функции. 
             Если ключ не найден или результат преобразования равен <see langword="null"/>,
@@ -5709,7 +5709,7 @@
             <param name="keyTemplate">Опциональный шаблон строки для форматирования ключа, если значение не найдено.</param>
             <returns>Строковый результат преобразования значения или исходный/отформатированный ключ.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetStringFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetStringFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Возвращает строковое представление значения по строковому ключу из изменяемого словаря.
             </summary>
@@ -5717,7 +5717,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetStringFromDict(System.Collections.Generic.IDictionary{System.Int32,System.String},System.Int32,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetStringFromDict(System.Collections.Generic.IDictionary{System.Int32,System.String},System.Int32,System.String)">
             <summary>
             Возвращает строковое значение по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5725,7 +5725,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetString(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetString(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Возвращает строковое представление значения по строковому ключу из словаря только для чтения.
             </summary>
@@ -5733,7 +5733,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetString(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.String},System.Int32,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetString(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.String},System.Int32,System.String)">
             <summary>
             Возвращает строковое значение по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5741,7 +5741,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetIntFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetIntFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Int32)">
             <summary>
             Возвращает целочисленное значение по строковому ключу из изменяемого словаря.
             </summary>
@@ -5749,7 +5749,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetIntFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetIntFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Int32)">
             <summary>
             Возвращает целочисленное значение по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5757,7 +5757,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetInt(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetInt(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Int32)">
             <summary>
             Возвращает целочисленное значение по строковому ключу из словаря только для чтения.
             </summary>
@@ -5765,7 +5765,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetInt(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetInt(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Int32)">
             <summary>
             Возвращает целочисленное значение по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5773,7 +5773,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetLongFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Int64)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetLongFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Int64)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Int64"/> по строковому ключу из изменяемого словаря.
             </summary>
@@ -5781,7 +5781,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetLongFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Int64)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetLongFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Int64)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Int64"/> по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5789,7 +5789,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetLong(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Int64)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetLong(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Int64)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Int64"/> по строковому ключу из словаря только для чтения.
             </summary>
@@ -5797,7 +5797,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetLong(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Int64)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetLong(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Int64)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Int64"/> по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5805,7 +5805,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDoubleFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Double)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDoubleFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Double)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Double"/> по строковому ключу из изменяемого словаря.
             </summary>
@@ -5813,7 +5813,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDoubleFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Double)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDoubleFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Double)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Double"/> по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5821,7 +5821,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDouble(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Double)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDouble(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Double)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Double"/> по строковому ключу из словаря только для чтения.
             </summary>
@@ -5829,7 +5829,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDouble(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Double)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDouble(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Double)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Double"/> по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5837,7 +5837,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetFloatFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Single)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetFloatFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Single)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Single"/> по строковому ключу из изменяемого словаря.
             </summary>
@@ -5845,7 +5845,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetFloatFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Single)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetFloatFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Single)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Single"/> по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5853,7 +5853,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetFloat(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Single)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetFloat(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Single)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Single"/> по строковому ключу из словаря только для чтения.
             </summary>
@@ -5861,7 +5861,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetFloat(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Single)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetFloat(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Single)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Single"/> по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5869,7 +5869,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDecimalFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Decimal)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDecimalFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Decimal)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Decimal"/> по строковому ключу из изменяемого словаря.
             </summary>
@@ -5877,7 +5877,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDecimalFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Decimal)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDecimalFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Decimal)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Decimal"/> по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5885,7 +5885,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDecimal(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Decimal)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDecimal(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Decimal)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Decimal"/> по строковому ключу из словаря только для чтения.
             </summary>
@@ -5893,7 +5893,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDecimal(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Decimal)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDecimal(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Decimal)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.Decimal"/> по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5901,7 +5901,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDateTimeFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDateTimeFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.DateTime)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.DateTime"/> по строковому ключу из изменяемого словаря.
             </summary>
@@ -5909,7 +5909,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDateTimeFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDateTimeFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.DateTime)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.DateTime"/> по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5917,7 +5917,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDateTime(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDateTime(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.DateTime)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.DateTime"/> по строковому ключу из словаря только для чтения.
             </summary>
@@ -5925,7 +5925,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDateTime(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.DateTime)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDateTime(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.DateTime)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.DateTime"/> по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5933,7 +5933,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDateOnlyFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.DateOnly)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDateOnlyFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.DateOnly)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.DateOnly"/> по строковому ключу из изменяемого словаря.
             </summary>
@@ -5941,7 +5941,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDateOnlyFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.DateOnly)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDateOnlyFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.DateOnly)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.DateOnly"/> по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5949,7 +5949,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDateOnly(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.DateOnly)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDateOnly(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.DateOnly)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.DateOnly"/> по строковому ключу из словаря только для чтения.
             </summary>
@@ -5957,7 +5957,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetDateOnly(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.DateOnly)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetDateOnly(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.DateOnly)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.DateOnly"/> по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5965,7 +5965,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetTimeOnlyFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.TimeOnly)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetTimeOnlyFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.TimeOnly)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.TimeOnly"/> по строковому ключу из изменяемого словаря.
             </summary>
@@ -5973,7 +5973,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetTimeOnlyFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.TimeOnly)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetTimeOnlyFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.TimeOnly)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.TimeOnly"/> по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -5981,7 +5981,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetTimeOnly(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.TimeOnly)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetTimeOnly(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.TimeOnly)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.TimeOnly"/> по строковому ключу из словаря только для чтения.
             </summary>
@@ -5989,7 +5989,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetTimeOnly(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.TimeOnly)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetTimeOnly(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.TimeOnly)">
             <summary>
             Безопасно возвращает значение типа <see cref="T:System.TimeOnly"/> по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -5997,7 +5997,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetBoolFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Boolean)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetBoolFromDict(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Boolean)">
             <summary>
             Возвращает логическое значение по строковому ключу из изменяемого словаря.
             </summary>
@@ -6005,7 +6005,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetBoolFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Boolean)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetBoolFromDict(System.Collections.Generic.IDictionary{System.Int32,System.Object},System.Int32,System.Boolean)">
             <summary>
             Возвращает логическое значение по целочисленному ключу из изменяемого словаря.
             </summary>
@@ -6013,7 +6013,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetBool(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Boolean)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetBool(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.Boolean)">
             <summary>
             Возвращает логическое значение по строковому ключу из словаря только для чтения.
             </summary>
@@ -6021,7 +6021,7 @@
             <param name="key">Строковый ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_dictionary.GetBool(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Boolean)">
+        <member name="M:Ans.Net10.Common.Exts__dictionary.GetBool(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Object},System.Int32,System.Boolean)">
             <summary>
             Возвращает логическое значение по целочисленному ключу из словаря только для чтения.
             </summary>
@@ -6029,7 +6029,7 @@
             <param name="key">Целочисленный ключ для поиска.</param>
             <param name="defaultValue">Значение по умолчанию, если ключ не найден.</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_io.GetFilesByExtensions(System.IO.DirectoryInfo,System.ReadOnlySpan{System.String})">
+        <member name="M:Ans.Net10.Common.Exts__io.GetFilesByExtensions(System.IO.DirectoryInfo,System.ReadOnlySpan{System.String})">
             <summary>
             Возвращает перечисление файлов в каталоге, расширения которых
             соответствуют указанному списку (регистронезависимо).
@@ -6037,7 +6037,7 @@
             <param name="directoryInfo">Информационный объект каталога.</param>
             <param name="extensions">Список целевых расширений файлов (например, ".txt", ".jpg").</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_io.GetFilesByExtensions(System.IO.DirectoryInfo,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__io.GetFilesByExtensions(System.IO.DirectoryInfo,System.String)">
             <summary>
             Возвращает перечисление файлов в каталоге, расширения которых
             соответствуют строке со списком расширений, разделенных точкой с запятой или запятой.
@@ -6045,7 +6045,7 @@
             <param name="directoryInfo">Информационный объект каталога.</param>
             <param name="extensions">Строка с расширениями, разделенная символами ';' или ',' (например, ".txt;.jpg").</param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_linq.ApplyOrder``1(System.Linq.IQueryable{``0},Ans.Net10.Common.OrderBuilder)">
+        <member name="M:Ans.Net10.Common.Exts__linq.ApplyOrder``1(System.Linq.IQueryable{``0},Ans.Net10.Common.OrderBuilder)">
             <summary>
             Применяет цепочку сортировок к запросу на основе объекта конфигурации порядка сортировки.
             </summary>
@@ -6054,7 +6054,7 @@
             <param name="order">Объект построителя порядка сортировки.</param>
             <returns>Запрос с примененной последовательностью сортировок.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_linq.ApplyOrderBy``1(System.Linq.IQueryable{``0},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__linq.ApplyOrderBy``1(System.Linq.IQueryable{``0},System.String)">
             <summary>
             Применяет первичную сортировку по возрастанию для указанного строкового
             имени свойства (поддерживает вложенность через точку).
@@ -6067,7 +6067,7 @@
             Вызывается, если указанное свойство не найдено в типе сущности.
             </exception>
         </member>
-        <member name="M:Ans.Net10.Common.__e_linq.ApplyOrderByDescending``1(System.Linq.IQueryable{``0},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__linq.ApplyOrderByDescending``1(System.Linq.IQueryable{``0},System.String)">
             <summary>
             Применяет первичную сортировку по убыванию для указанного строкового
             имени свойства (поддерживает вложенность через точку).
@@ -6080,7 +6080,7 @@
             Вызывается, если указанное свойство не найдено в типе сущности.
             </exception>
         </member>
-        <member name="M:Ans.Net10.Common.__e_linq.ApplyThenBy``1(System.Linq.IOrderedQueryable{``0},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__linq.ApplyThenBy``1(System.Linq.IOrderedQueryable{``0},System.String)">
             <summary>
             Применяет последующую сортировку по возрастанию для указанного строкового
             имени свойства (поддерживает вложенность через точку).
@@ -6093,7 +6093,7 @@
             Вызывается, если указанное свойство не найдено в типе сущности.
             </exception>
         </member>
-        <member name="M:Ans.Net10.Common.__e_linq.ApplyThenByDescending``1(System.Linq.IOrderedQueryable{``0},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__linq.ApplyThenByDescending``1(System.Linq.IOrderedQueryable{``0},System.String)">
             <summary>
             Применяет последующую сортировку по убыванию для указанного строкового
             имени свойства (поддерживает вложенность через точку).
@@ -6106,7 +6106,7 @@
             Вызывается, если указанное свойство не найдено в типе сущности.
             </exception>
         </member>
-        <member name="M:Ans.Net10.Common.__e_linq.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+        <member name="M:Ans.Net10.Common.Exts__linq.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
             Объединяет два выражения условий логическим оператором ИЛИ (OrElse).
             </summary>
@@ -6115,7 +6115,7 @@
             <param name="expr2">Второе выражение-предикат.</param>
             <returns>Новое комбинированное дерево выражений.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_linq.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+        <member name="M:Ans.Net10.Common.Exts__linq.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
             Объединяет два выражения условий логическим оператором И (AndAlso).
             </summary>
@@ -6124,50 +6124,50 @@
             <param name="expr2">Второе выражение-предикат.</param>
             <returns>Новое комбинированное дерево выражений.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make(System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make(System.String,System.String)">
             <summary>
             Форматирует строку по шаблону. Возвращает пустую строку, если значение пустое.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make(System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make(System.String,System.String,System.String)">
             <summary>
             Форматирует строку по шаблону. Возвращает пустую строку, если значение совпадает с <paramref name="nullValue"/>.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.MakeMore(System.String,System.String,System.Object[])">
+        <member name="M:Ans.Net10.Common.Exts__make.MakeMore(System.String,System.String,System.Object[])">
             <summary>
             Форматирует строку по шаблону с поддержкой дополнительных аргументов.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make``1(``0,System.String,System.String,``0,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make``1(``0,System.String,System.String,``0,System.IFormatProvider)">
             <summary>
             Форматирует структуру с шаблоном, возвращая <see cref="F:System.String.Empty"/>,
             если значение совпадает с <paramref name="nullValue"/>.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make``1(``0,System.String,System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make``1(``0,System.String,System.String,System.IFormatProvider)">
             <summary>
             Форматирует структуру с автоматическим определением дефолтных пустых значений (MinValue для дат, 0 для чисел).
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make``1(System.Nullable{``0},System.String,System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make``1(System.Nullable{``0},System.String,System.String,System.IFormatProvider)">
             <summary>
             Форматирует nullable-структуру. Если значения нет, сразу возвращает <see cref="F:System.String.Empty"/>.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make``1(``0,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make``1(``0,System.String)">
             <summary>
             Форматирует значение перечисления по шаблону. Если задан атрибут [Description],
             берет его текст, иначе — имя элемента.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make``1(``0,System.String,``0)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make``1(``0,System.String,``0)">
             <summary>
             Форматирует значение перечисления по шаблону. Если значение совпадает с <paramref name="nullValue"/>,
             возвращает <see cref="F:System.String.Empty"/>.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make(System.Boolean,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make(System.Boolean,System.String,System.String)">
             <summary>
             Возвращает <paramref name="trueText"/>, если логическое значение истинно,
             иначе возвращает <paramref name="falseText"/> или пустую строку.
@@ -6176,44 +6176,44 @@
             <para><i>Допускает null. Значение по умолчанию:</i> <see langword="null"/>.</para>
             </param>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.MakeMore(System.Boolean,System.String,System.Object[])">
+        <member name="M:Ans.Net10.Common.Exts__make.MakeMore(System.Boolean,System.String,System.Object[])">
             <summary>
             Форматирует строку по шаблону, если логическое значение истинно.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.MakeRepeats(System.String,System.Int32,System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.MakeRepeats(System.String,System.Int32,System.String,System.String,System.String)">
             <summary>
             Повторяет строку заданное количество раз, форматируя элементы и объединяя их через разделитель.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.MakeFromCollection(System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.MakeFromCollection(System.Collections.Generic.IEnumerable{System.String},System.String,System.String,System.String)">
             <summary>
             Собирает строку из коллекции строк, пропуская пустые элементы, форматируя их и объединяя через разделитель.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.MakeFromCollection``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.String},System.String,System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.MakeFromCollection``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.String},System.String,System.String,System.String)">
             <summary>
             Собирает строку из коллекции любых объектов, извлекая текстовое значение с помощью экстрактора.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.MakeOverDict``1(System.String,System.Collections.Generic.IDictionary{System.String,``0},System.Func{``0,System.String},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.MakeOverDict``1(System.String,System.Collections.Generic.IDictionary{System.String,``0},System.Func{``0,System.String},System.String)">
             <summary>
             Находит значение по ключу в словаре, преобразует его через функцию-экстрактор
             и форматирует по шаблону. Если ключ не найден, форматирует сам ключ.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.MakeOverDict(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.MakeOverDict(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
             <summary>
             Находит строковое значение по ключу в словаре и форматирует его по шаблону.
             Если ключ не найден, форматирует сам ключ.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_make.Make_UrlWrapper(System.String,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__make.Make_UrlWrapper(System.String,System.String)">
             <summary>
             Форматирует URL по шаблону. Автоматически добавляет префикс 'https://', если он отсутствует.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.ToDynamic(System.Object)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.ToDynamic(System.Object)">
             <summary>
             Преобразует свойства объекта в динамический объект <see cref="T:System.Dynamic.ExpandoObject"/>
             на основе дескрипторов типов.
@@ -6221,7 +6221,7 @@
             <param name="value">Исходный объект.</param>
             <returns>Динамическое представление объекта.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetAttribute``1(System.Type)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetAttribute``1(System.Type)">
             <summary>
             Возвращает кастомный атрибут указанного типа, примененный к типу данных.
             </summary>
@@ -6229,7 +6229,7 @@
             <param name="type">Исследуемый тип данных.</param>
             <returns>Экземпляр атрибута или <see langword="null"/>, если атрибут не найден.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetValue(System.Reflection.MemberInfo,System.Object)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetValue(System.Reflection.MemberInfo,System.Object)">
             <summary>
             Универсально извлекает значение поля или свойства объекта через метаданные члена типа.
             </summary>
@@ -6238,7 +6238,7 @@
             <returns>Значение члена типа.</returns>
             <exception cref="T:System.NotImplementedException">Вызывается, если член типа не является полем или свойством.</exception>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetCSharpTypeName(System.Type,System.Boolean)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetCSharpTypeName(System.Type,System.Boolean)">
             <summary>
             Возвращает удобочитаемое имя типа в синтаксисе C# (включая массивы, Nullable и Generics).
             </summary>
@@ -6246,7 +6246,7 @@
             <param name="IsDropNullable">Признак принудительного удаления знака '?' для Nullable типов.</param>
             <returns>Строковое представление имени типа на C#.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetCSharpTypeNames(System.Type[],System.Boolean)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetCSharpTypeNames(System.Type[],System.Boolean)">
             <summary>
             Возвращает коллекцию удобочитаемых имён C# для массива типов.
             </summary>
@@ -6254,28 +6254,28 @@
             <param name="IsDropNullable">Признак принудительного удаления знака '?' для Nullable типов.</param>
             <returns>Перечисление строковых имён типов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetCSharpGenerics(System.Reflection.MethodBase)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetCSharpGenerics(System.Reflection.MethodBase)">
             <summary>
             Возвращает строковую запись обобщенных параметров (Generics) метода в стиле C#.
             </summary>
             <param name="info">Метаданные метода.</param>
             <returns>Строка вида &lt;T1, T2&gt; или <see langword="null"/>, если метод не является обобщенным.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetCSharpParams(System.Reflection.MethodBase)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetCSharpParams(System.Reflection.MethodBase)">
             <summary>
             Возвращает коллекцию строковых представлений параметров метода в формате объявления C# (включая params и дефолтные значения).
             </summary>
             <param name="info">Метаданные метода.</param>
             <returns>Перечисление строк с параметрами.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetPropertyName(System.Reflection.MethodInfo)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetPropertyName(System.Reflection.MethodInfo)">
             <summary>
             Очищает имя метода доступа к свойству от системных префиксов "get_" или "set_", возвращая чистое имя свойства.
             </summary>
             <param name="info">Метаданные метода.</param>
             <returns>Очищенное имя свойства.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetPropertyValue(System.Object,System.String,System.Type)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetPropertyValue(System.Object,System.String,System.Type)">
             <summary>
             Возвращает значение свойства объекта по его имени на основе указанного типа метаданных.
             </summary>
@@ -6285,7 +6285,7 @@
             <returns>Значение свойства объекта.</returns>
             <exception cref="T:System.InvalidOperationException">Вызывается, если свойство с указанным именем не найдено.</exception>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetPropertyValue(System.Object,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetPropertyValue(System.Object,System.String)">
             <summary>
             Возвращает значение свойства объекта по его строковому имени на основе рантайм-типа объекта.
             </summary>
@@ -6293,7 +6293,7 @@
             <param name="name">Имя свойства.</param>
             <returns>Значение свойства.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetPropertyValue``1(System.Object,System.String,System.Type)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetPropertyValue``1(System.Object,System.String,System.Type)">
             <summary>
             Возвращает типизированное значение свойства объекта по его имени на основе указанного типа метаданных.
             </summary>
@@ -6303,7 +6303,7 @@
             <param name="type">Тип данных для поиска свойства.</param>
             <returns>Типизированное значение свойства.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.GetPropertyValue``1(System.Object,System.String)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.GetPropertyValue``1(System.Object,System.String)">
             <summary>
             Возвращает типизированное значение свойства объекта по его строковому имени.
             </summary>
@@ -6312,7 +6312,7 @@
             <param name="name">Имя свойства.</param>
             <returns>Типизированное значение свойства.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.DefaultObject``1(System.Object,``0)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.DefaultObject``1(System.Object,``0)">
             <summary>
             Возвращает переданное значение, приведенное к типу T, либо альтернативное значение по умолчанию, если исходный объект равен null.
             </summary>
@@ -6321,7 +6321,7 @@
             <param name="defaultValue">Значение по умолчанию.</param>
             <returns>Объект типа T или defaultValue.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_reflection.DefaultObject``1(System.Object)">
+        <member name="M:Ans.Net10.Common.Exts__reflection.DefaultObject``1(System.Object)">
             <summary>
             Возвращает переданное значение, приведенное к типу T, либо дефолтное значение типа default(T), если исходный объект равен null.
             </summary>
@@ -6329,7 +6329,7 @@
             <param name="value">Проверяемый объект.</param>
             <returns>Объект типа T или дефолтное значение типа.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToGrid``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToGrid``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
             <summary>
             Разбивает последовательность на блоки (массивы) заданного размера.
             </summary>
@@ -6338,7 +6338,7 @@
             <param name="count">Максимальное количество элементов в одном блоке.</param>
             <returns>Последовательность массивов, содержащих элементы исходной коллекции.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToIntArray(System.String[])">
+        <member name="M:Ans.Net10.Common.Exts__to.ToIntArray(System.String[])">
             <summary>
             Преобразует массив строк в массив целых чисел. 
             Если элемент не является числом, вместо него записывается 0.
@@ -6346,7 +6346,7 @@
             <param name="source">Исходный массив строк.</param>
             <returns>Массив целых чисел.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToIntArray(System.String)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToIntArray(System.String)">
             <summary>
             Разбивает строку по разделителям (запятая, точка с запятой, вертикальная черта) 
             и преобразует элементы в массив целых чисел без выделения промежуточных строк.
@@ -6354,7 +6354,7 @@
             <param name="source">Исходная строка с числами.</param>
             <returns>Массив целых чисел. Если строка пуста, возвращается пустой массив.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToIntArrayTrim(System.String)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToIntArrayTrim(System.String)">
             <summary>
             Разбивает строку по разделителям, удаляя пустые элементы и пробелы, 
             и преобразует элементы в массив целых чисел.
@@ -6362,106 +6362,106 @@
             <param name="source">Исходная строка с числами.</param>
             <returns>Массив целых чисел без пустых элементов.</returns>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToInt(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToInt(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable int.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToInt(System.String,System.Int32,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToInt(System.String,System.Int32,System.IFormatProvider)">
             <summary>
             Преобразует строку в int. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToUInt(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToUInt(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable uint.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToUInt(System.String,System.UInt32,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToUInt(System.String,System.UInt32,System.IFormatProvider)">
             <summary>
             Преобразует строку в uint. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToLong(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToLong(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable long.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToLong(System.String,System.Int64,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToLong(System.String,System.Int64,System.IFormatProvider)">
             <summary>
             Преобразует строку в long. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToDouble(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToDouble(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable double.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToDouble(System.String,System.Double,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToDouble(System.String,System.Double,System.IFormatProvider)">
             <summary>
             Преобразует строку в double. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToFloat(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToFloat(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable float.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToFloat(System.String,System.Single,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToFloat(System.String,System.Single,System.IFormatProvider)">
             <summary>
             Преобразует строку в float. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToDecimal(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToDecimal(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable decimal.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToDecimal(System.String,System.Decimal,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToDecimal(System.String,System.Decimal,System.IFormatProvider)">
             <summary>
             Преобразует строку в decimal. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToDateTime(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToDateTime(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable DateTime с использованием InvariantCulture.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToDateTime(System.String,System.DateTime,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToDateTime(System.String,System.DateTime,System.IFormatProvider)">
             <summary>
             Преобразует строку в DateTime. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToDateOnly(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToDateOnly(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable DateOnly с использованием InvariantCulture.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToDateOnly(System.String,System.DateOnly,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToDateOnly(System.String,System.DateOnly,System.IFormatProvider)">
             <summary>
             Преобразует строку в DateOnly. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToTimeOnly(System.String,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToTimeOnly(System.String,System.IFormatProvider)">
             <summary>
             Преобразует строку в nullable TimeOnly с использованием InvariantCulture.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToTimeOnly(System.String,System.TimeOnly,System.IFormatProvider)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToTimeOnly(System.String,System.TimeOnly,System.IFormatProvider)">
             <summary>
             Преобразует строку в TimeOnly. Если преобразование невозможно,
             возвращает значение по умолчанию.
             </summary>
         </member>
-        <member name="M:Ans.Net10.Common.__e_to.ToBool(System.String)">
+        <member name="M:Ans.Net10.Common.Exts__to.ToBool(System.String)">
             <summary>
             Преобразует строку в логическое значение (bool). 
             Возвращает true, если строка равна "1", "+" или "true" (без учета регистра).

@@ -40,7 +40,7 @@ namespace Ans.Net10.Common
 		/// Инициализирует новый экземпляр класса <see cref="WebApiHelper{T}"/> с поддержкой кэширования и REST-операций.
 		/// </summary>
 		/// <param name="httpClient">Экземпляр HTTP-клиента (рекомендуется использовать фабричный HttpClient).</param>
-		/// <param name="baseUrl">Базовый URL-адрес宝 целевого API шлюза.</param>
+		/// <param name="baseUrl">Базовый URL-адрес целевого API шлюза.</param>
 		/// <param name="cache">Интерфейс службы нативного кэширования в памяти.</param>
 		/// <param name="jsonOptions">
 		/// Опциональные параметры конфигурации сериализации JSON.

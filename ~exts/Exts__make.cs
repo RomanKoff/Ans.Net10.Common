@@ -9,7 +9,7 @@ using System.Text;
 namespace Ans.Net10.Common
 {
 
-	public static partial class __e_make
+	public static partial class Exts__make
 	{
 
 		/// <summary>

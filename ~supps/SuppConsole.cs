@@ -15,8 +15,8 @@ namespace Ans.Net10.Common
 	public static class SuppConsole
 	{
 
-		private static string _lineV = "-".MakeRepeats(80);
-		private static string _lineW = "=".MakeRepeats(80);
+		private static readonly string _lineV = "-".MakeRepeats(80);
+		private static readonly string _lineW = "=".MakeRepeats(80);
 
 		private static int _cursorLeft;
 		private static int _cursorTop;

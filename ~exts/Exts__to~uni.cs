@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace Ans.Net10.Common
 {
 
-	public static partial class __e_to
+	public static partial class Exts__to
 	{
 
 		// --- Целочисленные типы (int, uint, long)

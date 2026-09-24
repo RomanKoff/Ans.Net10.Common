@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace Ans.Net10.Common
 {
 
-	public static partial class __e_di
+	public static partial class Exts__di
 	{
 
 		/// <summary>

@@ -6,7 +6,7 @@ using System.Text;
 namespace Ans.Net10.Common
 {
 
-	public static partial class _e_StringBuilder
+	public static partial class Exts_StringBuilder
 	{
 
 		/* methods */

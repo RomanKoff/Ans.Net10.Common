@@ -6,7 +6,7 @@ using System.Security.Claims;
 namespace Ans.Net10.Common
 {
 
-	public static partial class _e_Claims
+	public static partial class Exts_Claims
 	{
 
 		/* methods */

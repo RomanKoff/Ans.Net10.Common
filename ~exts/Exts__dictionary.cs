@@ -10,7 +10,7 @@ namespace Ans.Net10.Common
 	/// Предоставляет методы расширения для безопасного
 	/// и типизированного извлечения данных из словарей.
 	/// </summary>
-	public static partial class __e_dictionary
+	public static partial class Exts__dictionary
 	{
 
 		/// <summary>

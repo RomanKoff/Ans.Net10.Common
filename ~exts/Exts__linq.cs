@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace Ans.Net10.Common
 {
 
-	public static partial class __e_linq
+	public static partial class Exts__linq
 	{
 
 		/* IQueryable order */
