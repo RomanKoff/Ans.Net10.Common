@@ -32,7 +32,7 @@ jobs:
       run: dotnet tool update --global docfx
 
     - name: Build DocFX Site
-      # Переходим в подпапку и запускаем изолированную сборку сайта
+      
       run: |
         cd _docs
         docfx metadata
@@ -41,7 +41,7 @@ jobs:
     - name: Upload Generated Website Artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        # Указываем роботу, что готовый HTML-сайт собран внутри подпапки _docs/_site
+        
         path: _docs/_site
 
     - name: Deploy to GitHub Pages

@@ -1,49 +1,49 @@
 {
-  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
-  "metadata": [
-    {
-      "src": [
-        {
-          "src": "../",
-          "files": [
-            "*.csproj"
-          ]
-        }
-      ],
-      "dest": "api"
-    }
-  ],
-  "build": {
-    "content": [
-      {
-        "files": [
-          "**/*.{md,yml}"
-        ],
-        "exclude": [
-          "_site/**"
-        ]
-      }
-    ],
-    "resource": [
-      {
-        "files": [
-          "images/**"
-        ]
-      }
-    ],
-    "output": "_site",
-    "template": [
-      "ans-template",
-      "default",
-      "modern"
-    ],
-    "globalMetadata": {
-      "lang": "ru",
-      "_lang": "ru",
-      "_appName": "Ans.Net10.Common Docs",
-      "_appTitle": "Ans.Net10.Common Docs",
-      "_enableSearch": true,
-      "pdf": false
-    }
-  }
+	"$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+	"metadata": [
+		{
+			"src": [
+				{
+					"src": "../",
+					"files": [
+						"*.csproj"
+					]
+				}
+			],
+			"dest": "api"
+		}
+	],
+	"build": {
+		"content": [
+			{
+				"files": [
+					"**/*.{md,yml}"
+				],
+				"exclude": [
+					"_site/**"
+				]
+			}
+		],
+		"resource": [
+			{
+				"files": [
+					"images/**"
+				]
+			}
+		],
+		"output": "_site",
+		"template": [
+			"default",
+			"modern",
+			"ans-template"
+		],
+		"globalMetadata": {
+			"lang": "ru",
+			"_lang": "ru",
+			"_appName": "Ans.Net10.Common Docs",
+			"_appTitle": "Ans.Net10.Common Docs",
+			"_enableSearch": true,
+			"pdf": false
+		}
+	}
 }
