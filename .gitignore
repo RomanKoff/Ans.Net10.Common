@@ -367,6 +367,6 @@ FodyWeavers.xsd
 _Dev/
 
 # Игнорируем локально собранный сайт документации
-**/_Docs/_site/
-**/_Docs/api/
+**/_docs/_site/
+**/_docs/api/
 
