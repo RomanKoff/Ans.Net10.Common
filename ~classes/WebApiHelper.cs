@@ -1,4 +1,4 @@
-﻿// rev 2026-09-23
+﻿// rev 2026-09-25
 
 using Microsoft.Extensions.Caching.Memory;
 using System.Net;
@@ -44,15 +44,14 @@ namespace Ans.Net10.Common
 		/// <param name="cache">Интерфейс службы нативного кэширования в памяти.</param>
 		/// <param name="jsonOptions">
 		/// Опциональные параметры конфигурации сериализации JSON.
-		/// Если null — используется <see cref="SuppJson.DEFAULT_JSON_SERIALIZER_OPTIONS"/>.
+		/// Если передано значение <see langword="null"/> — используется <see cref="SuppJson.DEFAULT_JSON_SERIALIZER_OPTIONS"/>.
 		/// </param>
 		/// <param name="cacheOptions">
 		/// Опциональные параметры времени жизни записей кэша по умолчанию. 
-		/// Если null — используется <see cref="SuppCache.DEFAULT_CACHE_OPTIONS"/>.
+		/// Если передано значение <see langword="null"/> — используется <see cref="SuppCache.DEFAULT_CACHE_OPTIONS"/>.
 		/// </param>
 		/// <param name="jsonTypeInfo">
-		/// Опциональные метаданные типа Source Generation
-		/// для высокопроизводительной десериализации без рефлексии.
+		/// Опциональные метаданные типа Source Generation для высокопроизводительной десериализации без рефлексии.
 		/// </param>
 		public WebApiHelper(
 			HttpClient httpClient,
@@ -77,33 +76,35 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает базовый URL-адрес целевого API.
 		/// </summary>
+		/// <value>Строковое представление базового адреса удаленного шлюза.</value>
 		public string BaseUrl { get; }
 
 
 		/// <summary>
-		/// Возвращает настройки сериализатора JSON, используемые
-		/// при обработке запросов и ответов.
+		/// Возвращает настройки сериализатора JSON, используемые при обработке запросов и ответов.
 		/// </summary>
+		/// <value>Объект <see cref="JsonSerializerOptions"/> конфигурации парсера.</value>
 		public JsonSerializerOptions JsonOptions { get; }
 
 
 		/// <summary>
 		/// Возвращает метаданные типа компиляции Source Generation.
-		/// Если null — используется классическая рефлексия.
 		/// </summary>
+		/// <value>Экземпляр <see cref="JsonTypeInfo{T}"/> или значение <see langword="null"/>, если используется классическая рефлексия.</value>
 		public JsonTypeInfo<T>? JsonTypeInfo { get; }
 
 
 		/// <summary>
-		/// Возвращает или задает параметры времени жизни и ограничений
-		/// записей кэша по умолчанию для текущего хелпера.
+		/// Возвращает или задает параметры времени жизни и ограничений записей кэша по умолчанию для текущего хелпера.
 		/// </summary>
+		/// <value>Объект <see cref="MemoryCacheEntryOptions"/> конфигурации времени удержания данных в памяти.</value>
 		public MemoryCacheEntryOptions? CacheOptions { get; set; }
 
 
 		/// <summary>
 		/// Построитель параметров строки URL-запроса.
 		/// </summary>
+		/// <value>Объект-строитель <see cref="ParamsBuilder"/> параметров адресной строки.</value>
 		public ParamsBuilder Params { get; } = new();
 
 
@@ -113,12 +114,12 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Выполняет асинхронный GET-запрос к API с автоматической проверкой и наполнением нативного кэша.
 		/// </summary>
-		/// <param name="queryString">Часть URL-строки запроса с параметрами (например, "?id=10").</param>
-		/// <param name="encoding">Кастомная кодировка текста ответа. Если null — используется UTF-8.</param>
-		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса.</param>
+		/// <param name="queryString">Часть URL-строки запроса с параметрами (например, <c>"?id=10"</c>).</param>
+		/// <param name="encoding">Кастомная кодировка текста ответа. Если <see langword="null"/> — используется UTF-8.</param>
+		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса перед отправкой.</param>
 		/// <param name="cancellationToken">Токен отмены асинхронной операции.</param>
 		/// <returns>
-		/// Объект ответа <see cref="WebApiResult{T}"/> из памяти кэша или напрямую от удаленного API.
+		/// Поток-задача, возвращающая объект ответа <see cref="WebApiResult{T}"/> из памяти кэша или напрямую от удаленного API.
 		/// </returns>
 		public virtual async Task<WebApiResult<T>> SendGetAsync(
 			string queryString,
@@ -143,12 +144,12 @@ namespace Ans.Net10.Common
 		/// Выполняет асинхронный GET-запрос с автоматической проверкой кэша,
 		/// используя параметры, накопленные в свойстве <see cref="Params"/>.
 		/// </summary>
-		/// <param name="encoding">Кастомная кодировка текста ответа. Если null — используется UTF-8.</param>
-		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса.</param>
+		/// <param name="encoding">Кастомная кодировка текста ответа. Если <see langword="null"/> — используется UTF-8.</param>
+		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса перед отправкой.</param>
 		/// <param name="cancellationToken">Токен отмены асинхронной операции.</param>
 		/// <returns>
-		/// Объект ответа <see cref="WebApiResult{T}"/> из памяти кэша или напрямую от удаленного API.
-		/// </returns>
+		/// Поток-задача, возвращающая объект ответа <see cref="WebApiResult{T}"/> из памяти кэша или напрямую от удаленного API.
+		/// </returns>		
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public Task<WebApiResult<T>> SendGetAsync(
 			Encoding? encoding = null,
@@ -161,17 +162,16 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Выполняет асинхронный POST-запрос (создание ресурса) к API,
-		/// передавая payload объект в формате JSON.
-		/// Результаты POST не кэшируются.
+		/// Выполняет асинхронный POST-запрос (создание ресурса) к API, передавая payload объект в формате JSON.
+		/// Результаты операции POST не подвергаются кэшированию.
 		/// </summary>
 		/// <param name="queryString">Относительный URI путь или параметры запроса.</param>
-		/// <param name="payload">Объект данных, отправляемый в теле запроса (Body).</param>
-		/// <param name="encoding">Кодировка исходящего и входящего текста.</param>
-		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса.</param>
+		/// <param name="payload">Объект данных, сериализуемый и отправляемый в теле запроса (Body).</param>
+		/// <param name="encoding">Кодировка исходящего и входящего текста ответа. Если <see langword="null"/> — используется UTF-8.</param>
+		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса перед отправкой.</param>
 		/// <param name="cancellationToken">Токен отмены асинхронной операции.</param>
 		/// <returns>
-		/// Объект ответа <see cref="WebApiResult{T}"/> с результатами выполнения со стороны сервера.
+		/// Поток-задача, возвращающая объект ответа <see cref="WebApiResult{T}"/> с результатами выполнения со стороны сервера.
 		/// </returns>
 		public virtual Task<WebApiResult<T>> SendPostAsync(
 			string queryString,
@@ -186,16 +186,15 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Выполняет асинхронный PUT-запрос (полное обновление ресурса)
-		/// к API, передавая payload объект в формате JSON.
+		/// Выполняет асинхронный PUT-запрос (полное обновление ресурса) к API, передавая payload объект в формате JSON.
 		/// </summary>
 		/// <param name="queryString">Относительный URI путь или параметры запроса.</param>
 		/// <param name="payload">Объект данных, отправляемый в теле запроса (Body) для обновления.</param>
-		/// <param name="encoding">Кодировка исходящего и входящего текста.</param>
-		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса.</param>
+		/// <param name="encoding">Кодировка исходящего и входящего текста. Если <see langword="null"/> — используется UTF-8.</param>
+		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса перед отправкой.</param>
 		/// <param name="cancellationToken">Токен отмены асинхронной операции.</param>
 		/// <returns>
-		/// Объект ответа <see cref="WebApiResult{T}"/> с результатами выполнения.
+		/// Поток-задача, возвращающая объект ответа <see cref="WebApiResult{T}"/> с результатами выполнения.
 		/// </returns>
 		public virtual Task<WebApiResult<T>> SendPutAsync(
 			string queryString,
@@ -213,10 +212,10 @@ namespace Ans.Net10.Common
 		/// Выполняет асинхронный DELETE-запрос (удаление ресурса) к API.
 		/// </summary>
 		/// <param name="queryString">Относительный URI путь или параметры идентификации удаляемого ресурса.</param>
-		/// <param name="encoding">Кодировка входящего текста ответа.</param>
-		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса.</param>
+		/// <param name="encoding">Кодировка входящего текста ответа. Если <see langword="null"/> — используется UTF-8.</param>
+		/// <param name="configureRequest">Делегат для кастомизации заголовков запроса перед отправкой.</param>
 		/// <param name="cancellationToken">Токен отмены асинхронной операции.</param>
-		/// <returns>Объект ответа <see cref="WebApiResult{T}"/>.</returns>
+		/// <returns>Поток-задача, возвращающая объект ответа <see cref="WebApiResult{T}"/>.</returns>
 		public virtual Task<WebApiResult<T>> SendDeleteAsync(
 			string queryString,
 			Encoding? encoding = null,
@@ -229,8 +228,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Принудительно аннулирует (удаляет) из нативного кэша
-		/// запись GET-запроса для конкретной строки параметров.
+		/// Принудительно аннулирует (удаляет) из нативного кэша запись GET-запроса для конкретной строки параметров.
 		/// </summary>
 		/// <param name="queryString">Часть URL-строки запроса с параметрами.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -242,8 +240,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Принудительно аннулирует из нативного кэша
-		/// запись GET-запроса для текущего состояния в <see cref="Params"/>.
+		/// Принудительно аннулирует из нативного кэша запись GET-запроса для текущего состояния параметров в <see cref="Params"/>.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void InvalidateHelperCache()

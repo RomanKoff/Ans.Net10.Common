@@ -1,5 +1,6 @@
-﻿// rev 2026-09-19
+﻿// rev 2026-09-25
 
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Ans.Net10.Common
@@ -27,7 +28,7 @@ namespace Ans.Net10.Common
 		/// и разбирает переданную строку атрибутов.
 		/// </summary>
 		/// <param name="serialization">
-		/// Строка сериализованных атрибутов (например, "id=\"main\" data-id=\"12\" disabled").
+		/// Строка сериализованных атрибутов (например, <c>id="main" data-id="12" disabled</c>).
 		/// </param>
 		public TagAttributesBuilder(
 			string? serialization)
@@ -43,6 +44,10 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает внутренний словарь уникальных атрибутов и их значений.
 		/// </summary>
+		/// <value>
+		/// Экземпляр <see cref="Dictionary{TKey, TValue}"/>, где ключом является имя HTML-атрибута, 
+		/// а значением — его содержимое (или <see langword="null"/> для флаговых атрибутов типа <c>disabled</c>).
+		/// </value>
 		public Dictionary<string, string?> Items { get; } = [];
 
 
@@ -50,8 +55,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Разбирает и добавляет HTML-атрибуты. Существующие атрибуты перезаписываются новыми значениями.
+		/// Разбирает и добавляет HTML-атрибуты из строки сериализации. 
+		/// Существующие в контейнере атрибуты при совпадении имен перезаписываются новыми значениями.
 		/// </summary>
+		/// <param name="serialization">
+		/// Строка с перечислением HTML-атрибутов, разделенных пробелами.
+		/// </param>
 		public void Append(
 			string? serialization)
 		{
@@ -66,8 +75,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет HTML-атрибуты, если переданное условие истинно.
+		/// Добавляет HTML-атрибуты из строки сериализации только в том случае, если переданное логическое условие истинно.
 		/// </summary>
+		/// <param name="check">Логический флаг (условие), управляющий добавлением атрибутов.</param>
+		/// <param name="serialization">Строка с перечислением HTML-атрибутов, разделенных пробелами.</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void AppendIf(
 			bool check,
 			string? serialization)
@@ -81,11 +93,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Формирует строку HTML-атрибутов, готовую для рендеринга внутри открывающего тега.
-		/// Всегда начинается с пробела.
+		/// Формирует готовую строку HTML-атрибутов, предназначенную для рендеринга непосредственно внутри открывающего HTML-тега.
 		/// </summary>
 		/// <returns>
-		/// Строка атрибутов вида " id=\"val\" disabled" или пустая строка, если атрибутов нет.
+		/// Строка атрибутов вида <c> id="val" disabled</c> (всегда начинается со знака пробела), 
+		/// либо пустая строка <see cref="string.Empty"/>, если в коллекции отсутствуют элементы.
 		/// </returns>
 		public override string ToString()
 		{
@@ -110,6 +122,7 @@ namespace Ans.Net10.Common
 		/* privates */
 
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static string[] _getItems(
 			string serialization)
 		{

@@ -1,4 +1,4 @@
-﻿// rev 2026-09-20
+﻿// rev 2026-09-25
 
 using System.Runtime.CompilerServices;
 
@@ -6,15 +6,33 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Представляет элемент реестра (запись), поддерживающий иерархические уровни вложенности от 0 до 9, 
-	/// маркеры меток и кастомную текстовую сериализацию/десериализацию.
+	/// Представляет отдельный элемент реестра (запись), поддерживающий иерархические уровни вложенности от 0 до 9, 
+	/// маркеры текстовых меток и кастомную текстовую сериализацию/десериализацию.
 	/// </summary>
 	public class RegistryItem
 	{
 
+		/* consts */
+
+
+		/// <summary>
+		/// Строковый маркер для маскирования символа точки с запятой (<c>;</c>).
+		/// </summary>
 		public const string MASK_semicolon = "[x3B]";
+
+		/// <summary>
+		/// Строковый маркер для маскирования символа равенства (<c>=</c>).
+		/// </summary>
 		public const string MASK_equally = "[x3D]";
+
+		/// <summary>
+		/// Строковый маркер для маскирования символа решетки (<c>#</c>).
+		/// </summary>
 		public const string MASK_sharp = "[x23]";
+
+		/// <summary>
+		/// Строковый маркер для маскирования символа двоеточия (<c>:</c>).
+		/// </summary>
 		public const string MASK_colon = "[x3A]";
 
 
@@ -22,7 +40,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый пустой экземпляр класса <see cref="RegistryItem"/>.
+		/// Инициализирует новый пустой экземпляр класса <see cref="RegistryItem"/> с параметрами по умолчанию.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RegistryItem()
@@ -31,12 +49,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр класса <see cref="RegistryItem"/> с заданными параметрами.
+		/// Инициализирует новый экземпляр класса <see cref="RegistryItem"/> с явным указанием всех параметров метаданных.
 		/// </summary>
-		/// <param name="key">Уникальный ключ элемента.</param>
-		/// <param name="value">Значение элемента.</param>
-		/// <param name="level">Уровень вложенности элемента в иерархии реестра (строго от 0 до 9).</param>
-		/// <param name="isLabel">Признак того, является ли элемент текстовой меткой (заголовком).</param>
+		/// <param name="key">Уникальный строковый ключ элемента реестра.</param>
+		/// <param name="value">Текстовое значение элемента.</param>
+		/// <param name="level">Уровень вложенности элемента в иерархической структуре реестра (строго в диапазоне от 0 до 9).</param>
+		/// <param name="isLabel">Флаг, указывающий, является ли данный элемент чисто текстовой меткой (заголовком группы).</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RegistryItem(
 			string key,
@@ -53,10 +71,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр класса <see cref="RegistryItem"/>,
-		/// десериализуя его из строки формата "key=[#][:level]value".
+		/// Инициализирует новый экземпляр класса <see cref="RegistryItem"/>, выполняя немедленную десериализацию из строки специального формата.
 		/// </summary>
-		/// <param name="serialization">Строка сериализованных данных элемента.</param>
+		/// <param name="serialization">Строка сериализованных данных элемента формата <c>"key=[#][:level]value"</c>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RegistryItem(
 			string serialization)
@@ -72,18 +89,21 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает уникальный ключ элемента реестра.
 		/// </summary>
+		/// <value>Строковое значение ключа. По умолчанию равно <see cref="string.Empty"/>.</value>
 		public string Key { get; private set; } = string.Empty;
 
 
 		/// <summary>
-		/// Возвращает признак того, является ли данный элемент реестра меткой (заголовком).
+		/// Возвращает признак того, является ли данный элемент реестра меткой (заголовком подраздела).
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если элемент является меткой; во всех остальных случаях — <see langword="false"/>.</value>
 		public bool IsLabel { get; private set; }
 
 
 		/// <summary>
-		/// Возвращает уровень вложенности элемента в структуре реестра (от 0 до 9).
+		/// Возвращает уровень вложенности текущего элемента в иерархической структуре реестра.
 		/// </summary>
+		/// <value>Целочисленное значение уровня в диапазоне от 0 до 9.</value>
 		public int Level { get; private set; }
 
 
@@ -91,9 +111,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Получает или задает строковое значение элемента.
-		/// Если передано пустое значение, автоматически подставляется имя ключа в фигурных скобках.
+		/// Получает или задает строковое значение элемента реестра.
 		/// </summary>
+		/// <remarks>
+		/// Защитный механизм свойства: если при установке передается значение <see langword="null"/> или пустая строка, 
+		/// оно автоматически преобразуется в имя ключа, заключенное в фигурные скобки, например: <c>"{ИмяКлюча}"</c>.
+		/// </remarks>
+		/// <value>Строковое значение контента элемента.</value>
 		public string Value
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -108,10 +132,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Экранирует служебные символы (; = # :) в строке данных, добавляя перед ними обратный слэш.
+		/// Принудительно экранирует служебные управляющие символы (<c>;</c>, <c>=</c>, <c>#</c>, <c>:</c>) в строке данных, добавляя перед ними символ обратного слэша.
 		/// </summary>
-		/// <param name="data">Исходная строка данных.</param>
-		/// <returns>Строка данных с экранированными служебными символами.</returns>
+		/// <param name="data">Исходное необработанное строковое значение данных.</param>
+		/// <returns>Строка данных с экранированными служебными символами. Если входная строка пуста, возвращается <see cref="string.Empty"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetDataEscapes(
 			string data)
@@ -127,10 +151,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Маскирует экранированные служебные символы.
+		/// Маскирует экранированные последовательности служебных символов, заменяя их на безопасные уникальные hex-маркеры.
 		/// </summary>
-		/// <param name="data">Исходная строка данных.</param>
-		/// <returns>Замаскированная строка данных.</returns>
+		/// <param name="data">Строка данных, прошедшая этап предварительного экранирования.</param>
+		/// <returns>Замаскированная строка данных, готовая к безопасному поиску разделителей в парсере.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetDataMasking(
 			string data)
@@ -146,10 +170,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Восстанавливает замаскированные символы, заменяя их на оригинальные служебные символы.
+		/// Демаскирует и восстанавливает ранее замаскированные hex-маркеры, заменяя их на оригинальные чистые служебные символы.
 		/// </summary>
-		/// <param name="data">Замаскированная строка данных.</param>
-		/// <returns>Восстановленная строка с неэкранированными служебными символами.</returns>
+		/// <param name="data">Замаскированная строка данных после этапа синтаксического разбора.</param>
+		/// <returns>Восстановленная строка с оригинальными неэкранированными служебными символами.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetDataRestores(
 			string data)
@@ -165,9 +189,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сериализует текущий элемент реестра в строку формата "key=[#][:level]value" с экранированием служебных символов.
+		/// Сериализует текущий элемент реестра в единую текстовую строку формата <c>"key=[#][:level]value"</c> с автоматическим экранированием служебных символов.
 		/// </summary>
-		/// <returns>Строка сериализованных данных элемента.</returns>
+		/// <returns>Итоговая строка сериализованных данных элемента реестра, готовая для сохранения в файлы конфигурации.</returns>
 		public override string ToString()
 		{
 			var key1 = GetDataEscapes(Key);
@@ -182,22 +206,32 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Заполняет свойства текущего элемента реестра на основе строки сериализации.
+		/// Полностью заполняет и перезаписывает свойства текущего элемента реестра на основе переданной сериализованной строки.
 		/// </summary>
-		/// <param name="serialization">Строка данных формата "key=[#][:level]value".</param>
-		/// <exception cref="ArgumentException">Вызывается, если переданная строка пуста или имеет неверный формат.</exception>
+		/// <remarks>
+		/// Разбор строки выполняется на основе маскирования разделителей, изоляции ключа по первому вхождению символа <c>'='</c> 
+		/// и последующего вычисления флагов типа и уровня вложенности.
+		/// </remarks>
+		/// <param name="serialization">Строка данных формата <c>"key=[#][:level]value"</c>.</param>
+		/// <exception cref="ArgumentException">
+		/// Вызывается в следующих случаях: 
+		/// <list type="bullet">
+		/// <item><description>Переданная строка <paramref name="serialization"/> пуста, равна <see langword="null"/> или состоит только из пробелов.</description></item>
+		/// <item><description>В строке полностью отсутствует обязательный символ разделителя ключа и значения (<c>'='</c>).</description></item>
+		/// </list>
+		/// </exception>
 		public void FillFromString(
 			string serialization)
 		{
 			if (string.IsNullOrWhiteSpace(serialization))
 				throw new ArgumentException(
-					"The serialization string cannot be empty.",
+					"[Ans.Net10.Common] Строка сериализации не может быть пустой.",
 					nameof(serialization));
 			var s1 = GetDataMasking(serialization);
 			var i1 = s1.IndexOf('=');
 			if (i1 < 1)
 				throw new ArgumentException(
-					"Invalid format of the registry element serialization string. The '=' character is missing.",
+					"[Ans.Net10.Common] Недопустимый формат строки сериализации элемента реестра. Отсутствует символ '='.",
 					nameof(serialization));
 			Key = GetDataRestores(s1[..i1]);
 			var s2 = s1[(i1 + 1)..];
@@ -212,9 +246,7 @@ namespace Ans.Net10.Common
 				s2 = s2[2..];
 			}
 			else if (s2.Length > 0 && s2[0] == ':')
-			{
 				s2 = s2[1..];
-			}
 			Value = GetDataRestores(s2);
 		}
 

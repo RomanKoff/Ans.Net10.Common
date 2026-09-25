@@ -1,5 +1,6 @@
-﻿// rev 2026-09-19
+﻿// rev 2026-09-25
 
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Ans.Net10.Common
@@ -41,6 +42,10 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает внутренний словарь сгруппированных префиксов классов и их суффиксов.
 		/// </summary>
+		/// <value>
+		/// Экземпляр <see cref="Dictionary{TKey, TValue}"/>, где ключом является базовый префикс класса 
+		/// (включая дефис, например <c>"btn-"</c>), а значением — массив суффиксов (например <c>["primary", "lg"]</c>).
+		/// </value>
 		public Dictionary<string, string[]> Items { get; } = [];
 
 
@@ -49,8 +54,9 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Добавляет элементы из другого словаря классов, только если
-		/// префикс класса отсутствует в текущей коллекции.
+		/// префикс класса полностью отсутствует в текущей коллекции. Существующие префиксы не изменяются.
 		/// </summary>
+		/// <param name="dict">Словарь префиксов и суффиксов CSS-классов, планируемый к добавлению.</param>
 		public void ApplyOriginal(
 			Dictionary<string, string[]>? dict)
 		{
@@ -62,9 +68,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Разбирает строку классов и добавляет те, чьи базовые
-		/// префиксы отсутствуют в текущей коллекции.
+		/// Разбирает строку CSS-классов и добавляет только те из них, чьи базовые
+		/// префиксы отсутствуют в текущей коллекции. Существующие префиксы не изменяются.
 		/// </summary>
+		/// <param name="cssClasses">Строка CSS-классов, разделенная пробелами.</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void ApplyOriginal(
 			string? cssClasses)
 		{
@@ -75,8 +83,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Перезаписывает или добавляет элементы из другого словаря классов в текущую коллекцию.
+		/// Добавляет или перезаписывает элементы из другого словаря классов в текущую коллекцию.
+		/// При совпадении префиксов старые суффиксы заменяются новыми.
 		/// </summary>
+		/// <param name="dict">Словарь префиксов и суффиксов CSS-классов для слияния.</param>
 		public void Append(
 			Dictionary<string, string[]>? dict)
 		{
@@ -88,8 +98,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Разбирает и добавляет CSS-классы в текущую коллекцию. Существующие префиксы перезаписываются.
+		/// Разбирает и добавляет CSS-классы из строки в текущую коллекцию. 
+		/// Существующие в контейнере базовые префиксы при совпадении перезаписываются новыми значениями.
 		/// </summary>
+		/// <param name="cssClasses">Строка CSS-классов, разделенная пробелами.</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string? cssClasses)
 		{
@@ -100,8 +113,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет CSS-классы в текущую коллекцию, если переданное условие истинно.
+		/// Добавляет CSS-классы в текущую коллекцию только в том случае, если переданное логическое условие истинно.
 		/// </summary>
+		/// <param name="check">Логический флаг (условие), управляющий добавлением классов.</param>
+		/// <param name="cssClasses">Строка CSS-классов, разделенная пробелами.</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void AppendIf(
 			bool check,
 			string? cssClasses)
@@ -115,10 +131,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Собирает все сгруппированные CSS-классы в единую валидную строку для атрибута class.
+		/// Собирает все сгруппированные и добавленные CSS-классы в единую валидную строку, готовую для подстановки в атрибут <c>class</c>.
 		/// </summary>
 		/// <returns>
-		/// Строка классов, разделенная пробелами, или <see langword="null"/>, если коллекция пуста.
+		/// Полная строка классов, разделенная пробелами, или <see langword="null"/>, если коллекция строителя пуста.
 		/// </returns>
 		public override string? ToString()
 		{
@@ -140,6 +156,7 @@ namespace Ans.Net10.Common
 		/* privates */
 
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static string[] _getItems(
 			string cssClasses)
 		{

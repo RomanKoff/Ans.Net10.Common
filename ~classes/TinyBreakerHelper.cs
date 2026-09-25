@@ -1,4 +1,4 @@
-﻿// rev 2026-09-19
+﻿// rev 2026-09-25
 
 using System.Runtime.CompilerServices;
 
@@ -32,12 +32,18 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает заданный шаг (интервал) срабатывания прерывателя.
 		/// </summary>
+		/// <value>
+		/// Количество итераций, через которое метод <see cref="Next"/> возвращает <see langword="true"/>.
+		/// </value>
 		public int Step { get; } = step;
 
 
 		/// <summary>
 		/// Возвращает текущее количество накопленных итераций.
 		/// </summary>
+		/// <value>
+		/// Текущий счетчик шагов от 0 до <see cref="Step"/> минус 1.
+		/// </value>
 		public int Current { get; private set; }
 
 
@@ -48,8 +54,14 @@ namespace Ans.Net10.Common
 		/// Фиксирует следующую итерацию. Возвращает <see langword="true"/>,
 		/// если достигнут заданный шаг интервала.
 		/// </summary>
+		/// <remarks>
+		/// При каждой фиксации внутренний счетчик <see cref="Current"/> увеличивается на 1. 
+		/// При достижении значения <see cref="Step"/> счетчик автоматически сбрасывается в 0, 
+		/// а метод возвращает значение <see langword="true"/>.
+		/// </remarks>
 		/// <returns>
-		/// <see langword="true"/> при достижении лимита шага; иначе — <see langword="false"/>.
+		/// Значение <see langword="true"/>, если текущий интервал шагов пройден и достигнут лимит; 
+		/// в противном случае — <see langword="false"/>.
 		/// </returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool Next()

@@ -1,4 +1,4 @@
-﻿// rev 2026-09-18
+﻿// rev 2026-09-25
 
 using System.Buffers.Binary;
 using System.Net;
@@ -8,22 +8,34 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Представляет список подсетей IP и методы для их инициализации из строк.
+	/// Представляет специализированный список IP-подсетей, расширяющий <see cref="List{IPSubnet}"/> 
+	/// и поддерживающий инициализацию из различных строковых форматов CIDR.
 	/// </summary>
 	public class IPSubnetsList
 		: List<IPSubnet>
 	{
 
-		private static readonly char[] _Sep_Nets = [';', ','];
+		/* consts */
+
+
+		/// <summary>
+		/// Коллекция стандартных символов-разделителей, используемых для парсинга перечня подсетей из строки.
+		/// </summary>
+		/// <value>Массив символов, содержащий точку с запятой (<c>;</c>) и запятую (<c>,</c>).</value>
+		public static readonly char[] SEP_NETS = [';', ','];
 
 
 		/* ctors */
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр списка подсетей на основе массива CIDR-строк.
+		/// Инициализирует новый экземпляр класса <see cref="IPSubnetsList"/> на основе массива строк в формате CIDR.
 		/// </summary>
-		/// <param name="cidrs">Массив строк в формате CIDR (например, "192.168.1.0/24").</param>
+		/// <remarks>
+		/// Элементы массива автоматически очищаются от пробелов. Пустые строки или строки, состоящие 
+		/// только из пробелов, полностью игнорируются. Если передан <see langword="null"/>, список останется пустым.
+		/// </remarks>
+		/// <param name="cidrs">Список аргументов (массив) строк в формате CIDR, например: <c>"192.168.1.0/24"</c>, <c>"10.0.0.0/8"</c>.</param>
 		public IPSubnetsList(
 			params string[] cidrs)
 		{
@@ -39,13 +51,17 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр списка подсетей на основе строки с разделителями.
+		/// Инициализирует новый экземпляр класса <see cref="IPSubnetsList"/>, разбирая единую текстовую строку с разделителями.
 		/// </summary>
-		/// <param name="cidrs">Строка с перечислением CIDR, разделенная запятыми или точкой с запятой.</param>
+		/// <remarks>
+		/// В качестве разделителей подсетей поддерживаются символы из поля <see cref="SEP_NETS"/>. 
+		/// Пустые подстроки автоматически исключаются из разбора.
+		/// </remarks>
+		/// <param name="cidrs">Единая строка с перечислением CIDR-подсетей. Если строка пуста или равна <see langword="null"/>, инициализируется пустой список.</param>
 		public IPSubnetsList(
 			string cidrs)
 			: this(string.IsNullOrWhiteSpace(cidrs)
-				  ? [] : cidrs.Split(_Sep_Nets, StringSplitOptions.RemoveEmptyEntries))
+				  ? [] : cidrs.Split(SEP_NETS, StringSplitOptions.RemoveEmptyEntries))
 		{
 		}
 
@@ -54,8 +70,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое представление списка подсетей, разделенное точкой с запятой.
+		/// Возвращает строковое представление текущего списка подсетей, где элементы объединены точкой с запятой.
 		/// </summary>
+		/// <returns>Строка, содержащая все подсети в формате CIDR, разделенные символом <c>;</c>, например: <c>"192.168.1.0/24;10.0.0.0/8"</c>.</returns>
 		public override string ToString()
 		{
 			return string.Join(";", this.Select(x => x.ToString()));
@@ -66,7 +83,8 @@ namespace Ans.Net10.Common
 
 
 	/// <summary>
-	/// Представляет подсеть IP-адресов (IPv4 или IPv6) и инкапсулирует логику битовых масок.
+	/// Представляет подсеть IP-адресов (поддерживает протоколы IPv4 и IPv6) и инкапсулирует 
+	/// низкоуровневую математическую логику битовых масок для проверки вхождения адресов.
 	/// </summary>
 	public class IPSubnet
 	{
@@ -75,10 +93,14 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр подсети по базовому IP-адресу и длине маски.
+		/// Инициализирует новый экземпляр класса <see cref="IPSubnet"/> на основе базового IP-адреса и длины префикса маски.
 		/// </summary>
-		/// <param name="address">Базовый IP-адрес подсети.</param>
-		/// <param name="maskLength">Длина префикса маски в битах.</param>
+		/// <param name="address">Базовый IP-адрес подсети в формате объекта <see cref="IPAddress"/>.</param>
+		/// <param name="maskLength">Длина префикса сетевой маски в битах (от <c>0</c> до <c>32</c> для IPv4, и от <c>0</c> до <c>128</c> для IPv6).</param>
+		/// <exception cref="NotSupportedException">
+		/// Вызывается в следующих случаях: длина маски меньше <c>0</c>; семейство адресов не относится к IPv4/IPv6; 
+		/// либо длина маски превышает допустимый предел для конкретного протокола (32 бита для IPv4 / 128 бит для IPv6).
+		/// </exception>
 		public IPSubnet(
 			IPAddress address,
 			int maskLength)
@@ -88,10 +110,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр подсети на основе CIDR-строки.
+		/// Инициализирует новый экземпляр класса <see cref="IPSubnet"/>, десериализуя его из единой CIDR-строки.
 		/// </summary>
-		/// <param name="cidr">Строка в формате "IP/Маска" (например, "10.0.0.0/8").</param>
-		/// <exception cref="NotSupportedException">Вызывается, если строка не содержит символ разделителя маски.</exception>
+		/// <param name="cidr">Строка формата <c>"IP/Маска"</c>, например: <c>"192.168.1.0/24"</c> или <c>"fe80::/10"</c>.</param>
+		/// <exception cref="NotSupportedException">Вызывается, если строка не содержит обязательный символ разделителя маски <c>'/'</c>.</exception>
+		/// <exception cref="ArgumentNullException">Вызывается, если переданная строка равна <see langword="null"/>.</exception>
+		/// <exception cref="FormatException">Вызывается, если строка адреса или число маски имеют некорректный формат.</exception>
 		public IPSubnet(
 			string cidr)
 		{
@@ -111,36 +135,42 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает базовый IP-адрес подсети.
 		/// </summary>
+		/// <value>Объект класса <see cref="IPAddress"/>.</value>
 		public IPAddress Address { get; private set; } = null!;
 
 
 		/// <summary>
-		/// Возвращает признак того, является ли подсеть сетью протокола IPv6.
+		/// Возвращает признак того, принадлежит ли текущая подсеть протоколу IPv6.
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если семейство адресов подсети — IPv6; если это IPv4 — <see langword="false"/>.</value>
 		public bool IsV6 { get; private set; }
 
 
 		/// <summary>
-		/// Возвращает длину префикса маски в битах.
+		/// Возвращает длину префикса маски подсети в битах.
 		/// </summary>
+		/// <value>Целочисленное значение количества бит префикса.</value>
 		public int MaskLength { get; private set; }
 
 
 		/// <summary>
-		/// Возвращает битовую маску IPv4 шаблона.
+		/// Возвращает битовую маску-шаблон для сетей IPv4 в виде 32-битного числа без знака.
 		/// </summary>
+		/// <value>Число <see cref="uint"/>, где биты сети установлены в 1, а хостовые биты — в 0.</value>
 		public uint MaskV4Template { get; private set; }
 
 
 		/// <summary>
-		/// Возвращает отфильтрованный результат базового адреса IPv4 подсети.
+		/// Возвращает результат применения битовой маски-шаблона к базовому адресу IPv4.
 		/// </summary>
+		/// <value>Число <see cref="uint"/>, представляющее чистый адрес сети IPv4 без хостовой части.</value>
 		public uint MaskV4Result { get; private set; }
 
 
 		/// <summary>
-		/// Возвращает массив байт маски для подсети IPv6.
+		/// Возвращает массив байт отфильтрованной сетевой маски для подсетей протокола IPv6.
 		/// </summary>
+		/// <value>Массив из 16 байт, содержащий маскированные данные адреса сети IPv6.</value>
 		public byte[] MaskV6Bytes { get; private set; } = null!;
 
 
@@ -148,8 +178,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое представление подсети в формате CIDR.
+		/// Возвращает каноническое строковое представление подсети в формате CIDR.
 		/// </summary>
+		/// <returns>Строка формата <c>"БазовыйАдрес/ДлинаМаски"</c>.</returns>
 		public override string ToString()
 		{
 			return $"{Address}/{MaskLength}";

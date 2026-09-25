@@ -1,4 +1,4 @@
-﻿// rev 2026-09-20
+﻿// rev 2026-09-25
 
 using Ans.Net10.Common.Resources;
 using System.Resources;
@@ -19,7 +19,7 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Инициализирует новый экземпляр класса <see cref="ResourcesHelper"/>,
-		/// дополняя переданные ресурсы базовым ресурсом <see cref="Faces"/>.
+		/// дополняя переданные ресурсы базовым ресурсом <see cref="Ans.Net10.Common.Resources.Faces"/>.
 		/// </summary>
 		/// <param name="resources">
 		/// Список дополнительных менеджеров ресурсов для поиска метаданных.
@@ -37,6 +37,9 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает каскадный массив используемых менеджеров ресурсов.
 		/// </summary>
+		/// <value>
+		/// Массив объектов <see cref="ResourceManager"/>, упорядоченный по приоритету поиска.
+		/// </value>
 		public ResourceManager[] Resources { get; }
 
 
@@ -45,10 +48,12 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Формирует и возвращает каскадный массив менеджеров ресурсов, объединяя переданные ресурсы 
-		/// со стандартным базовым менеджером ресурсов локализации интерфейсов полей <see cref="Faces"/>.
+		/// со стандартным базовым менеджером ресурсов локализации интерфейсов полей <see cref="Ans.Net10.Common.Resources.Faces"/>.
 		/// </summary>
 		/// <param name="resources">Набор дополнительных пользовательских менеджеров ресурсов локализации.</param>
-		/// <returns>Объединенный массив <see cref="ResourceManager"/>, готовый для каскадного поиска метаданных.</returns>
+		/// <returns>
+		/// Объединенный массив <see cref="ResourceManager"/>, готовый для каскадного поиска метаданных.
+		/// </returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static ResourceManager[] GetFormResourceManagers(
 			params ResourceManager[] resources)
@@ -62,7 +67,10 @@ namespace Ans.Net10.Common
 		/// Каждые последующие найденные свойства точечно перезаписывают предыдущие, если они не пусты.
 		/// </summary>
 		/// <param name="key">Ключ (имя поля) для поиска в ресурсах.</param>
-		/// <returns>Заполненный объект <see cref="CrudFace"/> или null, если ключ равен null.</returns>
+		/// <returns>
+		/// Заполненный объект <see cref="CrudFace"/>, содержащий объединенные метаданные поля, 
+		/// или <see langword="null"/>, если параметр <paramref name="key"/> равен <see langword="null"/>.
+		/// </returns>
 		public CrudFace? GetCrudFace(
 			string key)
 		{

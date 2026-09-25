@@ -1,4 +1,4 @@
-﻿// rev 2026-09-19
+﻿// rev 2026-09-25
 
 using System.Reflection;
 
@@ -6,82 +6,91 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Базовый класс для описания элементов метаданных объекта.
+	/// Базовый класс для описания общих элементов структурированных метаданных объекта.
 	/// </summary>
 	public class _ObjInfo_Base
 	{
 		/// <summary>
-		/// Возвращает или задает имя элемента (свойства, метода, конструктора).
+		/// Получает или задает системное программное имя элемента (свойства, метода, конструктора).
 		/// </summary>
+		/// <value>Строковое значение имени члена типа.</value>
 		public string Name { get; set; } = string.Empty;
 	}
 
 
 
 	/// <summary>
-	/// Описание метаданных свойства объекта.
+	/// Описание структурированных метаданных свойства объекта.
 	/// </summary>
 	public class ObjInfoProperty
 		: _ObjInfo_Base
 	{
 		/// <summary>
-		/// Возвращает или задает признак наличия метода чтения (get).
+		/// Получает или задает признак наличия открытого метода чтения (getter) у свойства.
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если свойство поддерживает чтение; в противном случае — <see langword="false"/>.</value>
 		public bool HasGetter { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает признак наличия метода записи (set).
+		/// Получает или задает признак наличия открытого метода записи (setter) у свойства.
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если свойство поддерживает запись; в противном случае — <see langword="false"/>.</value>
 		public bool HasSetter { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает удобочитаемое имя типа свойства в синтаксисе C#.
+		/// Получает или задает удобочитаемое имя типа данных свойства, отформатированное в соответствии с синтаксисом языка C#.
 		/// </summary>
+		/// <value>Строка с типом данных (например, <c>"int?"</c>, <c>"string"</c>, <c>"List&lt;DateTime&gt;"</c>).</value>
 		public string TypeName { get; set; } = string.Empty;
 
 		/// <summary>
-		/// Возвращает или задает строковое представление текущего значения свойства.
+		/// Получает или задает строковое представление текущего фактического значения свойства живого объекта.
 		/// </summary>
+		/// <value>Текстовое значение свойства или <see langword="null"/>, если исследуемый объект не был передан или значение равно null.</value>
 		public string? Value { get; set; }
 	}
 
 
 
 	/// <summary>
-	/// Описание метаданных метода или конструктора объекта.
+	/// Описание структурированных метаданных метода или конструктора исследуемого объекта.
 	/// </summary>
 	public class ObjInfoMethod
 		: _ObjInfo_Base
 	{
 		/// <summary>
-		/// Возвращает или задает строковое представление обобщенных параметров (Generics) метода.
+		/// Получает или задает строковое представление объявлений обобщенных параметров типов (Generics) метода.
 		/// </summary>
+		/// <value>Строка параметров типов, заключенная в угловые скобки (например, <c>"&lt;T, TResult&gt;"</c>), или <see langword="null"/>, если метод не является универсальным.</value>
 		public string? Generics { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает коллекцию строковых объявлений параметров метода.
+		/// Получает или задает коллекцию строковых объявлений входных параметров метода с указанием их типов и имен в синтаксисе C#.
 		/// </summary>
+		/// <value>Перечисление <see cref="IEnumerable{String}"/>, содержащее сигнатуры параметров.</value>
 		public IEnumerable<string> Parameters { get; set; } = [];
 	}
 
 
 
 	/// <summary>
-	/// Описание метаданных метода-функции, возвращающей значение.
+	/// Описание структурированных метаданных метода-функции, возвращающей значение.
 	/// </summary>
 	public class ObjInfoFunction
 		: ObjInfoMethod
 	{
 		/// <summary>
-		/// Возвращает или задает удобочитаемое имя возвращаемого типа данных в синтаксисе C#.
+		/// Получает или задает удобочитаемое имя возвращаемого типа данных функции в каноническом синтаксисе языка C#.
 		/// </summary>
+		/// <value>Строка с типом возвращаемого значения (например, <c>"Task&lt;bool&gt;"</c>).</value>
 		public string Return { get; set; } = string.Empty;
 	}
 
 
 
 	/// <summary>
-	/// Строитель и контейнер структурированных метаданных типов и объектов.
+	/// Строитель и высокоуровневый контейнер структурированных метаданных типов и живых объектов, 
+	/// автоматизирующий извлечение сигнатур в синтаксические конструкции C#.
 	/// </summary>
 	public class ObjInfoBuilder
 	{
@@ -89,13 +98,15 @@ namespace Ans.Net10.Common
 		/* ctor */
 
 		/// <summary>
-		/// Инициализирует новый экземпляр класса <see cref="ObjInfoBuilder"/> для указанного типа 
-		/// и опционально извлекает значения свойств из живого объекта.
+		/// Инициализирует новый экземпляр класса <see cref="ObjInfoBuilder"/> для указанного типа данных 
+		/// и опционально извлекает строковые значения свойств из переданного живого экземпляра.
 		/// </summary>
-		/// <param name="type">Исследуемый тип данных.</param>
-		/// <param name="obj">
-		/// Опциональный экземпляр объекта исследуемого типа для считывания значений свойств.
-		/// </param>
+		/// <remarks>
+		/// Внутренний парсер автоматически исключает из анализа базовые методы, унаследованные от системного типа <see cref="object"/>. 
+		/// Для получения C#-имен типов и значений привлекаются расширения рефлексии <c>GetPropertyValue</c> и <c>GetCSharpValue</c>.
+		/// </remarks>
+		/// <param name="type">Исследуемый тип данных метаданных <see cref="Type"/>.</param>
+		/// <param name="obj">Опциональный экземпляр живого объекта исследуемого типа для считывания текущих значений свойств. Если равен <see langword="null"/>, значения свойств останутся пустыми.</param>
 		public ObjInfoBuilder(
 			Type type,
 			object? obj = null)
@@ -116,71 +127,82 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает исследуемый тип данных.
+		/// Возвращает ссылку на исследуемый тип данных.
 		/// </summary>
+		/// <value>Экземпляр описания типа <see cref="Type"/>.</value>
 		public Type InfoType { get; }
 
 
 		/// <summary>
-		/// Возвращает коллекцию метаданных конструкторов типа.
+		/// Возвращает коллекцию метаданных публичных конструкторов исследуемого типа.
 		/// </summary>
+		/// <value>Неизменяемая коллекция <see cref="IReadOnlyCollection{ObjInfoMethod}"/>.</value>
 		public IReadOnlyCollection<ObjInfoMethod> Ctors { get; private set; } = [];
 
 
 		/// <summary>
-		/// Возвращает коллекцию свойств, доступных и на чтение, и на запись.
+		/// Возвращает коллекцию метаданных свойств, одновременно доступных и на чтение, и на запись (ReadWrite).
 		/// </summary>
+		/// <value>Неизменяемая коллекция <see cref="IReadOnlyCollection{ObjInfoProperty}"/>.</value>
 		public IReadOnlyCollection<ObjInfoProperty> ReadWriteProperties { get; private set; } = [];
 
 
 		/// <summary>
-		/// Возвращает коллекцию свойств, доступных только для чтения (ReadOnly).
+		/// Возвращает коллекцию метаданных свойств, доступных исключительно для чтения (ReadOnly).
 		/// </summary>
+		/// <value>Неизменяемая коллекция <see cref="IReadOnlyCollection{ObjInfoProperty}"/>.</value>
 		public IReadOnlyCollection<ObjInfoProperty> ReadOnlyProperties { get; private set; } = [];
 
 
 		/// <summary>
-		/// Возвращает коллекцию свойств, доступных только для записи (WriteOnly).
+		/// Возвращает коллекцию метаданных свойств, доступных исключительно для записи (WriteOnly).
 		/// </summary>
+		/// <value>Неизменяемая коллекция <see cref="IReadOnlyCollection{ObjInfoProperty}"/>.</value>
 		public IReadOnlyCollection<ObjInfoProperty> WriteOnlyProperties { get; private set; } = [];
 
 
 		/// <summary>
-		/// Возвращает коллекцию методов-функций (возвращающих значения).
+		/// Возвращает коллекцию метаданных методов-функций, возвращающих конкретные типы данных (не void).
 		/// </summary>
+		/// <value>Неизменяемая коллекция <see cref="IReadOnlyCollection{ObjInfoFunction}"/>.</value>
 		public IReadOnlyCollection<ObjInfoFunction> Functions { get; private set; } = [];
 
 
 		/// <summary>
-		/// Возвращает коллекцию обычных методов (возвращающих void).
+		/// Возвращает коллекцию метаданных стандартных процедурных методов, не возвращающих значение (<c>void</c>).
 		/// </summary>
+		/// <value>Неизменяемая коллекция <see cref="IReadOnlyCollection{ObjInfoMethod}"/>.</value>
 		public IReadOnlyCollection<ObjInfoMethod> Methods { get; private set; } = [];
 
 
 		/// <summary>
-		/// Возвращает признак наличия свойств типа ReadWrite.
+		/// Возвращает признак наличия у исследуемого типа свойств, доступных и на чтение, и на запись.
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если коллекция <see cref="ReadWriteProperties"/> содержит элементы; в противном случае — <see langword="false"/>.</value>
 		public bool HasReadWriteProperties
 			=> ReadWriteProperties.Count > 0;
 
 
 		/// <summary>
-		/// Возвращает признак наличия свойств типа ReadOnly.
+		/// Возвращает признак наличия у исследуемого типа свойств, доступных только для чтения.
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если коллекция <see cref="ReadOnlyProperties"/> содержит элементы; в противном случае — <see langword="false"/>.</value>
 		public bool HasReadonlyProperties
 			=> ReadOnlyProperties.Count > 0;
 
 
 		/// <summary>
-		/// Возвращает признак наличия свойств типа WriteOnly.
+		/// Возвращает признак наличия у исследуемого типа свойств, доступных только для записи.
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если коллекция <see cref="WriteOnlyProperties"/> содержит элементы; в противном случае — <see langword="false"/>.</value>
 		public bool HasWriteonlyProperties
 			=> WriteOnlyProperties.Count > 0;
 
 
 		/// <summary>
-		/// Возвращает признак наличия любых свойств у исследуемого типа.
+		/// Возвращает интегральный признак наличия абсолютно любых публичных свойств у исследуемого типа данных.
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если тип содержит хотя бы одно свойство в любой из категорий доступа; иначе — <see langword="false"/>.</value>
 		public bool HasProperties
 			=> HasReadWriteProperties
 				|| HasReadonlyProperties

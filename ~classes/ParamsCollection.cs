@@ -1,4 +1,4 @@
-﻿// rev 2026-09-19
+﻿// rev 2026-09-25
 
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -7,7 +7,8 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Коллекция параметров для формирования строки URL-запроса (Query String) с фильтрацией пустых значений.
+	/// Специализированная коллекция параметров для формирования строки URL-запроса (Query String) 
+	/// с автоматической встроенной фильтрацией дефолтных и пустых значений.
 	/// </summary>
 	public class ParamsCollection
 	{
@@ -19,7 +20,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый пустой экземпляр класса <see cref="ParamsCollection"/>.
+		/// Инициализирует новый пустой экземпляр класса <see cref="ParamsCollection"/> со словарем по умолчанию.
 		/// </summary>
 		public ParamsCollection()
 		{
@@ -28,13 +29,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр класса <see cref="ParamsCollection"/>
-		/// с заданной емкостью и компаратором ключей.
+		/// Инициализирует новый экземпляр класса <see cref="ParamsCollection"/> с заданной начальной емкостью и компаратором ключей.
 		/// </summary>
-		/// <param name="capacity">Начальная емкость словаря.</param>
-		/// <param name="comparer">
-		/// Компаратор для сравнения имен параметров (например, регистронезависимый).
-		/// </param>
+		/// <param name="capacity">Начальная емкость внутреннего словаря параметров для оптимизации выделения памяти.</param>
+		/// <param name="comparer">Реализация <see cref="IEqualityComparer{String}"/> для сравнения имен параметров (например, для обеспечения регистронезависимости).</param>
 		public ParamsCollection(
 			int capacity,
 			IEqualityComparer<string> comparer)
@@ -47,8 +45,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает внутренний словарь элементов параметров.
+		/// Возвращает внутренний словарь, содержащий сырые строковые пары параметров.
 		/// </summary>
+		/// <value>Объект класса <see cref="Dictionary{String, String}"/>.</value>
 		public Dictionary<string, string> Items
 			=> _items;
 
@@ -57,10 +56,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет или обновляет строковое значение параметра.
+		/// Добавляет новый или принудительно обновляет существующий строковый параметр без применения фильтрации.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Строковое значение параметра.</param>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">Строковое значение параметра запроса.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -71,10 +70,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр со значением "1", если переданное логическое значение истинно.
+		/// Добавляет параметр со строковым значением <c>"1"</c> только в том случае, если переданное логическое значение истинно.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Логическое значение.</param>
+		/// <remarks>
+		/// Если параметр <paramref name="value"/> равен <see langword="false"/>, добавление или обновление записи не производится (параметр игнорируется).
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">Логическое значение типа <see cref="bool"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -86,10 +88,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр, если числовое значение не равно 0.
+		/// Добавляет целочисленный параметр в виде строки, если его значение не равно <c>0</c>.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Числовое значение.</param>
+		/// <remarks>
+		/// Значение <c>0</c> считается дефолтным для Query String и автоматически отфильтровывается (не добавляется в словарь).
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">32-битное целое число со знаком типа <see cref="int"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -101,10 +106,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр, если числовое значение не равно 0.
+		/// Добавляет числовой параметр типа long в виде строки, если его значение не равно <c>0</c>.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Числовое значение.</param>
+		/// <remarks>
+		/// Значение <c>0</c> автоматически отфильтровывается и полностью игнорируется.
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">64-битное целое число со знаком типа <see cref="long"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -116,10 +124,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр, если числовое значение не равно 0.
+		/// Добавляет числовой параметр типа double в виде строки, если его значение не равно <c>0.0</c>.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Числовое значение.</param>
+		/// <remarks>
+		/// Значение <c>0</c> автоматически отфильтровывается и полностью игнорируется.
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">Число с плавающей запятой двойной точности типа <see cref="double"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -131,10 +142,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр, если числовое значение не равно 0.
+		/// Добавляет числовой параметр типа float в виде строки, если его значение не равно <c>0.0f</c>.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Числовое значение.</param>
+		/// <remarks>
+		/// Значение <c>0</c> автоматически отфильтровывается и полностью игнорируется.
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">Число с плавающей запятой одинарной точности типа <see cref="float"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -146,10 +160,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр, если числовое значение не равно 0.
+		/// Добавляет числовой параметр типа decimal в виде строки, если его значение не равно <c>0.0m</c>.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Числовое значение.</param>
+		/// <remarks>
+		/// Значение <c>0</c> автоматически отфильтровывается и полностью игнорируется.
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">Десятичное число с высокой точностью типа <see cref="decimal"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -161,10 +178,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр даты и времени в универсальном формате (исходя из "u"), если значение задано.
+		/// Добавляет параметр даты и времени в универсальном формате сортируемой строки (исходя из маски <c>"u"</c>), если значение задано.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Значение даты и времени или <see langword="null"/>.</param>
+		/// <remarks>
+		/// Пример результирующего значения в URL: <c>"2026-09-19 20:15:00Z"</c>. Если передан <see langword="null"/>, запись игнорируется.
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">Значение структуры <see cref="DateTime"/>, допускающее <see langword="null"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -176,10 +196,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр даты в формате "yyyy-MM-dd", если значение задано.
+		/// Добавляет параметр даты, отформатированный по стандарту ISO <c>"yyyy-MM-dd"</c>, если значение задано.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Значение даты или <see langword="null"/>.</param>
+		/// <remarks>
+		/// Пример результирующего значения в URL: <c>"2026-09-19"</c>. Если передан <see langword="null"/>, запись игнорируется.
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) haematology параметра URL.</param>
+		/// <param name="value">Значение структуры <see cref="DateOnly"/>, допускающее <see langword="null"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -191,10 +214,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет параметр времени в 24-часовом формате "HH:mm:ss", если значение задано.
+		/// Добавляет параметр времени в 24-часовом строковом формате <c>"HH:mm:ss"</c>, если значение задано.
 		/// </summary>
-		/// <param name="name">Имя параметра.</param>
-		/// <param name="value">Значение времени или <see langword="null"/>.</param>
+		/// <remarks>
+		/// Пример результирующего значения в URL: <c>"14:30:00"</c>. Если передан <see langword="null"/>, запись игнорируется.
+		/// </remarks>
+		/// <param name="name">Уникальное имя (ключ) параметра URL.</param>
+		/// <param name="value">Значение структуры <see cref="TimeOnly"/>, допускающее <see langword="null"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Append(
 			string name,
@@ -209,10 +235,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует коллекцию параметров в валидную строку HTTP-запроса, начинающуюся с символа '?'.
+		/// Преобразует всю накопленную коллекцию параметров в валидную и безопасную строку HTTP-запроса (Query String), начинающуюся с символа префикса <c>'?'</c>.
 		/// </summary>
 		/// <returns>
-		/// Строка запроса вида "?param1=val1&amp;param2=val2" или пустая строка, если параметров нет.
+		/// Готовая к конкатенации строка URL-запроса вида <c>"?param1=val1&amp;param2=val2"</c>. 
+		/// Если коллекция пуста и не содержит элементов, возвращается <see cref="string.Empty"/>.
 		/// </returns>
 		public override string ToString()
 		{

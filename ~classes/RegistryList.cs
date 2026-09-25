@@ -1,4 +1,4 @@
-﻿// rev 2026-09-20
+﻿// rev 2026-09-25
 
 using System.Resources;
 using System.Runtime.CompilerServices;
@@ -7,22 +7,22 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Определяет режимы отображения элементов реестра в пользовательском интерфейсе.
+	/// Определяет режимы визуального отображения элементов реестра в пользовательском интерфейсе.
 	/// </summary>
 	public enum RegistryModeEnum
 	{
 		/// <summary>
-		/// Автоматический выбор режима на основе анализа данных.
+		/// Автоматический выбор режима на основе анализа максимальной ширины и количества элементов.
 		/// </summary>
 		Auto,
 
 		/// <summary>
-		/// Отображение в виде группы элементов ввода (радиокнопки/чекбоксы).
+		/// Отображение в виде группы элементов ввода (радиокнопки для одиночного или чекбоксы для множественного выбора).
 		/// </summary>
 		Inputs,
 
 		/// <summary>
-		/// Отображение в виде выпадающего списка выбора (Select/Dropdown).
+		/// Отображение в виде классического компактного выпадающего списка выбора (<c>&lt;select&gt;</c> / Dropdown).
 		/// </summary>
 		Select
 	}
@@ -30,16 +30,17 @@ namespace Ans.Net10.Common
 
 
 	/// <summary>
-	/// Предоставляет данные для событий, связанных с операциями
-	/// над одиночным элементом реестра <see cref="RegistryItem"/>.
+	/// Предоставляет структурированные данные для событий, связанных с операциями над одиночным элементом реестра.
 	/// </summary>
+	/// <param name="item">Связанный с событием экземпляр элемента реестра.</param>
 	public class RegistryItemEventArgs(
 		RegistryItem item)
 		: EventArgs
 	{
 		/// <summary>
-		/// Возвращает связанный с событием элемент реестра.
+		/// Возвращает связанный с текущим событием элемент реестра.
 		/// </summary>
+		/// <value>Объект класса <see cref="RegistryItem"/>.</value>
 		public RegistryItem Item
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,8 +53,8 @@ namespace Ans.Net10.Common
 	/// <summary>
 	/// Представляет делегат для обработки событий, оперирующих элементами реестра.
 	/// </summary>
-	/// <param name="sender">Источник события.</param>
-	/// <param name="e">Аргументы события, содержащие элемент реестра.</param>
+	/// <param name="sender">Источник (объект), инициировавший данное событие.</param>
+	/// <param name="e">Аргументы события, содержащие целевой элемент реестра <see cref="RegistryItem"/>.</param>
 	public delegate void RegistryItemEventHandler(
 		object sender,
 		RegistryItemEventArgs e);
@@ -61,8 +62,8 @@ namespace Ans.Net10.Common
 
 
 	/// <summary>
-	/// Представляет специализированный список элементов реестра
-	/// с поддержкой событийной модели, фильтрации и иерархических операций.
+	/// Представляет специализированный реактивный список элементов реестра с поддержкой 
+	/// событийной модели, каскадной локализации, автофильтрации и иерархических операций.
 	/// </summary>
 	public class RegistryList
 	{
@@ -83,9 +84,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр класса <see cref="RegistryList"/> на основе коллекции элементов.
+		/// Инициализирует новый экземпляр класса <see cref="RegistryList"/> на основе существующей коллекции элементов.
 		/// </summary>
-		/// <param name="items">Коллекция элементов для добавления в список.</param>
+		/// <remarks>
+		/// Элементы исходной коллекции, имеющие значение <see langword="null"/>, автоматически отсекаются и не добавляются в список.
+		/// </remarks>
+		/// <param name="items">Исходная коллекция элементов <see cref="RegistryItem"/> для наполнения списка.</param>
 		public RegistryList(
 			IEnumerable<RegistryItem> items)
 			: this()
@@ -96,10 +100,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр класса <see cref="RegistryList"/>
-		/// на основе массива элементов.
+		/// Инициализирует новый экземпляр класса <see cref="RegistryList"/> на основе переданного массива элементов.
 		/// </summary>
-		/// <param name="items">Массив элементов для добавления в список.</param>
+		/// <param name="items">Список аргументов (массив) готовых объектов <see cref="RegistryItem"/>.</param>
 		public RegistryList(
 			params RegistryItem[] items)
 			: this(items?.AsEnumerable()!)
@@ -108,10 +111,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр класса <see cref="RegistryList"/>,
-		/// десериализуя его из единой строки.
+		/// Инициализирует новый экземпляр класса <see cref="RegistryList"/>, десериализуя его из единой текстовой строки с разделителями.
 		/// </summary>
-		/// <param name="serialization">Строка сериализации реестра в виде "item1;item2;...".</param>
+		/// <remarks>
+		/// Строка разбирается по разделителю точек с запятой с учетом деэкранирования последовательностей <c>\;</c>.
+		/// </remarks>
+		/// <param name="serialization">Строка сериализации реестра в виде <c>"item1;item2;..."</c>.</param>
 		public RegistryList(
 			string serialization)
 			: this()
@@ -121,10 +126,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Инициализирует новый экземпляр класса <see cref="RegistryList"/>
-		/// на основе массива сериализованных строк.
+		/// Инициализирует новый экземпляр класса <see cref="RegistryList"/> на основе массива предварительно сериализованных строк.
 		/// </summary>
-		/// <param name="items">Массив строк, каждая из которых представляет отдельный элемент.</param>
+		/// <param name="items">Массив строк, каждая из которых представляет отдельный сериализованный элемент в формате реестра.</param>
 		public RegistryList(
 			params string[] items)
 			: this()
@@ -137,7 +141,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Наступает после успешного добавления нового элемента в список реестра.
+		/// Наступает непосредственно после успешного добавления или вставки нового элемента в текущий список реестра.
 		/// </summary>
 		public event RegistryItemEventHandler? AddedItem;
 
@@ -148,6 +152,7 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает перечисляемую коллекцию всех элементов реестра в текущем списке.
 		/// </summary>
+		/// <value>Интерфейс <see cref="IEnumerable{RegistryItem}"/> для последовательного обхода записей.</value>
 		public IEnumerable<RegistryItem> Items
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -156,8 +161,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение, указывающее, содержит ли текущий список хотя бы один элемент.
+		/// Возвращает значение, указывающее, содержит ли текущий список реестра хотя бы один элемент.
 		/// </summary>
+		/// <value>Значение <see langword="true"/>, если список не пуст; в противном случае — <see langword="false"/>.</value>
 		public bool HasItems
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -169,9 +175,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует реестр из коллекции строк.
+		/// Выполняет десериализацию и наполнение реестра из перечисления строк с обработкой системных маркеров <c>"!"</c> и <c>"*"</c>.
 		/// </summary>
-		/// <param name="items">Коллекция строк элементов.</param>
+		/// <remarks>
+		/// Метод очищает список перед началом работы. Маркер <c>"!"</c> однократно добавляет системный пустой элемент, а маркер <c>"*"</c> — элемент "Все значения".
+		/// </remarks>
+		/// <param name="items">Коллекция строк элементов для разбора.</param>
 		public void FillFromString(
 			IEnumerable<string> items)
 		{
@@ -209,9 +218,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует реестр из массива строк.
+		/// Выполняет десериализацию и наполнение реестра из массива строк.
 		/// </summary>
-		/// <param name="items">Массив строк элементов.</param>
+		/// <param name="items">Массив строк элементов для разбора. При передаче <see langword="null"/> список просто очищается.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void FillFromString(
 			params string[] items)
@@ -226,9 +235,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует реестр из единой строки с разделителями "item1;item2;...".
+		/// Выполняет десериализацию реестра из единой текстовой строки, разделяя элементы по символу <c>';'</c> с защитой экранированных разделителей.
 		/// </summary>
-		/// <param name="serialization">Строка сериализации реестра.</param>
+		/// <param name="serialization">Полная строка сериализации реестра.</param>
 		public void FillFromString(
 			string serialization)
 		{
@@ -243,9 +252,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Безопасно вызывает событие <see cref="AddedItem"/>.
+		/// Безопасно вызывает событие <see cref="AddedItem"/>, извещая подписчиков о добавлении элемента.
 		/// </summary>
-		/// <param name="e">Аргументы события, содержащие добавленный элемент.</param>
+		/// <param name="e">Заполненные аргументы события <see cref="RegistryItemEventArgs"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		protected void OnAddedItem(
 			RegistryItemEventArgs e)
@@ -255,9 +264,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет готовый элемент в конец списка реестра и генерирует событие добавления.
+		/// Добавляет готовый элемент в конец текущего списка реестра и генерирует реактивное событие добавления.
 		/// </summary>
-		/// <param name="item">Элемент реестра для добавления.</param>
+		/// <param name="item">Добавляемый объект элемента реестра. Если равен <see langword="null"/>, операция игнорируется.</param>
 		public void Add(
 			RegistryItem item)
 		{
@@ -269,10 +278,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вставляет элемент в список реестра по указанному индексу и генерирует событие добавления.
+		/// Вставляет элемент в список реестра по строго указанному порядковому индексу и генерирует событие добавления.
 		/// </summary>
-		/// <param name="index">Индекс для вставки элемента.</param>
-		/// <param name="item">Элемент реестра для вставки.</param>
+		/// <param name="index">Целочисленный индекс позиции вставки (начиная с 0).</param>
+		/// <param name="item">Вставляемый объект элемента реестра.</param>
 		public void Insert(
 			int index,
 			RegistryItem item)
@@ -285,8 +294,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Создает и добавляет новый элемент в конец списка реестра по заданным параметрам.
+		/// Создает, инициализирует и добавляет новый элемент в конец списка реестра по заданным параметрам метаданных.
 		/// </summary>
+		/// <param name="key">Уникальный ключ создаваемого элемента.</param>
+		/// <param name="value">Текстовое значение контента элемента.</param>
+		/// <param name="level">Уровень вложенности в иерархии (от 0 до 9).</param>
+		/// <param name="isLabel">Флаг, определяющий, является ли элемент чисто текстовым заголовком.</param>
 		public void Add(
 			string key,
 			string value,
@@ -299,9 +312,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет в реестр текстовую метку (заголовок разделов).
+		/// Быстро добавляет в реестр элемент-метку, служащую визуальным текстовым заголовком для последующих подразделов.
 		/// </summary>
-		/// <param name="title">Текст заголовка метки.</param>
+		/// <param name="title">Текст отображаемого заголовка метки.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void AddLabel(
 			string title)
@@ -311,9 +324,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вставляет на нулевую позицию специальный системный элемент "Нулевое/пустое значение".
+		/// Вставляет на самую первую (нулевую) позицию списка специальный системный элемент "Нулевое/пустое значение".
 		/// </summary>
-		/// <param name="key">Опциональный уникальный ключ элемента.</param>
+		/// <remarks>
+		/// Текст элемента извлекается из глобальных ресурсов локализации библиотеки (<c>Resources.Common.Text_EmptyItem</c>).
+		/// </remarks>
+		/// <param name="key">Опциональный кастомный ключ элемента. Если не задан, подставляется <see cref="string.Empty"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void AddNullItem(
 			string? key = null)
@@ -326,9 +342,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вставляет на нулевую позицию специальный системный элемент "Все значения".
+		/// Вставляет на самую первую (нулевую) позицию списка специальный системный элемент "Все значения".
 		/// </summary>
-		/// <param name="key">Опциональный уникальный ключ элемента.</param>
+		/// <remarks>
+		/// Текст элемента извлекается из глобальных ресурсов локализации библиотеки (<c>Resources.Common.Text_AllItems</c>).
+		/// </remarks>
+		/// <param name="key">Опциональный кастомный ключ элемента. Если не задан, подставляется <see cref="string.Empty"/>.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void AddAllItems(
 			string? key = null)
@@ -341,9 +360,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Выполняет локализацию элементов текущего реестра на основе другой строки сериализации.
+		/// Выполняет текстовую локализацию значений элементов текущего реестра на основе сопоставления ключей из другой строки сериализации.
 		/// </summary>
-		/// <param name="source">Строка сериализации реестра-источника локализации.</param>
+		/// <param name="source">Строка сериализации словаря-источника локализации (формата <c>"key1=val1;key2=val2"</c>).</param>
 		public void Localization(
 			string source)
 		{
@@ -361,10 +380,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Извлекает каскадные метаданные поля из ресурсов и применяет их для локализации элементов реестра.
+		/// Извлекает каскадные метаданные CRUD-интерфейса из ресурсов и применяет их для автоматической локализации элементов реестра.
 		/// </summary>
-		/// <param name="key">Ключ поля в ресурсах.</param>
-		/// <param name="resources">Список дополнительных менеджеров ресурсов.</param>
+		/// <param name="key">Ключ свойства или поля в файлах ресурсов.</param>
+		/// <param name="resources">Массив задействованных менеджеров ресурсов <see cref="ResourceManager"/>.</param>
 		public void Localization(
 			string key,
 			params ResourceManager[] resources)
@@ -380,9 +399,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сериализует весь список реестра в единую строку с разделителями ";".
+		/// Сериализует весь текущий список реестра в единую текстовую строку, объединяя элементы через точку с запятой.
 		/// </summary>
-		/// <returns>Строка сериализованных элементов реестра.</returns>
+		/// <returns>Итоговая строка сериализованных элементов реестра.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public override string ToString()
 		{
@@ -391,10 +410,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает элемент реестра по его строковому ключу.
+		/// Возвращает элемент реестра по его строковому ключу с использованием строгого побайтового сравнения.
 		/// </summary>
 		/// <param name="key">Строковый ключ для поиска.</param>
-		/// <returns>Найденный элемент или null, если элемент не найден.</returns>
+		/// <returns>Найденный объект <see cref="RegistryItem"/> или <see langword="null"/>, если элемент с таким ключом отсутствует.</returns>
 		public RegistryItem? GetItem(
 			string? key)
 		{
@@ -408,8 +427,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает элемент реестра по его целочисленному ключу.
 		/// </summary>
-		/// <param name="key">Целочисленный ключ для поиска.</param>
-		/// <returns>Найденный элемент или null.</returns>
+		/// <param name="key">Целочисленный идентификатор ключа.</param>
+		/// <returns>Найденный объект или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RegistryItem? GetItem(
 			int key)
@@ -421,8 +440,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает элемент реестра по его целочисленному nullable-ключу.
 		/// </summary>
-		/// <param name="key">Nullable целочисленный ключ для поиска.</param>
-		/// <returns>Найденный элемент или null.</returns>
+		/// <param name="key">Идентификатор ключа, допускающий значение <see langword="null"/>.</param>
+		/// <returns>Найденный объект или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RegistryItem? GetItem(
 			int? key)
@@ -432,10 +451,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковый ключ первого элемента, значение которого совпадает с переданным.
+		/// Возвращает строковый ключ самого первого элемента, чье текстовое значение контента совпадает с переданным.
 		/// </summary>
-		/// <param name="value">Значение для поиска ключа.</param>
-		/// <returns>Строковый ключ элемента или null, если значение не найдено.</returns>
+		/// <param name="value">Текстовое значение для поиска.</param>
+		/// <returns>Строковый ключ сопоставленного элемента, либо <see langword="null"/>, если совпадений не найдено.</returns>
 		public string? GetKey(
 			string value)
 		{
@@ -448,11 +467,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает ключ элемента по его значению с автогенерацией ключа при его отсутствии.
+		/// Возвращает ключ элемента по его текстовому значению с автоматической регистрацией и генерацией ключа при его отсутствии.
 		/// </summary>
-		/// <param name="value">Значение элемента.</param>
-		/// <param name="newKey">Опциональный новый ключ.</param>
-		/// <returns>Финальный строковый ключ, под которым зарегистрировано значение.</returns>
+		/// <param name="value">Текстовое значение элемента.</param>
+		/// <param name="newKey">Опциональный новый ключ для регистрации. Если равен <see langword="null"/> — ключом становится текущий размер списка.</param>
+		/// <returns>Финальный строковый ключ, под которым зарегистрировано значение в реестре.</returns>
 		public string GetKeyForValue(
 			string value,
 			string? newKey = null)
@@ -467,10 +486,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое значение элемента по его строковому ключу.
+		/// Безопасно возвращает строковое значение контента элемента по его строковому ключу.
 		/// </summary>
 		/// <param name="key">Строковый ключ элемента.</param>
-		/// <returns>Значение элемента или null, если ключ отсутствует.</returns>
+		/// <returns>Значение контента или <see langword="null"/>, если ключ отсутствует в списке.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public string? GetValue(
 			string key)
@@ -481,10 +500,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое значение элемента по его целочисленному ключу.
+		/// Безопасно возвращает строковое значение контента элемента по его целочисленному ключу.
 		/// </summary>
 		/// <param name="key">Целочисленный ключ элемента.</param>
-		/// <returns>Значение элемента или null.</returns>
+		/// <returns>Значение контента или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public string? GetValue(
 			int key)
@@ -494,10 +513,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое значение элемента по его целочисленному nullable-ключу.
+		/// Безопасно возвращает строковое значение контента элемента по его целочисленному nullable-ключу.
 		/// </summary>
-		/// <param name="key">Nullable целочисленный ключ элемента.</param>
-		/// <returns>Значение элемента или null.</returns>
+		/// <param name="key">Идентификатор ключа, допускающий значение <see langword="null"/>.</param>
+		/// <returns>Значение контента или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public string? GetValue(
 			int? key)
@@ -507,10 +526,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение по ключу. Если значение не найдено, возвращает ключ, оформленный по шаблону декоратора.
+		/// Возвращает значение по ключу, а в случае промаха возвращает сам ключ, оформленный по шаблону декоратора пропущенных данных.
 		/// </summary>
 		/// <param name="key">Строковый ключ для поиска.</param>
-		/// <returns>Значение или декорированный ключ.</returns>
+		/// <returns>Значение элемента, либо декорированная строка вида <c>"–{key}–"</c>.</returns>
 		public string GetValueOrKey(
 			string key)
 		{
@@ -520,7 +539,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение по целочисленному ключу с декоратором.
+		/// Возвращает значение по целочисленному ключу, а в случае промаха возвращает числовой ключ с декоратором пропущенных данных.
 		/// </summary>
 		/// <param name="key">Целочисленный ключ для поиска.</param>
 		/// <returns>Значение или декорированный ключ.</returns>
@@ -536,7 +555,7 @@ namespace Ans.Net10.Common
 		/// Возвращает уровень вложенности элемента по его строковому ключу.
 		/// </summary>
 		/// <param name="key">Строковый ключ элемента.</param>
-		/// <returns>Уровень вложенности от 0 до 9, либо 0, если элемент не найден.</returns>
+		/// <returns>Уровень вложенности в диапазоне от 0 до 9, либо <c>0</c>, если элемент не зарегистрирован.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public int GetLevel(
 			string key)
@@ -549,6 +568,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает уровень вложенности элемента по его целочисленному ключу.
 		/// </summary>
+		/// <param name="key">Целочисленный ключ элемента.</param>
+		/// <returns>Уровень вложенности в диапазоне от 0 до 9, либо <c>0</c>, если элемент не зарегистрирован.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public int GetLevel(
 			int key)
@@ -560,6 +581,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает уровень вложенности элемента по его целочисленному nullable-ключу.
 		/// </summary>
+		/// <param name="key">Целочисленный ключ элемента, допускающий значение <see langword="null"/>.</param>
+		/// <returns>Уровень вложенности в диапазоне от 0 до 9, либо <c>0</c>, если элемент не зарегистрирован.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public int GetLevel(
 			int? key)
@@ -570,10 +593,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение первого элемента, чей ключ содержит в себе указанную подстроку.
+		/// Возвращает значение первого встреченного элемента, чей ключ содержит в себе указанную подстроку (поиск по частичному совпадению).
 		/// </summary>
-		/// <param name="inclusion">Подстрока, которая должна входить в состав ключа.</param>
-		/// <returns>Значение элемента или null.</returns>
+		/// <param name="inclusion">Искомая подстрока, входящая в состав ключа.</param>
+		/// <returns>Значение элемента или <see langword="null"/>, если совпадений нет.</returns>
 		public string? GetValueInclusion(
 			string inclusion)
 		{
@@ -586,11 +609,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение первого элемента, чей ключ целиком входит
-		/// в состав переданной большой строки расширения.
+		/// Возвращает значение первого встреченного элемента, чей ключ целиком входит в состав переданного текстового контейнера.
 		/// </summary>
-		/// <param name="expansion">Строка расширения, в которой производится поиск ключа.</param>
-		/// <returns>Значение элемента или null.</returns>
+		/// <param name="expansion">Большая строка-контейнер, в которой проверяется наличие зарегистрированных ключей.</param>
+		/// <returns>Значение элемента или <see langword="null"/>.</returns>
 		public string? GetValueExpansion(
 			string expansion)
 		{
@@ -603,10 +625,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Рассчитывает и возвращает максимальную длину значений элементов реестра
-		/// с учетом фиксированного базового отступа.
+		/// Рассчитывает и возвращает максимальную ширину текстовых значений элементов реестра в пикселях/символах с учетом фиксированного базового отступа.
 		/// </summary>
-		/// <returns>Максимальная длина значений плюс базовый отступ.</returns>
+		/// <returns>Максимальная длина строкового значения в списке плюс фиксированная константа базового отступа (<c>9</c>).</returns>
 		public int GetMaxWidth()
 		{
 			const int basePadding = 9;
@@ -624,10 +645,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает рекомендуемый режим отображения реестра в интерфейсе
-		/// на основе расчетной ширины и общего количества элементов.
+		/// Возвращает интеллектуально рекомендуемый режим отображения реестра в веб-интерфейсе на основе корреляции его расчетной ширины и плотности элементов.
 		/// </summary>
-		/// <returns>Рекомендуемый режим отображения.</returns>
+		/// <returns>Одно из значений перечисления <see cref="RegistryModeEnum"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public RegistryModeEnum GetProposeMode()
 		{
@@ -650,11 +670,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает рекомендуемую ширину элемента ввода для отображения реестра
-		/// на основе переданного числового значения ширины.
+		/// Возвращает рекомендуемую абстрактную ширину элемента ввода для интерфейса на основе переданного числового значения максимального размера.
 		/// </summary>
-		/// <param name="width">Числовое значение максимальной ширины поля (включая отступы).</param>
-		/// <returns>Рекомендуемый вариант ширины.</returns>
+		/// <param name="width">Числовое значение максимальной ширины поля.</param>
+		/// <returns>Одно из значений перечисления <see cref="WidthsEnum"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static WidthsEnum GetProposeWidth(
 			int width)
@@ -670,10 +689,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает рекомендуемую ширину элемента ввода для отображения реестра
-		/// на основе анализа максимальной длины значений текущего списка.
+		/// Возвращает рекомендуемую ширину элемента ввода в интерфейсе на основе автоматического анализа максимальной длины значений текущего списка реестра.
 		/// </summary>
-		/// <returns>Рекомендуемый вариант ширины.</returns>
+		/// <returns>Одно из значений перечисления <see cref="WidthsEnum"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public WidthsEnum GetProposeWidth()
 		{

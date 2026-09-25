@@ -1,4 +1,4 @@
-﻿// rev 2026-09-19
+﻿// rev 2026-09-25
 
 namespace Ans.Net10.Common
 {
@@ -39,7 +39,7 @@ namespace Ans.Net10.Common
 		ExtraSmall,
 
 		/// <summary>
-		/// Ширина не задается (свободное поведение).
+		/// Ширина не задается (свободное поведение элемента).
 		/// </summary>
 		Nothing
 	}
@@ -64,25 +64,31 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает внутреннее HTML-содержимое блока.
 		/// </summary>
+		/// <value>Строка с HTML-кодом. Если при инициализации был передан <see langword="null"/>, возвращает пустую строку.</value>
 		public string Html { get; } = html ?? string.Empty;
 
 
 		/// <summary>
 		/// Возвращает выбранный режим ширины контейнера.
 		/// </summary>
+		/// <value>Значение из перечисления <see cref="WidthsEnum"/>.</value>
 		public WidthsEnum Width { get; } = width;
 
 
 		/// <summary>
 		/// Возвращает CSS-класс контейнера.
 		/// </summary>
+		/// <value>Имя CSS-класса. Если при инициализации был передан <see langword="null"/>, возвращает пустую строку.</value>
 		public string CssClass { get; } = cssClass ?? string.Empty;
 
 
 		/// <summary>
-		/// Возвращает инлайновый инкапсулированный CSS-стиль ширины на основе выбранного режима. 
-		/// Если выбран режим <see cref="WidthsEnum.Nothing"/>, возвращает <see langword="null"/>.
+		/// Возвращает инлайновый инкапсулированный CSS-стиль ширины на основе выбранного режима.
 		/// </summary>
+		/// <value>
+		/// Строка вида <c>"width:X"</c> для инлайнового атрибута <c>style</c>, 
+		/// либо <see langword="null"/>, если выбран режим <see cref="WidthsEnum.Nothing"/>.
+		/// </value>
 		public string? AutoStyle
 			=> field ??= Width switch
 			{
@@ -101,9 +107,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Формирует итоговую HTML-строку контейнера &lt;div&gt; с подстановкой класса и стилей.
+		/// Формирует итоговую HTML-строку контейнера &lt;div&gt; с подстановкой класса и инлайновых стилей.
 		/// </summary>
-		/// <returns>Строка валидного HTML-кода.</returns>
+		/// <returns>Строка валидного HTML-кода разметки блочного элемента.</returns>
 		public override string ToString()
 		{
 			string styleAttribute1 = string.IsNullOrEmpty(AutoStyle)

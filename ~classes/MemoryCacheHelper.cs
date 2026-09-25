@@ -1,4 +1,4 @@
-﻿// rev 2026-09-23
+﻿// rev 2026-09-25
 
 using Microsoft.Extensions.Caching.Memory;
 using System.Runtime.CompilerServices;
@@ -23,10 +23,10 @@ namespace Ans.Net10.Common
 		/// Инициализирует новый экземпляр класса <see cref="MemoryCacheHelper"/> с внедрением зависимости кэша
 		/// и возможностью переопределения параметров кэширования по умолчанию.
 		/// </summary>
-		/// <param name="cache">Экземпляр службы кэширования в памяти.</param>
+		/// <param name="cache">Экземпляр службы кэширования в памяти, реализующий интерфейс <see cref="IMemoryCache"/>.</param>
 		/// <param name="defaultCacheOptions">
-		/// Опциональные параметры кэширования по умолчанию.
-		/// Если null — применяется <see cref="SuppCache.DEFAULT_CACHE_OPTIONS"/>.
+		/// Опциональные параметры времени жизни и политик вытеснения записей кэша по умолчанию.
+		/// Если передано значение <see langword="null"/> — принудительно применяется глобальная конфигурация <see cref="SuppCache.DEFAULT_CACHE_OPTIONS"/>.
 		/// </param>
 		public MemoryCacheHelper(
 			IMemoryCache cache,
@@ -41,8 +41,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает параметры времени жизни и ограничений записей кэша, применяемые по умолчанию.
+		/// Возвращает параметры времени жизни, приоритетов и ограничений записей кэша, применяемые по умолчанию.
 		/// </summary>
+		/// <value>Объект конфигурации <see cref="MemoryCacheEntryOptions"/>.</value>
 		public MemoryCacheEntryOptions DefaultCacheOptions { get; }
 
 
@@ -50,17 +51,21 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение из кэша по указанному ключу. Если объект отсутствует, 
-		/// выполняет его получение через переданный делегат-фабрику, сохраняет в кэш и возвращает результат.
+		/// Возвращает значение из кэша по указанному уникальному ключу. Если объект отсутствует, 
+		/// выполняет его атомарное получение через переданный делегат-фабрику, сохраняет в кэш и возвращает результат.
 		/// </summary>
-		/// <typeparam name="T">Тип кэшируемого объекта.</typeparam>
+		/// <remarks>
+		/// Метод использует системный метод расширения CacheExtensions.GetOrCreate{TItem}, гарантирующий потокобезопасность. 
+		/// Делегат <paramref name="getObject"/> будет выполнен только в том случае, если в кэше нет валидной записи с ключом <paramref name="cacheKey"/>.
+		/// </remarks>
+		/// <typeparam name="T">Тип кэшируемого объекта (может быть как ссылочным, так и значимым типом).</typeparam>
 		/// <param name="cacheKey">Уникальный строковый ключ записи кэша.</param>
-		/// <param name="getObject">Делегат-фабрика для получения объекта, если он не найден в кэше.</param>
+		/// <param name="getObject">Делегат-фабрика (<see cref="Func{T}"/>), возвращающий объект для добавления в кэш при промахе (cache miss).</param>
 		/// <param name="options">
-		/// Опциональные параметры времени жизни и ограничений записи кэша для текущего вызова.
-		/// Если null — применяются <see cref="DefaultCacheOptions"/>.
+		/// Опциональные индивидуальные параметры времени жизни текущей записи кэша.
+		/// Если передано значение <see langword="null"/> — для этой записи применяются параметры по умолчанию из свойства <see cref="DefaultCacheOptions"/>.
 		/// </param>
-		/// <returns>Значение из кэша или вновь созданный объект типа <typeparamref name="T"/>.</returns>
+		/// <returns>Найденное в кэше значение или вновь созданный фабрикой объект типа <typeparamref name="T"/>.</returns>
 		public T? Get<T>(
 			string cacheKey,
 			Func<T> getObject,
@@ -79,8 +84,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Принудительно удаляет запись из кэша по её уникальному ключу.
+		/// Принудительно и немедленно удаляет запись из кэша по её уникальному строковому ключу.
 		/// </summary>
+		/// <remarks>
+		/// Если запись с указанным ключом отсутствует в кэше, метод не генерирует исключений.
+		/// </remarks>
 		/// <param name="cacheKey">Уникальный строковый ключ удаляемой записи.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Remove(
