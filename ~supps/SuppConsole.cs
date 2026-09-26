@@ -1,6 +1,5 @@
-﻿// rev 2026-09-11
+﻿// rev 2026-09-26
 
-using System.Drawing;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -9,8 +8,7 @@ namespace Ans.Net10.Common
 
 
 	/// <summary>
-	/// Вспомогательный класс для работы
-	/// с консольным UI.
+	/// Вспомогательный класс для работы с консольным пользовательским интерфейсом (Console UI).
 	/// </summary>
 	public static class SuppConsole
 	{
@@ -23,6 +21,10 @@ namespace Ans.Net10.Common
 		private static int _counter;
 
 
+		/// <summary>
+		/// Выводит в консоль оформленный заголовок начала работы приложения с кастомным названием.
+		/// </summary>
+		/// <param name="title">Отображаемый заголовок приложения.</param>
 		public static void AppStart(
 			string title)
 		{
@@ -37,12 +39,18 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Выводит в консоль оформленный заголовок начала работы приложения, автоматически используя имя вызывающей сборки.
+		/// </summary>
 		public static void AppStart()
 		{
 			AppStart(Assembly.GetCallingAssembly().GetName().Name ?? "App");
 		}
 
 
+		/// <summary>
+		/// Выводит финальную строку и ожидает нажатия любой клавиши перед закрытием консоли.
+		/// </summary>
 		public static void AppEnd()
 		{
 			Console.WriteLine();
@@ -54,6 +62,10 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Выводит в консоль заголовок начала крупной логической секции.
+		/// </summary>
+		/// <param name="title">Название запускаемой секции.</param>
 		public static void SectionStart(
 			string title)
 		{
@@ -68,6 +80,10 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Выводит в консоль заголовок начала подразделения или локальной части.
+		/// </summary>
+		/// <param name="title">Название подраздела.</param>
 		public static void PartStart(
 			string title)
 		{
@@ -78,6 +94,9 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Очищает буфер ввода консоли от накопленных, но не обработанных нажатий клавиш.
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void InputClear()
 		{
@@ -86,6 +105,10 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Очищает буфер ввода и считывает информацию о нажатой клавише пользователя без вывода её на экран.
+		/// </summary>
+		/// <returns>Объект <see cref="ConsoleKeyInfo"/> с метаданными нажатой клавиши.</returns>
 		public static ConsoleKeyInfo ReadKey()
 		{
 			InputClear();
@@ -97,7 +120,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сохраняет текущую позицию курсора.
+		/// Запоминает во внутренней переменной текущие координаты курсора в буфере консоли.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void CursorSavePos()
@@ -108,7 +131,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Восстанавливает сохраненную ранее позицию курсора.
+		/// Восстанавливает позицию курсора на координаты, зафиксированные при последнем вызове <see cref="CursorSavePos"/>.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void CursorRestorePos()
@@ -118,7 +141,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Переводит курсор в начало текущей строки.
+		/// Смещает позицию курсора в крайнее левое положение (индекс 0) текущей строки.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void CursorToBeginLine()
@@ -130,6 +153,10 @@ namespace Ans.Net10.Common
 		/*--- COUNTER ---*/
 
 
+		/// <summary>
+		/// Инициализирует счетчик прогресса и сохраняет текущую точку возврата курсора.
+		/// </summary>
+		/// <param name="counter">Начальное числовое значение счетчика.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void SetCounter(
 			int counter)
@@ -139,6 +166,9 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Увеличивает значение счетчика на единицу и обновляет его визуальное отображение на экране на прежней позиции.
+		/// </summary>
 		public static void CounterUp()
 		{
 			_counter++;
@@ -148,6 +178,9 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Уменьшает значение счетчика на единицу и обновляет его визуальное отображение на экране на прежней позиции.
+		/// </summary>
 		public static void CounterDown()
 		{
 			_counter--;
@@ -161,8 +194,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строку для вывода на основе коллекции
+		/// Формирует строку для вывода на основе коллекции элементов, оборачивая строковые типы в кавычки.
 		/// </summary>
+		/// <typeparam name="T">Тип элементов в коллекции.</typeparam>
+		/// <param name="items">Исходная последовательность элементов. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Строковое перечисление элементов в квадратных скобках, разделенное запятыми.</returns>
 		public static string ArrToText<T>(
 			IEnumerable<T>? items)
 		{
@@ -174,7 +210,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Очищает текущую строку консоли.
+		/// Полностью очищает текущую строку консоли, заполняя её пробелами с использованием высокопроизводительного буфера.
 		/// </summary>
 		public static void ClearLine()
 		{
@@ -195,6 +231,9 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Выводит в консоль разделительную линию из дефисов.
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void BreakLine()
 		{
@@ -202,6 +241,9 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Выводит в консоль жирную разделительную линию из знаков равенства.
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void BreakLineW()
 		{
@@ -210,8 +252,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Производит вывод в консоль с заданным цветом фона.
+		/// Выводит текст в консоль с изменением цвета шрифта и последующим автоматическим восстановлением системной палитры.
 		/// </summary>
+		/// <param name="fgColor">Целевой цвет текста.</param>
+		/// <param name="text">Выводимое строковое сообщение.</param>
 		public static void WriteColor(
 			ConsoleColor fgColor,
 			string text)
@@ -224,9 +268,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Производит вывод в консоль с заданным цветом фона,
-		/// если условие верно.
+		/// Выводит текст цветным шрифтом, если логическое условие верно; в противном случае выводит текст стандартным цветом.
 		/// </summary>
+		/// <param name="expression">Флаг применения кастомного окрашивания текста.</param>
+		/// <param name="fgColor">Кастомный цвет текста.</param>
+		/// <param name="text">Выводимое строковое сообщение.</param>
 		public static void WriteColor(
 			bool expression,
 			ConsoleColor fgColor,
@@ -240,8 +286,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Оформленный вывод параметра (имя: значение)
+		/// Выводит структурированную пару "название: значение" с опциональным цветовым выделением значения.
 		/// </summary>
+		/// <param name="title">Название выводимого параметра.</param>
+		/// <param name="value">Значение параметра (примитив или сложный объект).</param>
+		/// <param name="fgColor">Цвет шрифта для вывода значения. Если <see langword="null"/> — используется зеленый.</param>
 		public static void WriteLineParam(
 			string title,
 			object? value,
@@ -257,6 +306,13 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Выводит общее количество элементов словаря и построчно логирует его записи через кастомную функцию.
+		/// </summary>
+		/// <typeparam name="T">Тип значений в словаре. Должен быть ссылочным (<see langword="class"/>).</typeparam>
+		/// <param name="title">Общий заголовок выводимого блока данных.</param>
+		/// <param name="dictionary">Словарь с данными.</param>
+		/// <param name="itemLog">Делегат функции формирования строки для каждой записи KeyValuePair.</param>
 		public static void WriteDict<T>(
 			string title,
 			IDictionary<string, T> dictionary,
@@ -271,6 +327,14 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Выводит заголовок, рассчитывает количество элементов последовательности, логирует их и выполняет заданное действие над каждым объектом.
+		/// </summary>
+		/// <typeparam name="T">Тип элементов коллекции. Должен быть ссылочным (<see langword="class"/>).</typeparam>
+		/// <param name="title">Заголовок выводимого списка.</param>
+		/// <param name="items">Последовательность элементов.</param>
+		/// <param name="itemLog">Функция логирования элемента.</param>
+		/// <param name="itemAction">Опциональное действие, выполняемое над элементом в цикле обхода.</param>
 		public static void WriteItems<T>(
 			string title,
 			IEnumerable<T> items,
@@ -295,8 +359,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Производит вывод в консоль без изменерния позиции курсора.
+		/// Выводит текст в текущую позицию консоли, сохраняя и моментально восстанавливая координаты курсора ("замороженный" вывод).
 		/// </summary>
+		/// <param name="template">Шаблон строки вывода.</param>
+		/// <param name="args">Параметры форматирования.</param>
 		public static void WriteFreeze(
 			string template,
 			params object[] args)
@@ -310,6 +376,10 @@ namespace Ans.Net10.Common
 		/*--- MENU ---*/
 
 
+		/// <summary>
+		/// Инициализирует и запускает интерактивное текстовое меню в консоли на основе переданного списка элементов.
+		/// </summary>
+		/// <param name="items">Коллекция пунктов меню.</param>
 		public static void MakeMenu(
 			IEnumerable<ConsoleMenuItem> items)
 		{
@@ -320,6 +390,11 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Выводит вопрос в консоль и ожидает от пользователя подтверждения в формате Да/Нет (клавиши Y/N).
+		/// </summary>
+		/// <param name="query">Текст отображаемого вопроса.</param>
+		/// <returns><see langword="true"/>, если пользователь нажал 'y' или 'Y'; иначе — <see langword="false"/>.</returns>
 		public static bool GetCase(
 			string query)
 		{

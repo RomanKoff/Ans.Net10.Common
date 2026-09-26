@@ -1,4 +1,4 @@
-﻿// rev 2026-09-15
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -15,8 +15,11 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Экранирует спецсимволы в строке, заменяя их эквивалентами, безопасными для использования в регулярных выражениях.
 		/// </summary>
-		/// <param name="source">Исходная строка, содержащая спецсимволы регулярных выражений, или null.</param>
-		/// <returns>Строка с экранированными спецсимволами. Если передана пустая строка или null, возвращается исходное значение.</returns>
+		/// <param name="source">Исходная строка, содержащая спецсимволы регулярных выражений. Допускает значение <see langword="null"/>.</param>
+		/// <returns>
+		/// Строка с экранированными спецсимволами. Если передана пустая строка или <see langword="null"/>, 
+		/// возвращается <see cref="string.Empty"/>.
+		/// </returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string Escape(
 			string? source)

@@ -1,4 +1,4 @@
-﻿// rev 2026-09-10
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -14,24 +14,69 @@ namespace Ans.Net10.Common
 	public static class SuppCrypto
 	{
 
-		private const int _SALT_SIZE = 16; // 128 бит соль
-		private const int _KEY_SIZE = 32;  // 256 бит под хэш
-		private const int _ITERATIONS = 600_000; // Рекомендация OWASP / NIST для PBKDF2-SHA256
-
-		private static readonly char[] _LOWERCASE = "abcdefghjkmnpqrstuvwxyz".ToCharArray();
-		private static readonly char[] _UPPERCASE = "ABCDEFGHJKMNPQRSTUVWXYZ".ToCharArray();
-		private static readonly char[] _DIGITS = "23456789".ToCharArray();
-		private static readonly char[] _SPECIALCHARS = "!@#$%^&*()_+-=[]{}?<>-".ToCharArray();
-		private static readonly char[] _ALL_CHARS = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789!@#$%^&*()_+-=[]{}?<>-".ToCharArray();
+		/* consts */
 
 
 		/// <summary>
-		/// Генерирует криптографически стойкий случайный пароль заданной длины.
-		/// Гарантирует наличие как минимум одного символа из каждой группы (нижний регистр, верхний регистр, цифры, знаки).
+		/// Размер генерируемой криптографической соли в байтах (128 бит).
 		/// </summary>
-		/// <param name="length">Длина генерируемого пароля (не менее 8 символов).</param>
+		public const int SALT_SIZE = 16; // 128 бит соль
+
+		/// <summary>
+		/// Размер генерируемого криптографического хэш-ключа в байтах (256 бит под результирующий хэш).
+		/// </summary>
+		public const int KEY_SIZE = 32;  // 256 бит под хэш
+
+		/// <summary>
+		/// Количество итераций алгоритма PBKDF2, соответствующее стандартам и рекомендациям OWASP и NIST для SHA-256.
+		/// </summary>
+		public const int ITERATIONS = 600_000; // Рекомендация OWASP / NIST для PBKDF2-SHA256
+
+
+		/// <summary>
+		/// Набор безопасных строчных символов латинского алфавита, исключающий неоднозначные знаки (например, 'l', 'o').
+		/// </summary>
+		/// <value>Массив символов нижнего регистра.</value>
+		public static readonly char[] LOWERCASE_CHARS = "abcdefghjkmnpqrstuvwxyz".ToCharArray();
+
+		/// <summary>
+		/// Набор безопасных заглавных символов латинского алфавита, исключающий неоднозначные знаки (например, 'I', 'O').
+		/// </summary>
+		/// <value>Массив символов верхнего регистра.</value>
+		public static readonly char[] UPPERCASE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ".ToCharArray();
+
+		/// <summary>
+		/// Набор безопасных числовых знаков, исключающий неоднозначные символы '0' и '1'.
+		/// </summary>
+		/// <value>Массив символов цифр.</value>
+		public static readonly char[] DIGITS_CHARS = "23456789".ToCharArray();
+
+		/// <summary>
+		/// Набор стандартных специальных символов и знаков пунктуации, рекомендованных для формирования сложных паролей.
+		/// </summary>
+		/// <value>Массив специальных знаков.</value>
+		public static readonly char[] SPECIAL_CHARS = "!@#$%^&*()_+-=[]{}?<>-".ToCharArray();
+
+		/// <summary>
+		/// Объединенный алфавитный реестр, содержащий все разрешенные символы для криптографических операций генерации.
+		/// </summary>
+		/// <value>Полный массив доступных парольных символов.</value>
+		public static readonly char[] ALL_CHARS = [
+			.. LOWERCASE_CHARS,
+			.. UPPERCASE_CHARS,
+			.. DIGITS_CHARS,
+			.. SPECIAL_CHARS];
+
+
+		/* functions */
+
+
+		/// <summary>
+		/// Генерирует криптографически стойкий случайный пароль заданной длины с гарантированным вхождением символов из всех четырех групп.
+		/// </summary>
+		/// <param name="length">Требуемая длина генерируемого пароля (минимальное безопасное значение — 8). По умолчанию равна 16.</param>
 		/// <returns>Строка безопасного случайного пароля.</returns>
-		/// <exception cref="ArgumentException">Выбрасывается, если длина пароля меньше 8 символов.</exception>
+		/// <exception cref="ArgumentException">Выбрасывается, если переданное значение длины <paramref name="length"/> строго меньше 8 символов.</exception>
 		public static string GenerateSecurePassword(
 			int length = 16)
 		{
@@ -40,12 +85,12 @@ namespace Ans.Net10.Common
 					"[Ans.Net10.Common/SuppCrypto.GenerateSecurePassword] To ensure security, the password must be at least 8 characters long.",
 					nameof(length));
 			var a1 = new char[length];
-			a1[0] = _LOWERCASE[RandomNumberGenerator.GetInt32(_LOWERCASE.Length)];
-			a1[1] = _UPPERCASE[RandomNumberGenerator.GetInt32(_UPPERCASE.Length)];
-			a1[2] = _DIGITS[RandomNumberGenerator.GetInt32(_DIGITS.Length)];
-			a1[3] = _SPECIALCHARS[RandomNumberGenerator.GetInt32(_SPECIALCHARS.Length)];
+			a1[0] = LOWERCASE_CHARS[RandomNumberGenerator.GetInt32(LOWERCASE_CHARS.Length)];
+			a1[1] = UPPERCASE_CHARS[RandomNumberGenerator.GetInt32(UPPERCASE_CHARS.Length)];
+			a1[2] = DIGITS_CHARS[RandomNumberGenerator.GetInt32(DIGITS_CHARS.Length)];
+			a1[3] = SPECIAL_CHARS[RandomNumberGenerator.GetInt32(SPECIAL_CHARS.Length)];
 			for (int i1 = 4; i1 < length; i1++)
-				a1[i1] = _ALL_CHARS[RandomNumberGenerator.GetInt32(_ALL_CHARS.Length)];
+				a1[i1] = ALL_CHARS[RandomNumberGenerator.GetInt32(ALL_CHARS.Length)];
 			for (int i1 = length - 1; i1 > 0; i1--)
 			{
 				int j1 = RandomNumberGenerator.GetInt32(i1 + 1);
@@ -56,11 +101,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Генерирует криптографически стойкий URL-безопасный токен
-		/// в формате Base64Url без выделения промежуточных строк.
+		/// Генерирует криптографически стойкий, URL-безопасный токен в формате Base64Url без дополнительных аллокаций памяти в куче.
 		/// </summary>
-		/// <param name="bytesCount">Количество байт энтропии (например, 16 байт = 128 бит, 32 байта = 256 бит безопасности).</param>
-		/// <returns>Строка токена в формате Base64Url. Если количество байт меньше или равно 0, возвращается пустая строка.</returns>
+		/// <param name="bytesCount">Количество байт энтропии, определяющее криптостойкость токена (например, 32 байта обеспечивают 256 бит безопасности). По умолчанию равно 32.</param>
+		/// <returns>Строка сформированного токена в формате Base64Url, либо <see cref="string.Empty"/>, если значение <paramref name="bytesCount"/> меньше или равно 0.</returns>
 		public static string GenerateApiToken(
 			int bytesCount = 32)
 		{
@@ -78,30 +122,30 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Создает безопасный хэш пароля на основе PBKDF2-SHA256 с добавлением соли.
+		/// Создает безопасный криптографический хэш открытого пароля на основе алгоритма PBKDF2-SHA256 с автоматическим добавлением соли.
 		/// </summary>
-		/// <param name="password">Исходный пароль для хэширования.</param>
-		/// <returns>Строка хэша, содержащая метаданные и соль в формате Base64, готовую к сохранению.</returns>
-		/// <exception cref="ArgumentException">Выбрасывается, если пароль пустой или равен null.</exception>
+		/// <param name="password">Исходная строка открытого пароля для хэширования.</param>
+		/// <returns>Строка, содержащая сгенерированную соль и итоговый хэш в кодировке Base64, разделённые точкой и готовые к записи в БД.</returns>
+		/// <exception cref="ArgumentException">Выбрасывается, если параметр <paramref name="password"/> пуст или равен <see langword="null"/>.</exception>
 		public static string HashPassword(
 			string password)
 		{
 			ArgumentException.ThrowIfNullOrEmpty(
 				password, nameof(password));
-			var salt1 = RandomNumberGenerator.GetBytes(_SALT_SIZE);
+			var salt1 = RandomNumberGenerator.GetBytes(SALT_SIZE);
 			var hash1 = Rfc2898DeriveBytes.Pbkdf2(
-				password, salt1, _ITERATIONS, HashAlgorithmName.SHA256, _KEY_SIZE);
+				password, salt1, ITERATIONS, HashAlgorithmName.SHA256, KEY_SIZE);
 			return $"{Convert.ToBase64String(salt1)}.{Convert.ToBase64String(hash1)}";
 		}
 
 
 		/// <summary>
-		/// Проверяет соответствие открытого пароля сохраненному хэшу. Защищено от атак по времени (Timing Attacks).
+		/// Проверяет соответствие переданного открытого пароля ранее сохраненному комбинированному хэшу. Защищено от атак по времени (Timing Attacks).
 		/// </summary>
-		/// <param name="password">Проверяемый открытый пароль.</param>
-		/// <param name="hashedPassword">Ранее сохраненная строка хэша в формате "Соль.Хэш".</param>
-		/// <returns><see langword="true"/>, если пароль верен; иначе — <see langword="false"/>.</returns>
-		/// <exception cref="ArgumentException">Выбрасывается при пустых параметрах.</exception>
+		/// <param name="password">Проверяемый открытый текстовый пароль.</param>
+		/// <param name="hashedPassword">Ранее сформированная строка хэша в формате "Соль.Хэш".</param>
+		/// <returns><see langword="true"/>, если вычисленный хэш пароля совпал с ожидаемым; в противном случае — <see langword="false"/>.</returns>
+		/// <exception cref="ArgumentException">Выбрасывается, если любой из параметров пуст или равен <see langword="null"/>.</exception>
 		public static bool VerifyPassword(
 			string password,
 			string hashedPassword)
@@ -119,7 +163,7 @@ namespace Ans.Net10.Common
 				var salt1 = Convert.FromBase64String(hashedPassword[..i1]);
 				var expectedHash1 = Convert.FromBase64String(hashedPassword[(i1 + 1)..]);
 				var actualHash1 = Rfc2898DeriveBytes.Pbkdf2(
-					password, salt1, _ITERATIONS, HashAlgorithmName.SHA256, _KEY_SIZE);
+					password, salt1, ITERATIONS, HashAlgorithmName.SHA256, KEY_SIZE);
 				return CryptographicOperations.FixedTimeEquals(actualHash1, expectedHash1);
 			}
 			catch (FormatException)
@@ -130,10 +174,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вычисляет хэш SHA-256 для строки и возвращает его в виде шестнадцатеричной строки в нижнем регистре.
+		/// Вычисляет хэш-код алгоритма SHA-256 для строки и возвращает результат в виде шестнадцатеричной строки в нижнем регистре.
 		/// </summary>
-		/// <param name="data">Исходная строка данных.</param>
-		/// <returns>Строка хэша в нижнем регистре. Если входная строка null, возвращается пустая строка.</returns>
+		/// <param name="data">Исходная строка данных для хэширования. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Строка SHA-256 хэша в нижнем регистре или <see cref="string.Empty"/>, если аргумент <paramref name="data"/> равен <see langword="null"/>.</returns>
 		public static string ComputeSha256(
 			string? data)
 		{
@@ -145,10 +189,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вычисляет хэш SHA-256 для байтового среза. Zero-allocation.
+		/// Вычисляет хэш-код алгоритма SHA-256 для байтового среза. Выполняется без аллокаций памяти в куче (Zero-allocation).
 		/// </summary>
-		/// <param name="source">Исходный байтовый срез.</param>
-		/// <returns>Массив байт хэша.</returns>
+		/// <param name="source">Исходный байтовый срез памяти <see cref="ReadOnlySpan{Byte}"/> для хэширования.</param>
+		/// <returns>Массив байт вычисленного хэш-кода.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static byte[] ComputeSha256(
 			ReadOnlySpan<byte> source)
@@ -158,10 +202,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Потокобезопасно и буферизованно вычисляет хэш SHA-256 для переданного потока данных.
+		/// Потокобезопасно и в буферизованном режиме вычисляет криптографический хэш SHA-256 для переданного потока данных.
 		/// </summary>
-		/// <param name="stream">Исходный поток данных.</param>
-		/// <returns>Массив байт хэша. Если поток null, возвращается пустой массив.</returns>
+		/// <param name="stream">Исходный поток данных <see cref="Stream"/>. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Массив байт хэш-кода, либо пустой массив, если объект потока равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static byte[] ComputeSha256(
 			Stream? stream)
@@ -173,11 +217,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вычисляет HMAC-SHA256 для строки с использованием секретного ключа.
+		/// Вычисляет код аутентификации сообщения HMAC-SHA256 для строки данных с использованием секретного ключа.
 		/// </summary>
-		/// <param name="data">Исходная строка данных.</param>
-		/// <param name="key">Секретный ключ.</param>
-		/// <returns>Строка хэша в нижнем регистре. Если данные или ключ null, возвращается пустая строка.</returns>
+		/// <param name="data">Исходная строка данных. Допускает значение <see langword="null"/>.</param>
+		/// <param name="key">Массив байт секретного криптографического ключа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Строка кода аутентификации в нижнем регистре или <see cref="string.Empty"/>, если данные или ключ не заданы.</returns>
 		public static string ComputeHmacSha256(
 			string? data,
 			byte[]? key)
@@ -191,11 +235,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вычисляет HMAC-SHA256 для байтового среза без создания объектов алгоритма в куче.
+		/// Вычисляет код аутентификации сообщения HMAC-SHA256 для байтового среза без создания объектов алгоритма в управляемой куче.
 		/// </summary>
-		/// <param name="source">Исходный байтовый срез.</param>
-		/// <param name="key">Секретный ключ в виде среза.</param>
-		/// <returns>Массив байт хэша.</returns>
+		/// <param name="source">Исходный байтовый срез данных <see cref="ReadOnlySpan{Byte}"/>.</param>
+		/// <param name="key">Байтовый срез секретного криптографического ключа <see cref="ReadOnlySpan{Byte}"/>.</param>
+		/// <returns>Массив байт итогового кода аутентификации.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static byte[] ComputeHmacSha256(
 			ReadOnlySpan<byte> source,
@@ -206,11 +250,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вычисляет HMAC-SHA256 для потока данных с использованием секретного ключа.
+		/// Вычисляет код аутентификации сообщения HMAC-SHA256 для потока данных с использованием секретного ключа.
 		/// </summary>
-		/// <param name="stream">Исходный поток данных.</param>
-		/// <param name="key">Секретный ключ.</param>
-		/// <returns>Массив байт хэша. Если поток или ключ null, возвращается пустой массив.</returns>
+		/// <param name="stream">Исходный поток данных <see cref="Stream"/>. Допускает значение <see langword="null"/>.</param>
+		/// <param name="key">Массив байт секретного криптографического ключа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Массив байт кода аутентификации, либо пустой массив при равенстве параметров значению <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static byte[] ComputeHmacSha256(
 			Stream? stream,
@@ -223,10 +267,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в безопасный массив байт (UTF-8).
+		/// Преобразует строку в безопасный массив байт в кодировке UTF-8.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <returns>Массив байт UTF-8. Если строка null, возвращается пустой массив.</returns>
+		/// <param name="source">Исходная строка для кодирования. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Массив байт UTF-8 или пустой массив, если строка равна <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static byte[] ToSecureBytes(
 			string? source)
@@ -238,10 +282,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Восстанавливает строку из массива байт (UTF-8).
+		/// Восстанавливает исходную строку из массива байт в кодировке UTF-8.
 		/// </summary>
-		/// <param name="source">Исходный массив байт.</param>
-		/// <returns>Декодированная строка. Если массив null, возвращается пустая строка.</returns>
+		/// <param name="source">Исходный кодированный массив байт. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Декодированная строка, либо <see cref="string.Empty"/>, если массив равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string ToSecureString(
 			byte[]? source)
@@ -250,7 +294,6 @@ namespace Ans.Net10.Common
 				return string.Empty;
 			return Encoding.UTF8.GetString(source);
 		}
-
 
 	}
 

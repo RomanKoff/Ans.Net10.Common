@@ -1,4 +1,4 @@
-﻿// rev 2026-09-15
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 
@@ -8,16 +8,26 @@ namespace Ans.Net10.Common
 	public static partial class SuppDateTime
 	{
 
-		private static readonly string[] _SEP_DATES = ["|", "_", ":"];
+		/* consts */
 
 
 		/// <summary>
-		/// Возвращает диапазон дат, отформатированный для публикации в блоге.
+		/// Массив стандартных строковых разделителей, используемых для поиска и разбиения интервалов дат в строках.
 		/// </summary>
-		/// <param name="date1">Начальная дата диапазона.</param>
-		/// <param name="date2">Конечная дата диапазона (опционально).</param>
-		/// <param name="showCurrentYear">Признак принудительного вывода года, даже если он совпадает с текущим.</param>
-		/// <returns>Форматированная строка диапазона дат для блога.</returns>
+		/// <value>Массив строк, содержащий маркеры <c>"|"</c>, <c>"_"</c> и <c>":"</c>.</value>
+		public static readonly string[] SEP_DATES = ["|", "_", ":"];
+
+
+		/* functions */
+
+
+		/// <summary>
+		/// Возвращает диапазон дат, отформатированный для публикации в блоге с автоматическим схлопыванием одинаковых дней, месяцев или лет.
+		/// </summary>
+		/// <param name="date1">Начальная дата календарного диапазона.</param>
+		/// <param name="date2">Конечная дата календарного диапазона. Допускает значение <see langword="null"/>.</param>
+		/// <param name="showCurrentYear">Признак принудительного вывода года в строке ответа, даже если он совпадает с текущим календарным годом.</param>
+		/// <returns>Форматированная строка диапазона дат, адаптированная для отображения в интерфейсах блога.</returns>
 		public static string GetSpan(
 			DateTime date1,
 			DateTime? date2,
@@ -58,11 +68,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает диапазон дат (для блога) на основе типов <see cref="DateOnly"/>.
+		/// Возвращает диапазон дат для публикаций на основе объектов календарной даты <see cref="DateOnly"/>.
 		/// </summary>
-		/// <param name="date1">Начальная дата диапазона.</param>
-		/// <param name="date2">Конечная дата диапазона (опционально).</param>
-		/// <param name="showCurrentYear">Признак принудительного вывода года.</param>
+		/// <param name="date1">Начальная календарная дата диапазона.</param>
+		/// <param name="date2">Конечная календарная дата диапазона. Допускает значение <see langword="null"/>.</param>
+		/// <param name="showCurrentYear">Признак принудительного вывода года в строке ответа.</param>
 		/// <returns>Форматированная строка диапазона дат.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetSpan(
@@ -78,11 +88,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает диапазон дат из строки формата "дата1|дата2" или "дата1_дата2".
+		/// Разбирает строку диапазона дат вида "дата1|дата2", "дата1_дата2" или "дата1:дата2" и возвращает форматированный интервал для блога.
 		/// </summary>
-		/// <param name="span">Строка с диапазоном дат и разделителем.</param>
-		/// <param name="showCurrentYear">Признак принудительного вывода года.</param>
-		/// <returns>Форматированная строка диапазона или <see langword="string.Empty"/>, если парсинг не удался.</returns>
+		/// <param name="span">Исходная строка, содержащая одну или две даты с разделителем.</param>
+		/// <param name="showCurrentYear">Признак принудительного вывода года в строке ответа.</param>
+		/// <param name="provider">Поставщик региональных настроек для парсинга строковых представлений дат. Если равен <see langword="null"/>, используется инвариантная культура.</param>
+		/// <returns>Форматированная строка диапазона или <see cref="string.Empty"/>, если не удалось распарсить даже начальную дату.</returns>
 		public static string GetSpan(
 			string span,
 			bool showCurrentYear,
@@ -91,7 +102,7 @@ namespace Ans.Net10.Common
 			if (string.IsNullOrEmpty(span))
 				return string.Empty;
 			string[]? tokens1 = null;
-			foreach (var sep1 in _SEP_DATES)
+			foreach (var sep1 in SEP_DATES)
 				if (span.Contains(sep1))
 				{
 					tokens1 = span.SplitFix(sep1, 2);

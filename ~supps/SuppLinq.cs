@@ -1,4 +1,4 @@
-﻿// rev 2026-09-21
+﻿// rev 2026-09-26
 
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -13,13 +13,13 @@ namespace Ans.Net10.Common
 	{
 
 		/// <summary>
-		/// Безопасно объединяет существующий фильтр с новым выражением по логическому оператору "И" (AndAlso).
+		/// Безопасно объединяет существующий фильтр с новым предикатом по логическому оператору "И" (<see cref="Expression.AndAlso(Expression, Expression)"/>). 
 		/// Если исходный фильтр не задан, возвращает новое выражение.
 		/// </summary>
 		/// <typeparam name="T">Тип фильтруемой доменной сущности.</typeparam>
-		/// <param name="filter">Текущее составное выражение-фильтр (допускает <see langword="null"/>).</param>
+		/// <param name="filter">Текущее составное выражение-фильтр. Допускает значение <see langword="null"/>.</param>
 		/// <param name="expression">Новое добавляемое предикатное выражение.</param>
-		/// <returns>Новое объединенное дерево выражений.</returns>
+		/// <returns>Новое объединенное дерево выражений типа <see cref="Expression{TDelegate}"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Expression<Func<T, bool>> ApplyFilter_Add<T>(
 			Expression<Func<T, bool>>? filter,
@@ -31,17 +31,17 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Готовит и модифицирует LINQ-запрос: последовательно объединяет массив фильтров, 
-		/// применяет их, рассчитывает метаданные пагинации на основе общего количества записей, 
-		/// а также накладывает правила сортировки и постраничного секционирования.
+		/// Готовит и модифицирует LINQ-запрос: последовательно объединяет массив фильтров, применяет их, 
+		/// рассчитывает метаданные пагинации на основе общего количества записей в БД, 
+		/// а также накладывает правила сортировки и постраничного секционирования (Skip/Take).
 		/// </summary>
-		/// <typeparam name="T">Тип сущности в запросе.</typeparam>
-		/// <param name="query">Исходный запрос <see cref="IQueryable{T}"/>.</param>
-		/// <param name="filters">Массив предикатных выражений для фильтрации данных.</param>
-		/// <param name="order">Строка определения полей и направлений сортировки (например, "Name,-Id").</param>
-		/// <param name="page">Номер запрашиваемой страницы (индексация с 1).</param>
+		/// <typeparam name="T">Тип сущности в обрабатываемом запросе.</typeparam>
+		/// <param name="query">Исходный запрос <see cref="IQueryable{T}"/>. Допускает значение <see langword="null"/>.</param>
+		/// <param name="filters">Массив предикатных выражений для фильтрации данных. Допускает значение <see langword="null"/>.</param>
+		/// <param name="order">Строка определения полей и направлений сортировки (например, <c>"Name,-Id"</c>).</param>
+		/// <param name="page">Порядковый номер запрашиваемой страницы (индексация начинается с 1).</param>
 		/// <param name="itemsOnPage">Запрашиваемое количество элементов на одной странице.</param>
-		/// <returns>Модифицированный запрос с примененными фильтрами, сортировкой и ограничениями Skip/Take.</returns>
+		/// <returns>Модифицированный запрос с примененными фильтрами, сортировкой и ограничениями пагинации.</returns>
 		public static IQueryable<T> PrepareQuery<T>(
 			IQueryable<T>? query,
 			Expression<Func<T, bool>>[]? filters,

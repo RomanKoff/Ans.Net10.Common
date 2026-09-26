@@ -1,4 +1,4 @@
-﻿// rev 2026-09-22
+﻿// rev 2026-09-26
 
 using CsvHelper;
 using System.Globalization;
@@ -16,11 +16,15 @@ namespace Ans.Net10.Common
 		/* functions */
 
 		/// <summary>
-		/// Сериализует коллекцию объектов в массив байт CSV (UTF-8 без BOM).
+		/// Сериализует коллекцию объектов в массив байт CSV (в кодировке UTF-8 без BOM).
 		/// </summary>
-		/// <typeparam name="T">Тип сериализуемых объектов.</typeparam>
-		/// <param name="items">Коллекция элементов для выгрузки в CSV.</param>
-		/// <returns>Массив байт, представляющий документ в формате CSV.</returns>
+		/// <remarks>
+		/// Использование UTF-8 без BOM является лучшей практикой для интеграции с веб-интерфейсами и внешними API.
+		/// Если переданная коллекция <paramref name="items"/> пуста, метод вернет массив байт, содержащий только строку заголовков свойств типа <typeparamref name="T"/>.
+		/// </remarks>
+		/// <typeparam name="T">Тип сериализуемых доменных объектов или моделей данных.</typeparam>
+		/// <param name="items">Коллекция элементов для выгрузки в CSV-документ.</param>
+		/// <returns>Массив байт, представляющий готовый документ в формате CSV.</returns>
 		public static byte[] GetCsvBytesFromObject<T>(
 			IEnumerable<T> items)
 		{
@@ -34,6 +38,5 @@ namespace Ans.Net10.Common
 		}
 
 	}
-
 
 }

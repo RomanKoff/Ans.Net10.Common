@@ -1,4 +1,4 @@
-﻿// rev 2026-09-15
+﻿// rev 2026-09-26
 
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -26,7 +26,7 @@ namespace Ans.Net10.Common
 		/// Преобразует nullable Unix-таймстамп (в секундах) в локальное системное время.
 		/// </summary>
 		/// <param name="value">Значение таймстампа в секундах или <see langword="null"/>.</param>
-		/// <returns>Объект <see cref="DateTime"/> или <see langword="null"/>.</returns>
+		/// <returns>Объект <see cref="DateTime"/> в локальном часовом поясе или <see langword="null"/>, если входное значение отсутствовало.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTime? GetDateTimeFromUnixTimeStamp(
 			double? value)
@@ -53,7 +53,7 @@ namespace Ans.Net10.Common
 		/// Преобразует nullable Java/JavaScript-таймстамп (в миллисекундах) в локальное системное время.
 		/// </summary>
 		/// <param name="value">Значение таймстампа в миллисекундах или <see langword="null"/>.</param>
-		/// <returns>Объект <see cref="DateTime"/> или <see langword="null"/>.</returns>
+		/// <returns>Объект <see cref="DateTime"/> в локальном часовом поясе или <see langword="null"/>, если входное значение отсутствовало.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTime? GetDateTimeFromJavaTimeStamp(
 			double? value)
@@ -64,10 +64,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает DateTime из короткой строки даты в формате yyyy-MM-dd.
+		/// Возвращает дату из короткой строки в стандартном универсальном формате "yyyy-MM-dd".
 		/// </summary>
 		/// <param name="value">Строка с датой универсального формата.</param>
-		/// <returns>Объект <see cref="DateTime"/> или <see langword="null"/>, если строка пуста или некорректна.</returns>
+		/// <returns>Объект <see cref="DateTime"/> или <see langword="null"/>, если строка пуста, имеет некорректную длину или не соответствует формату.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTime? GetDateFromUniDate(
 			string value)
@@ -81,10 +81,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает DateTime из короткой строки даты в специализированном формате yyyy-'0'MM-dd.
+		/// Возвращает дату из короткой строки в специализированном внутреннем формате "yyyy-'0'MM-dd".
 		/// </summary>
 		/// <param name="value">Строка с датой формата AnsDate.</param>
-		/// <returns>Объект <see cref="DateTime"/> или <see langword="null"/>, если строка пуста или некорректна.</returns>
+		/// <returns>Объект <see cref="DateTime"/> или <see langword="null"/>, если строка пуста, имеет некорректную длину или не соответствует формату <see cref="ANS_DATE_FORMAT"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTime? GetDateFromAnsDate(
 			string value)

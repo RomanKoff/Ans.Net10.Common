@@ -1,4 +1,4 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -6,36 +6,42 @@ using System.Text;
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Определяет поддерживаемые варианты преобразования и форматирования регистра символов текстовых строк.
+	/// </summary>
 	public enum LetterCasesEnum
 	{
 		/// <summary>
-		/// Без изменений
+		/// Регистр символов остается без изменений (оригинальный вид).
 		/// </summary>
 		Original,
 
 		/// <summary>
-		/// Нижний регистр (строчные)
+		/// Все символы переводятся в нижний регистр (строчные буквы).
 		/// </summary>
 		Lower,
 
 		/// <summary>
-		/// Верхний регистр (ПРОПИСНЫЕ, ЗАГЛАВНЫЕ)
+		/// Все символы переводятся в верхний регистр (ПРОПИСНЫЕ, ЗАГЛАВНЫЕ буквы).
 		/// </summary>
 		Upper,
 
 		/// <summary>
-		/// Первая буква строки заглавная
+		/// Первая буква всей строки переводится в верхний регистр, остальные остаются без изменений.
 		/// </summary>
 		FirstUpper,
 
 		/// <summary>
-		/// Заглавная Первая Буква В Каждом Слове Строки
+		/// Первая Буква Каждого Слова В Строке Переводится В Верхний Регистр (Title Case).
 		/// </summary>
 		TitleCase
 	}
 
 
 
+	/// <summary>
+	/// Вспомогательный класс для высокопроизводительной работы со строками, перекодирования, валидации и санитаризации.
+	/// </summary>
 	public static class SuppString
 	{
 
@@ -51,10 +57,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строковые данные из кодировки Windows-1251 в UTF-8.
+		/// Преобразует строковые данные из кодировки Windows-1251 (Кириллица) в универсальный UTF-8.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <returns>Перекодированная строка.</returns>
+		/// <param name="source">Исходная строка в кодировке Windows-1251.</param>
+		/// <returns>Перекодированная строка в формате UTF-8, либо <see cref="string.Empty"/>, если входная строка пуста.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string Convert_WINDOWS1251_UTF8(
 			string source)
@@ -67,10 +73,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строковые данные из кодировки KOI8-R в UTF-8.
+		/// Преобразует строковые данные из кодировки KOI8-R (Кириллица) в универсальный UTF-8.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <returns>Перекодированная строка.</returns>
+		/// <param name="source">Исходная строка в кодировке KOI8-R.</param>
+		/// <returns>Перекодированная строка в формате UTF-8, либо <see cref="string.Empty"/>, если входная строка пуста.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string Convert_KOI8R_UTF8(
 			string source)
@@ -83,10 +89,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строковые данные из кодировки CP866 в UTF-8.
+		/// Преобразует строковые данные из кодировки CP866 (DOS-кириллица) в универсальный UTF-8.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <returns>Перекодированная строка.</returns>
+		/// <param name="source">Исходная строка в кодировке CP866.</param>
+		/// <returns>Перекодированная строка в формате UTF-8, либо <see cref="string.Empty"/>, если входная строка пуста.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string Convert_CP866_UTF8(
 			string source)
@@ -99,10 +105,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строковые данные из кодировки ISO-8859-1 в UTF-8.
+		/// Преобразует строковые данные из западноевропейской кодировки ISO-8859-1 в универсальный UTF-8.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <returns>Перекодированная строка.</returns>
+		/// <param name="source">Исходная строка в кодировке ISO-8859-1.</param>
+		/// <returns>Перекодированная строка в формате UTF-8, либо <see cref="string.Empty"/>, если входная строка пуста.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string Convert_ISO88591_UTF8(
 			string source)
@@ -115,11 +121,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Проверяет, является ли хотя бы одна из переданных строк непустой. 
-		/// Использует params ReadOnlySpan в .NET 10 для исключения аллокаций памяти.
+		/// Проверяет, является ли хотя бы одна из переданных строк непустой. Использует механизмы .NET 10 для исключения аллокаций памяти в куче.
 		/// </summary>
-		/// <param name="values">Набор проверяемых строк.</param>
-		/// <returns><see langword="true"/>, если найдена хотя бы одна непустая строка; иначе — <see langword="false"/>.</returns>
+		/// <param name="values">Высокопроизводительный фиксированный набор проверяемых строк <see cref="ReadOnlySpan{T}"/>.</param>
+		/// <returns><see langword="true"/>, если найдена хотя бы одна непустая строка и не равная <see langword="null"/>; в противном случае — <see langword="false"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasAny(
 			params ReadOnlySpan<string?> values)
@@ -132,11 +137,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Проверяет, что все переданные строки являются непустыми. 
-		/// Использует params ReadOnlySpan в .NET 10 для исключения аллокаций памяти.
+		/// Проверяет, что абсолютно все переданные строки являются непустыми. Использует механизмы .NET 10 для исключения аллокаций памяти в куче.
 		/// </summary>
-		/// <param name="values">Набор проверяемых строк.</param>
-		/// <returns><see langword="true"/>, если все строки непустые; иначе — <see langword="false"/>.</returns>
+		/// <param name="values">Высокопроизводительный фиксированный набор проверяемых строк <see cref="ReadOnlySpan{T}"/>.</param>
+		/// <returns><see langword="true"/>, если все элементы набора гарантированно содержат текст; в противном случае — <see langword="false"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasAll(
 			params ReadOnlySpan<string?> values)
@@ -149,14 +153,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Объединяет непустые элементы в одну строку, опционально форматируя каждый элемент
-		/// и оборачивая итоговый результат по шаблону.
+		/// Объединяет непустые элементы набора в одну строку, индивидуально форматируя элементы по шаблону и оборачивая итоговый результат.
 		/// </summary>
-		/// <param name="resultTemplate">Шаблон для итоговой сборки (например, "Результат: {0}"). Если пуст, обертка не применяется.</param>
-		/// <param name="itemTemplate">Шаблон форматирования для каждого отдельного элемента (например, "[{0}]").</param>
-		/// <param name="separator">Строка-разделитель между элементами.</param>
-		/// <param name="items">Набор объединяемых строк.</param>
-		/// <returns>Итоговая отформатированная строка. Если на выходе получилась пустая строка, возвращает <see cref="string.Empty"/>.</returns>
+		/// <param name="resultTemplate">Общий шаблон для итоговой обертки всей собранной строки (например, <c>"Результат: {0}"</c>). Если пуст — обертка не накладывается.</param>
+		/// <param name="itemTemplate">Шаблон форматирования, накладываемый на каждый отдельный непустой элемент (например, <c>"[{0}]"</c>).</param>
+		/// <param name="separator">Строка или символ-разделитель между склеиваемыми элементами.</param>
+		/// <param name="items">Набор объединяемых строк, передаваемый без аллокаций в куче.</param>
+		/// <returns>Итоговая отформатированная и склеенная строка, либо <see cref="string.Empty"/>, если результирующая коллекция была пуста.</returns>
 		public static string Join(
 			string resultTemplate,
 			string itemTemplate,
@@ -184,11 +187,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Разделяет строку вида "ключ=значение" на пару ключ и значение. 
-		/// Если разделитель отсутствует, возвращает исходную строку в качестве ключа и значения.
+		/// Разделяет строку формата "ключ=значение" на изолированную пару ключа и значения.
 		/// </summary>
-		/// <param name="definition">Исходная строка для разделения.</param>
-		/// <returns>Объект <see cref="KeyValuePair{TKey, TValue}"/> с результатами разделения.</returns>
+		/// <remarks>
+		/// Если символ разделителя <c>'='</c> полностью отсутствует в исходном тексте, метод вернет исходное значение в качестве одновременно и ключа, и значения.
+		/// </remarks>
+		/// <param name="definition">Исходная строка для сегментации и разделения.</param>
+		/// <returns>Структура <see cref="KeyValuePair{TKey, TValue}"/> с результатами проведенного разделения.</returns>
 		public static KeyValuePair<string, string> GetPair(
 			string definition)
 		{
@@ -203,12 +208,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует регистр строки на основе переданного режима <see cref="LetterCasesEnum"/>.
+		/// Преобразует регистр символов всей строки на основе выбранного режима из перечисления <see cref="LetterCasesEnum"/>.
 		/// </summary>
-		/// <param name="value">Исходная строка.</param>
-		/// <param name="textCase">Целевой регистр символов.</param>
-		/// <param name="forcedToLower">Принудительно переводить все остальные буквы строки в нижний регистр (актуально для FirstUpper и TitleCase).</param>
-		/// <returns>Преобразованная строка. Если входная строка пуста или null, возвращает <see cref="string.Empty"/>.</returns>
+		/// <param name="value">Исходная строка для модификации регистра.</param>
+		/// <param name="textCase">Целевой режим регистра символов.</param>
+		/// <param name="forcedToLower">Принудительно переводить все остальные буквы строки в нижний регистр (актуально для режимов <see cref="LetterCasesEnum.FirstUpper"/> и <see cref="LetterCasesEnum.TitleCase"/>). По умолчанию равен <see langword="false"/>.</param>
+		/// <returns>Преобразованная строка. Если исходная строка пуста, возвращает <see cref="string.Empty"/>.</returns>
 		public static string GetModCase(
 			string value,
 			LetterCasesEnum textCase,
@@ -228,10 +233,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Заменяет все управляющие спецсимволы (с ASCII-кодом меньше 32) на обычные пробелы.
+		/// Заменяет все управляющие низкоуровневые спецсимволы (с ASCII-кодом меньше 32, такие как \r, \n, \t) на обычные пробелы.
 		/// </summary>
-		/// <param name="value">Исходная строка.</param>
-		/// <returns>Строка с нормализованными символами. Если на входе пустая строка, возвращает <see cref="string.Empty"/>.</returns>
+		/// <param name="value">Исходная строка для санитаризации.</param>
+		/// <returns>Строка с нормализованными безопасными символами, либо <see cref="string.Empty"/>, если на входе пустая строка.</returns>
 		public static string GetFixSpecChars(
 			string value)
 		{
@@ -245,11 +250,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает безопасную алфавитно-цифровую строку в нижнем регистре (латиница и цифры).
-		/// Предварительно транслитерирует кириллицу, а любые спецсимволы заменяет дефисами.
+		/// Возвращает полностью безопасную алфавитно-цифровую строку в нижнем регистре (только латиница и цифры), пригодную для кодов и ЧПУ.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <returns>Безопасная алфавитно-цифровая строка. Если входная строка пуста или null, возвращает пустую строку.</returns>
+		/// <remarks>
+		/// Метод предварительно транслитерирует кириллицу по ГОСТ, заменяет любые посторонние спецсимволы дефисами, схлопывает их дубликаты и очищает края строки.
+		/// </remarks>
+		/// <param name="source">Исходная строка для трансформации.</param>
+		/// <returns>Безопасная алфавитно-цифровая строка с дефисами или <see cref="string.Empty"/>.</returns>
 		public static string GetSafeNumberString(
 			string source)
 		{
@@ -264,11 +271,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает безопасную строку-идентификатор. Заменяет все пробелы и недопустимые символы на подчеркивания.
-		/// Символы с ASCII-кодом больше 126 кодируются в формат hex-вида (x[код]). Ёмкость буфера рассчитывается без аллокаций.
+		/// Возвращает безопасную строку-идентификатор для кода. Заменяет пробелы и недопустимые знаки на символы подчеркивания.
 		/// </summary>
+		/// <remarks>
+		/// Любые символы за рамками стандартной ASCII-таблицы (код больше 126) безопасно кодируются в hex-формат вида <c>x[код]</c>. Емкость внутреннего буфера рассчитывается экономично без лишних аллокаций.
+		/// </remarks>
 		/// <param name="source">Исходная строка.</param>
-		/// <returns>Безопасная строка идентификатора. Если входная строка пуста или null, возвращает <see cref="string.Empty"/>.</returns>
+		/// <returns>Безопасная строка программного идентификатора, либо <see cref="string.Empty"/>.</returns>
 		public static string GetSafeNameString(
 			string source)
 		{
@@ -297,10 +306,12 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Возвращает полностью безопасную строку для использования в файловой системе (в именах файлов или папок).
-		/// Очищает от запрещенных спецсимволов, сохраняя знаки дефиса, подчеркивания, тильды и каретки.
 		/// </summary>
+		/// <remarks>
+		/// Очищает текст от запрещенных спецсимволов ОС, сохраняя знаки дефиса, подчеркивания, тильды и каретки, транслитерируя кириллицу и кодируя не-ASCII символы в формат hex.
+		/// </remarks>
 		/// <param name="source">Исходная строка.</param>
-		/// <returns>Безопасная строка для путей файловой системы. Если входная строка пуста или null, возвращает <see cref="string.Empty"/>.</returns>
+		/// <returns>Безопасная строка для путей файловой системы, либо <see cref="string.Empty"/>.</returns>
 		public static string GetSafeFsString(
 			string source)
 		{

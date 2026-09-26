@@ -1,4 +1,4 @@
-﻿// rev 2026-09-21
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,21 +9,26 @@ namespace Ans.Net10.Common
 	public static partial class SuppLangRu
 	{
 
-		private static readonly char[] _famioSeps = [' ', '.', ','];
+		/* consts */
+
+
+		/// <summary>
+		/// Массив символов-разделителей, используемых при парсинге ФИО для разделения фамилии, имени и отчества.
+		/// </summary>
+		/// <value>Массив знаков, содержащий пробел, точку и запятую.</value>
+		public static readonly char[] SEP_FAMIO = [' ', '.', ','];
 
 
 		/* functions */
 
 
 		/// <summary>
-		/// Возвращает кортеж, содержащий фамилию и инициалы, из строки с полным именем.
-		/// Автоматически исключает национальные патронимические приставки (оглы, кызы, улы, ибн и др.).
+		/// Возвращает кортеж, содержащий фамилию и инициалы, из строки с полным именем (ФИО). 
+		/// Автоматически исключает национальные патронимические приставки (оглы, кызы, улы, ибн, заде, паша).
 		/// </summary>
 		/// <param name="fullname">Исходная строка, содержащая фамилию, имя и отчество.</param>
-		/// <param name="textCase">
-		/// Операция преобразования регистра букв. По умолчанию <see cref="LetterCasesEnum.TitleCase"/>.
-		/// </param>
-		/// <returns>Кортеж со строками фамилии и инициалов (например, "А.С.").</returns>
+		/// <param name="textCase">Тип операции преобразования регистра букв. По умолчанию <see cref="LetterCasesEnum.TitleCase"/>.</param>
+		/// <returns>Кортеж, состоящий из изолированной строки фамилии и строки сформированных инициалов с точками (например, <c>"А.С."</c>).</returns>
 		public static (string family, string initials) GetFamilyAndInitials(
 			string fullname,
 			LetterCasesEnum textCase = LetterCasesEnum.TitleCase)
@@ -31,7 +36,7 @@ namespace Ans.Net10.Common
 			if (string.IsNullOrEmpty(fullname))
 				return (string.Empty, string.Empty);
 			var span1 = fullname.AsSpan();
-			var sepsSpan1 = _famioSeps.AsSpan();
+			var sepsSpan1 = SEP_FAMIO.AsSpan();
 			int start1 = 0;
 			while (start1 < span1.Length && sepsSpan1.Contains(span1[start1]))
 				start1++;
@@ -72,13 +77,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строку, содержащую фамилию и инициалы, из строки с полным именем.
+		/// Возвращает объединенную строку, содержащую фамилию и инициалы, из строки с полным именем.
 		/// </summary>
-		/// <param name="fullname">Исходная строка с ФИО (например, "Эфендиев Эльчин Ильяс оглы").</param>
-		/// <param name="textCase">
-		/// Операция преобразования регистра букв. По умолчанию <see cref="LetterCasesEnum.TitleCase"/>.
-		/// </param>
-		/// <returns>Строка формата "Фамилия И.О." (например, "Эфендиев Э.И.").</returns>
+		/// <param name="fullname">Исходная строка с полным ФИО (например, <c>"Эфендиев Эльчин Ильяс оглы"</c>).</param>
+		/// <param name="textCase">Тип операции преобразования регистра букв. По умолчанию <see cref="LetterCasesEnum.TitleCase"/>.</param>
+		/// <returns>Строка стандартного формата "Фамилия И.О." (например, <c>"Эфендиев Э.И."</c>).</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetFamilyAndInitialsString(
 			string fullname,
@@ -90,12 +93,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строку, содержащую латинскую транслитерацию для использования
-		/// в буквенном идентификаторе (ГОСТ Р 7.0.34-2014).
+		/// Возвращает строку, содержащую латинскую транслитерацию ФИО для использования в составе уникального буквенного идентификатора (ГОСТ Р 7.0.34-2014).
 		/// </summary>
 		/// <param name="family">Строка фамилии.</param>
 		/// <param name="initials">Строка инициалов.</param>
-		/// <returns>Безопасный нижнерегистровый латинский идентификатор (например, "efendiev_ei").</returns>
+		/// <returns>Безопасный латинский идентификатор в нижнем регистре (например, <c>"efendiev_ei"</c>).</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetFamilyAndInitialsTranslit(
 			string family,
@@ -110,10 +112,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Заменяет ведущую восьмерку в номере телефона на международный префикс семерки (8999... -> 7999...).
+		/// Заменяет ведущую междугороднюю восьмерку в начале номера телефона на международный префикс семерки (8999... переводит в 7999...).
 		/// </summary>
-		/// <param name="phone">Исходная строка номера телефона.</param>
-		/// <returns>Строка номера с замененным кодом или исходная строка.</returns>
+		/// <param name="phone">Исходная строка номера телефона для нормализации.</param>
+		/// <returns>Строка номера с замененным начальным кодом страны или исходная строка, если замена не требуется.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string FixTelephoneRuCityCode(
 			string phone)
@@ -126,11 +128,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Форматирует чистую строку цифр в удобочитаемый телефонный номер с дефисами.
-		/// Поддерживает длины от 5 до 11 символов. Префикс "+" добавляется автоматически только для 11-значных номеров.
+		/// Форматирует чистую последовательность цифр в удобочитаемый телефонный номер с дефисами. 
+		/// Поддерживает длины от 5 до 11 символов. Префикс "+" добавляется автоматически только для полных 11-значных номеров.
 		/// </summary>
-		/// <param name="number">Строка, содержащая только цифры номера телефона.</param>
-		/// <returns>Форматированная строка телефонного номера (например, "+7-999-123-45-67" или "322-45-67").</returns>
+		/// <param name="number">Строка, содержащая исключительно цифры номера телефона.</param>
+		/// <returns>Форматированная строка телефонного номера (например, <c>"+7-999-123-45-67"</c> или <c>"322-45-67"</c>).</returns>
 		public static string GetTelephoneNumber(
 			string number)
 		{
@@ -159,10 +161,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Очищает номер документа, заменяя все нецифровые символы дефисами с последующим схлопыванием дубликатов.
+		/// Санитаризует и очищает номер документа, заменяя все нецифровые символы дефисами с последующим рекурсивным схлопыванием дубликатов и очисткой краев.
 		/// </summary>
-		/// <param name="number">Исходный грязный номер документа.</param>
-		/// <returns>Очищенный номер без ведущих и концевых дефисов.</returns>
+		/// <param name="number">Исходный номер документа, содержащий пробелы, спецсимволы или буквы.</param>
+		/// <returns>Очищенный и нормализованный номер документа без ведущих и концевых знаков дефиса.</returns>
 		public static string GetDocNumber(
 			string number)
 		{
@@ -181,12 +183,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Выполняет подстановку значений в строку адреса по словарю маркеров. 
-		/// Если после маркера идет цифра, автоматически добавляется разделитель "каб.".
+		/// Выполняет динамическую подстановку значений в строку почтового адреса по словарю маркеров. 
+		/// Если непосредственно после замещаемого маркера идет цифра, в текст автоматически внедряется разделитель "каб.".
 		/// </summary>
-		/// <param name="address">Исходная строка адреса.</param>
-		/// <param name="dict">Словарь заменяемых маркеров и их значений.</param>
-		/// <returns>Модифицированная строка адреса.</returns>
+		/// <param name="address">Исходная строка адреса для модификации.</param>
+		/// <param name="dict">Словарь заменяемых текстовых маркеров (ключ, включая двоеточие) и их значений.</param>
+		/// <returns>Модифицированная итоговая строка адреса.</returns>
 		public static string GetSubstitutionAddress(
 			string address,
 			Dictionary<string, string> dict)

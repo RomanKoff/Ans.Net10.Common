@@ -1,4 +1,4 @@
-﻿// rev 2026-09-10
+﻿// rev 2026-09-26
 
 using System.Buffers;
 using System.Reflection;
@@ -20,6 +20,7 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает главную (входную) сборку приложения.
 		/// </summary>
+		/// <value>Объект <see cref="Assembly"/>, представляющий исполняемый файл приложения, либо <see langword="null"/>.</value>
 		public static Assembly? EntryAssembly
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -30,6 +31,7 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает сборку, которая вызвала текущий метод.
 		/// </summary>
+		/// <value>Объект <see cref="Assembly"/> вызывающей сборки, либо <see langword="null"/>.</value>
 		public static Assembly? CallingAssembly
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -38,8 +40,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает или задает полный путь к текущему рабочему каталогу приложения.
+		/// Возвращает полный путь к текущему рабочему каталогу приложения.
 		/// </summary>
+		/// <value>Строка, содержащая абсолютный путь к активному каталогу операционной системы.</value>
 		public static string CurrentDirectory
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -48,8 +51,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает базовый каталог, используемый сборщиком подсистем для поиска сборок (каталог запуска).
+		/// Возвращает базовый каталог, используемый сборщиком подсистем для поиска сборок (каталог запуска бинарных файлов).
 		/// </summary>
+		/// <value>Строка, содержащая путь к директории, из которой было запущено приложение.</value>
 		public static string BaseDirectory
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -59,8 +63,9 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Возвращает предполагаемый путь к каталогу проекта Visual Studio. 
-		/// Вычисляется как подъем на 4 уровня вверх от базового каталога. Результат кэшируется.
+		/// Вычисляется как подъем на 4 уровня вверх от базового каталога сборки. Результат кэшируется.
 		/// </summary>
+		/// <value>Строка с абсолютным путем к директории проекта (.csproj).</value>
 		public static string VSProjectPath
 			=> field ??= _safeGetParent(BaseDirectory, 4);
 
@@ -68,14 +73,16 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает имя каталога проекта Visual Studio. Результат кэшируется.
 		/// </summary>
+		/// <value>Строка, содержащая чистое имя папки проекта.</value>
 		public static string VSProjectName
 			=> field ??= _getLastPathSegment(VSProjectPath);
 
 
 		/// <summary>
 		/// Возвращает предполагаемый путь к каталогу решения (Solution) Visual Studio. 
-		/// Вычисляется как подъем на 5 уровней вверх от базового каталога. Результат кэшируется.
+		/// Вычисляется как подъем на 5 уровней вверх от базового каталога сборки. Результат кэшируется.
 		/// </summary>
+		/// <value>Строка с абсолютным путем к директории корня решения (.sln).</value>
 		public static string VSSolutionPath
 			=> field ??= _safeGetParent(BaseDirectory, 5);
 
@@ -83,6 +90,7 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает имя каталога решения (Solution) Visual Studio. Результат кэшируется.
 		/// </summary>
+		/// <value>Строка, содержащая чистое имя корневой папки решения.</value>
 		public static string VSSolutionName
 			=> field ??= _getLastPathSegment(VSSolutionPath);
 

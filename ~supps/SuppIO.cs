@@ -1,4 +1,4 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -8,21 +8,41 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Перечисление поддерживаемых библиотекой кодировок текстовых файлов.
+	/// Перечисление поддерживаемых инфраструктурой библиотеки кодировок текстовых файлов.
 	/// </summary>
 	public enum EncodingsEnum
 	{
+		/// <summary>
+		/// Кодировка UTF-8.
+		/// </summary>
 		UTF8,
+
+		/// <summary>
+		/// Кодировка Windows-1251 (Кириллица).
+		/// </summary>
 		WINDOWS1251,
+
+		/// <summary>
+		/// Кодировка KOI8-R (Кириллица).
+		/// </summary>
 		KOI8R,
+
+		/// <summary>
+		/// Кодировка CP866 (DOS-кириллица).
+		/// </summary>
 		CP866,
+
+		/// <summary>
+		/// Кодировка ISO-8859-1 (Западноевропейская).
+		/// </summary>
 		ISO88591
 	}
 
 
 
+
 	/// <summary>
-	/// Вспомогательный класс для работы с операциями ввода-вывода (IO).
+	/// Вспомогательный класс для работы с операциями ввода-вывода (IO), хэшированием файлов и безопасными именами.
 	/// </summary>
 	public static class SuppIO
 	{
@@ -43,11 +63,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает системный объект кодировки <see cref="Encoding"/>
-		/// на основе выбранного значения из <see cref="EncodingsEnum"/>.
+		/// Возвращает системный объект кодировки <see cref="Encoding"/> на основе выбранного значения из <see cref="EncodingsEnum"/>.
 		/// </summary>
 		/// <param name="encoding">Вариант кодировки из перечисления.</param>
-		/// <returns>Экземпляр класса <see cref="Encoding"/>.</returns>
+		/// <returns>Экземпляр класса <see cref="Encoding"/>, соответствующий выбранному типу.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Encoding GetEncoding(
 			EncodingsEnum encoding)
@@ -64,8 +83,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Генерирует уникальный полный путь к файлу в целевой директории. 
-		/// Если файл с указанным именем уже существует, рекурсивно добавляет суффикс "_" к имени файла перед расширением.
+		/// Генерация уникального имени: если файл с указанным именем существует, рекурсивно добавляет суффикс "_" перед расширением.
 		/// </summary>
 		/// <param name="file">Информационный объект исходного файла, используемый для определения целевой директории.</param>
 		/// <param name="newName">Желаемое новое имя файла с расширением.</param>
@@ -84,10 +102,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает расширение файла из указанного пути.
+		/// Возвращает расширение файла из указанного пути в нижнем регистре.
 		/// </summary>
 		/// <param name="path">Путь к файлу или имя файла.</param>
-		/// <param name="hasDot">Признак необходимости сохранения точки перед расширением (например, ".txt" вместо "txt").</param>
+		/// <param name="hasDot">Признак необходимости сохранения точки перед расширением (например, <c>".txt"</c> вместо <c>"txt"</c>).</param>
 		/// <returns>Строка расширения в нижнем регистре. Если расширение отсутствует, возвращает пустую строку.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetFileExtension(
@@ -105,7 +123,7 @@ namespace Ans.Net10.Common
 		/// Разделяет имя файла на две части: имя без расширения и само расширение (включая точку).
 		/// </summary>
 		/// <param name="filename">Имя файла для разделения.</param>
-		/// <returns>Массив из двух элементов: [имя_без_расширения, расширение]. Если входная строка <see langword="null"/>, возвращает пустой массив.</returns>
+		/// <returns>Массив из двух элементов: <c>[имя_без_расширения, расширение]</c>. Если входная строка равна <see langword="null"/>, возвращает пустой массив.</returns>
 		public static string[] GetFilenameHalfs(
 			string filename)
 		{
@@ -119,10 +137,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Регистронезависимый быстрый поиск <see cref="ContentInfo"/> по расширению файла.
+		/// Регистронезависимый быстрый поиск метаданных контента <see cref="ContentInfo"/> по расширению файла.
 		/// </summary>
-		/// <param name="extension">Расширение файла (с точкой или без).</param>
-		/// <returns>Объект метаданных контента; если расширение неизвестно, возвращается дефолтный бинарный тип.</returns>
+		/// <param name="extension">Расширение файла (с ведущей точкой или без неё).</param>
+		/// <returns>Объект метаданных контента; если расширение неизвестно, возвращается дефолтный бинарный тип <see cref="_Consts.CONTENTINFO_BIN"/>.</returns>
 		public static ContentInfo GetContentInfoFromExtension(
 			string extension)
 		{
@@ -138,7 +156,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Поиск <see cref="ContentInfo"/> по полному пути или имени файла.
+		/// Поиск метаданных контента <see cref="ContentInfo"/> по полному пути или имени файла.
 		/// </summary>
 		/// <param name="path">Путь к файлу или его имя.</param>
 		/// <returns>Объект метаданных контента.</returns>
@@ -155,7 +173,7 @@ namespace Ans.Net10.Common
 		/// Считывает весь текстовый контент из файла по указанному пути, используя выбранную кодировку.
 		/// </summary>
 		/// <param name="path">Путь к файлу для чтения.</param>
-		/// <param name="encoding">Кодировка текста (по умолчанию UTF-8).</param>
+		/// <param name="encoding">Кодировка текста (по умолчанию <see cref="EncodingsEnum.UTF8"/>).</param>
 		/// <returns>Строка, содержащая весь текст из файла.</returns>
 		public static string FileRead(
 			string path,
@@ -170,10 +188,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Считывает начало файла из открытого потока до указанного размера и возвращает его в виде Base64-строки.
+		/// Считывает начало файла из открытого потока до указанного размера и возвращает его в виде Base64-строки для быстрого анализа сигнатур (Magic Numbers).
 		/// </summary>
 		/// <param name="stream">Открытый поток файла.</param>
-		/// <param name="size">Максимальное количество байт для чтения (по умолчанию 255).</param>
+		/// <param name="size">Максимальное количество байт для чтения. По умолчанию равно 255.</param>
 		/// <returns>Строка в формате Base64, представляющая начало файла.</returns>
 		public static string GetFileBegin(
 			FileStream stream,
@@ -190,10 +208,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Считывает начало файла по указанному пути до указанного размера и возвращает его в виде Base64-строки.
+		/// Считывает начало файла по указанному пути на диске до указанного размера и возвращает его в виде Base64-строки.
 		/// </summary>
 		/// <param name="path">Путь к файлу.</param>
-		/// <param name="size">Максимальное количество байт для чтения (по умолчанию 255).</param>
+		/// <param name="size">Максимальное количество байт для чтения. По умолчанию равно 255.</param>
 		/// <returns>Строка в формате Base64, представляющая начало файла.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetFileBegin(
@@ -223,7 +241,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вычисляет HMAC-SHA1 хэш для указанного потока файла с использованием строковой соли (Unicode).
+		/// Вычисляет HMAC-SHA1 хэш для указанного потока файла с использованием строковой соли (переводится в Unicode-байты).
 		/// </summary>
 		/// <param name="stream">Открытый поток файла.</param>
 		/// <param name="salt">Строковое значение соли.</param>
@@ -286,7 +304,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вычисляет HMAC-SHA256 хэш для указанного потока файла с использованием строковой соли (Unicode).
+		/// Вычисляет HMAC-SHA256 хэш для указанного потока файла с использованием строковой соли (переводится в Unicode-байты).
 		/// </summary>
 		/// <param name="stream">Открытый поток файла.</param>
 		/// <param name="salt">Строковое значение соли.</param>
@@ -332,17 +350,11 @@ namespace Ans.Net10.Common
 		}
 
 
-
-
-
-
-
-
-
 		/// <summary>
-		/// Возвращает время последнего изменения файла с указанием смещения (DateTimeOffset).
+		/// Возвращает время последнего изменения файла с автоматическим приведением к типу <see cref="DateTimeOffset"/>.
 		/// </summary>
-		/// <param name="filename">Путь к файлу.</param>
+		/// <param name="filename">Полный или относительный путь к файлу.</param>
+		/// <returns>Объект структуры <see cref="DateTimeOffset"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTimeOffset GetFileLastModified(
 			string filename)
@@ -353,9 +365,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает самое последнее (максимальное) время изменения файлов в указанном каталоге.
+		/// Возвращает максимальное (самое последнее) время модификации файлов, находящихся непосредственно в указанном каталоге.
 		/// </summary>
-		/// <param name="directory">Информационный объект каталога.</param>
+		/// <param name="directory">Информационный объект исследуемого каталога <see cref="DirectoryInfo"/>.</param>
+		/// <returns>Объект <see cref="DateTime"/>, соответствующий дате самого свежего файла.</returns>
 		public static DateTime GetLastWriteTimeFiles(
 			DirectoryInfo directory)
 		{
@@ -368,9 +381,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое представление размера данных в КБ, округленное в большую сторону по маске ресурса.
+		/// Возвращает строковое представление размера данных в КБ, округленное в большую сторону (например, для вывода в метаданных скачивания).
 		/// </summary>
-		/// <param name="length">Размер в байтах.</param>
+		/// <param name="length">Размер исследуемого контента в байтах.</param>
+		/// <returns>Строка отформатированного размера с суффиксом КБ.</returns>
 		public static string GetLengthOfKB(
 			long length)
 		{
@@ -382,9 +396,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое представление размера данных в КБ для 32-битного целого числа.
+		/// Возвращает строковое представление размера данных в КБ для 32-битного целочисленного аргумента.
 		/// </summary>
-		/// <param name="length">Размер в байтах.</param>
+		/// <param name="length">Размер контента в байтах.</param>
+		/// <returns>Строка отформатированного размера с суффиксом КБ.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetLengthOfKB(
 			int length)
@@ -394,10 +409,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Экранирует зарезервированные операционной системой имена файлов (например, CON, PRN),
-		/// оборачивая их в символы подчеркивания.
+		/// Экранирует зарезервированные операционной системой Windows имена файлов (например, <c>CON</c>, <c>PRN</c>, <c>AUX</c>), оборачивая их в символы подчеркивания.
 		/// </summary>
-		/// <param name="name">Проверяемое имя файла или расширение.</param>
+		/// <param name="name">Проверяемое имя файла или его расширение.</param>
+		/// <returns>Защищенное строковое имя файла.</returns>
 		public static string FixForbiddenFileName(
 			string name)
 		{
@@ -407,10 +422,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает нормализованное безопасное расширение файла в нижнем регистре без точки,
-		/// приводя редкие форматы к стандартным.
+		/// Возвращает нормализованное безопасное расширение файла в нижнем регистре без точки, приводя редкие вариации к стандартным (<c>jpeg</c> в <c>jpg</c>).
 		/// </summary>
 		/// <param name="filename">Имя файла или путь.</param>
+		/// <returns>Нормализованное строковое расширение без ведущей точки.</returns>
 		public static string GetSafeFileExtension(
 			string filename)
 		{
@@ -429,10 +444,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает безопасное имя файла без расширения. Если имя превышает 80 символов,
-		/// сокращает его и добавляет уникальный хэш.
+		/// Возвращает безопасное имя файла без расширения. Если имя превышает лимит в 80 символов, сокращает его и подмешивает уникальный хэш от оригинального имени.
 		/// </summary>
-		/// <param name="filename">Исходное имя файла.</param>
+		/// <param name="filename">Исходное имя файла или путь.</param>
+		/// <returns>Очищенная строка безопасного имени.</returns>
 		public static string GetSafeFileNameWithoutExtension(
 			string filename)
 		{
@@ -446,9 +461,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Формирует полностью безопасное имя файла, очищенное от запрещенных символов и системных ограничений.
+		/// Формирует полностью безопасное и валидное имя файла с расширением, очищенное от запрещенных спецсимволов и системных ограничений Windows.
 		/// </summary>
-		/// <param name="filename">Исходное имя файла.</param>
+		/// <param name="filename">Исходное сырое имя файла.</param>
+		/// <returns>Полностью безопасное имя файла, готовое к записи на диск.</returns>
 		public static string GetSafeFilename(
 			string filename)
 		{
@@ -461,9 +477,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Проверяет, содержит ли указанный путь запрещенные символы файловой системы.
+		/// Быстрая проверка: содержит ли указанный путь запрещенные символы файловой системы.
 		/// </summary>
 		/// <param name="path">Проверяемый путь.</param>
+		/// <returns><see langword="true"/>, если в пути обнаружены невалидные знаки; в противном случае — <see langword="false"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasInvalidPathChars(
 			string path)
@@ -473,9 +490,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Проверяет, содержит ли указанное имя файла запрещенные символы.
+		/// Быстрая проверка: содержит ли указанное имя файла невалидные знаки.
 		/// </summary>
 		/// <param name="filename">Проверяемое имя файла.</param>
+		/// <returns><see langword="true"/>, если имя содержит запрещенные символы; в противном случае — <see langword="false"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasInvalidFileNameChars(
 			string filename)
@@ -485,11 +503,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Выполняет полное побайтовое сравнение содержимого двух файлов. Имена и пути файлов могут отличаться.
+		/// Выполняет полное глубокое побайтовое сравнение содержимого двух файлов на диске. Различия в путях или именах файлов игнорируются.
 		/// </summary>
 		/// <param name="file1">Первый сравниваемый файл.</param>
 		/// <param name="file2">Второй сравниваемый файл.</param>
-		/// <returns><see langword="true"/>, если содержимое файлов абсолютно идентично; иначе — <see langword="false"/>.</returns>
+		/// <returns><see langword="true"/>, если содержимое файлов абсолютно побайтово совпадает; иначе — <see langword="false"/>.</returns>
 		public static bool IsFilesEqualFull(
 			FileInfo file1,
 			FileInfo file2)
@@ -519,8 +537,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Выполняет быстрое «ленивое» сравнение двух файлов по размеру и времени изменения. 
-		/// Если метаданные не помогли определить равенство, выполняет побайтовое сравнение содержимого.
+		/// Выполняет быстрое «ленивое» сравнение двух файлов по их метаданным (размеру и дате изменения). Если они совпадают, возвращает true; иначе перепроверяет побайтово через <see cref="IsFilesEqualFull"/>.
 		/// </summary>
 		/// <param name="file1">Первый сравниваемый файл.</param>
 		/// <param name="file2">Второй сравниваемый файл.</param>
@@ -541,7 +558,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Создает директорию по указанному пути, если она еще не существует.
+		/// Создает директорию по указанному пути, если она еще отсутствует в системе.
 		/// </summary>
 		/// <param name="path">Путь к создаваемой директории.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -554,7 +571,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Удаляет директорию и все ее содержимое по указанному пути, если она существует.
+		/// Удаляет директорию и все ее внутреннее содержимое (рекурсивно) по указанному пути, если она существует.
 		/// </summary>
 		/// <param name="path">Путь к удаляемой директории.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -567,7 +584,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Удаляет файл по указанному пути, если он существует.
+		/// Удаляет файл по указанному пути на диске, если он существует.
 		/// </summary>
 		/// <param name="path">Путь к удаляемому файлу.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -580,11 +597,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Переименовывает файл, безопасно перемещая его в новое имя. 
-		/// Если целевое имя уже занято, автоматически подбирает уникальное имя с помощью <see cref="GetNewName"/>.
+		/// Переименовывает файл, безопасно перемещая его. Если целевое имя уже занято, автоматически подбирает уникальное имя, добавляя нижнее подчеркивание.
 		/// </summary>
-		/// <param name="file">Переименовываемый файл.</param>
-		/// <param name="newName">Новое имя файла.</param>
+		/// <param name="file">Переименовываемый информационный объект файла.</param>
+		/// <param name="newName">Новое желаемое имя файла.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void Rename(
 			FileInfo file,
@@ -596,13 +612,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Записывает строковый контент в файл по указанному пути,
-		/// используя выбранную кодировку и режим открытия файла.
+		/// Записывает строковый контент в файл по указанному пути, используя выбранную кодировку <see cref="EncodingsEnum"/> и режим открытия файлового потока.
 		/// </summary>
-		/// <param name="path">Путь к файлу для записи.</param>
-		/// <param name="content">Строковое содержимое, которое необходимо записать.</param>
-		/// <param name="encoding">Кодировка текста (по умолчанию UTF-8).</param>
-		/// <param name="mode">Режим открытия или создания файла (по умолчанию перезапись/создание).</param>
+		/// <param name="path">Путь к целевому файлу для записи.</param>
+		/// <param name="content">Строковое содержимое, подлежащее сохранению.</param>
+		/// <param name="encoding">Кодировка текста. По умолчанию используется <see cref="EncodingsEnum.UTF8"/>.</param>
+		/// <param name="mode">Режим работы файлового потока. По умолчанию используется <see cref="FileMode.Create"/> (перезапись/создание нового).</param>
 		public static void FileWrite(
 			string path,
 			string content,
@@ -616,11 +631,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Записывает массив байт в файл по указанному пути, используя выбранный режим открытия файла.
+		/// Записывает сырой массив байт в файл по указанному пути, используя выбранный режим открытия файлового потока.
 		/// </summary>
 		/// <param name="path">Путь к файлу для записи.</param>
-		/// <param name="content">Массив байт, который необходимо записать.</param>
-		/// <param name="mode">Режим открытия или создания файла (по умолчанию перезапись/создание).</param>
+		/// <param name="content">Массив байт, который необходимо записать в файл.</param>
+		/// <param name="mode">Режим работы файлового потока. По умолчанию используется <see cref="FileMode.Create"/>.</param>
 		public static void FileWrite(
 			string path,
 			byte[] content,

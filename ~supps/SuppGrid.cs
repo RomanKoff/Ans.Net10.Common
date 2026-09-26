@@ -1,4 +1,4 @@
-﻿// rev 2026-09-22
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,14 +15,15 @@ namespace Ans.Net10.Common
 		/* functions */
 
 		/// <summary>
-		/// Выполняет ленивое потоковое чтение GRID-данных из <see cref="TextReader"/>, 
+		/// Выполняет ленивое потоковое чтение GRID-данных из текстового потока <see cref="TextReader"/>, 
 		/// автоматически фильтруя комментарии (//, --, ==) и проецируя строки в целевые объекты.
 		/// </summary>
 		/// <typeparam name="T">Тип результирующего объекта маппинга.</typeparam>
 		/// <param name="reader">Входящий поток текстовых данных.</param>
 		/// <param name="selector">Функция-предикат (лямбда) для маппинга полей строки в объект типа T.</param>
-		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки.</param>
+		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки. Если равен <see langword="null"/>, используется инвариантная культура.</param>
 		/// <returns>Ленивый поток материализованных объектов типа T.</returns>
+		/// <exception cref="ArgumentNullException">Выбрасывается, если параметр <paramref name="reader"/> или <paramref name="selector"/> равен <see langword="null"/>.</exception>
 		public static IEnumerable<T> GetItems<T>(
 			TextReader reader,
 			Func<GridRowParser, T> selector,
@@ -47,7 +48,7 @@ namespace Ans.Net10.Common
 		/// <typeparam name="T">Тип результирующего объекта маппинга.</typeparam>
 		/// <param name="source">Исходная строка, содержащая документ в формате GRID.</param>
 		/// <param name="selector">Функция-предикат для маппинга полей строки в объект типа T.</param>
-		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки.</param>
+		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки. Если равен <see langword="null"/>, используется инвариантная культура.</param>
 		/// <returns>Ленивый поток материализованных объектов типа T.</returns>
 		public static IEnumerable<T> GetItemsFromString<T>(
 			string source,
@@ -68,9 +69,10 @@ namespace Ans.Net10.Common
 		/// <typeparam name="T">Тип результирующего объекта маппинга.</typeparam>
 		/// <param name="stream">Входящий бинарный поток данных.</param>
 		/// <param name="selector">Функция-предикат для маппинга полей строки в объект типа T.</param>
-		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки.</param>
-		/// <param name="encoding">Опциональная кодировка текста. Если null — используется UTF-8 без BOM.</param>
+		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки. Если равен <see langword="null"/>, используется инвариантная культура.</param>
+		/// <param name="encoding">Опциональная кодировка текста. Если равен <see langword="null"/> — используется UTF-8 без BOM.</param>
 		/// <returns>Ленивый поток материализованных объектов типа T.</returns>
+		/// <exception cref="ArgumentNullException">Выбрасывается, если параметр <paramref name="stream"/> равен <see langword="null"/>.</exception>
 		public static IEnumerable<T> GetItemsFromStream<T>(
 			Stream stream,
 			Func<GridRowParser, T> selector,
@@ -90,9 +92,10 @@ namespace Ans.Net10.Common
 		/// <typeparam name="T">Тип результирующего объекта маппинга.</typeparam>
 		/// <param name="path">Полный путь к файлу в формате GRID.</param>
 		/// <param name="selector">Функция-предикат для маппинга полей строки в объект типа T.</param>
-		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки.</param>
-		/// <param name="encoding">Опциональная кодировка текста файла. Если null — используется UTF-8 без BOM.</param>
+		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки. Если равен <see langword="null"/>, используется инвариантная культура.</param>
+		/// <param name="encoding">Опциональная кодировка текста файла. Если равен <see langword="null"/> — используется UTF-8 без BOM.</param>
 		/// <returns>Ленивый поток материализованных объектов типа T.</returns>
+		/// <exception cref="ArgumentException">Выбрасывается, если путь к файлу <paramref name="path"/> пуст или равен <see langword="null"/>.</exception>
 		public static IEnumerable<T> GetItemsFromFile<T>(
 			string path,
 			Func<GridRowParser, T> selector,
@@ -114,14 +117,16 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Выполняет асинхронное и высокоэффективное построчное чтение GRID-данных напрямую из файла на диске.
+		/// Выполняет асинхронное и высокоэффективное построчное чтение GRID-данных напрямую из файла на диске.
 		/// </summary>
 		/// <typeparam name="T">Тип результирующего объекта маппинга.</typeparam>
 		/// <param name="path">Полный путь к файлу в формате GRID.</param>
 		/// <param name="selector">Функция-предикат для маппинга полей строки в объект типа T.</param>
-		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки.</param>
-		/// <param name="encoding">Опциональная кодировка текста файла. Если null — используется UTF-8 без BOM.</param>
+		/// <param name="provider">Опциональный провайдер культуры для парсинга полей внутри строки. Если равен <see langword="null"/>, используется инвариантная культура.</param>
+		/// <param name="encoding">Опциональная кодировка текста файла. Если равен <see langword="null"/> — используется UTF-8 без BOM.</param>
 		/// <returns>Асинхронный ленивый поток материализованных объектов типа T.</returns>
+		/// <exception cref="ArgumentException">Выбрасывается, если путь к файлу <paramref name="path"/> пуст или равен <see langword="null"/>.</exception>
+		/// <exception cref="ArgumentNullException">Выбрасывается, если параметр <paramref name="selector"/> равен <see langword="null"/>.</exception>
 		public static async IAsyncEnumerable<T> GetItemsFromFileAsync<T>(
 			string path,
 			Func<GridRowParser, T> selector,

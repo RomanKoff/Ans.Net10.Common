@@ -1,4 +1,4 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-26
 
 using System.Buffers;
 using System.Runtime.CompilerServices;
@@ -16,8 +16,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Заменяет букву 'ё' и 'Ё' на 'е' и 'Е'.
 		/// </summary>
-		/// <param name="value">Исходный символ.</param>
-		/// <returns>Символ 'е'/'Е', если на входе была буква с умлаутом; иначе исходный символ.</returns>
+		/// <param name="value">Исходный символ для проверки.</param>
+		/// <returns>Символ 'е' или 'Е', если на входе была буква с умлаутом; в противном случае — исходный символ <paramref name="value"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static char GetFixUmlautRu(
 			char value)
@@ -32,10 +32,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает новую строку, в которой все буквы 'ё' и 'Ё' заменены на 'е' и 'Е'.
+		/// Возвращает новую строку, в которой все буквы 'ё' и 'Ё' заменены на 'е' и 'Е'. 
+		/// Если в тексте отсутствуют символы умлаута, оптимизировано возвращает исходную ссылку без выделения памяти в куче.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <returns>Очищенная от умлаутов строка. Если входная строка пуста или null, возвращает пустую строку.</returns>
+		/// <param name="source">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Очищенная от умлаутов строка; <see cref="string.Empty"/>, если входная строка пуста или равна <see langword="null"/>.</returns>
 		public static string GetFixUmlautRu(
 			string? source)
 		{
@@ -52,10 +53,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Выполняет быструю замену всех букв 'ё' и 'Ё' на 'е' и 'Е' непосредственно в исходном объекте <see cref="StringBuilder"/>.
+		/// Выполняет быструю замену всех букв 'ё' и 'Ё' на 'е' и 'Е' непосредственно в исходном объекте <see cref="StringBuilder"/> (модификация по месту).
 		/// </summary>
-		/// <param name="source">Исходный StringBuilder для модификации по месту.</param>
-		/// <returns>Тот же экземпляр StringBuilder с выполненными заменами. Если входной объект null, возвращает null.</returns>
+		/// <param name="source">Исходный экземпляр <see cref="StringBuilder"/> для модификации. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Тот же экземпляр <see cref="StringBuilder"/> с выполненными заменами, либо <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static StringBuilder? FixUmlautRu(
 			StringBuilder? source)
@@ -71,8 +72,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает НОВЫЙ экземпляр <see cref="StringBuilder"/>, в котором все буквы 'ё' и 'Ё' заменены на 'е' и 'Е'. Исходный объект остается неизменным.
 		/// </summary>
-		/// <param name="source">Исходный StringBuilder.</param>
-		/// <returns>Новый StringBuilder с выполненными заменами.</returns>
+		/// <param name="source">Исходный базовый экземпляр <see cref="StringBuilder"/>. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Новый независимый объект <see cref="StringBuilder"/> с выполненными заменами.</returns>
 		public static StringBuilder GetFixUmlautRu(
 			StringBuilder? source)
 		{
@@ -90,10 +91,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Заменяет кириллический знак номера на международный типографический эквивалент (№ --> Nº).
+		/// Заменяет кириллический знак номера на международный типографический эквивалент (№ в Nº).
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <returns>Строка с замененным знаком номера. Если входная строка пуста или null, возвращает пустую строку.</returns>
+		/// <param name="source">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Строка с замененным знаком номера, либо <see cref="string.Empty"/>, если входная строка пуста или равна <see langword="null"/>.</returns>
 		public static string GetFixNumberRu(
 			string? source)
 		{
@@ -104,12 +105,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает экземпляр <see cref="StringBuilder"/>, в котором кириллический
-		/// знак номера заменен на международный эквивалент (№ --> Nº). 
-		/// Если знак «№» отсутствует, в целях оптимизации возвращается исходный объект без выделения памяти.
+		/// Возвращает экземпляр <see cref="StringBuilder"/>, в котором кириллический знак номера заменен на международный эквивалент (№ в Nº). 
+		/// Если знак «№» полностью отсутствует, в целях оптимизации возвращается исходный объект без выделения дополнительной памяти.
 		/// </summary>
-		/// <param name="source">Исходный StringBuilder.</param>
-		/// <returns>StringBuilder с выполненными заменами.</returns>
+		/// <param name="source">Исходный экземпляр <see cref="StringBuilder"/>. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Экземпляр <see cref="StringBuilder"/> с примененными правилами замены.</returns>
 		public static StringBuilder GetFixNumberRu(
 			StringBuilder? source)
 		{

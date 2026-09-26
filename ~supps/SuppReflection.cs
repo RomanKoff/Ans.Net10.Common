@@ -1,4 +1,4 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-26
 
 using System.Collections;
 using System.Reflection;
@@ -19,8 +19,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Преобразует системное имя встроенного типа CTS в его стандартный C# эквивалент (алиас).
 		/// </summary>
-		/// <param name="name">Исходное имя типа (например, "Int32").</param>
-		/// <returns>Строковый алиас типа в C# (например, "int").</returns>
+		/// <param name="name">Исходное системное имя типа (например, <c>"Int32"</c> или <c>"Boolean"</c>).</param>
+		/// <returns>Строковый алиас типа, принятый в синтаксисе языка C# (например, <c>"int"</c>, <c>"bool"</c>).</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string FixCSharpName(
 			string name)
@@ -42,10 +42,14 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое представление значения объекта, адаптированное под синтаксис C# или отладочный вывод.
+		/// Возвращает текстовое представление значения любого объекта, адаптированное под синтаксис языка C# или детальный отладочный вывод.
 		/// </summary>
-		/// <param name="value">Объект для анализа.</param>
-		/// <returns>Строковое описание или значение объекта.</returns>
+		/// <remarks>
+		/// Метод интеллектуально обрабатывает пустые строки, типы <c>HtmlString</c>, логические флаги, даты, перечисления (с получением лежащего в основе числового значения), а также вычисляет размеры массивов и коллекций.
+		/// </remarks>
+		/// <param name="value">Исходный объект для текстового анализа. Допускает значение <see langword="null"/>.</param>
+		/// <param name="useFullView">Признак генерации развернутого (полного) текстового описания для сложных объектов, словарей и обобщений. По умолчанию равен <see langword="false"/>.</param>
+		/// <returns>Строка с форматированным значением объекта; если передан <see langword="null"/>, возвращает строковый маркер <c>"null"</c>.</returns>
 		public static string GetCSharpValue(
 			object? value,
 			bool useFullView = false)
@@ -75,11 +79,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает упорядоченный массив типов, принадлежащих указанному пространству имен в заданной сборке.
+		/// Возвращает упорядоченный по алфавиту массив типов, принадлежащих исключительно указанному пространству имен в заданной сборке.
 		/// </summary>
-		/// <param name="assembly">Исследуемая сборка объектов.</param>
-		/// <param name="ns">Целевое пространство имен.</param>
-		/// <returns>Массив объектов <see cref="Type"/>.</returns>
+		/// <param name="assembly">Исследуемая сборка объектов <see cref="Assembly"/>.</param>
+		/// <param name="ns">Целевое строгое пространство имен (Namespace) для фильтрации типов.</param>
+		/// <returns>Массив отфильтрованных и отсортированных объектов <see cref="Type"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Type[] GetNamespaceTypes(
 			Assembly assembly,

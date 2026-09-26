@@ -1,4 +1,4 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,10 +11,10 @@ namespace Ans.Net10.Common
 
 		/// <summary>
 		/// Транслитерирует строку русского текста латинским алфавитом в соответствии
-		/// с ГОСТ Р 7.0.34-2014 (https://www.ifap.ru/library/gost/70342014.pdf).
+		/// с требованиями ГОСТ Р 7.0.34-2014 (https://www.ifap.ru/library/gost/70342014.pdf).
 		/// </summary>
-		/// <param name="text">Исходный русский текст.</param>
-		/// <returns>Транслитерированная строка. Если на входе пустая строка или null, возвращает пустую строку.</returns>
+		/// <param name="text">Исходный русский текст для транслитерации. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Транслитерированная латиницей строка; <see cref="string.Empty"/>, если на входе пустая строка или <see langword="null"/>.</returns>
 		public static string GetTranslitRuToEn(
 			string? text)
 		{
@@ -27,10 +27,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Выполняет транслитерацию из одного <see cref="StringBuilder"/> в другой чанками без промежуточных аллокаций.
+		/// Выполняет высокопроизводительную транслитерацию текста из одного экземпляра <see cref="StringBuilder"/> в другой чанками без промежуточных аллокаций памяти в куче.
 		/// </summary>
-		/// <param name="source">Исходный StringBuilder с русским текстом.</param>
-		/// <param name="destination">Целевой StringBuilder для записи латиницы.</param>
+		/// <param name="source">Исходный экземпляр <see cref="StringBuilder"/> с кириллическим текстом.</param>
+		/// <param name="destination">Целевой экземпляр <see cref="StringBuilder"/> для записи результата транслитерации.</param>
 		public static void TranslitRuToEn(
 			StringBuilder source,
 			StringBuilder destination)
@@ -43,11 +43,14 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в безопасный нижнерегистровый URL-slug, транслитерируя кириллицу
-		/// и заменяя разделители на дефисы.
+		/// Преобразует произвольный текст в безопасный нижнерегистровый URL-slug, транслитерируя кириллицу и заменяя разделители на одиночные дефисы.
 		/// </summary>
-		/// <param name="text">Исходный текст.</param>
-		/// <returns>Безопасная строка для URL (slug).</returns>
+		/// <remarks>
+		/// Метод автоматически удаляет дубликаты дефисов, а также зачищает дефисы на концах результирующей строки. 
+		/// Твердый (ъ) и мягкий (ь) знаки при этом полностью игнорируются.
+		/// </remarks>
+		/// <param name="text">Исходный текст для формирования идентификатора. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Безопасная строка для использования в URL-адресах (slug) или <see cref="string.Empty"/>.</returns>
 		public static string ToSlug(
 			string? text)
 		{

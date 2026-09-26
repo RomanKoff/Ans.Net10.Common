@@ -1,39 +1,42 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Перечисление шести основных грамматических падежей русского языка.
+	/// </summary>
 	public enum WordCasesRuEnum
 	{
 		/// <summary>
-		/// Именительный падеж (кто, что)
+		/// Именительный падеж (Кто? Что?).
 		/// </summary>
 		Nominative,
 
 		/// <summary>
-		/// Родительный падеж (кого, чего)
+		/// Родительный падеж (Кого? Чего?).
 		/// </summary>
 		Genitive,
 
 		/// <summary>
-		/// Дательный падеж (кому, чему)
+		/// Дательный падеж (Кому? Чему?).
 		/// </summary>
 		Dative,
 
 		/// <summary>
-		/// Винительный падеж (кого, что)
+		/// Винительный падеж (Кого? Что?).
 		/// </summary>
 		Accusative,
 
 		/// <summary>
-		/// Творительный падеж (кем, чем)
+		/// Творительный падеж (Кем? Чем?).
 		/// </summary>
 		Instrumental,
 
 		/// <summary>
-		/// Предложный падеж (о ком, о чём)
+		/// Предложный падеж (О ком? О чём?).
 		/// </summary>
 		Prepositional
 	}
@@ -41,28 +44,25 @@ namespace Ans.Net10.Common
 
 
 	/// <summary>
-	/// Вспомогательный класс для работы с русским языком.
+	/// Вспомогательный класс для работы с русским языком, включая определение пола, морфологию и плюрализацию.
 	/// </summary>
 	public static partial class SuppLangRu
 	{
 
 		/// <summary>
-		/// Возвращает вычисленный биологический пол человека на основе
-		/// анализа окончания его фамилии, имени или отчества.
+		/// Возвращает вычисленный биологический пол человека на основе экспресс-анализа характерных суффиксов и окончаний его отчества, фамилии или национальных маркеров ФИО.
 		/// </summary>
-		/// <param name="fullname">Строка, содержащая ФИО, фамилию с инициалами или только отчество.</param>
+		/// <param name="fullname">Строка, содержащая полный текст ФИО, фамилию с инициалами, отдельное отчество или восточные именные маркеры (оглы/кызы).</param>
 		/// <returns>
-		/// Определенный <see cref="GenderEnum"/> или <see cref="GenderEnum.NotSpecified"/>,
-		/// если пол определить не удалось.
+		/// Определенное значение из перечисления <see cref="GenderEnum"/>, либо <see cref="GenderEnum.NotSpecified"/>, если по имеющимся признакам пол установить не удалось.
 		/// </returns>
 		/// <example>
 		/// <code>
-		/// SuppLangRu.GetGender("Пушкин Александр Сергеевич"); // Male
-		/// SuppLangRu.GetGender("Эфендиев Эльчин Ильяс оглы"); // Male
-		/// SuppLangRu.GetGender("Ахмедова Лейла кызы"); // Female
+		/// SuppLangRu.GetGender("Пушкин Александр Сергеевич"); // Возвращает GenderEnum.Male
+		/// SuppLangRu.GetGender("Эфендиев Эльчин Ильяс оглы"); // Возвращает GenderEnum.Male
+		/// SuppLangRu.GetGender("Ахмедова Лейла кызы");         // Возвращает GenderEnum.Female
 		/// </code>
 		/// </example>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static GenderEnum GetGender(
 			string fullname)
 		{

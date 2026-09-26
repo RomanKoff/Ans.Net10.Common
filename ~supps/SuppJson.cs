@@ -1,4 +1,4 @@
-﻿// rev 2026-09-22
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
@@ -10,7 +10,8 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Вспомогательный класс для высокопроизводительной работы с JSON (классический подход и Source Generation).
+	/// Вспомогательный класс для высокопроизводительной работы с JSON 
+	/// (классический подход на основе рефлексии и статический компиляторный Source Generation).
 	/// </summary>
 	public static class SuppJson
 	{
@@ -31,8 +32,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Параметры сериализации JSON по умолчанию.
+		/// Глобальные параметры сериализации JSON-данных по умолчанию.
 		/// </summary>
+		/// <value>
+		/// Предустановленный экземпляр <see cref="JsonSerializerOptions"/> с игнорированием 
+		/// свойств со значением <see langword="null"/>, регистронезависимым поиском ключей и безопасным экранированием символов.
+		/// </value>
 		public static readonly JsonSerializerOptions DEFAULT_JSON_SERIALIZER_OPTIONS = new()
 		{
 			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
@@ -43,8 +48,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Параметры записи JSON по умолчанию.
+		/// Глобальные низкоуровневые параметры записи JSON-потоков по умолчанию.
 		/// </summary>
+		/// <value>
+		/// Предустановленный экземпляр <see cref="JsonWriterOptions"/> с оптимизированным безопасным экранированием спецсимволов.
+		/// </value>
 		public static readonly JsonWriterOptions DEFAULT_JSON_WRITER_OPTIONS = new()
 		{
 			Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
@@ -55,17 +63,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует объект из строки JSON.
+		/// Десериализует объект из текстовой строки JSON.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="json">Исходная строка JSON.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>
-		/// Десериализованный объект типа <typeparamref name="T"/>
-		/// или значение по умолчанию, если строка пуста.
-		/// </returns>
+		/// <typeparam name="T">Тип результирующего целевого объекта.</typeparam>
+		/// <param name="json">Исходная строка JSON-документа.</param>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы (<see langword="null"/>), применяются настройки по умолчанию <see cref="DEFAULT_JSON_SERIALIZER_OPTIONS"/>.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или системное значение <see langword="default"/>, если строка пуста или равна <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T? GetObjectFromJsonString<T>(
 			string json,
@@ -79,14 +82,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует объект из массива байт JSON (UTF-8).
+		/// Десериализует объект из сырого массива байт JSON в кодировке UTF-8.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="utf8Json">Исходный массив байт в кодировке UTF-8.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <typeparam name="T">Тип результирующего целевого объекта.</typeparam>
+		/// <param name="utf8Json">Исходный байтовый массив в кодировке UTF-8.</param>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T? GetObjectFromJsonBytes<T>(
 			byte[] utf8Json,
@@ -98,14 +99,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует объект из readonly-последовательности байт JSON (UTF-8).
+		/// Десериализует объект из неизменяемой readonly-последовательности байт памяти JSON (UTF-8) без лишних аллокаций.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="utf8Json">Входящий срез байт памяти в кодировке UTF-8.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <typeparam name="T">Тип результирующего целевого объекта.</typeparam>
+		/// <param name="utf8Json">Входящий высокопроизводительный срез байт памяти <see cref="ReadOnlySpan{Byte}"/>.</param>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T? GetObjectFromJsonSpan<T>(
 			ReadOnlySpan<byte> utf8Json,
@@ -117,14 +116,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует объект из синхронного потока данных JSON.
+		/// Десериализует объект из синхронного базового потока данных <see cref="Stream"/>.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="stream">Входящий поток данных.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <typeparam name="T">Тип результирующего целевого объекта.</typeparam>
+		/// <param name="stream">Входящий бинарный поток данных.</param>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T? GetObjectFromJsonStream<T>(
 			Stream stream,
@@ -136,17 +133,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Асинхронно десериализует объект из потока данных JSON.
+		/// Асинхронно десериализует объект из входящего потока данных JSON.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
+		/// <typeparam name="T">Тип результирующего целевого объекта.</typeparam>
 		/// <param name="stream">Входящий асинхронный поток данных.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>
-		/// Задача, представляющая асинхронную операцию десериализации,
-		/// с результатом типа <typeparamref name="T"/>.
-		/// </returns>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <returns>Структура <see cref="ValueTask{T}"/>, содержащая десериализованный объект типа <typeparamref name="T"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static ValueTask<T?> GetObjectFromJsonStreamAsync<T>(
 			Stream stream,
@@ -158,14 +150,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует объект из файла JSON.
+		/// Десериализует объект напрямую из физического JSON-файла на диске.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="filename">Полный путь к файлу JSON на диске.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <typeparam name="T">Тип результирующего целевого объекта.</typeparam>
+		/// <param name="filename">Полный или относительный путь к файлу конфигурации или данных JSON на диске.</param>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или <see langword="null"/>.</returns>
 		public static T? GetObjectFromJsonFile<T>(
 			string filename,
 			JsonSerializerOptions? options = null)
@@ -178,16 +168,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Асинхронно десериализует объект из файла JSON.
+		/// Асинхронно десериализует объект напрямую из физического JSON-файла с диска в неблокирующем режиме.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="filename">Полный путь к файлу JSON на диске.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>
-		/// Задача, содержащая десериализованный объект типа <typeparamref name="T"/>.
-		/// </returns>
+		/// <typeparam name="T">Тип результирующего целевого объекта.</typeparam>
+		/// <param name="filename">Полный или относительный путь к файлу JSON на диске.</param>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <returns>Поток-задача <see cref="Task{T}"/>, содержащая десериализованный объект типа <typeparamref name="T"/>.</returns>
 		public static async Task<T?> GetObjectFromJsonFileAsync<T>(
 			string filename,
 			JsonSerializerOptions? options = null)
@@ -200,13 +186,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сериализует объект в строку JSON.
+		/// Сериализует переданный объект в обычную текстовую строку JSON.
 		/// </summary>
-		/// <param name="obj">Экземпляр объекта для сериализации.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>Строка, содержащая JSON-представление объекта.</returns>
+		/// <param name="obj">Экземпляр объекта любой структуры для сериализации.</param>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <returns>Текстовая строка, содержащая JSON-представление переданного объекта.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetJsonStringFromObject(
 			object obj,
@@ -218,13 +202,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сериализует объект в массив байт JSON (UTF-8).
+		/// Сериализует объект в массив байт JSON в высокопроизводительной кодировке UTF-8.
 		/// </summary>
 		/// <param name="obj">Экземпляр объекта для сериализации.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <returns>Массив байт в кодировке UTF-8.</returns>
+		/// <param name="options">Кастомные параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <returns>Массив байт в кодировке UTF-8, готовый для передачи по сети или записи.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static byte[] GetJsonBytesFromObject(
 			object obj,
@@ -236,12 +218,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (Source Gen) Десериализует объект из строки JSON без использования рантайм-рефлексии.
+		/// (Source Gen) Десериализует объект из текстовой строки JSON без использования тяжелой рантайм-рефлексии (Reflection).
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="json">Исходная строка JSON.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <typeparam name="T">Тип десериализуемого объекта.</typeparam>
+		/// <param name="json">Исходная строка JSON-документа.</param>
+		/// <param name="jsonTypeInfo">Инфраструктурные метаданные типа со сценарием Source Generation, сгенерированные компилятором на этапе сборки проекта.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T? GetObjectFromJsonStringGen<T>(
 			string json,
@@ -255,10 +237,10 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// (Source Gen) Десериализует объект из массива байт JSON (UTF-8) без использования рантайм-рефлексии.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
+		/// <typeparam name="T">Тип десериализуемого объекта.</typeparam>
 		/// <param name="utf8Json">Исходный массив байт в кодировке UTF-8.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <param name="jsonTypeInfo">Метаданные типа со сценарием Source Generation, сгенерированные компилятором.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T? GetObjectFromJsonBytesGen<T>(
 			byte[] utf8Json,
@@ -270,12 +252,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (Source Gen) Десериализует объект из readonly-последовательности байт без использования рантайм-рефлексии.
+		/// (Source Gen) Десериализует объект из высокопроизводительного readonly-среза байт памяти без использования рантайм-рефлексии.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="utf8Json">Входящий срез байт памяти в кодировке UTF-8.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <typeparam name="T">Тип десериализуемого объекта.</typeparam>
+		/// <param name="utf8Json">Входящий срез байт памяти <see cref="ReadOnlySpan{Byte}"/> в кодировке UTF-8.</param>
+		/// <param name="jsonTypeInfo">Метаданные типа со сценарием Source Generation, сгенерированные компилятором.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T? GetObjectFromJsonSpanGen<T>(
 			ReadOnlySpan<byte> utf8Json,
@@ -287,12 +269,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) (Source Gen) Асинхронно десериализует объект из потока JSON без использования рантайм-рефлексии.
+		/// (Source Gen) Асинхронно десериализует объект из потока данных JSON без использования рантайм-рефлексии.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
+		/// <typeparam name="T">Тип десериализуемого объекта.</typeparam>
 		/// <param name="stream">Входящий асинхронный поток данных.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <returns>Задача, содержащая десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <param name="jsonTypeInfo">Метаданные типа со сценарием Source Generation, сгенерированные компилятором.</param>
+		/// <returns>Структура-задача <see cref="ValueTask{T}"/>, содержащая десериализованный объект типа <typeparamref name="T"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static ValueTask<T?> GetObjectFromJsonStreamGenAsync<T>(
 			Stream stream,
@@ -304,12 +286,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) (Source Gen) Асинхронно десериализует объект из файла JSON без использования рантайм-рефлексии.
+		/// (Source Gen) Асинхронно десериализует объект напрямую из файла JSON на диске без использования рантайм-рефлексии.
 		/// </summary>
-		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="filename">Полный путь к файлу JSON на диске.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <returns>Задача, содержащая десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <typeparam name="T">Тип десериализуемого объекта.</typeparam>
+		/// <param name="filename">Полный или относительный путь к файлу на диске.</param>
+		/// <param name="jsonTypeInfo">Метаданные типа со сценарием Source Generation, сгенерированные компилятором.</param>
+		/// <returns>Поток-задача <see cref="Task{T}"/>, содержащая десериализованный объект типа <typeparamref name="T"/>.</returns>
 		public static async Task<T?> GetObjectFromJsonFileGenAsync<T>(
 			string filename,
 			JsonTypeInfo<T> jsonTypeInfo)
@@ -322,12 +304,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (Source Gen) Сериализует объект в строку JSON без использования рантайм-рефлексии.
+		/// (Source Gen) Сериализует строго типизированный объект в строку JSON без использования рантайм-рефлексии.
 		/// </summary>
 		/// <typeparam name="T">Тип сериализуемого объекта.</typeparam>
 		/// <param name="obj">Экземпляр объекта для сериализации.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <returns>Строка, содержащая JSON-представление объекта.</returns>
+		/// <param name="jsonTypeInfo">Метаданные типа со сценарием Source Generation, сгенерированные компилятором.</param>
+		/// <returns>Текстовая строка, содержащая быстро скомпилированное JSON-представление объекта.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetJsonStringFromObjectGen<T>(
 			T obj,
@@ -339,12 +321,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (Source Gen) Сериализует объект в массив байт JSON (UTF-8) без использования рантайм-рефлексии.
+		/// (Source Gen) Сериализует строго типизированный объект в массив байт UTF-8 без использования рантайм-рефлексии.
 		/// </summary>
 		/// <typeparam name="T">Тип сериализуемого объекта.</typeparam>
 		/// <param name="obj">Экземпляр объекта для сериализации.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <returns>Массив байт в кодировке UTF-8.</returns>
+		/// <param name="jsonTypeInfo">Метаданные типа со сценарием Source Generation, сгенерированные компилятором.</param>
+		/// <returns>Массив байт в кодировке UTF-8, сгенерированный без аллокаций на анализ метаданных.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static byte[] GetJsonBytesFromObjectGen<T>(
 			T obj,
@@ -356,14 +338,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Записывает объект в поток данных JSON.
+		/// Записывает сериализованный объект напрямую в синхронный поток данных <see cref="Stream"/> с помощью экономичного писателя <see cref="Utf8JsonWriter"/>.
 		/// </summary>
 		/// <param name="obj">Экземпляр объекта для записи.</param>
-		/// <param name="stream">Целевой поток данных для записи.</param>
-		/// <param name="serializerOptions">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <param name="writerOptions">Параметры конфигурации низкоуровневого писателя.</param>
+		/// <param name="stream">Целевой бинарный поток данных для записи.</param>
+		/// <param name="serializerOptions">Параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <param name="writerOptions">Параметры низкоуровневой конфигурации писателя (экранирование, отступы).</param>
 		public static void WriteObjectToJsonStream(
 			object obj,
 			Stream stream,
@@ -380,17 +360,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Асинхронно записывает объект в поток данных JSON с применением параметров конфигурации записи.
+		/// Асинхронно записывает сериализованный объект напрямую в поток данных <see cref="Stream"/> с помощью писателя <see cref="Utf8JsonWriter"/>.
 		/// </summary>
 		/// <param name="obj">Экземпляр объекта для записи.</param>
 		/// <param name="stream">Целевой асинхронный поток для записи.</param>
-		/// <param name="serializerOptions">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <param name="writerOptions">
-		/// Параметры конфигурации низкоуровневого писателя.
-		/// </param>
-		/// <returns>Задача, представляющая асинхронную операцию записи.</returns>
+		/// <param name="serializerOptions">Параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <param name="writerOptions">Параметры низкоуровневой конфигурации писателя.</param>
+		/// <returns>Объект-задача <see cref="Task"/>, представляющий асинхронную операцию записи и сброса буферов.</returns>
 		public static async Task WriteObjectToJsonStreamAsync(
 			object obj,
 			Stream stream,
@@ -408,14 +384,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сохраняет объект в файл формата JSON.
+		/// Сериализует и физически сохраняет объект в файл формата JSON на диск.
 		/// </summary>
 		/// <param name="obj">Экземпляр объекта для сохранения.</param>
-		/// <param name="filename">Полный путь к создаваемому файлу на диске.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <param name="writerOptions">Параметры конфигурации низкоуровневого писателя.</param>
+		/// <param name="filename">Полный или относительный путь к создаваемому/перезаписываемому файлу на диске.</param>
+		/// <param name="options">Параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <param name="writerOptions">Параметры низкоуровневой конфигурации писателя.</param>
 		public static void SaveObjectToJsonFile(
 			object obj,
 			string filename,
@@ -430,15 +404,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Асинхронно сохраняет объект в файл формата JSON.
+		/// Асинхронно сериализует и сохраняет объект в файл формата JSON на диск в неблокирующем потоки режиме.
 		/// </summary>
 		/// <param name="obj">Экземпляр объекта для сохранения.</param>
-		/// <param name="filename">Полный путь к создаваемому файлу на диске.</param>
-		/// <param name="options">
-		/// Параметры сериализации. Если не заданы, используются параметры по умолчанию.
-		/// </param>
-		/// <param name="writerOptions">Параметры конфигурации низкоуровневого писателя.</param>
-		/// <returns>Задача, представляющая асинхронную операцию сохранения.</returns>
+		/// <param name="filename">Полный или относительный путь к создаваемому файлу на диске.</param>
+		/// <param name="options">Параметры сериализации. Если не заданы, применяются настройки по умолчанию.</param>
+		/// <param name="writerOptions">Параметры низкоуровневой конфигурации писателя.</param>
+		/// <returns>Объект-задача <see cref="Task"/>, представляющий асинхронную операцию записи на устройство ввода-вывода.</returns>
 		public static async Task SaveObjectToJsonFileAsync(
 			object obj,
 			string filename,
@@ -453,15 +425,14 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) (Source Gen) Асинхронно записывает объект в поток JSON
-		/// без использования рантайм-рефлексии с применением параметров конфигурации записи.
+		/// (Source Gen) Асинхронно записывает строго типизированный объект в поток данных JSON без использования рантайм-рефлексии.
 		/// </summary>
 		/// <typeparam name="T">Тип сериализуемого объекта.</typeparam>
 		/// <param name="obj">Экземпляр объекта для записи.</param>
 		/// <param name="stream">Целевой асинхронный поток для записи.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <param name="writerOptions">Параметры конфигурации низкоуровневого писателя.</param>
-		/// <returns>Задача, представляющая асинхронную операцию записи.</returns>
+		/// <param name="jsonTypeInfo">Метаданные типа со сценарием Source Generation, сгенерированные компилятором.</param>
+		/// <param name="writerOptions">Параметры низкоуровневой конфигурации писателя.</param>
+		/// <returns>Объект-задача <see cref="Task"/>, представляющий асинхронную операцию записи.</returns>
 		public static async Task WriteObjectToJsonStreamGenAsync<T>(
 			T obj,
 			Stream stream,
@@ -479,14 +450,14 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) (Source Gen) Асинхронно сохраняет объект в файл JSON без использования рантайм-рефлексии.
+		/// (Source Gen) Асинхронно сохраняет строго типизированный объект в файл JSON на диск без использования рантайм-рефлексии.
 		/// </summary>
 		/// <typeparam name="T">Тип сериализуемого объекта.</typeparam>
 		/// <param name="obj">Экземпляр объекта для сохранения.</param>
-		/// <param name="filename">Полный путь к создаваемому файлу на диске.</param>
-		/// <param name="jsonTypeInfo">Метаданные типа, сгенерированные компилятором.</param>
-		/// <param name="writerOptions">Параметры конфигурации низкоуровневого писателя.</param>
-		/// <returns>Задача, представляющая асинхронную операцию сохранения.</returns>
+		/// <param name="filename">Полный или относительный путь к создаваемому файлу на диске.</param>
+		/// <param name="jsonTypeInfo">Метаданные типа со сценарием Source Generation, сгенерированные компилятором.</param>
+		/// <param name="writerOptions">Параметры низкоуровневой конфигурации писателя.</param>
+		/// <returns>Объект-задача <see cref="Task"/>, представляющий асинхронную операцию сохранения.</returns>
 		public static async Task SaveObjectToJsonFileGenAsync<T>(
 			T obj,
 			string filename,

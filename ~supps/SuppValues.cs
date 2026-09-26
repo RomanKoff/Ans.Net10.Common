@@ -1,4 +1,4 @@
-﻿// rev 2026-09-21
+﻿// rev 2026-09-26
 
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -9,20 +9,21 @@ namespace Ans.Net10.Common
 	/// <summary>
 	/// Определяет варианты биологического пола человека.
 	/// </summary>
-	public enum GenderEnum : int
+	public enum GenderEnum
+		: int
 	{
 		/// <summary>
-		/// Не указан.
+		/// Биологический пол не указан или неизвестен.
 		/// </summary>
 		NotSpecified = 0,
 
 		/// <summary>
-		/// Мужской.
+		/// Мужской биологический пол.
 		/// </summary>
 		Male = 1,
 
 		/// <summary>
-		/// Женский.
+		/// Женский биологический пол.
 		/// </summary>
 		Female = 2
 	}
@@ -30,22 +31,18 @@ namespace Ans.Net10.Common
 
 
 	/// <summary>
-	/// Вспомогательный класс для работы
-	/// со значениями входящих переменных.
+	/// Вспомогательный класс для валидации, подстановки дефолтных параметров 
+	/// и специализированного форматирования входящих значений переменных.
 	/// </summary>
 	public static class SuppValues
 	{
 
 		/// <summary>
-		/// Возвращает исходную строку, если она не пустая; в противном случае возвращает
-		/// первое непустое значение из списка альтернатив.
+		/// Возвращает исходную строку, если она не пустая; в противном случае возвращает первое непустом значение из списка альтернатив.
 		/// </summary>
-		/// <param name="current">Проверяемая строка.</param>
-		/// <param name="defaultValues">
-		/// Набор альтернативных значений по умолчанию (передается без аллокаций в куче через ReadOnlySpan).
-		/// </param>
-		/// <returns>Первая непустая строка или <see langword="null"/>, если все значения пусты.</returns>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		/// <param name="current">Проверяемая строковая переменная.</param>
+		/// <param name="defaultValues">Набор альтернативных значений по умолчанию, передаваемый без аллокаций в куче через <see cref="ReadOnlySpan{T}"/>.</param>
+		/// <returns>Первая непустая строка из набора или <see langword="null"/>, если все значения оказались пустыми.</returns>
 		public static string Default(
 			string current,
 			params ReadOnlySpan<string?> defaultValues)
@@ -60,12 +57,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение по умолчанию, если текущее число совпадает со значением, интерпретируемым как null.
+		/// Возвращает значение по умолчанию, если текущее целое число совпадает со значением-маркером отсутствия данных.
 		/// </summary>
-		/// <param name="current">Текущее числовое значение.</param>
-		/// <param name="defaultValue">Значение по умолчанию.</param>
-		/// <param name="nullValue">Значение, которое считается эквивалентом отсутствия данных (по умолчанию 0).</param>
-		/// <returns>Исходное число или альтернативное значение по умолчанию.</returns>
+		/// <param name="current">Текущее проверяемое числовое значение.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение по умолчанию.</param>
+		/// <param name="nullValue">Значение-маркер, интерпретируемое как отсутствие данных. По умолчанию равно <c>0</c>.</param>
+		/// <returns>Исходное число или альтернативное значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static int Default(
 			int current,
@@ -78,13 +75,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Проверяет, является ли хотя бы один из переданных объектов непустым
-		/// (не null и не пустой строкой) без лишних строковых аллокаций.
+		/// Проверяет, является ли хотя бы один из переданных объектов непустым (не равен <see langword="null"/> и не содержит пустую строку) без выделения памяти в куче.
 		/// </summary>
-		/// <param name="values">Набор проверяемых объектов произвольного типа.</param>
-		/// <returns>
-		/// <see langword="true"/>, если найден хотя бы один заполненный объект; иначе — <see langword="false"/>.
-		/// </returns>
+		/// <param name="values">Высокопроизводительный фиксированный набор проверяемых объектов произвольного типа.</param>
+		/// <returns><see langword="true"/>, если в наборе найден хотя бы один заполненный и валидный объект; в противном случае — <see langword="false"/>.</returns>
 		public static bool HasAny(
 			params ReadOnlySpan<object?> values)
 		{
@@ -108,12 +102,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Проверяет, что все переданные объекты являются непустыми (не null и не содержат пустых строк).
+		/// Проверяет, что абсолютно все переданные объекты в наборе являются непустыми (не равны <see langword="null"/> и не содержат пустых строк).
 		/// </summary>
-		/// <param name="values">Набор проверяемых объектов произвольного типа.</param>
-		/// <returns>
-		/// <see langword="true"/>, если все объекты заполнены; иначе — <see langword="false"/>.
-		/// </returns>
+		/// <param name="values">Высокопроизводительный фиксированный набор проверяемых объектов произвольного типа.</param>
+		/// <returns><see langword="true"/>, если все объекты в наборе гарантированно заполнены; в противном случае — <see langword="false"/>.</returns>
 		public static bool HasAll(
 			params ReadOnlySpan<object> values)
 		{
@@ -137,16 +129,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает максимальное значение из двух.
-		/// Если второе значение не задано, возвращает первое.
+		/// Возвращает максимальное значение из двух на основе интерфейса <see cref="IComparable{T}"/>.
 		/// </summary>
-		/// <typeparam name="T">Тип структуры, поддерживающий операторы сравнения.</typeparam>
+		/// <typeparam name="T">Тип структуры, поддерживающий правила сравнения.</typeparam>
 		/// <param name="value1">Первое сравниваемое значение.</param>
-		/// <param name="value2">Второе сравниваемое значение (может быть <see langword="null"/>).</param>
-		/// <returns>
-		/// Наибольшее из двух значений, либо <paramref name="value1"/>,
-		/// если <paramref name="value2"/> равно <see langword="null"/>.
-		/// </returns>
+		/// <param name="value2">Второе сравниваемое значение, завернутое в nullable-контейнер.</param>
+		/// <returns>Наибольшее из двух значений, либо <paramref name="value1"/>, если параметр <paramref name="value2"/> не имеет значения.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T MaxValue<T>(
 			T value1,
@@ -162,16 +150,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает минимальное значение из двух.
-		/// Если второе значение не задано, возвращает первое.
+		/// Возвращает минимальное значение из двух на основе интерфейса <see cref="IComparable{T}"/>.
 		/// </summary>
-		/// <typeparam name="T">Тип структуры, поддерживающий операторы сравнения.</typeparam>
+		/// <typeparam name="T">Тип структуры, поддерживающий правила сравнения.</typeparam>
 		/// <param name="value1">Первое сравниваемое значение.</param>
-		/// <param name="value2">Второе сравниваемое значение (может быть <see langword="null"/>).</param>
-		/// <returns>
-		/// Наименьшее из двух значений, либо <paramref name="value1"/>,
-		/// если <paramref name="value2"/> равно <see langword="null"/>.
-		/// </returns>
+		/// <param name="value2">Второе сравниваемое значение, завернутое в nullable-контейнер.</param>
+		/// <returns>Наименьшее из двух значений, либо <paramref name="value1"/>, если параметр <paramref name="value2"/> не имеет значения.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T MinValue<T>(
 			T value1,
@@ -187,16 +171,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает максимальное числовое значение из двух.
-		/// Если второе число не задано, возвращает первое.
+		/// Возвращает максимальное числовое значение из двух с использованием статических интерфейсов обобщенной математики .NET.
 		/// </summary>
 		/// <typeparam name="T">Тип числа, реализующий интерфейс <see cref="INumber{T}"/>.</typeparam>
 		/// <param name="value1">Первое сравниваемое число.</param>
-		/// <param name="value2">Второе сравниваемое число (может быть <see langword="null"/>).</param>
-		/// <returns>
-		/// Наибольшее из двух чисел, либо <paramref name="value1"/>,
-		/// если <paramref name="value2"/> равно <see langword="null"/>.
-		/// </returns>
+		/// <param name="value2">Второе сравниваемое число, завернутое в nullable-контейнер.</param>
+		/// <returns>Наибольшее из двух чисел, вычисленное без аллокаций.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T MaxNum<T>(
 			T value1,
@@ -210,16 +190,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает минимальное числовое значение из двух.
-		/// Если второе число не задано, возвращает первое.
+		/// Возвращает минимальное числовое значение из двух с использованием статических интерфейсов обобщенной математики .NET.
 		/// </summary>
 		/// <typeparam name="T">Тип числа, реализующий интерфейс <see cref="INumber{T}"/>.</typeparam>
 		/// <param name="value1">Первое сравниваемое число.</param>
-		/// <param name="value2">Второе сравниваемое число (может быть <see langword="null"/>).</param>
-		/// <returns>
-		/// Наименьшее из двух чисел, либо <paramref name="value1"/>,
-		/// если <paramref name="value2"/> равно <see langword="null"/>.
-		/// </returns>
+		/// <param name="value2">Второе сравниваемое число, завернутое в nullable-контейнер.</param>
+		/// <returns>Наименьшее из двух чисел, вычисленное без аллокаций.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T MinNum<T>(
 			T value1,
@@ -233,11 +209,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует базовые типы данных (.NET структуры дат, времени и логики)
-		/// в их строковые веб-эквиваленты.
+		/// Преобразует базовые системные типы данных (.NET структуры дат, времени и логики) в их строковые фиксированные веб-эквиваленты.
 		/// </summary>
-		/// <param name="value">Объект для сериализации.</param>
-		/// <returns>Строковое веб-представление объекта.</returns>
+		/// <param name="value">Объект для веб-сериализации.</param>
+		/// <returns>Строковое нормализованное веб-представление объекта, либо <see cref="string.Empty"/>, если объект равен <see langword="null"/>.</returns>
 		public static string GetStringForWeb(
 			object value)
 		{
@@ -255,11 +230,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Извлекает из строки исключительно цифровые символы
-		/// на основе регулярного выражения фильтрации.
+		/// Извлекает из входящей строки исключительно цифровые символы, полностью удаляя любые буквы, пробелы и знаки препинания.
 		/// </summary>
 		/// <param name="number">Входящая алфавитно-цифровая строка.</param>
-		/// <returns>Строка, состоящая только из цифр.</returns>
+		/// <returns>Строка, состоящая только из последовательности цифр, либо <see cref="string.Empty"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetDigitalOnly(
 			string number)
@@ -271,33 +245,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Форматирует вещественное число в локализованную денежную строку
-		/// с двумя знаками после запятой.
+		/// Форматирует высокоточное десятичное число в локализованную денежную строку с двумя знаками после запятой.
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static string GetCurrencyLoc(
-			float amount)
-		{
-			return string.Format("{0:N2}", amount);
-		}
-
-
-		/// <summary>
-		/// Форматирует число двойной точности в локализованную денежную строку
-		/// с двумя знаками после запятой.
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static string GetCurrencyLoc(
-			double amount)
-		{
-			return string.Format("{0:N2}", amount);
-		}
-
-
-		/// <summary>
-		/// Форматирует высокоточное десятичное число в локализованную денежную строку
-		/// с двумя знаками после запятой.
-		/// </summary>
+		/// <param name="amount">Исходная денежная сумма типа <see cref="decimal"/>.</param>
+		/// <returns>Строка отформатированной валюты.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetCurrencyLoc(
 			decimal amount)
@@ -307,38 +258,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Форматирует вещественное число в бухгалтерский вид разделителя рублей
-		/// и копеек через знак равенства (Рубли=Копейки).
+		/// Форматирует высокоточное десятичное число типа <see cref="decimal"/> в строковый бухгалтерский вид с разделителем рублей и копеек через знак равенства.
 		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static string GetCurrencyBuh(
-			float amount)
-		{
-			long rub1 = (long)amount;
-			long kop1 = Math.Abs((long)Math.Round(amount * 100)) % 100;
-			return string.Format("{0}={1:00}", rub1, kop1);
-		}
-
-
-		/// <summary>
-		/// Форматирует число двойной точности в бухгалтерский вид разделителя рублей
-		/// и копеек через знак равенства (Рубли=Копейки).
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static string GetCurrencyBuh(
-			double amount)
-		{
-			long rub1 = (long)amount;
-			long kop1 = Math.Abs((long)Math.Round(amount * 100)) % 100;
-			return string.Format("{0}={1:00}", rub1, kop1);
-		}
-
-
-		/// <summary>
-		/// Форматирует высокоточное десятичное число в бухгалтерский вид разделителя рублей
-		/// и копеек через знак равенства (Рубли=Копейки).
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		/// <param name="amount">Исходная сумма для разделения.</param>
+		/// <returns>Строка бухгалтерского формата вида "Рубли=Копейки".</returns>
 		public static string GetCurrencyBuh(
 			decimal amount)
 		{

@@ -1,4 +1,4 @@
-﻿// rev 2026-09-22
+﻿// rev 2026-09-26
 
 using System.Collections.Concurrent;
 using System.Text;
@@ -11,7 +11,7 @@ namespace Ans.Net10.Common
 
 	/// <summary>
 	/// Вспомогательный класс для высокопроизводительной сериализации и десериализации XML.
-	/// Поддерживает кэширование сериализаторов и оптимизированную работу с большими файлами.
+	/// Поддерживает автоматическое кэширование сериализаторов и оптимизированную работу с большими файлами.
 	/// </summary>
 	public static class SuppXml
 	{
@@ -20,20 +20,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сериализует объект в XML-строку.
+		/// Сериализует строго типизированный объект в текстовую XML-строку.
 		/// </summary>
 		/// <typeparam name="T">Тип сериализуемого объекта.</typeparam>
-		/// <param name="obj">Экземпляр объекта для сериализации.</param>
-		/// <param name="namespaces">
-		/// Пользовательские пространства имен XML. Если не заданы, пространства имен опускаются.
-		/// </param>
-		/// <param name="useFormatted">
-		/// Признак форматирования результирующего XML-текста (отступы и переносы).
-		/// </param>
-		/// <returns>
-		/// Строка, содержащая XML-представление объекта, или <see langword="null"/>,
-		/// если объект равен <see langword="null"/>.
-		/// </returns>
+		/// <param name="obj">Экземпляр объекта для сериализации. Допускает значение <see langword="null"/>.</param>
+		/// <param name="namespaces">Пользовательские пространства имен XML. Если передано значение <see langword="null"/>, пространства имен автоматически опускаются.</param>
+		/// <param name="useFormatted">Признак применения структурного форматирования результирующего XML-текста (внедрение отступов и переносов строк).</param>
+		/// <returns>Строка, содержащая XML-представление переданного объекта, либо <see langword="null"/>, если параметр <paramref name="obj"/> равен <see langword="null"/>.</returns>
 		public static string? GetXmlStringFromObject<T>(
 			T? obj,
 			XmlSerializerNamespaces? namespaces = null,
@@ -52,17 +45,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сериализует объект в структуру <see cref="XDocument"/>.
+		/// Сериализует объект в структуру дерева элементов XML <see cref="XDocument"/>.
 		/// </summary>
 		/// <typeparam name="T">Тип сериализуемого объекта.</typeparam>
-		/// <param name="obj">Экземпляр объекта для сериализации.</param>
-		/// <param name="namespaces">
-		/// Пользовательские пространства имен XML. Если не заданы, пространства имен опускаются.
-		/// </param>
-		/// <returns>
-		/// Объект <see cref="XDocument"/> или <see langword="null"/>,
-		/// если исходный объект равен <see langword="null"/>.
-		/// </returns>
+		/// <param name="obj">Экземпляр объекта для сериализации. Допускает значение <see langword="null"/>.</param>
+		/// <param name="namespaces">Пользовательские пространства имен XML. Если не заданы, пространства имен принудительно опускаются.</param>
+		/// <returns>Экземпляр объекта <see cref="XDocument"/> или <see langword="null"/>, если исходный объект равен <see langword="null"/>.</returns>
 		public static XDocument? GetXDocumentFromObject<T>(
 			T? obj,
 			XmlSerializerNamespaces? namespaces = null)
@@ -78,15 +66,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует объект из XML-строки.
+		/// Десериализует объект из текстовой XML-строки.
 		/// </summary>
 		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="source">Исходная XML-строка.</param>
-		/// <param name="defaultNamespace">Пространство имен XML по умолчанию.</param>
-		/// <returns>
-		/// Десериализованный объект типа <typeparamref name="T"/> или значение
-		/// по умолчанию, если строка пуста.
-		/// </returns>
+		/// <param name="source">Исходная XML-строка для парсинга.</param>
+		/// <param name="defaultNamespace">Пространство имен XML по умолчанию, применяемое при разборе схемы.</param>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или дефолтное системное значение <c>default(T)</c>, если строка пуста или состоит из пробелов.</returns>
 		public static T? GetObjectFromXmlString<T>(
 			string source,
 			string? defaultNamespace = null)
@@ -100,15 +85,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует объект из структуры <see cref="XDocument"/>.
+		/// Десериализует объект из структуры дерева элементов <see cref="XDocument"/>.
 		/// </summary>
 		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="source">Исходный объект <see cref="XDocument"/>.</param>
+		/// <param name="source">Исходный объект структуры <see cref="XDocument"/>.</param>
 		/// <param name="defaultNamespace">Пространство имен XML по умолчанию.</param>
-		/// <returns>
-		/// Десериализованный объект типа <typeparamref name="T"/> или значение по умолчанию,
-		/// если документ равен <see langword="null"/>.
-		/// </returns>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или системное значение по умолчанию, если документ равен <see langword="null"/>.</returns>
 		public static T? GetObjectFromXDocument<T>(
 			XDocument source,
 			string? defaultNamespace = null)
@@ -122,15 +104,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Десериализует объект из входящего потока данных <see cref="Stream"/>.
+		/// Десериализует объект из входящего синхронного потока данных <see cref="Stream"/>.
 		/// </summary>
 		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="stream">Входящий поток, содержащий XML-данные.</param>
+		/// <param name="stream">Входящий бинарный поток, содержащий XML-данные.</param>
 		/// <param name="defaultNamespace">Пространство имен XML по умолчанию.</param>
-		/// <returns>
-		/// Десериализованный объект типа <typeparamref name="T"/> или значение по умолчанию,
-		/// если поток равен <see langword="null"/>.
-		/// </returns>
+		/// <returns>Десериализованный объект типа <typeparamref name="T"/> или системное значение по умолчанию, если поток равен <see langword="null"/>.</returns>
 		public static T? GetObjectFromXmlStream<T>(
 			Stream stream,
 			string? defaultNamespace = null)
@@ -144,15 +123,19 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Асинхронно десериализует XML-файл небольшого или среднего размера в объект.
-		/// Перед обработкой файл целиком копируется в оперативную память для минимизации удержания дескриптора файла.
+		/// Асинхронно десериализует XML-файл небольшого или среднего размера в объект.
 		/// </summary>
+		/// <remarks>
+		/// Перед десериализацией файл целиком копируется в оперативную память в объект <see cref="MemoryStream"/>. 
+		/// Это минимизирует время удержания дескриптора физического файла на диске и предотвращает блокировки ввода-вывода.
+		/// </remarks>
 		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="filename">Полный путь к XML-файлу на диске.</param>
-		/// <param name="encoding">Кодировка текстового файла. Если не задана, определяется автоматически.</param>
+		/// <param name="filename">Полный или относительный путь к XML-файлу на диске.</param>
+		/// <param name="encoding">Кодировка текстового файла. Если передано значение <see langword="null"/>, кодировка определяется парсером автоматически.</param>
 		/// <param name="defaultNamespace">Пространство имен XML по умолчанию.</param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
-		/// <exception cref="FileNotFoundException">Вызывается, если файл отсутствует на диске.</exception>
+		/// <returns>Поток-задача, содержащая десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <exception cref="ArgumentNullException">Выбрасывается, если путь к файлу пуст или равен <see langword="null"/>.</exception>
+		/// <exception cref="FileNotFoundException">Вызывается, если файл отсутствует по указанному пути на диске.</exception>
 		public static async Task<T?> GetSoftObjectFromXmlFileAsync<T>(
 			string filename,
 			Encoding? encoding = null,
@@ -183,16 +166,19 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Асинхронно десериализует большой XML-файл в объект, используя потоковую обработку
-		/// в выделенном фоновом потоке. Рекомендуется для файлов крупного размера (более 10–20 МБ)
-		/// во избежание фрагментации оперативной памяти.
+		/// Асинхронно десериализует большой XML-файл в объект, используя прямую потоковую обработку в выделенном фоновом потоке.
 		/// </summary>
+		/// <remarks>
+		/// Метод рекомендуется использовать для файлов крупного размера (более 10–20 МБ) во избежание 
+		/// фрагментации оперативной памяти, минуя создание промежуточных буферов в куче больших объектов (LOH).
+		/// </remarks>
 		/// <typeparam name="T">Тип результирующего объекта.</typeparam>
-		/// <param name="filename">Полный путь к XML-файлу на диске.</param>
-		/// <param name="encoding">Кодировка текстового файла. Если не задана, определяется автоматически.</param>
+		/// <param name="filename">Полный или относительный путь к крупному XML-файлу на диске.</param>
+		/// <param name="encoding">Кодировка текстового файла. Если передано значение <see langword="null"/>, кодировка определяется автоматически.</param>
 		/// <param name="defaultNamespace">Пространство имен XML по умолчанию.</param>
-		/// <returns>Десериализованный объект типа <typeparamref name="T"/>.</returns>
-		/// <exception cref="FileNotFoundException">Вызывается, если файл отсутствует на диске.</exception>
+		/// <returns>Поток-задача, содержащая десериализованный объект типа <typeparamref name="T"/>.</returns>
+		/// <exception cref="ArgumentNullException">Выбрасывается, если путь к файлу пуст или равен <see langword="null"/>.</exception>
+		/// <exception cref="FileNotFoundException">Вызывается, если файл отсутствует по указанному пути на диске.</exception>
 		public static async Task<T?> GetHardObjectFromXmlFileAsync<T>(
 			string filename,
 			Encoding? encoding = null,
@@ -226,17 +212,19 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Асинхронно сериализует объект небольшого или среднего размера в файл.
-		/// Сериализация сначала полностью подготавливается в памяти, после чего быстро сбрасывается на диск.
+		/// Асинхронно сериализует объект небольшого или среднего размера в файл.
 		/// </summary>
+		/// <remarks>
+		/// Сериализация сначала полностью подготавливается и формируется в оперативной памяти, 
+		/// после чего массив байт быстро и атомарно сбрасывается на физический диск.
+		/// </remarks>
 		/// <typeparam name="T">Тип сериализуемого объекта.</typeparam>
-		/// <param name="obj">Экземпляр объекта для сохранения.</param>
-		/// <param name="filename">Полный путь к создаваемому файлу.</param>
-		/// <param name="encoding">Кодировка текстового файла. Если не задана, используется UTF-8.</param>
-		/// <param name="namespaces">
-		/// Пользовательские пространства имен XML. Если не заданы, пространства имен опускаются.
-		/// </param>
-		/// <param name="useFormatted">Признак форматирования XML-текста (отступы и переносы строк).</param>
+		/// <param name="obj">Экземпляр объекта для сохранения. Если равен <see langword="null"/>, операция не выполняется.</param>
+		/// <param name="filename">Полный или относительный путь к создаваемому файлу на диске.</param>
+		/// <param name="encoding">Кодировка текстового файла. Если передано значение <see langword="null"/>, используется кодировка UTF-8.</param>
+		/// <param name="namespaces">Пользовательские пространства имен XML. Если не заданы, пространства имен опускаются.</param>
+		/// <param name="useFormatted">Признак применения структурного форматирования XML-текста (отступы и переносы строк).</param>
+		/// <returns>Объект-задача <see cref="Task"/>, представляющий асинхронную операцию записи.</returns>
 		public static async Task SaveSoftObjectToXmlFileAsync<T>(
 			T? obj,
 			string filename,
@@ -260,16 +248,19 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// (async) Асинхронно сериализует объект в большой XML-файл, используя потоковую запись
-		/// напрямую на диск в фоновом потоке. Рекомендуется для тяжелых объектов во избежание
-		/// выделения памяти в куче больших объектов (LOH).
+		/// Асинхронно сериализует объект в большой XML-файл, используя потоковую запись напрямую на диск в фоновом потоке.
 		/// </summary>
+		/// <remarks>
+		/// Рекомендуется применять для тяжелых объектов сложной структуры во избежание 
+		/// промежуточного выделения и фрагментации памяти в куче больших объектов (LOH).
+		/// </remarks>
 		/// <typeparam name="T">Тип сериализуемого объекта.</typeparam>
-		/// <param name="obj">Экземпляр объекта для сохранения.</param>
-		/// <param name="filename">Полный путь к создаваемому файлу.</param>
-		/// <param name="encoding">Кодировка текстового файла. Если не задана, используется UTF-8.</param>
+		/// <param name="obj">Экземпляр объекта для сохранения. Если равен <see langword="null"/>, операция прерывается.</param>
+		/// <param name="filename">Полный или относительный путь к создаваемому файлу на диске.</param>
+		/// <param name="encoding">Кодировка текстового файла. Если передано значение <see langword="null"/>, используется кодировка UTF-8.</param>
 		/// <param name="namespaces">Пользовательские пространства имен XML. Если не заданы, пространства имен опускаются.</param>
-		/// <param name="useFormatted">Признак форматирования XML-текста (отступы и переносы строк).</param>
+		/// <param name="useFormatted">Признак применения структурного форматирования XML-текста.</param>
+		/// <returns>Объект-задача <see cref="Task"/>, представляющий асинхронную операцию записи.</returns>
 		public static async Task SaveHardObjectToXmlFileAsync<T>(
 			T? obj,
 			string filename,
