@@ -1,4 +1,4 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,13 +11,12 @@ namespace Ans.Net10.Common
 	{
 
 		/// <summary>
-		/// Производит замену <paramref name="oldValue"/> на <paramref name="newValue"/>
-		/// рекурсивно до тех пор, пока заменяемая подстрока полностью не исчезнет из текста.
+		/// Производит замену одной подстроки на другую рекурсивно до тех пор, пока заменяемая подстрока полностью не исчезнет из текста.
 		/// </summary>
-		/// <param name="instance">Исходная строка.</param>
-		/// <param name="oldValue">Подстрока, которую необходимо заменить.</param>
+		/// <param name="instance">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="oldValue">Подстрока, которую необходимо найти и заменить.</param>
 		/// <param name="newValue">Подстрока, на которую производится замена.</param>
-		/// <returns>Результирующая строка после всех рекурсивных замен.</returns>
+		/// <returns>Результирующая строка после выполнения всех этапов рекурсивных замен.</returns>
 		public static string GetReplaceRecursively(
 			this string? instance,
 			string oldValue,
@@ -40,18 +39,18 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Производит замену подстрок в строке на основе переданного словаря соответствий.
+		/// Производит массовую замену подстрок на основе переданного словаря соответствий.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <param name="dict">Словарь, где ключ — заменяемое значение, а значение — новая подстрока.</param>
-		/// <returns>Строка с выполненными заменами.</returns>
+		/// <param name="instance">Исходная строка для обработки.</param>
+		/// <param name="dict">Словарь соответствий, где ключом является заменяемый фрагмент, а значением — новая подстрока.</param>
+		/// <returns>Строка со всеми выполненными пакетными заменами.</returns>
 		public static string ReplaceFromDict(
-			this string source,
+			this string instance,
 			Dictionary<string, string> dict)
 		{
-			if (string.IsNullOrEmpty(source) || dict == null || dict.Count == 0)
-				return source;
-			var sb1 = new StringBuilder(source);
+			if (string.IsNullOrEmpty(instance) || dict == null || dict.Count == 0)
+				return instance;
+			var sb1 = new StringBuilder(instance);
 			foreach (var item1 in dict)
 				if (!string.IsNullOrEmpty(item1.Key))
 					sb1.Replace(item1.Key, item1.Value);
@@ -60,41 +59,40 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает новую строку, если исходная строка полностью эквивалентна сравниваемой.
-		/// В противном случае возвращает исходную строку.
+		/// Возвращает альтернативную строку, если исходная строка полностью эквивалентна сравниваемой. В противном случае возвращает оригинал.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <param name="compared">Строка для сравнения.</param>
-		/// <param name="newest">Строка, на которую нужно заменить в случае равенства.</param>
-		/// <returns>Результат условной замены строки.</returns>
+		/// <param name="instance">Исходная строка для проверки.</param>
+		/// <param name="compared">Строка, с которой производится проверка на точное равенство.</param>
+		/// <param name="newest">Новая строка, возвращаемая в случае успешного совпадения.</param>
+		/// <returns>Результат условной эквивалентной замены строки.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string ReplaceIfEqual(
-			this string source,
+			this string instance,
 			string compared,
 			string newest)
 		{
-			return source == compared
-				? newest : source;
+			return instance == compared
+				? newest : instance;
 		}
 
 
 		/// <summary>
-		/// Заменяет любые символы из указанного паттерна заданной строкой-маской.
+		/// Заменяет любые символы, содержащиеся в строке-паттерне, заданной строкой-маской.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <param name="mask">Строка-маска для замены найденных символов.</param>
-		/// <param name="charsPattern">Строка, содержащая набор заменяемых символов.</param>
-		/// <returns>Строка, в которой целевые символы заменены маской.</returns>
+		/// <param name="instance">Исходная строка для сканирования символов.</param>
+		/// <param name="mask">Строка-маска, вставляемая вместо каждого обнаруженного целевого символа.</param>
+		/// <param name="charsPattern">Строка, содержащая сплошной набор заменяемых индивидуальных символов.</param>
+		/// <returns>Строка, в которой все целевые символы заменены на маску.</returns>
 		public static string ReplaceByChars(
-			this string source,
+			this string instance,
 			string mask,
 			string charsPattern)
 		{
-			if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(charsPattern))
-				return source;
-			var sb1 = new StringBuilder(source.Length);
+			if (string.IsNullOrEmpty(instance) || string.IsNullOrEmpty(charsPattern))
+				return instance;
+			var sb1 = new StringBuilder(instance.Length);
 			var span1 = charsPattern.AsSpan();
-			foreach (var c1 in source)
+			foreach (var c1 in instance)
 				if (span1.Contains(c1))
 					sb1.Append(mask);
 				else
@@ -104,23 +102,23 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Заменяет любые символы из указанного массива заданной строкой-маской. Zero-allocation перегрузка.
+		/// Заменяет любые символы из указанного массива заданной строкой-маской. Высокопроизводительная перегрузка без аллокаций.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <param name="mask">Строка-маска для замены найденных символов.</param>
+		/// <param name="instance">Исходная строка для сканирования символов.</param>
+		/// <param name="mask">Строка-маска, вставляемая вместо каждого обнаруженного целевого символа.</param>
 		/// <param name="chars">Массив заменяемых символов.</param>
-		/// <returns>Строка, в которой целевые символы заменены маской.</returns>
+		/// <returns>Строка, в которой целевые символы из массива заменены маской.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string ReplaceByChars(
-			this string source,
+			this string instance,
 			string mask,
 			params char[] chars)
 		{
-			if (string.IsNullOrEmpty(source) || chars == null || chars.Length == 0)
-				return source;
-			var sb1 = new StringBuilder(source.Length);
+			if (string.IsNullOrEmpty(instance) || chars == null || chars.Length == 0)
+				return instance;
+			var sb1 = new StringBuilder(instance.Length);
 			var span1 = chars.AsSpan();
-			foreach (var c1 in source)
+			foreach (var c1 in instance)
 				if (span1.Contains(c1))
 					sb1.Append(mask);
 				else
@@ -130,21 +128,21 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Производит замену хэштегов в строке на основе переданного словаря.
+		/// Производит замену хэштегов в строке на основе переданного словаря соответствий имен и их подстановок.
 		/// </summary>
-		/// <param name="source">Исходная строка, содержащая хэштеги.</param>
-		/// <param name="dictionary">Словарь соответствия имен хэштегов (без маркера) и их замен.</param>
-		/// <param name="marker">Символ-маркер хэштега (по умолчанию '#').</param>
-		/// <returns>Строка с замененными хэштегами.</returns>
+		/// <param name="instance">Исходная строка, содержащая хэштеги.</param>
+		/// <param name="dictionary">Словарь соответствия чистых имен хэштегов (без знака префикса) и их полных текстовых замен.</param>
+		/// <param name="marker">Символ-префикс разметки хэштега. По умолчанию равен <c>'#'</c>.</param>
+		/// <returns>Строка с выполненными заменами найденных хэштегов.</returns>
 		public static string ReplaceHashtagsFromDict(
-			this string source,
+			this string instance,
 			Dictionary<string, string> dictionary,
 			char marker = '#')
 		{
-			if (string.IsNullOrEmpty(source) || dictionary == null || dictionary.Count == 0)
-				return source;
+			if (string.IsNullOrEmpty(instance) || dictionary == null || dictionary.Count == 0)
+				return instance;
 			string marker1 = Regex.Escape(marker.ToString());
-			return Regex.Replace(source, $"{marker1}([\\w\\d]+)", x =>
+			return Regex.Replace(instance, $"{marker1}([\\w\\d]+)", x =>
 			{
 				var hash1 = x.Groups[1].Value;
 				return dictionary.TryGetValue(hash1, out var replacement1)
@@ -154,29 +152,29 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Находит непрерывно повторяющуюся строку-маску в НАЧАЛЕ строки и заменяет все ее вхождения указанной подстрокой.
+		/// Находит непрерывно повторяющуюся строку-маску в НАЧАЛЕ строки и заменяет все её вхождения указанной альтернативной подстрокой.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <param name="mask">Повторяющаяся подстрока-маска, которую нужно найти.</param>
-		/// <param name="replacement">Строка, на которую заменяется каждое вхождение маски (опционально).</param>
-		/// <returns>Результирующая строка с произведенной заменой в начале.</returns>
+		/// <param name="instance">Исходная строка для анализа.</param>
+		/// <param name="mask">Повторяющаяся подстрока-маска, непрерывную цепочку которой нужно локализовать в самом начале.</param>
+		/// <param name="replacement">Опциональная строка, на которую заменяется каждое изолированное вхождение маски.</param>
+		/// <returns>Результирующая строка с заменой серии масок в начале текста.</returns>
 		public static string ReplaceStart(
-			this string source,
+			this string instance,
 			string mask,
 			string? replacement = null)
 		{
-			if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(mask))
-				return source;
-			int sourceLen1 = source.Length;
+			if (string.IsNullOrEmpty(instance) || string.IsNullOrEmpty(mask))
+				return instance;
+			int sourceLen1 = instance.Length;
 			int maskLen1 = mask.Length;
 			int curr1 = 0;
-			var sourceSpan1 = source.AsSpan();
+			var sourceSpan1 = instance.AsSpan();
 			var maskSpan1 = mask.AsSpan();
 			while (curr1 + maskLen1 <= sourceLen1
 				&& sourceSpan1.Slice(curr1, maskLen1).SequenceEqual(maskSpan1))
 				curr1 += maskLen1;
 			if (curr1 == 0)
-				return source;
+				return instance;
 			int repeats1 = curr1 / maskLen1;
 			var sb1 = new StringBuilder(sourceLen1 + (repeats1 * (replacement?.Length ?? 0)));
 			if (!string.IsNullOrEmpty(replacement))
@@ -188,29 +186,29 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Находит непрерывно повторяющуюся строку-маску в КОНЦЕ строки и заменяет все ее вхождения указанной подстрокой.
+		/// Находит непрерывно повторяющуюся строку-маску в КОНЦЕ строки и заменяет все её вхождения указанной альтернативной подстрокой.
 		/// </summary>
-		/// <param name="source">Исходная строка.</param>
-		/// <param name="mask">Повторяющаяся подстрока-маска, которую нужно найти.</param>
-		/// <param name="replacement">Строка, на которую заменяется каждое вхождение маски (опционально).</param>
-		/// <returns>Результирующая строка с произведенной заменой в конце.</returns>
+		/// <param name="instance">Исходная строка для анализа.</param>
+		/// <param name="mask">Повторяющаяся подстрока-маска, непрерывную цепочку которой нужно локализовать в самом конце.</param>
+		/// <param name="replacement">Опциональная строка, на которую заменяется каждое изолированное вхождение маски.</param>
+		/// <returns>Результирующая строка с заменой серии масок в конце текста.</returns>
 		public static string ReplaceEnd(
-			this string source,
+			this string instance,
 			string mask,
 			string? replacement = null)
 		{
-			if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(mask))
-				return source;
-			int sourceLen1 = source.Length;
+			if (string.IsNullOrEmpty(instance) || string.IsNullOrEmpty(mask))
+				return instance;
+			int sourceLen1 = instance.Length;
 			int maskLen1 = mask.Length;
 			int curr1 = sourceLen1;
-			var sourceSpan1 = source.AsSpan();
+			var sourceSpan1 = instance.AsSpan();
 			var maskSpan1 = mask.AsSpan();
 			while (curr1 - maskLen1 >= 0
 				&& sourceSpan1.Slice(curr1 - maskLen1, maskLen1).SequenceEqual(maskSpan1))
 				curr1 -= maskLen1;
 			if (curr1 == sourceLen1)
-				return source;
+				return instance;
 			int repeats1 = (sourceLen1 - curr1) / maskLen1;
 			var sb1 = new StringBuilder(curr1 + (repeats1 * (replacement?.Length ?? 0)));
 			sb1.Append(sourceSpan1[..curr1]);

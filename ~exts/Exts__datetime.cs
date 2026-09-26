@@ -1,10 +1,14 @@
-﻿// rev 2026-09-15
+﻿// rev 2026-09-25
 
 using System.Runtime.CompilerServices;
 
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Предоставляет высокопроизводительные методы расширения для типов 
+	/// <see cref="DateTime"/>, <see cref="DateOnly"/> и <see cref="TimeSpan"/>.
+	/// </summary>
 	public static partial class Exts__datetime
 	{
 
@@ -14,6 +18,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Преобразует текущий объект <see cref="DateTime"/> в объект <see cref="TimeOnly"/>.
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты и времени.</param>
+		/// <returns>Объект <see cref="TimeOnly"/>, представляющий временную составляющую указанного объекта.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static TimeOnly GetTimeOnly(
 			this DateTime instance)
@@ -25,6 +31,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Преобразует текущий объект <see cref="DateTime"/> в объект <see cref="DateOnly"/>.
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты и времени.</param>
+		/// <returns>Объект <see cref="DateOnly"/>, представляющий календарную дату указанного объекта.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateOnly GetDateOnly(
 			this DateTime instance)
@@ -36,6 +44,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Определяет временную эпоху для указанной даты относительно сегодняшнего дня.
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр проверяемой даты.</param>
+		/// <returns>Значение из перечисления <see cref="TensesEnum"/> (прошлое, настоящее или будущее).</returns>
 		public static TensesEnum GetTenses(
 			this DateTime instance)
 		{
@@ -51,6 +61,9 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает дату начала недели для указанной даты с учетом заданного дня начала недели.
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты.</param>
+		/// <param name="startOfWeek">День недели, который считается её началом (например, <see cref="DayOfWeek.Monday"/>).</param>
+		/// <returns>Новый экземпляр <see cref="DateTime"/>, соответствующий началу недели (на 00:00:00) для указанной даты.</returns>
 		public static DateTime GetStartOfWeek(
 			this DateTime instance,
 			DayOfWeek startOfWeek)
@@ -63,6 +76,8 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает дату начала календарного месяца (1-е число) для указанной даты.
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты.</param>
+		/// <returns>Новый экземпляр <see cref="DateTime"/>, установленный на первое число текущего месяца и года.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTime GetStartOfMonth(
 			this DateTime instance)
@@ -74,6 +89,10 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Проверяет равенство двух дат с точностью до указанного количества минут.
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты и времени для сравнения.</param>
+		/// <param name="value2">Целевой экземпляр даты и времени, с которым производится сверка.</param>
+		/// <param name="minutesDiff">Максимально допустимая разница в минутах включительно.</param>
+		/// <returns><see langword="true"/>, если абсолютная разница между датами не превышает <paramref name="minutesDiff"/> минут; иначе — <see langword="false"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsEqual(
 			this DateTime instance,
@@ -85,9 +104,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Проверяет, содержит ли текущий объект <see cref="DateTime"/>
-		/// время суток (отличное от полночи 00:00:00).
+		/// Проверяет, содержит ли текущий объект <see cref="DateTime"/> время суток (отличное от полуночи 00:00:00).
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты и времени.</param>
+		/// <returns><see langword="true"/>, если у объекта установлено время, отличное от <see cref="TimeSpan.Zero"/>; иначе — <see langword="false"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasTimeOfDay(
 			this DateTime instance)
@@ -97,9 +117,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое представление даты
-		/// в специализированном формате "yyyy-'0'MM-dd".
+		/// Возвращает строковое представление даты в специализированном внутреннем формате "yyyy-'0'MM-dd".
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты.</param>
+		/// <returns>Строка, отформатированная по правилам специализированного формата AnsDate.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetAnsDate(
 			this DateTime instance)
@@ -109,9 +130,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое представление даты и времени
-		/// в специализированном формате "yyyy-'0'MM-dd HH:mm:ss".
+		/// Возвращает строковое представление даты и времени в специализированном внутреннем формате "yyyy-'0'MM-dd HH:mm:ss".
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты и времени.</param>
+		/// <returns>Строка, отформатированная по правилам специализированного формата AnsDateTime.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetAnsDateTime(
 			this DateTime instance)
@@ -121,9 +143,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает строковое представление даты и времени,
-		/// адаптированное для имени файла.
+		/// Возвращает строковое представление даты и времени, адаптированное и безопасное для использования в именах файлов.
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты и времени.</param>
+		/// <returns>Безопасная строка даты и времени, не содержащая запрещенных символов путей файловой системы.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetAnsDateTimeForFile(
 			this DateTime instance)
@@ -136,9 +159,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует объект <see cref="DateOnly"/> в тип <see cref="DateTime"/>
-		/// на начало суток (00:00:00).
+		/// Преобразует объект <see cref="DateOnly"/> в тип <see cref="DateTime"/> на начало суток (00:00:00).
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр даты.</param>
+		/// <returns>Объект <see cref="DateTime"/>, соответствующий указанной дате со временем, установленным на полночь.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTime GetDateTime(
 			this DateOnly instance)
@@ -148,9 +172,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Определяет временную эпоху для объекта <see cref="DateOnly"/>
-		/// относительно сегодняшнего дня.
+		/// Определяет временную эпоху для объекта <see cref="DateOnly"/> относительно сегодняшнего дня.
 		/// </summary>
+		/// <param name="instance">Исходный экземпляр календарной даты.</param>
+		/// <returns>Значение из перечисления <see cref="TensesEnum"/> (прошлое, настоящее или будущее).</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static TensesEnum GetTenses(
 			this DateOnly instance)
@@ -163,9 +188,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает общее количество минут во временном интервале,
-		/// округленное до целого числа.
+		/// Возвращает абсолютное общее количество минут во временном интервале, округленное до ближайшего целого числа.
 		/// </summary>
+		/// <param name="instance">Исходный временной интервал.</param>
+		/// <returns>Округленное до целого значения количество минут, содержащихся в интервале.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static int GetTotalMinutes(
 			this TimeSpan instance)

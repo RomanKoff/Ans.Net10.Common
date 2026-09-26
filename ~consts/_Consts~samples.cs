@@ -1,4 +1,4 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-25
 
 using System.Runtime.CompilerServices;
 
@@ -9,16 +9,16 @@ namespace Ans.Net10.Common
 	{
 
 		/*
-		 * Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+		 * SuppCulture.AddCodePagesSupport() || Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 		 * Console.InputEncoding = Encoding.UTF8;
 		 * Console.OutputEncoding = Encoding.UTF8;
 		 */
 
 
 		/// <summary>
-		/// Возвращает случайную текстовую панграмму на русском языке.
+		/// Возвращает случайную полную текстовую панграмму на русском языке.
 		/// </summary>
-		/// <returns>Строка, содержащая случайный полный семпл.</returns>
+		/// <returns>Строка, содержащая случайный полный текстовый семпл.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetRandomSampleRu()
 		{
@@ -27,9 +27,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает случайную укороченную фразу на русском языке.
+		/// Возвращает случайную укороченную фразу (средний семпл) на русском языке.
 		/// </summary>
-		/// <returns>Строка, содержащая случайный средний семпл.</returns>
+		/// <returns>Строка, содержащая случайный средний текстовый семпл.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetRandomSampleSmallRu()
 		{
@@ -38,9 +38,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает случайное короткое словосочетание на русском языке.
+		/// Возвращает случайное короткое словосочетание (минимальный семпл) на русском языке.
 		/// </summary>
-		/// <returns>Строка, содержащая случайный минимальный семпл.</returns>
+		/// <returns>Строка, содержащая случайный минимальный текстовый семпл.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetRandomSampleSmallerRu()
 		{
@@ -48,6 +48,10 @@ namespace Ans.Net10.Common
 		}
 
 
+		/// <summary>
+		/// Коллекция полноценных тестовых панграмм на русском языке, покрывающих весь алфавит.
+		/// </summary>
+		/// <value>Массив строк, содержащий различные варианты русских панграмм.</value>
 		public static readonly string[] SAMPLES_RU =
 		[
 			"Эй, цирюльникъ, ёжик выстриги, да щетину ряхи сбрей, феном вошь за печь гони",
@@ -94,6 +98,10 @@ namespace Ans.Net10.Common
 		];
 
 
+		/// <summary>
+		/// Коллекция укороченных тестовых фраз (средних семплов) на русском языке.
+		/// </summary>
+		/// <value>Массив строк, содержащий усеченные варианты начальных сегментов панграмм.</value>
 		public static readonly string[] SAMPLES_SMALL_RU =
 		[
 			"Эй, цирюльникъ, ёжик выстриги",
@@ -139,6 +147,10 @@ namespace Ans.Net10.Common
 		];
 
 
+		/// <summary>
+		/// Коллекция ультракоротких словосочетаний (минимальных семплов) на русском языке.
+		/// </summary>
+		/// <value>Массив строк, содержащий изолированные идиомы и короткие фразы.</value>
 		public static readonly string[] SAMPLES_SMALLER_RU =
 		[
 			"Ёжик выстриги",

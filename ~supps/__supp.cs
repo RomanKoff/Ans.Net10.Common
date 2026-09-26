@@ -3,8 +3,8 @@
 namespace Ans.Net10.Common
 {
 
-	public static class __supp
-	{
-	}
+	//public static class __supp
+	//{
+	//}
 
 }

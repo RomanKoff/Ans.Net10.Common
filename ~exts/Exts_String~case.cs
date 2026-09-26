@@ -1,4 +1,4 @@
-﻿// rev 2026-09-14
+﻿// rev 2026-09-26
 
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -10,12 +10,12 @@ namespace Ans.Net10.Common
 	{
 
 		/// <summary>
-		/// Преобразует регистр строки, делая первую букву заглавной.
+		/// Преобразует регистр строки, делая её первую букву заглавной (заглавный символ начала предложения).
 		/// </summary>
-		/// <param name="instance">Исходная строка.</param>
-		/// <param name="forcedToLower">Принудительно сделать все остальные буквы строчными.</param>
-		/// <param name="cultureInfo">Информация о культуре. Если не указана, используется <see cref="CultureInfo.InvariantCulture"/>.</param>
-		/// <returns>Строка с первой заглавной буквой.</returns>
+		/// <param name="instance">Исходная строка для преобразования. Допускает значение <see langword="null"/>.</param>
+		/// <param name="forcedToLower">Принудительно перевести все остальные символы строки, кроме первого, в нижний регистр.</param>
+		/// <param name="cultureInfo">Информация о культуре и языковых стандартах. Если равен <see langword="null"/>, используется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Результирующая строка с первой заглавной буквой, либо <see cref="string.Empty"/>, если исходная строка пуста.</returns>
 		public static string GetAsFirstUpper(
 			this string? instance,
 			bool forcedToLower = false,
@@ -42,12 +42,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует регистр строки, делая первую букву строчной.
+		/// Преобразует регистр строки, делая её первую букву строчной (например, для camelCase форматирования идентификаторов).
 		/// </summary>
-		/// <param name="instance">Исходная строка.</param>
-		/// <param name="forcedToUpper">Принудительно сделать все остальные буквы заглавными.</param>
-		/// <param name="cultureInfo">Информация о культуре. Если не указана, используется <see cref="CultureInfo.InvariantCulture"/>.</param>
-		/// <returns>Строка с первой строчной буквой.</returns>
+		/// <param name="instance">Исходная строка для преобразования. Допускает значение <see langword="null"/>.</param>
+		/// <param name="forcedToUpper">Принудительно перевести все остальные символы строки, кроме первого, в верхний регистр.</param>
+		/// <param name="cultureInfo">Информация о культуре и языковых стандартах. Если равен <see langword="null"/>, используется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Результирующая строка с первой строчной буквой, либо <see cref="string.Empty"/>, если исходная строка пуста.</returns>
 		public static string GetAsFirstLower(
 			this string? instance,
 			bool forcedToUpper = false,
@@ -74,11 +74,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует регистр строки, начиная каждое слово с заглавной буквы (Title Case).
+		/// Преобразует регистр строки, начиная каждое слово с заглавной буквы (Title Case форматирование заголовков).
 		/// </summary>
-		/// <param name="instance">Исходная строка.</param>
-		/// <param name="cultureInfo">Информация о культуре. Если не указана, используется <see cref="CultureInfo.InvariantCulture"/>.</param>
-		/// <returns>Строка в регистре Title Case.</returns>
+		/// <param name="instance">Исходная строка для преобразования. Допускает значение <see langword="null"/>.</param>
+		/// <param name="forcedToLower">Принудительно перевести всю строку в нижний регистр перед применением форматирования заголовков.</param>
+		/// <param name="cultureInfo">Информация о культуре и языковых стандартах. Если равен <see langword="null"/>, используется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Строка в регистре Title Case, либо <see cref="string.Empty"/>, если исходная строка пуста.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetAsTitleCase(
 			this string? instance,

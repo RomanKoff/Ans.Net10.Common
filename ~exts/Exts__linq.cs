@@ -1,4 +1,4 @@
-﻿// rev 2026-09-17
+﻿// rev 2026-09-26
 
 using System.Linq.Expressions;
 using System.Reflection;
@@ -7,6 +7,10 @@ using System.Runtime.CompilerServices;
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Предоставляет методы расширения для динамического построения LINQ-запросов, 
+	/// включая строковую сортировку коллекций и комбинирование деревьев выражений (Expression Trees).
+	/// </summary>
 	public static partial class Exts__linq
 	{
 
@@ -14,12 +18,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Применяет цепочку сортировок к запросу на основе объекта конфигурации порядка сортировки.
+		/// Применяет цепочку сортировок к запросу на основе переданного объекта конфигурации порядка сортировки.
 		/// </summary>
-		/// <typeparam name="T">Тип сущности в запросе.</typeparam>
-		/// <param name="query">Исходный запрос.</param>
-		/// <param name="order">Объект построителя порядка сортировки.</param>
-		/// <returns>Запрос с примененной последовательностью сортировок.</returns>
+		/// <typeparam name="T">Тип сущности в обрабатываемом запросе.</typeparam>
+		/// <param name="query">Исходный запрос <see cref="IQueryable{T}"/>.</param>
+		/// <param name="order">Объект построителя порядка сортировки <see cref="OrderBuilder"/>, содержащий параметры колонок и направления.</param>
+		/// <returns>Экземпляр запроса <see cref="IOrderedQueryable{T}"/> с примененной последовательностью сортировок.</returns>
+		/// <exception cref="ArgumentNullException">Выбрасывается, если параметр <paramref name="query"/> или <paramref name="order"/> равен <see langword="null"/>.</exception>
 		public static IOrderedQueryable<T> ApplyOrder<T>(
 			this IQueryable<T> query,
 			OrderBuilder order)
@@ -45,16 +50,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Применяет первичную сортировку по возрастанию для указанного строкового
-		/// имени свойства (поддерживает вложенность через точку).
+		/// Применяет первичную сортировку по возрастанию для указанного строкового имени свойства. Поддерживает вложенность через точку.
 		/// </summary>
-		/// <typeparam name="T">Тип сущности в запросе.</typeparam>
-		/// <param name="query">Исходный запрос.</param>
-		/// <param name="property">Имя свойства для сортировки (например, "Name" или "Category.Title").</param>
-		/// <returns>Запрос с примененной сортировкой.</returns>
-		/// <exception cref="InvalidOperationException">
-		/// Вызывается, если указанное свойство не найдено в типе сущности.
-		/// </exception>
+		/// <typeparam name="T">Тип сущности в обрабатываемом запросе.</typeparam>
+		/// <param name="query">Исходный запрос <see cref="IQueryable{T}"/>.</param>
+		/// <param name="property">Имя свойства для сортировки (например, <c>"Name"</c> или со вложенностью — <c>"Category.Title"</c>).</param>
+		/// <returns>Отсортированный запрос <see cref="IOrderedQueryable{T}"/>.</returns>
+		/// <exception cref="InvalidOperationException">Выбрасывается, если указанное свойство или вложенный путь не найдены в типе сущности.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IOrderedQueryable<T> ApplyOrderBy<T>(
 			this IQueryable<T> query,
@@ -65,16 +67,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Применяет первичную сортировку по убыванию для указанного строкового
-		/// имени свойства (поддерживает вложенность через точку).
+		/// Применяет первичную сортировку по убыванию для указанного строкового имени свойства. Поддерживает вложенность через точку.
 		/// </summary>
-		/// <typeparam name="T">Тип сущности в запросе.</typeparam>
-		/// <param name="query">Исходный запрос.</param>
-		/// <param name="property">Имя свойства для сортировки.</param>
-		/// <returns>Запрос с примененной сортировкой.</returns>
-		/// <exception cref="InvalidOperationException">
-		/// Вызывается, если указанное свойство не найдено в типе сущности.
-		/// </exception>
+		/// <typeparam name="T">Тип сущности в обрабатываемом запросе.</typeparam>
+		/// <param name="query">Исходный запрос <see cref="IQueryable{T}"/>.</param>
+		/// <param name="property">Имя свойства для сортировки (например, <c>"Id"</c> или <c>"User.Profile.LastName"</c>).</param>
+		/// <returns>Отсортированный запрос <see cref="IOrderedQueryable{T}"/>.</returns>
+		/// <exception cref="InvalidOperationException">Выбрасывается, если указанное свойство или вложенный путь не найдены в типе сущности.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IOrderedQueryable<T> ApplyOrderByDescending<T>(
 			this IQueryable<T> query,
@@ -85,16 +84,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Применяет последующую сортировку по возрастанию для указанного строкового
-		/// имени свойства (поддерживает вложенность через точку).
+		/// Применяет последующую сортировку по возрастанию для указанного строкового имени свойства в уже упорядоченном запросе. Поддерживает вложенность через точку.
 		/// </summary>
-		/// <typeparam name="T">Тип сущности в запросе.</typeparam>
-		/// <param name="query">Отсортированный запрос.</param>
-		/// <param name="property">Имя свойства для последующей сортировки.</param>
-		/// <returns>Запрос с примененной последующей сортировкой.</returns>
-		/// <exception cref="InvalidOperationException">
-		/// Вызывается, если указанное свойство не найдено в типе сущности.
-		/// </exception>
+		/// <typeparam name="T">Тип сущности в обрабатываемом запросе.</typeparam>
+		/// <param name="query">Отсортированный запрос <see cref="IOrderedQueryable{T}"/>.</param>
+		/// <param name="property">Имя свойства для последующей сортировки (например, <c>"CreatedAt"</c>).</param>
+		/// <returns>Запрос <see cref="IOrderedQueryable{T}"/> с добавленной вторичной сортировкой.</returns>
+		/// <exception cref="InvalidOperationException">Выбрасывается, если указанное свойство или вложенный путь не найдены в типе сущности.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IOrderedQueryable<T> ApplyThenBy<T>(
 			this IOrderedQueryable<T> query,
@@ -105,16 +101,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Применяет последующую сортировку по убыванию для указанного строкового
-		/// имени свойства (поддерживает вложенность через точку).
+		/// Применяет последующую сортировку по убыванию для указанного строкового имени свойства в уже упорядоченном запросе. Поддерживает вложенность через точку.
 		/// </summary>
-		/// <typeparam name="T">Тип сущности в запросе.</typeparam>
-		/// <param name="query">Отсортированный запрос.</param>
-		/// <param name="property">Имя свойства для последующей сортировки.</param>
-		/// <returns>Запрос с примененной последующей сортировкой.</returns>
-		/// <exception cref="InvalidOperationException">
-		/// Вызывается, если указанное свойство не найдено в типе сущности.
-		/// </exception>
+		/// <typeparam name="T">Тип сущности в обрабатываемом запросе.</typeparam>
+		/// <param name="query">Отсортированный запрос <see cref="IOrderedQueryable{T}"/>.</param>
+		/// <param name="property">Имя свойства для последующей сортировки по убыванию (например, <c>"Rating"</c>).</param>
+		/// <returns>Запрос <see cref="IOrderedQueryable{T}"/> с добавленной вторичной сортировкой по убыванию.</returns>
+		/// <exception cref="InvalidOperationException">Выбрасывается, если указанное свойство или вложенный путь не найдены в типе сущности.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IOrderedQueryable<T> ApplyThenByDescending<T>(
 			this IOrderedQueryable<T> query,
@@ -128,12 +121,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Объединяет два выражения условий логическим оператором ИЛИ (OrElse).
+		/// Объединяет два выражения условий логическим оператором ИЛИ (<see cref="Expression.OrElse(Expression, Expression)"/>).
 		/// </summary>
-		/// <typeparam name="T">Тип фильтруемого объекта.</typeparam>
-		/// <param name="expr1">Первое выражение-предикат.</param>
-		/// <param name="expr2">Второе выражение-предикат.</param>
-		/// <returns>Новое комбинированное дерево выражений.</returns>
+		/// <typeparam name="T">Тип фильтруемого объекта, к которому применяется спецификация предикатов.</typeparam>
+		/// <param name="expr1">Первое базовое выражение-предикат.</param>
+		/// <param name="expr2">Второе выражение-предикат, объединяемое со структурой первого.</param>
+		/// <returns>Новое комбинированное дерево выражений типа <see cref="Expression{TDelegate}"/> с логическим условием <c>OR</c>.</returns>
+		/// <exception cref="ArgumentNullException">Выбрасывается, если параметр <paramref name="expr1"/> или <paramref name="expr2"/> равен <see langword="null"/>.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Expression<Func<T, bool>> Or<T>(
 			this Expression<Func<T, bool>> expr1,
@@ -147,12 +141,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Объединяет два выражения условий логическим оператором И (AndAlso).
+		/// Объединяет два выражения условий логическим оператором И (<see cref="Expression.AndAlso(Expression, Expression)"/>).
 		/// </summary>
-		/// <typeparam name="T">Тип фильтруемого объекта.</typeparam>
-		/// <param name="expr1">Первое выражение-предикат.</param>
-		/// <param name="expr2">Второе выражение-предикат.</param>
-		/// <returns>Новое комбинированное дерево выражений.</returns>
+		/// <typeparam name="T">Тип фильтруемого объекта, к которому применяется спецификация предикатов.</typeparam>
+		/// <param name="expr1">Первое базовое выражение-предикат.</param>
+		/// <param name="expr2">Второе выражение-предикат, объединяемое со структурой первого.</param>
+		/// <returns>Новое комбинированное дерево выражений типа <see cref="Expression{TDelegate}"/> с логическим условием <c>AND</c>.</returns>
+		/// <exception cref="ArgumentNullException">Выбрасывается, если параметр <paramref name="expr1"/> или <paramref name="expr2"/> равен <see langword="null"/>.</exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Expression<Func<T, bool>> And<T>(
 			this Expression<Func<T, bool>> expr1,

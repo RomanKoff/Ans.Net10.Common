@@ -1,4 +1,4 @@
-﻿// rev 2026-09-21
+﻿// rev 2026-09-26
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -8,20 +8,18 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет методы расширения для работы с объектами <see cref="DbSet{TEntity}"/>.
+	/// Предоставляет высокопроизводительные методы расширения для работы с объектами <see cref="DbSet{TEntity}"/>.
 	/// </summary>
 	public static partial class Exts_DbSet
 	{
 
 		/// <summary>
-		/// Возвращает экземпляр <see cref="DbContext"/>, к которому
-		/// принадлежит данный набор <see cref="DbSet{TEntity}"/>.
+		/// Возвращает экземпляр контекста базы данных <see cref="DbContext"/>, к которому принадлежит текущий набор данных <see cref="DbSet{TEntity}"/>.
 		/// </summary>
-		/// <typeparam name="TEntity">Тип доменной сущности, управляемой набором данных.</typeparam>
-		/// <param name="dbSet">Текущий экземпляр набора данных.</param>
+		/// <typeparam name="TEntity">Тип доменной сущности, управляемой набором данных. Должен быть ссылочным типом (<see langword="class"/>).</typeparam>
+		/// <param name="dbSet">Текущий экземпляр набора данных, для которого запрашивается контекст.</param>
 		/// <returns>
-		/// Экземпляр <see cref="DbContext"/> или <see langword="null"/>,
-		/// если контекст не удалось извлечь из инфраструктуры.
+		/// Связанный экземпляр <see cref="DbContext"/> или <see langword="null"/>, если контекст не удалось извлечь из внутренней инфраструктуры EF Core.
 		/// </returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DbContext? GetDbContext<TEntity>(

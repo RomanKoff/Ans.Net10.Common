@@ -1,4 +1,4 @@
-﻿// rev 2026-09-20
+﻿// rev 2026-09-25
 
 using System.Text.RegularExpressions;
 
@@ -113,66 +113,150 @@ namespace Ans.Net10.Common
 
 
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для проверки стандартных строковых имен.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_NAME"/>.</returns>
 		[GeneratedRegex(REGEX_NAME)]
 		public static partial Regex G_REGEX_NAME();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для строгой проверки имен (без точек).
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_NAME_STRICT"/>.</returns>
 		[GeneratedRegex(REGEX_NAME_STRICT)]
 		public static partial Regex G_REGEX_NAME_STRICT();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для проверки имен переменных.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_VARNAME"/>.</returns>
 		[GeneratedRegex(REGEX_VARNAME)]
 		public static partial Regex G_REGEX_VARNAME();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для строгой проверки имен переменных в нижнем регистре.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_VARNAME_STRICT"/>.</returns>
 		[GeneratedRegex(REGEX_VARNAME_STRICT)]
 		public static partial Regex G_REGEX_VARNAME_STRICT();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для проверки путей внутренних идентификаторов в любом регистре.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_IPATH"/>.</returns>
 		[GeneratedRegex(REGEX_IPATH)]
 		public static partial Regex G_REGEX_IPATH();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для строгой проверки путей внутренних идентификаторов в нижнем регистре.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_IPATH_STRICT"/>.</returns>
 		[GeneratedRegex(REGEX_IPATH_STRICT)]
 		public static partial Regex G_REGEX_IPATH_STRICT();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для регистронезависимой проверки адресов электронной почты.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_EMAIL"/>.</returns>
 		[GeneratedRegex(REGEX_EMAIL, RegexOptions.IgnoreCase)]
 		public static partial Regex G_REGEX_EMAIL();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для строгого регистронезависимого соответствия адресов электронной почты.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_EMAIL_STRICT"/>.</returns>
 		[GeneratedRegex(REGEX_EMAIL_STRICT, RegexOptions.IgnoreCase)]
 		public static partial Regex G_REGEX_EMAIL_STRICT();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для проверки имен узлов.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_NODENAME"/>.</returns>
 		[GeneratedRegex(REGEX_NODENAME)]
 		public static partial Regex G_REGEX_NODENAME();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для проверки системных имен страниц.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_PAGENAME"/>.</returns>
 		[GeneratedRegex(REGEX_PAGENAME)]
 		public static partial Regex G_REGEX_PAGENAME();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для поиска и извлечения URL-адресов.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_URL"/>.</returns>
 		[GeneratedRegex(REGEX_URL)]
 		public static partial Regex G_REGEX_URL();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для валидации и поиска IP-адресов версии 4.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_IP4"/>.</returns>
 		[GeneratedRegex(REGEX_IP4)]
 		public static partial Regex G_REGEX_IP4();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для валидации базового символьного состава паролей.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_PASSWORD"/>.</returns>
 		[GeneratedRegex(REGEX_PASSWORD)]
 		public static partial Regex G_REGEX_PASSWORD();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для проверки ФИО на русском и английском языках.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_FIO_RU"/>.</returns>
 		[GeneratedRegex(REGEX_FIO_RU)]
 		public static partial Regex G_REGEX_FIO_RU();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для извлечения имен HTML/XML тегов.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_TAGS"/>.</returns>
 		[GeneratedRegex(REGEX_TAGS)]
 		public static partial Regex G_REGEX_TAGS();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для поиска хэштегов.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_SHARP_TAGS"/>.</returns>
 		[GeneratedRegex(REGEX_SHARP_TAGS)]
 		public static partial Regex G_REGEX_SHARP_TAGS();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для поиска ссылок в начале строки.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> на основе шаблона <see cref="REGEX_LINKS"/>.</returns>
 		[GeneratedRegex(REGEX_LINKS)]
 		public static partial Regex G_REGEX_LINKS();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для поиска исключительно цифровых символов.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> для сопоставления с одиночными цифрами.</returns>
 		[GeneratedRegex(@"\d")]
 		public static partial Regex G_REGEX_ONLY_NUMBER();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для поиска любых нецифровых символов.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> для сопоставления со всеми символами, кроме цифр.</returns>
 		[GeneratedRegex(@"\D")]
 		public static partial Regex G_REGEX_NOT_NUMBER();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для поиска последовательностей из двух и более пробельных символов.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> для сопоставления со множественными пробелами.</returns>
 		[GeneratedRegex(@"[\s]{2,}")]
 		public static partial Regex G_REGEX_MULTISPACE();
 
+		/// <summary>
+		/// Возвращает скомпилированное регулярное выражение для поиска коротких чисел от 1 до 3 знаков, включая знаки препинания и разделители.
+		/// </summary>
+		/// <returns>Экземпляр <see cref="Regex"/> для сопоставления с короткими числовыми диапазонами.</returns>
 		[GeneratedRegex(@"([0-9.,_-]{1,3})")]
 		public static partial Regex G_REGEX_SMALLNUMBER();
 

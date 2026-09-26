@@ -1,4 +1,4 @@
-﻿// rev 2026-09-14
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 
@@ -9,12 +9,12 @@ namespace Ans.Net10.Common
 	{
 
 		/// <summary>
-		/// Возвращает левую часть строки до указанного символа, пропуская заданное количество вхождений с конца строки.
+		/// Возвращает левую часть строки до указанного разделительного символа, пропуская заданное количество вхождений с конца строки.
 		/// </summary>
-		/// <param name="instance">Исходная строка.</param>
-		/// <param name="find">Искомый символ границы.</param>
-		/// <param name="skip">Количество вхождений символа с конца строки, которые нужно пропустить.</param>
-		/// <returns>Левая часть строки до найденного символа или пустая строка.</returns>
+		/// <param name="instance">Исходная строка для сегментации. Допускает значение <see langword="null"/>.</param>
+		/// <param name="find">Искомый символ-разделитель границы сегмента.</param>
+		/// <param name="skip">Количество вхождений символа с конца строки, которые необходимо пропустить перед отсечением.</param>
+		/// <returns>Левая часть строки до найденного символа разграничения или <see cref="string.Empty"/>, если символ не обнаружен.</returns>
 		public static string GetLeftTo(
 			this string? instance,
 			char find,
@@ -35,12 +35,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает левую часть строки до указанной подстроки, пропуская заданное количество вхождений с конца строки.
+		/// Возвращает левую часть строки до указанной разделительной подстроки, пропуская заданное количество вхождений с конца строки.
 		/// </summary>
-		/// <param name="instance">Исходная строка.</param>
-		/// <param name="find">Искомая подстрока границы.</param>
-		/// <param name="skip">Количество вхождений подстроки с конца строки, которые нужно пропустить.</param>
-		/// <returns>Левая часть строки до найденной подстроки или пустая строка.</returns>
+		/// <param name="instance">Исходная строка для сегментации. Допускает значение <see langword="null"/>.</param>
+		/// <param name="find">Искомая подстрока-разделитель границы сегмента.</param>
+		/// <param name="skip">Количество вхождений подстроки с конца строки, которые необходимо пропустить перед отсечением.</param>
+		/// <returns>Левая часть строки до найденного маркера разграничения или <see cref="string.Empty"/>, если маркер не обнаружен.</returns>
 		public static string GetLeftTo(
 			this string? instance,
 			string? find,
@@ -65,8 +65,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает левую часть строки из первых <paramref name="count"/> символов.
+		/// Возвращает усеченную левую часть строки, состоящую из первых <paramref name="count"/> символов.
 		/// </summary>
+		/// <param name="instance">Исходная строка для обрезки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="count">Максимально требуемое количество символов слева.</param>
+		/// <returns>Строка, содержащая символы из начала исходной строки, или <see cref="string.Empty"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetLeft(
 			this string? instance,
@@ -79,8 +82,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает правую часть строки после указанного символа, пропуская заданное количество вхождений с конца строки.
+		/// Возвращает правую часть строки после указанного разделительного символа, пропуская заданное количество вхождений с конца строки.
 		/// </summary>
+		/// <param name="instance">Исходная строка для сегментации. Допускает значение <see langword="null"/>.</param>
+		/// <param name="find">Искомый символ-разделитель границы сегмента.</param>
+		/// <param name="skip">Количество вхождений символа с конца строки, которые необходимо пропустить перед отсечением.</param>
+		/// <returns>Правая часть строки после найденного символа разграничения или <see cref="string.Empty"/>, если символ не обнаружен.</returns>
 		public static string GetRightFrom(
 			this string? instance,
 			char find,
@@ -101,8 +108,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает правую часть строки после указанной подстроки, пропуская заданное количество вхождений с конца строки.
+		/// Возвращает правую часть строки после указанной разделительной подстроки, пропуская заданное количество вхождений с конца строки.
 		/// </summary>
+		/// <param name="instance">Исходная строка для сегментации. Допускает значение <see langword="null"/>.</param>
+		/// <param name="find">Искомая подстрока-разделитель границы сегмента.</param>
+		/// <param name="skip">Количество вхождений подстроки с конца строки, которые необходимо пропустить перед отсечением.</param>
+		/// <returns>Правая часть строки после найденного маркера разграничения или <see cref="string.Empty"/>, если маркер не обнаружен.</returns>
 		public static string GetRightFrom(
 			this string? instance,
 			string? find,
@@ -127,8 +138,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает правую часть строки из последних <paramref name="count"/> символов.
+		/// Возвращает усеченную правую часть строки, состоящую из последних <paramref name="count"/> символов.
 		/// </summary>
+		/// <param name="instance">Исходная строка для обрезки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="count">Максимально требуемое количество символов с конца строки.</param>
+		/// <returns>Строка, содержащая символы из конца исходной строки, или <see cref="string.Empty"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetRight(
 			this string? instance,
@@ -143,6 +157,9 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает правую часть строки, отрезая все, что находится до ПЕРВОГО вхождения символа слева (включая сам символ).
 		/// </summary>
+		/// <param name="instance">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="find">Символ-разделитель, до которого отсекается левый край текста.</param>
+		/// <returns>Оставшаяся правая часть строки после первого совпадения или <see cref="string.Empty"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetRightSide(
 			this string? instance,
@@ -158,6 +175,9 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает правую часть строки, отрезая все, что находится до ПЕРВОГО вхождения подстроки слева (включая саму подстроку).
 		/// </summary>
+		/// <param name="instance">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="find">Подстрока-разделитель, до которой отсекается левый край текста.</param>
+		/// <returns>Оставшаяся правая часть строки после первого совпадения подстроки или <see cref="string.Empty"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetRightSide(
 			this string? instance,
@@ -171,8 +191,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает правую часть строки БЕЗ указанного количества символов слева.
+		/// Возвращает правую часть строки БЕЗ указанного количества символов слева (смещение точки начала строки).
 		/// </summary>
+		/// <param name="instance">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="count">Количество символов, которое необходимо гарантированно отсечь с левого края.</param>
+		/// <returns>Оставшаяся часть строки или <see cref="string.Empty"/>, если длина строки меньше или равна <paramref name="count"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetRightSide(
 			this string? instance,
@@ -187,6 +210,9 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает левую часть строки, отрезая все, что находится после ПЕРВОГО вхождения символа справа (включая сам символ).
 		/// </summary>
+		/// <param name="instance">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="find">Символ-разделитель, после которого отсекается правый край текста.</param>
+		/// <returns>Оставшаяся левая часть строки до крайнего правого совпадения или <see cref="string.Empty"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetLeftSide(
 			this string? instance,
@@ -202,6 +228,9 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает левую часть строки, отрезая все, что находится после ПЕРВОГО вхождения подстроки справа (включая саму подстроку).
 		/// </summary>
+		/// <param name="instance">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="find">Подстрока-разделитель, после которой отсекается правый край текста.</param>
+		/// <returns>Оставшаяся левая часть строки до крайнего правого совпадения подстроки или <see cref="string.Empty"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetLeftSide(
 			this string? instance,
@@ -215,8 +244,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает левую часть строки БЕЗ указанного количества символов справа.
+		/// Возвращает левую часть строки БЕЗ указанного количества символов справа (усечение хвоста строки).
 		/// </summary>
+		/// <param name="instance">Исходная строка для обработки. Допускает значение <see langword="null"/>.</param>
+		/// <param name="count">Количество символов, которое необходимо отсечь с правого края.</param>
+		/// <returns>Оставшаяся часть строки или <see cref="string.Empty"/>, если длина строки меньше или равна <paramref name="count"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string GetLeftSide(
 			this string? instance,
@@ -229,12 +261,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Сокращает текст до указанной максимальной длины, не разрывая слова на полуслове. 
-		/// Если текст обрезан, в конец добавляется многоточие.
+		/// Сокращает текст до указанной максимальной длины, интеллектуально перенося границу среза так, чтобы не разрывать слова на полуслове. 
+		/// Если текст подвергся сокращению, в конец автоматически монтируется многоточие или кастомный маркер.
 		/// </summary>
-		/// <param name="instance">Исходный текст.</param>
-		/// <param name="maxLength">Максимально допустимая длина результирующей строки.</param>
-		/// <param name="ellipsis">Строка-суффикс, добавляемая при обрезке.</param>
+		/// <param name="instance">Исходный текст для сокращения. Допускает значение <see langword="null"/>.</param>
+		/// <param name="maxLength">Максимально допустимая суммарная длина результирующей строки, включая размер суффикса.</param>
+		/// <param name="ellipsis">Строка-суффикс, добавляемая в конец при обрезке (например, многоточие). По умолчанию равен <c>"…"</c>.</param>
+		/// <returns>Интеллектуально сокращенный текст с суффиксом, либо <see cref="string.Empty"/>.</returns>
 		public static string GetCropToWords(
 			this string? instance,
 			int maxLength,
@@ -266,13 +299,14 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает подстроку с подстановкой маски по обрезанным краям.
+		/// Извлекает подстроку из исходного текста с автоматической интеллектуальной подстановкой маски обрезки по краям результата.
 		/// </summary>
-		/// <param name="instance">Исходная строка.</param>
-		/// <param name="startIndex">Начальный индекс подстроки.</param>
-		/// <param name="length">Длина извлекаемого фрагмента.</param>
-		/// <param name="beginCropMask">Маска, подставляемая в начало, если левый край был обрезан.</param>
-		/// <param name="endCropMask">Маска, подставляемая в конец, если правый край был обрезан.</param>
+		/// <param name="instance">Исходная строка. Допускает значение <see langword="null"/>.</param>
+		/// <param name="startIndex">Начальный индекс извлечения подстроки.</param>
+		/// <param name="length">Длина извлекаемого фрагмента текста.</param>
+		/// <param name="beginCropMask">Маска, подставляемая в самое начало результата, если левый край исходного текста был усечен. Если равен <see langword="null"/> — используется <c>"…"</c>.</param>
+		/// <param name="endCropMask">Маска, подставляемая в самый конец результата, если правый край исходного текста был усечен. Если равен <see langword="null"/> — совпадает с <paramref name="beginCropMask"/>.</param>
+		/// <returns>Подстрока с масками по обрезанным краям, либо <see cref="string.Empty"/>.</returns>
 		public static string GetCrop(
 			this string? instance,
 			int startIndex,

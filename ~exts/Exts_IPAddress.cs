@@ -1,12 +1,14 @@
-﻿// rev 2026-09-18
+﻿// rev 2026-09-26
 
 using System.Buffers.Binary;
 using System.Net;
-using System.Runtime.CompilerServices;
 
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Предоставляет высокопроизводительные методы расширения для работы с сетевыми IP-адресами <see cref="IPAddress"/>.
+	/// </summary>
 	public static partial class Exts_IPAddress
 	{
 
@@ -14,13 +16,16 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Проверяет, входит ли указанный IP-адрес в заданную подсеть.
+		/// Проверяет, входит ли указанный IP-адрес в заданную CIDR-подсеть. Поддерживает адреса семейств IPv4 и IPv6.
 		/// </summary>
-		/// <param name="address">Проверяемый IP-адрес.</param>
-		/// <param name="subnet">Целевая подсеть для проверки.</param>
-		/// <returns><see langword="true"/>, если адрес принадлежит подсети; иначе — <see langword="false"/>.</returns>
-		/// <exception cref="ArgumentException">Вызывается при несовпадении семейств адресов (IPv4/IPv6) у адреса и подсети.</exception>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		/// <param name="address">Проверяемый IP-адрес <see cref="IPAddress"/>.</param>
+		/// <param name="subnet">Целевой объект CIDR-подсети <see cref="IPSubnet"/>, на вхождение в которую тестируется адрес.</param>
+		/// <returns>
+		/// <see langword="true"/>, если проверяемый IP-адрес принадлежит указанной подсети; в противном случае — <see langword="false"/>.
+		/// </returns>
+		/// <exception cref="ArgumentException">
+		/// Вызывается при несовпадении семейств сетевых адресов (<see cref="System.Net.Sockets.AddressFamily"/>) у проверяемого адреса и целевой подсети.
+		/// </exception>
 		public static bool IsInSubnet(
 			this IPAddress address,
 			IPSubnet subnet)

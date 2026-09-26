@@ -1,10 +1,14 @@
-﻿// rev 2026-09-10
+﻿// rev 2026-09-26
 
 using System.Reflection;
 
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Предоставляет высокопроизводительные свойства расширения для извлечения 
+	/// метаданных, версий и описаний из экземпляров <see cref="Assembly"/>.
+	/// </summary>
 	public static partial class Exts_Assembly
 	{
 
@@ -17,7 +21,10 @@ namespace Ans.Net10.Common
 			/// <summary>
 			/// Возвращает имя сборки.
 			/// </summary>
-			/// <value>Имя сборки. Если сборка не задана, возвращает "UnknownAssembly".</value>
+			/// <value>
+			/// Строка с именем сборки. Если объект сборки равен <see langword="null"/>, 
+			/// возвращает дефолтное значение <c>"UnknownAssembly"</c>.
+			/// </value>
 			public string Name
 				=> instance switch
 				{
@@ -27,9 +34,12 @@ namespace Ans.Net10.Common
 
 
 			/// <summary>
-			/// Возвращает версию сборки без учета хеша коммита.
+			/// Возвращает версию сборки без учета метаданных сборки (например, хэша коммита Git).
 			/// </summary>
-			/// <value>Строка версии. Если сборка не задана или версию определить не удалось, возвращает "1.0.0".</value>
+			/// <value>
+			/// Чистая строка версии (например, <c>"1.0.0"</c>). Если объект сборки равен <see langword="null"/> 
+			/// или версию определить не удалось, возвращает <c>"1.0.0"</c>.
+			/// </value>
 			public string Version
 			{
 				get
@@ -50,9 +60,12 @@ namespace Ans.Net10.Common
 
 
 			/// <summary>
-			/// Возвращает полную версию сборки, включая хеш коммита Git (при его наличии).
+			/// Возвращает полную информационную версию сборки, включая хэш коммита Git (при его наличии).
 			/// </summary>
-			/// <value>Полная строка информационной версии. Если сборка не задана, возвращает "1.0.0".</value>
+			/// <value>
+			/// Полная строка информационной версии сборки. Если объект сборки равен <see langword="null"/>, 
+			/// возвращает <c>"1.0.0"</c>.
+			/// </value>
 			public string FullVersion
 			{
 				get
@@ -67,14 +80,16 @@ namespace Ans.Net10.Common
 
 
 			/// <summary>
-			/// Возвращает описание сборки из метаданных.
+			/// Возвращает текстовое описание сборки из примененных метаданных.
 			/// </summary>
-			/// <value>Текст описания сборки или <see langword="null"/>, если описание отсутствует.</value>
+			/// <value>
+			/// Текст описания сборки из атрибута <see cref="AssemblyDescriptionAttribute"/> 
+			/// или <see langword="null"/>, если описание отсутствует или объект сборки равен <see langword="null"/>.
+			/// </value>
 			public string? Description
 				=> instance?.GetCustomAttribute<AssemblyDescriptionAttribute>()
 					is { Description: { Length: > 0 } desc1 }
-					? desc1
-					: null;
+					? desc1 : null;
 
 		}
 

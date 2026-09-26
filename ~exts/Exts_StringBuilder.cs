@@ -1,4 +1,4 @@
-﻿// rev 2026-09-18
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -6,6 +6,10 @@ using System.Text;
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Предоставляет высокопроизводительные методы расширения для модификации, 
+	/// поиска, рекурсивной замены и очистки данных внутри объектов <see cref="StringBuilder"/>.
+	/// </summary>
 	public static partial class Exts_StringBuilder
 	{
 
@@ -15,9 +19,9 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Добавляет отформатированную строку в конец, если строка шаблона не является пустой.
 		/// </summary>
-		/// <param name="sb">Экземпляр StringBuilder.</param>
-		/// <param name="template">Шаблон строки форматирования.</param>
-		/// <param name="templateArgs">Аргументы форматирования.</param>
+		/// <param name="sb">Текущий модифицируемый экземпляр <see cref="StringBuilder"/>.</param>
+		/// <param name="template">Шаблон строки форматирования. Допускает значение <see langword="null"/>.</param>
+		/// <param name="templateArgs">Массив аргументов для подстановки в шаблон форматирования.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void AppendIfPresent(
 			this StringBuilder sb,
@@ -36,10 +40,10 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Вставляет отформатированную строку по указанному индексу.
 		/// </summary>
-		/// <param name="sb">Экземпляр StringBuilder.</param>
-		/// <param name="index">Индекс для вставки.</param>
+		/// <param name="sb">Текущий модифицируемый экземпляр <see cref="StringBuilder"/>.</param>
+		/// <param name="index">Порядковый индекс (начиная с 0), по которому необходимо выполнить вставку.</param>
 		/// <param name="template">Шаблон строки форматирования.</param>
-		/// <param name="templateArgs">Аргументы форматирования.</param>
+		/// <param name="templateArgs">Массив аргументов для подстановки в шаблон форматирования.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void InsertFormat(
 			this StringBuilder sb,
@@ -57,10 +61,10 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Вставляет отформатированную строку по указанному индексу, если строка шаблона не является пустой.
 		/// </summary>
-		/// <param name="sb">Экземпляр StringBuilder.</param>
-		/// <param name="index">Индекс для вставки.</param>
-		/// <param name="template">Шаблон строки форматирования.</param>
-		/// <param name="templateArgs">Аргументы форматирования.</param>
+		/// <param name="sb">Текущий модифицируемый экземпляр <see cref="StringBuilder"/>.</param>
+		/// <param name="index">Порядковый индекс (начиная с 0), по которому необходимо выполнить вставку.</param>
+		/// <param name="template">Шаблон строки форматирования. Допускает значение <see langword="null"/>.</param>
+		/// <param name="templateArgs">Массив аргументов для подстановки в шаблон форматирования.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void InsertIfPresent(
 			this StringBuilder sb,
@@ -74,13 +78,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Вставляет отформатированную строку по указанному индексу, если логическое условие истинно.
+		/// Вставляет отформатированную строку по указанному индексу, если переданное логическое условие истинно.
 		/// </summary>
-		/// <param name="sb">Экземпляр StringBuilder.</param>
-		/// <param name="expression">Логическое условие выполнения вставки.</param>
-		/// <param name="index">Индекс для вставки.</param>
+		/// <param name="sb">Текущий модифицируемый экземпляр <see cref="StringBuilder"/>.</param>
+		/// <param name="expression">Логическое флаг-условие выполнения операции вставки.</param>
+		/// <param name="index">Порядковый индекс (начиная с 0), по которому необходимо выполнить вставку.</param>
 		/// <param name="template">Шаблон строки форматирования.</param>
-		/// <param name="templateArgs">Аргументы форматирования.</param>
+		/// <param name="templateArgs">Массив аргументов для подстановки в шаблон форматирования.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void InsertIf(
 			this StringBuilder sb,
@@ -98,13 +102,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает индекс первого вхождения указанной строки в StringBuilder начиная с заданной позиции.
+		/// Возвращает индекс первого вхождения указанной строки в StringBuilder начиная с заданной позиции с возможностью игнорирования регистра.
 		/// </summary>
-		/// <param name="sb">Экземпляр StringBuilder для поиска.</param>
+		/// <param name="sb">Экземпляр <see cref="StringBuilder"/>, внутри которого производится текстовый поиск.</param>
 		/// <param name="value">Искомая подстрока.</param>
-		/// <param name="startIndex">Начальная позиция поиска.</param>
-		/// <param name="ignoreCase">Признак игнорирования регистра символов (используется инвариантная культура).</param>
-		/// <returns>Индекс начала вхождения подстроки или -1, если подстрока не найдена.</returns>
+		/// <param name="startIndex">Начальная символьная позиция для запуска алгоритма сканирования.</param>
+		/// <param name="ignoreCase">Признак игнорирования регистра букв (при значении <see langword="true"/> применяется инвариантная культура).</param>
+		/// <returns>Индекс первого символа начала вхождения подстроки, либо -1, если совпадений не обнаружено.</returns>
 		public static int IndexOf(
 			this StringBuilder sb,
 			string value,
@@ -152,14 +156,13 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Производит рекурсивную замену всех вхождений указанной подстроки
-		/// на новую строку (включая поддержку ignoreCase).
+		/// Производит рекурсивную замену всех вхождений указанной подстроки на новую строку с поддержкой игнорирования регистра символов.
 		/// </summary>
-		/// <param name="sb">Экземпляр StringBuilder.</param>
-		/// <param name="oldValue">Заменяемая подстрока.</param>
-		/// <param name="newValue">Новая подстрока для вставки.</param>
-		/// <param name="ignoreCase">Признак игнорирования регистра символов при поиске заменяемой подстроки.</param>
-		/// <returns>Текущий экземпляр StringBuilder с выполненными заменами.</returns>
+		/// <param name="sb">Текущий модифицируемый экземпляр <see cref="StringBuilder"/>.</param>
+		/// <param name="oldValue">Заменяемая целевая подстрока.</param>
+		/// <param name="newValue">Новая подстрока, вставляемая на место удаляемой.</param>
+		/// <param name="ignoreCase">Признак игнорирования регистра символов при поиске подстроки <paramref name="oldValue"/>.</param>
+		/// <returns>Ссылка на текущий экземпляр <see cref="StringBuilder"/> с примененными заменами.</returns>
 		public static StringBuilder ReplaceRecursively(
 			this StringBuilder sb,
 			string oldValue,
@@ -186,7 +189,7 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Удаляет все начальные и конечные пробельные символы из текущего объекта StringBuilder.
 		/// </summary>
-		/// <param name="sb">Модифицируемый экземпляр StringBuilder.</param>
+		/// <param name="sb">Модифицируемый экземпляр <see cref="StringBuilder"/>.</param>
 		public static void Trim(
 			this StringBuilder sb)
 		{
@@ -212,10 +215,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Удаляет все начальные и конечные вхождения указанных символов из текущего объекта StringBuilder.
+		/// Удаляет все начальные и конечные вхождения указанных в наборе символов из текущего объекта StringBuilder.
 		/// </summary>
-		/// <param name="sb">Модифицируемый экземпляр StringBuilder.</param>
-		/// <param name="chars">Набор символов, подлежащих удалению.</param>
+		/// <param name="sb">Модифицируемый экземпляр <see cref="StringBuilder"/>.</param>
+		/// <param name="chars">Срез памяти <see cref="ReadOnlySpan{Char}"/>, содержащий уникальный набор символов, подлежащих удалению по краям.</param>
 		public static void Trim(
 			this StringBuilder sb,
 			ReadOnlySpan<char> chars)

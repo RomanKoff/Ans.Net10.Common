@@ -1,4 +1,4 @@
-﻿// rev 2026-09-02
+﻿// rev 2026-09-26
 
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -13,8 +13,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable int.
+		/// Преобразует строковое значение в nullable-версию 32-битного целого числа со знаком.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="int"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static int? ToInt(
 			this string? value,
@@ -23,9 +26,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в int. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое значение в 32-битное целое число со знаком. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="int"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static int ToInt(
 			this string? value,
@@ -35,8 +41,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable uint.
+		/// Преобразует строковое значение в nullable-версию 32-битного целого числа без знака.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="uint"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static uint? ToUInt(
 			this string? value,
@@ -45,9 +54,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в uint. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое значение в 32-битное целое число без знака. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="uint"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static uint ToUInt(
 			this string? value,
@@ -57,8 +69,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable long.
+		/// Преобразует строковое значение в nullable-версию 64-битного целого числа со знаком.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="long"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static long? ToLong(
 			this string? value,
@@ -67,9 +82,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в long. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое значение в 64-битное целое число со знаком. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="long"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static long ToLong(
 			this string? value,
@@ -82,8 +100,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable double.
+		/// Преобразует строковое значение в nullable-версию числа с плавающей запятой двойной точности.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="double"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static double? ToDouble(
 			this string? value,
@@ -92,9 +113,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в double. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое значение в число с плавающей запятой двойной точности. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="double"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static double ToDouble(
 			this string? value,
@@ -104,8 +128,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable float.
+		/// Преобразует строковое значение в nullable-версию числа с плавающей запятой одинарной точности.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="float"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static float? ToFloat(
 			this string? value,
@@ -114,9 +141,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в float. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое значение в число с плавающей запятой одинарной точности. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="float"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static float ToFloat(
 			this string? value,
@@ -126,8 +156,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable decimal.
+		/// Преобразует строковое значение в nullable-версию десятичного числа с фиксированной точностью.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="decimal"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static decimal? ToDecimal(
 			this string? value,
@@ -136,9 +169,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в decimal. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое значение в десятичное число с фиксированной точностью. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Число типа <see cref="decimal"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static decimal ToDecimal(
 			this string? value,
@@ -151,8 +187,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable DateTime с использованием InvariantCulture.
+		/// Преобразует строковое представление даты и времени в nullable-версию объекта <see cref="DateTime"/>.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Объект <see cref="DateTime"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTime? ToDateTime(
 			this string? value,
@@ -161,9 +200,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в DateTime. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое представление даты и времени в объект <see cref="DateTime"/>. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Объект <see cref="DateTime"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateTime ToDateTime(
 			this string? value,
@@ -173,8 +215,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable DateOnly с использованием InvariantCulture.
+		/// Преобразует строковое представление даты в nullable-версию календарного объекта <see cref="DateOnly"/>.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Объект <see cref="DateOnly"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateOnly? ToDateOnly(
 			this string? value,
@@ -183,9 +228,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в DateOnly. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое представление даты в календарный объект <see cref="DateOnly"/>. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Объект <see cref="DateOnly"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DateOnly ToDateOnly(
 			this string? value,
@@ -195,8 +243,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в nullable TimeOnly с использованием InvariantCulture.
+		/// Преобразует строковое представление времени в nullable-версию объекта <see cref="TimeOnly"/>.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Объект <see cref="TimeOnly"/>, если преобразование прошло успешно; в противном случае — <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static TimeOnly? ToTimeOnly(
 			this string? value,
@@ -205,9 +256,12 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в TimeOnly. Если преобразование невозможно,
-		/// возвращает значение по умолчанию.
+		/// Преобразует строковое представление времени в объект <see cref="TimeOnly"/>. В случае ошибки возвращает указанное дефолтное значение.
 		/// </summary>
+		/// <param name="value">Исходная строка для парсинга. Допускает значение <see langword="null"/>.</param>
+		/// <param name="defaultValue">Альтернативное возвращаемое значение на случай ошибки парсинга.</param>
+		/// <param name="provider">Поставщик региональных настроек. Если равен <see langword="null"/>, применяется <see cref="CultureInfo.InvariantCulture"/>.</param>
+		/// <returns>Объект <see cref="TimeOnly"/> или значение <paramref name="defaultValue"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static TimeOnly ToTimeOnly(
 			this string? value,
@@ -221,12 +275,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Преобразует строку в логическое значение (bool). 
-		/// Возвращает true, если строка равна "1", "+" или "true" (без учета регистра).
-		/// В остальных случаях — false.
+		/// Преобразует строковое выражение в логическое значение. 
+		/// Возвращает <see langword="true"/>, если строка эквивалентна маркерам <c>"1"</c>, <c>"+"</c> или <c>"true"</c> (регистронезависимо).
 		/// </summary>
-		/// <param name="value">Исходная строка для преобразования.</param>
-		/// <returns>Значение типа bool.</returns>
+		/// <param name="value">Исходная строка для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Логическое значение <see cref="bool"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool ToBool(
 			this string? value)

@@ -1,20 +1,24 @@
-﻿// rev 2026-09-15
+﻿// rev 2026-09-25
 
 using System.Runtime.CompilerServices;
 
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Предоставляет высокопроизводительные методы расширения для работы с массивами, 
+	/// коллекциями и последовательностями строк.
+	/// </summary>
 	public static partial class Exts__collections
 	{
 
 		/// <summary>
 		/// Возвращает новый массив, добавляя указанный элемент в конец исходного массива.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов массива.</typeparam>
-		/// <param name="source">Исходный массив.</param>
-		/// <param name="item">Элемент для добавления.</param>
-		/// <returns>Новый массив, содержащий все исходные элементы и добавленный элемент.</returns>
+		/// <typeparam name="T">Тип элементов обрабатываемого массива.</typeparam>
+		/// <param name="source">Исходный экземпляр массива, к которому добавляется элемент. Допускает значение <see langword="null"/>.</param>
+		/// <param name="item">Объект, вставляемый в конец целевого массива.</param>
+		/// <returns>Новый массив, содержащий все элементы исходного набора и добавленный элемент на последней позиции.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T[] GetArrayAdd<T>(
 			this T[]? source,
@@ -29,12 +33,14 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает новый массив, вставляя указанный элемент по заданному индексу.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов массива.</typeparam>
-		/// <param name="source">Исходный массив.</param>
-		/// <param name="index">Индекс, по которому необходимо вставить элемент.</param>
-		/// <param name="item">Элемент для вставки.</param>
-		/// <returns>Новый массив с вставленным элементом.</returns>
-		/// <exception cref="ArgumentOutOfRangeException">Вызывается, если индекс находится вне диапазонов массива.</exception>
+		/// <typeparam name="T">Тип элементов обрабатываемого массива.</typeparam>
+		/// <param name="source">Исходный экземпляр массива для модификации. Допускает значение <see langword="null"/>.</param>
+		/// <param name="index">Порядковый номер позиции (начиная с 0), по которой необходимо осуществить вставку.</param>
+		/// <param name="item">Элемент, подлежащий вставке в указанную позицию.</param>
+		/// <returns>Новый массив, в который внедрен элемент на позицию <paramref name="index"/> со сдвигом последующих элементов.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// Выбрасывается, если значение <paramref name="index"/> меньше нуля или строго больше фактической длины исходного массива.
+		/// </exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T[] GetArrayInsert<T>(
 			this T[]? source,
@@ -54,11 +60,13 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает новый массив, удаляя элемент по указанному индексу.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов массива.</typeparam>
-		/// <param name="source">Исходный массив.</param>
-		/// <param name="index">Индекс элемента для удаления.</param>
-		/// <returns>Новый массив без удаленного элемента.</returns>
-		/// <exception cref="ArgumentOutOfRangeException">Вызывается, если индекс находится вне границ массива.</exception>
+		/// <typeparam name="T">Тип элементов обрабатываемого массива.</typeparam>
+		/// <param name="source">Исходный экземпляр массива для удаления элемента. Допускает значение <see langword="null"/>.</param>
+		/// <param name="index">Порядковый индекс элемента (начиная с 0), подлежащего удалению.</param>
+		/// <returns>Новый усеченный массив, не содержащий элемент, ранее находившийся по индексу <paramref name="index"/>.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">
+		/// Выбрасывается, если исходный массив равен <see langword="null"/>, пуст, или если <paramref name="index"/> выходит за фактические границы массива.
+		/// </exception>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T[] GetArrayRemoveAt<T>(
 			this T[]? source,
@@ -80,10 +88,10 @@ namespace Ans.Net10.Common
 		/// Возвращает новый массив, удаляя первое вхождение указанного элемента. 
 		/// Если элемент не найден, возвращает исходный массив.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов массива.</typeparam>
-		/// <param name="source">Исходный массив.</param>
-		/// <param name="item">Элемент, который необходимо удалить.</param>
-		/// <returns>Новый массив без удаленного элемента или исходный массив.</returns>
+		/// <typeparam name="T">Тип элементов обрабатываемого массива.</typeparam>
+		/// <param name="source">Исходный экземпляр массива. Допускает значение <see langword="null"/>.</param>
+		/// <param name="item">Целевой объект, первое вхождение которого необходимо исключить из массива.</param>
+		/// <returns>Новый уменьшенный массив без первого вхождения указанного элемента или оригинальный массив, если совпадений не найдено.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T[] GetArrayRemove<T>(
 			this T[]? source,
@@ -101,13 +109,13 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Синхронизирует коллекции и возвращает изменения в виде именованного кортежа с ленивыми потоками.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов коллекций.</typeparam>
-		/// <typeparam name="TKey">Тип ключа элементов.</typeparam>
-		/// <param name="current">Текущая коллекция элементов.</param>
-		/// <param name="newest">Новая коллекция элементов.</param>
-		/// <param name="keySelector">Функция извлечения ключа из элемента.</param>
-		/// <param name="comparer">Компаратор для сравнения ключей. Если не задан, используется компаратор по умолчанию.</param>
-		/// <returns>Именованный кортеж, содержащий ленивые потоки добавленных, удаленных и обновленных элементов.</returns>
+		/// <typeparam name="T">Тип элементов сопоставляемых коллекций.</typeparam>
+		/// <typeparam name="TKey">Тип уникального идентификатора (ключа) элементов.</typeparam>
+		/// <param name="current">Исходная (текущая) последовательность элементов.</param>
+		/// <param name="newest">Целевая (новая) последовательность элементов, с которой производится сверка.</param>
+		/// <param name="keySelector">Делегат функции для извлечения уникального ключа типа <typeparamref name="TKey"/> из элемента.</param>
+		/// <param name="comparer">Кастомный компаратор для проверки эквивалентности ключей. Если передано значение <see langword="null"/>, применяется компаратор по умолчанию.</param>
+		/// <returns>Именованный кортеж, содержащий ленивые потоки добавленных (<c>Added</c>), удаленных (<c>Removed</c>) и оставшихся актуальными (<c>Updated</c>) элементов.</returns>
 		public static
 			(IEnumerable<T> Added, IEnumerable<T> Removed, IEnumerable<T> Updated)
 			GetDiffLazy<T, TKey>(
@@ -130,13 +138,13 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Синхронизирует коллекции и возвращает изменения в виде именованного кортежа с материализованными списками.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов коллекций.</typeparam>
-		/// <typeparam name="TKey">Тип ключа элементов.</typeparam>
-		/// <param name="current">Текущая коллекция элементов.</param>
-		/// <param name="newest">Новая коллекция элементов.</param>
-		/// <param name="keySelector">Функция извлечения ключа из элемента.</param>
-		/// <param name="comparer">Компаратор для сравнения ключей. Если не задан, используется компаратор по умолчанию.</param>
-		/// <returns>Именованный кортеж, содержащий списки добавленных, удаленных и обновленных элементов.</returns>
+		/// <typeparam name="T">Тип элементов сопоставляемых коллекций.</typeparam>
+		/// <typeparam name="TKey">Тип уникального идентификатора (ключа) элементов.</typeparam>
+		/// <param name="current">Исходная (текущая) последовательность элементов.</param>
+		/// <param name="newest">Целевая (новая) последовательность элементов, с которой производится сверка.</param>
+		/// <param name="keySelector">Делегат функции для извлечения уникального ключа типа <typeparamref name="TKey"/> из элемента.</param>
+		/// <param name="comparer">Кастомный компаратор для проверки эквивалентности ключей. Если передано значение <see langword="null"/>, применяется компаратор по умолчанию.</param>
+		/// <returns>Именованный кортеж, содержащий материализованные списки добавленных (<c>Added</c>), удаленных (<c>Removed</c>) и обновленных (<c>Updated</c>) элементов.</returns>
 		public static
 			(List<T> Added, List<T> Removed, List<T> Updated)
 			GetDiffList<T, TKey>(
@@ -173,12 +181,12 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает текущие версии элементов, которые все еще присутствуют в новой коллекции.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов коллекций.</typeparam>
-		/// <typeparam name="TKey">Тип ключа элементов.</typeparam>
-		/// <param name="current">Текущая коллекция элементов.</param>
-		/// <param name="newest">Новая коллекция элементов.</param>
-		/// <param name="keySelector">Функция извлечения ключа из элемента.</param>
-		/// <returns>Ленивый поток актуальных текущих элементов.</returns>
+		/// <typeparam name="T">Тип элементов сопоставляемых коллекций.</typeparam>
+		/// <typeparam name="TKey">Тип уникального ключа элементов.</typeparam>
+		/// <param name="current">Исходная (текущая) последовательность элементов.</param>
+		/// <param name="newest">Целевая (новая) последовательность для проверки присутствия.</param>
+		/// <param name="keySelector">Делегат функции извлечения уникального ключа.</param>
+		/// <returns>Ленивый поток элементов из старой коллекции, чьи ключи присутствуют в новой коллекции.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<T> GetActual<T, TKey>(
 			this IEnumerable<T> current,
@@ -194,12 +202,12 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает обновленные версии элементов из новой коллекции, которые уже существовали в текущей коллекции.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов коллекций.</typeparam>
-		/// <typeparam name="TKey">Тип ключа элементов.</typeparam>
-		/// <param name="current">Текущая коллекция элементов.</param>
-		/// <param name="newest">Новая коллекция элементов.</param>
-		/// <param name="keySelector">Функция извлечения ключа из элемента.</param>
-		/// <returns>Ленивый поток обновленных версий элементов.</returns>
+		/// <typeparam name="T">Тип элементов сопоставляемых коллекций.</typeparam>
+		/// <typeparam name="TKey">Тип уникального ключа элементов.</typeparam>
+		/// <param name="current">Исходная (текущая) последовательность элементов для проверки существования.</param>
+		/// <param name="newest">Целевая (новая) последовательность, из которой извлекаются актуальные элементы.</param>
+		/// <param name="keySelector">Делегат функции извлечения уникального ключа.</param>
+		/// <returns>Ленивый поток элементов из новой коллекции, чьи ключи присутствуют в текущей коллекции.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<T> GetUpdated<T, TKey>(
 			this IEnumerable<T> current,
@@ -213,14 +221,14 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает элементы, которые появились в новой коллекции, но отсутствовали в текущей.
+		/// Возвращает элементы, которые появились в новой коллекции, но полностью отсутствовали в текущей.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов коллекций.</typeparam>
-		/// <typeparam name="TKey">Тип ключа элементов.</typeparam>
-		/// <param name="current">Текущая коллекция элементов.</param>
-		/// <param name="newest">Новая коллекция элементов.</param>
-		/// <param name="keySelector">Функция извлечения ключа из элемента.</param>
-		/// <returns>Ленивый поток добавленных элементов.</returns>
+		/// <typeparam name="T">Тип элементов сопоставляемых коллекций.</typeparam>
+		/// <typeparam name="TKey">Тип уникального ключа элементов.</typeparam>
+		/// <param name="current">Исходная (текущая) последовательность элементов, выполняющая роль базиса.</param>
+		/// <param name="newest">Целевая (новая) последовательность элементов для поиска новинок.</param>
+		/// <param name="keySelector">Делегат функции извлечения уникального ключа.</param>
+		/// <returns>Ленивый поток добавленных элементов, присутствующих исключительно в новой коллекции.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<T> GetAdded<T, TKey>(
 			this IEnumerable<T> current,
@@ -236,12 +244,12 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Возвращает элементы, которые присутствовали в текущей коллекции, но отсутствуют в новой.
 		/// </summary>
-		/// <typeparam name="T">Тип элементов коллекций.</typeparam>
-		/// <typeparam name="TKey">Тип ключа элементов.</typeparam>
-		/// <param name="current">Текущая коллекция элементов.</param>
-		/// <param name="newest">Новая коллекция элементов.</param>
-		/// <param name="keySelector">Функция извлечения ключа из элемента.</param>
-		/// <returns>Ленивый поток удаленных элементов.</returns>
+		/// <typeparam name="T">Тип элементов сопоставляемых коллекций.</typeparam>
+		/// <typeparam name="TKey">Тип уникального ключа элементов.</typeparam>
+		/// <param name="current">Исходная (текущая) последовательность элементов.</param>
+		/// <param name="newest">Целевая (новая) последовательность, определяющая исключаемые ключи.</param>
+		/// <param name="keySelector">Делегат функции извлечения уникального ключа.</param>
+		/// <returns>Ленивый поток удаленных элементов, которые были утеряны в новой коллекции.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<T> GetRemoved<T, TKey>(
 			this IEnumerable<T> current,
@@ -255,10 +263,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Очищает элементы последовательности строк от начальных и конечных пробелов, удаляя пустые элементы и null.
+		/// Очищает элементы последовательности строк от начальных и конечных пробелов, полностью удаляя пустые элементы и <see langword="null"/>.
 		/// </summary>
-		/// <param name="source">Исходная последовательность строк, допускающих значение null.</param>
-		/// <returns>Ленивый поток очищенных непустых строк.</returns>
+		/// <param name="source">Исходная последовательность строк, допускающих значение <see langword="null"/>.</param>
+		/// <returns>Ленивый итератор <see cref="IEnumerable{T}"/>, возвращающий очищенные непустые строки.</returns>
 		public static IEnumerable<string> GetItemsClean(
 			this IEnumerable<string?> source)
 		{
@@ -274,10 +282,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Обрезает начальные и конечные пробелы у всех элементов последовательности строк.
+		/// Обрезает начальные и конечные пробелы у всех элементов последовательности строк, сохраняя <see langword="null"/>-элементы.
 		/// </summary>
-		/// <param name="source">Исходная последовательность строк, допускающих значение null.</param>
-		/// <returns>Последовательность строк с обрезанными пробелами, где null-элементы сохраняются.</returns>
+		/// <param name="source">Исходная последовательность строк, допускающих значение <see langword="null"/>.</param>
+		/// <returns>Последовательность строк с обрезанными пробелами, где позиции элементов со значением <see langword="null"/> не изменяются.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<string?> GetItemsTrim(
 			this IEnumerable<string?> source)
@@ -288,10 +296,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Исключает из последовательности строк все пустые элементы и элементы со значением null.
+		/// Исключает из последовательности строк все пустые элементы и элементы со значением <see langword="null"/>.
 		/// </summary>
-		/// <param name="source">Исходная последовательность строк, допускающих значение null.</param>
-		/// <returns>Последовательность строк, не содержащая null и пустые значения.</returns>
+		/// <param name="source">Исходная последовательность строк, допускающих значение <see langword="null"/>.</param>
+		/// <returns>Последовательность строк, гарантированно не содержащая пустых значений или <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<string> GetItemsWithoutEmpty(
 			this IEnumerable<string?> source)
@@ -302,11 +310,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает уникальные элементы последовательности строк с возможностью настройки сравнения.
+		/// Возвращает уникальные элементы последовательности строк с возможностью гибкой настройки компаратора.
 		/// </summary>
-		/// <param name="source">Исходная последовательность строк, допускающих значение null.</param>
-		/// <param name="comparer">Компаратор для определения уникальности строк. Если не задан, используется Ordinal.</param>
-		/// <returns>Последовательность уникальных строк.</returns>
+		/// <param name="source">Исходная последовательность строк, допускающих значение <see langword="null"/>.</param>
+		/// <param name="comparer">Кастомный компаратор для определения уникальности строк. Если не задан, используется <see cref="StringComparer.Ordinal"/>.</param>
+		/// <returns>Последовательность уникальных строк, отфильтрованная в соответствии с правилами сравнения.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<string?> GetItemsUnique(
 			this IEnumerable<string?> source,
@@ -318,11 +326,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Очищает элементы от пробелов, удаляет пустые/null значения и возвращает только уникальные строки.
+		/// Очищает элементы от пробелов, удаляет пустые и <see langword="null"/> значения и возвращает только уникальные строки.
 		/// </summary>
-		/// <param name="source">Исходная последовательность строк, допускающих значение null.</param>
-		/// <param name="comparer">Компаратор для определения уникальности строк. Если не задан, используется Ordinal.</param>
-		/// <returns>Ленивый поток очищенных уникальных непустых строк.</returns>
+		/// <param name="source">Исходная последовательность строк, допускающих значение <see langword="null"/>.</param>
+		/// <param name="comparer">Компаратор для определения уникальности строк. Если передано значение <see langword="null"/>, используется <see cref="StringComparer.Ordinal"/>.</param>
+		/// <returns>Ленивый итератор, возвращающий очищенные от пробелов уникальные непустые строки.</returns>
 		public static IEnumerable<string> GetItemsCleanUnique(
 			this IEnumerable<string?> source,
 			StringComparer? comparer = null)

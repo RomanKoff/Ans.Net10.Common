@@ -1,4 +1,4 @@
-﻿// rev 2026-09-20
+﻿// rev 2026-09-25
 
 using System.Runtime.CompilerServices;
 
@@ -37,6 +37,9 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Фиксированная байтовая маска шахматной текстуры для обозначения прозрачности.
 		/// </summary>
+		/// <value>
+		/// Срез памяти <see cref="ReadOnlySpan{T}"/>, содержащий последовательность байт шахматного паттерна.
+		/// </value>
 		public static ReadOnlySpan<byte> TRANSPARENT_MASK
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

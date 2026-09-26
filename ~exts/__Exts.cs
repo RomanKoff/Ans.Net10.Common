@@ -3,8 +3,8 @@
 namespace Ans.Net10.Common
 {
 
-	public static partial class __Exts
-	{
-	}
+	//public static partial class __Exts
+	//{
+	//}
 
 }

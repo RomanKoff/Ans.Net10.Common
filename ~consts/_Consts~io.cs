@@ -1,4 +1,4 @@
-﻿// rev 2026-09-16
+﻿// rev 2026-09-25
 
 using System.Collections.Frozen;
 
@@ -6,7 +6,7 @@ namespace Ans.Net10.Common
 {
 
 	/*
-	 * Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+	 * SuppCulture.AddCodePagesSupport() || Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 	 */
 
 
@@ -28,13 +28,21 @@ namespace Ans.Net10.Common
 		/// <summary>
 		/// Дефолтный объект информации о контенте для неопознанных бинарных данных.
 		/// </summary>
-		public static readonly ContentInfo CONTENTINFO_BIN = new("*", "application/octet-stream", ContentGroupEnum.Bin);
+		public static readonly ContentInfo CONTENTINFO_BIN
+			= new("*", "application/octet-stream", ContentGroupEnum.Bin);
 
 
 		/// <summary>
-		/// Замороженный (Frozen) оптимизированный словарь сопоставления расширений файлов (ключ, включая точку) 
-		/// и метаданных типов контента <see cref="ContentInfo"/>. Регистронезависимый.
+		/// Замороженный (Frozen) оптимизированный словарь сопоставления расширений файлов и метаданных типов контента.
 		/// </summary>
+		/// <remarks>
+		/// Ключом словаря является расширение файла (обязательно включая ведущую точку, например, <c>".jpg"</c>). 
+		/// Поиск по ключам производится в регистронезависимом режиме (<see cref="StringComparer.OrdinalIgnoreCase"/>).
+		/// </remarks>
+		/// <value>
+		/// Оптимизированный для чтения словарь <see cref="FrozenDictionary{TKey, TValue}"/>, сопоставляющий 
+		/// строковые расширения с объектами <see cref="ContentInfo"/>.
+		/// </value>
 		public static FrozenDictionary<string, ContentInfo> CONTENTINFOS => field ??= new ContentInfo[]
 		{
 			// Archive

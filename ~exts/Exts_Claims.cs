@@ -1,4 +1,4 @@
-﻿// rev 2026-09-18
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
@@ -6,6 +6,10 @@ using System.Security.Claims;
 namespace Ans.Net10.Common
 {
 
+	/// <summary>
+	/// Предоставляет высокопроизводительные методы расширения для работы со структурой утверждений 
+	/// и субъектами безопасности <see cref="ClaimsPrincipal"/>.
+	/// </summary>
 	public static partial class Exts_Claims
 	{
 
@@ -13,8 +17,7 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Безопасно добавляет утверждение в удостоверение,
-		/// если такое утверждение (тип и значение) еще не существует.
+		/// Безопасно добавляет утверждение в удостоверение, если такое утверждение (идентичный тип и значение) еще не существует.
 		/// </summary>
 		/// <param name="identity">Удостоверение, в которое добавляется утверждение.</param>
 		/// <param name="type">Тип добавляемого утверждения.</param>
@@ -34,12 +37,11 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет группу утверждений одного типа с множеством значений в виде новой идентичности субъекта.
+		/// Добавляет группу утверждений одного типа с множеством значений в виде новой идентичности субъекта безопасности.
 		/// </summary>
-		/// <param name="principal">Субъект, которому добавляются утверждения.</param>
+		/// <param name="principal">Субъект безопасности <see cref="ClaimsPrincipal"/>, которому добавляются новые утверждения.</param>
 		/// <param name="type">Тип добавляемых утверждений.</param>
-		/// <param name="values">Список значений для утверждений.</param>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		/// <param name="values">Массив строковых значений для формируемых утверждений.</param>
 		public static void AddClaims(
 			this ClaimsPrincipal principal,
 			string type,
@@ -63,9 +65,9 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Добавляет субъекту группу утверждений о ролях (ClaimTypes.Role).
+		/// Добавляет субъекту безопасности группу утверждений о ролях с типом <see cref="ClaimTypes.Role"/>.
 		/// </summary>
-		/// <param name="principal">Субъект, которому добавляются роли.</param>
+		/// <param name="principal">Субъект безопасности <see cref="ClaimsPrincipal"/>, которому добавляются роли.</param>
 		/// <param name="roles">Массив наименований ролей.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void AddRolesClaims(
@@ -80,10 +82,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение утверждения уникального идентификатора пользователя (ClaimTypes.NameIdentifier).
+		/// Возвращает значение утверждения уникального идентификатора пользователя (<see cref="ClaimTypes.NameIdentifier"/>).
 		/// </summary>
-		/// <param name="principal">Субъект для анализа.</param>
-		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
+		/// <param name="principal">Субъект для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Значение утверждения в виде строки или <see langword="null"/>, если утверждение не найдено или субъект равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string? GetNameIdentifierFromClaim(
 			this ClaimsPrincipal? principal)
@@ -93,10 +95,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение утверждения логина пользователя (id_username).
+		/// Возвращает значение кастомного утверждения логина пользователя (<c>"id_username"</c>).
 		/// </summary>
-		/// <param name="principal">Субъект для анализа.</param>
-		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
+		/// <param name="principal">Субъект для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено или субъект равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string? GetIdUsernameFromClaim(
 			this ClaimsPrincipal? principal)
@@ -106,10 +108,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение утверждения адреса электронной почты (ClaimTypes.Email).
+		/// Возвращает значение утверждения адреса электронной почты (<see cref="ClaimTypes.Email"/>).
 		/// </summary>
-		/// <param name="principal">Субъект для анализа.</param>
-		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
+		/// <param name="principal">Субъект для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено или субъект равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string? GetEmailFromClaim(
 			this ClaimsPrincipal? principal)
@@ -119,10 +121,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение утверждения отображаемого имени пользователя (name).
+		/// Возвращает значение кастомного утверждения отображаемого имени пользователя (<c>"name"</c>).
 		/// </summary>
-		/// <param name="principal">Субъект для анализа.</param>
-		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
+		/// <param name="principal">Субъект для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено или субъект равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string? GetNameFromClaim(
 			this ClaimsPrincipal? principal)
@@ -132,10 +134,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение утверждения фамилии (ClaimTypes.Surname).
+		/// Возвращает значение утверждения фамилии (<see cref="ClaimTypes.Surname"/>).
 		/// </summary>
-		/// <param name="principal">Субъект для анализа.</param>
-		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
+		/// <param name="principal">Субъект для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено или субъект равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string? GetSurnameFromClaim(
 			this ClaimsPrincipal? principal)
@@ -145,10 +147,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение утверждения личного имени (ClaimTypes.GivenName).
+		/// Возвращает значение утверждения личного имени (<see cref="ClaimTypes.GivenName"/>).
 		/// </summary>
-		/// <param name="principal">Субъект для анализа.</param>
-		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
+		/// <param name="principal">Субъект для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено или субъект равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string? GetGivenNameFromClaim(
 			this ClaimsPrincipal? principal)
@@ -158,10 +160,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает значение утверждения пола пользователя (ClaimTypes.Gender).
+		/// Возвращает значение утверждения биологического пола пользователя (<see cref="ClaimTypes.Gender"/>).
 		/// </summary>
-		/// <param name="principal">Субъект для анализа.</param>
-		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено.</returns>
+		/// <param name="principal">Субъект для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Значение утверждения или <see langword="null"/>, если утверждение не найдено или субъект равен <see langword="null"/>.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static string? GetGenderFromClaim(
 			this ClaimsPrincipal? principal)
@@ -171,10 +173,10 @@ namespace Ans.Net10.Common
 
 
 		/// <summary>
-		/// Возвращает коллекцию значений всех утверждений о ролях (ClaimTypes.Role) текущего субъекта.
+		/// Возвращает коллекцию значений всех утверждений о ролях (<see cref="ClaimTypes.Role"/>) текущего субъекта.
 		/// </summary>
-		/// <param name="principal">Субъект для анализа.</param>
-		/// <returns>Последовательность строковых названий ролей. Если субъект не задан, возвращает пустую коллекцию.</returns>
+		/// <param name="principal">Субъект для анализа. Допускает значение <see langword="null"/>.</param>
+		/// <returns>Последовательность строковых названий ролей <see cref="IEnumerable{String}"/>. Если субъект не задан или равен <see langword="null"/>, возвращает пустой массив.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IEnumerable<string> GetRolesFromClaim(
 			this ClaimsPrincipal? principal)
