@@ -11,8 +11,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет высокопроизводительные методы расширения для <see cref="HttpClient"/>, 
-	/// обеспечивающие асинхронное получение и автоматическую десериализацию данных в форматах JSON, XML и GRID.
+	/// Методы расширения для <see cref="HttpClient"/>, обеспечивающие асинхронное получение и автоматическую десериализацию данных в форматах JSON, XML и GRID.
 	/// </summary>
 	public static partial class Exts_HttpClient
 	{

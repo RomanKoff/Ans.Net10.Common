@@ -7,7 +7,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет высокопроизводительные методы расширения для работы с сетевыми IP-адресами <see cref="IPAddress"/>.
+	/// Методы расширения для работы с сетевыми IP-адресами <see cref="IPAddress"/>.
 	/// </summary>
 	public static partial class Exts_IPAddress
 	{

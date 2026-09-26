@@ -7,7 +7,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Определяет варианты биологического пола человека.
+	/// Перечень вариантов биологического пола человека.
 	/// </summary>
 	public enum GenderEnum
 		: int

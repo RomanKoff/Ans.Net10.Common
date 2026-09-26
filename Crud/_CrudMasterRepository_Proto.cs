@@ -7,7 +7,7 @@ namespace Ans.Net10.Common.Crud
 {
 
 	/// <summary>
-	/// Определяет интерфейс сущности, обладающей уникальным числовым идентификатором
+	/// Интерфейс сущности, обладающей уникальным числовым идентификатором
 	/// и выступающей в роли главной (Master) сущности.
 	/// </summary>
 	public interface IMasterEntity
@@ -21,8 +21,7 @@ namespace Ans.Net10.Common.Crud
 
 
 	/// <summary>
-	/// Определяет расширенный интерфейс репозитория для работы с главными сущностями,
-	/// реализующими <see cref="IMasterEntity"/>.
+	/// Интерфейс репозитория для работы с главными сущностями, реализующими <see cref="IMasterEntity"/>.
 	/// </summary>
 	/// <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
 	public interface ICrudMasterRepository<T>
@@ -43,7 +42,7 @@ namespace Ans.Net10.Common.Crud
 
 
 	/// <summary>
-	/// Базовый прототип класса для реализации репозиториев CRUD-операций
+	/// Абстрактный прототип класса для реализации репозиториев CRUD-операций
 	/// над главными сущностями с использованием Entity Framework.
 	/// </summary>
 	/// <typeparam name="T">Тип доменной сущности, реализующей <see cref="IMasterEntity"/>.</typeparam>

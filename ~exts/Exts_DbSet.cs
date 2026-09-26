@@ -8,7 +8,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет высокопроизводительные методы расширения для работы с объектами <see cref="DbSet{TEntity}"/>.
+	/// Методы расширения для работы с объектами <see cref="DbSet{TEntity}"/>.
 	/// </summary>
 	public static partial class Exts_DbSet
 	{

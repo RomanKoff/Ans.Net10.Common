@@ -6,8 +6,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет высокопроизводительные свойства расширения для извлечения 
-	/// метаданных, версий и описаний из экземпляров <see cref="Assembly"/>.
+	/// Методы расширения для извлечения метаданных, версий и описаний из экземпляров <see cref="Assembly"/>.
 	/// </summary>
 	public static partial class Exts_Assembly
 	{

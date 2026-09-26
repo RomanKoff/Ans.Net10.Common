@@ -8,7 +8,7 @@ namespace Ans.Net10.Common.Crud
 {
 
 	/// <summary>
-	/// Определяет интерфейс подчиненной (Slave) сущности, жестко связанной с главной через внешний ключ.
+	/// Интерфейс подчиненной (Slave) сущности, жестко связанной с главной через внешний ключ.
 	/// </summary>
 	public interface ISlaveEntity
 		: IMasterEntity
@@ -22,8 +22,7 @@ namespace Ans.Net10.Common.Crud
 
 
 	/// <summary>
-	/// Определяет расширенный интерфейс репозитория для работы с подчиненными
-	/// сущностями, реализующими <see cref="ISlaveEntity"/>.
+	/// Интерфейс репозитория для работы с подчиненными сущностями, реализующими <see cref="ISlaveEntity"/>.
 	/// </summary>
 	/// <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
 	public interface ICrudSlaveRepository<T>
@@ -57,7 +56,7 @@ namespace Ans.Net10.Common.Crud
 
 
 	/// <summary>
-	/// Базовый прототип класса для реализации репозиториев CRUD-операций
+	/// Абстрактный прототип класса для реализации репозиториев CRUD-операций
 	/// над подчиненными сущностями с использованием Entity Framework.
 	/// </summary>
 	/// <typeparam name="T">Тип доменной сущности, реализующей <see cref="ISlaveEntity"/>.</typeparam>

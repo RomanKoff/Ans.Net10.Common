@@ -7,7 +7,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет методы расширения для работы с механизмами внедрения зависимостей (Dependency Injection).
+	/// Методы расширения для работы с механизмами внедрения зависимостей (Dependency Injection).
 	/// </summary>
 	public static partial class Exts__di
 	{

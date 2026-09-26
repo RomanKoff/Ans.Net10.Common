@@ -3,6 +3,9 @@
 namespace Ans.Net10.Common
 {
 
+	///// <summary>
+	///// Методы расширения для 
+	///// </summary>
 	//public static partial class __Exts
 	//{
 	//}

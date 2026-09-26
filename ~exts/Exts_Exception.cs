@@ -6,8 +6,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет высокопроизводительные методы расширения для рекурсивного анализа 
-	/// дерева вложенных исключений <see cref="Exception.InnerException"/> и их строковых сообщений.
+	/// Методы расширения для рекурсивного анализа дерева вложенных исключений <see cref="Exception.InnerException"/> и их строковых сообщений.
 	/// </summary>
 	public static partial class Exts_Exception
 	{

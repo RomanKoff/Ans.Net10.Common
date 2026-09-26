@@ -1,4 +1,4 @@
-﻿// rev 2026-09-20
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text.Json;

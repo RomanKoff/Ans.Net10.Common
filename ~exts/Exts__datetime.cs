@@ -6,8 +6,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет высокопроизводительные методы расширения для типов 
-	/// <see cref="DateTime"/>, <see cref="DateOnly"/> и <see cref="TimeSpan"/>.
+	/// Методы расширения для типов <see cref="DateTime"/>, <see cref="DateOnly"/> и <see cref="TimeSpan"/>.
 	/// </summary>
 	public static partial class Exts__datetime
 	{

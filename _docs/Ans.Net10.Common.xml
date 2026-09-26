@@ -6,7 +6,7 @@
     <members>
         <member name="T:Ans.Net10.Common.Crud.IMasterEntity">
             <summary>
-            Определяет интерфейс сущности, обладающей уникальным числовым идентификатором
+            Интерфейс сущности, обладающей уникальным числовым идентификатором
             и выступающей в роли главной (Master) сущности.
             </summary>
         </member>
@@ -17,8 +17,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.ICrudMasterRepository`1">
             <summary>
-            Определяет расширенный интерфейс репозитория для работы с главными сущностями,
-            реализующими <see cref="T:Ans.Net10.Common.Crud.IMasterEntity"/>.
+            Интерфейс репозитория для работы с главными сущностями, реализующими <see cref="T:Ans.Net10.Common.Crud.IMasterEntity"/>.
             </summary>
             <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
         </member>
@@ -34,14 +33,14 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud._CrudMasterRepository_Proto`1">
             <summary>
-            Базовый прототип класса для реализации репозиториев CRUD-операций
+            Абстрактный прототип класса для реализации репозиториев CRUD-операций
             над главными сущностями с использованием Entity Framework.
             </summary>
             <typeparam name="T">Тип доменной сущности, реализующей <see cref="T:Ans.Net10.Common.Crud.IMasterEntity"/>.</typeparam>
         </member>
         <member name="M:Ans.Net10.Common.Crud._CrudMasterRepository_Proto`1.#ctor(Microsoft.EntityFrameworkCore.DbContext)">
             <summary>
-            Базовый прототип класса для реализации репозиториев CRUD-операций
+            Абстрактный прототип класса для реализации репозиториев CRUD-операций
             над главными сущностями с использованием Entity Framework.
             </summary>
             <typeparam name="T">Тип доменной сущности, реализующей <see cref="T:Ans.Net10.Common.Crud.IMasterEntity"/>.</typeparam>
@@ -54,7 +53,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.ISlaveEntity">
             <summary>
-            Определяет интерфейс подчиненной (Slave) сущности, жестко связанной с главной через внешний ключ.
+            Интерфейс подчиненной (Slave) сущности, жестко связанной с главной через внешний ключ.
             </summary>
         </member>
         <member name="P:Ans.Net10.Common.Crud.ISlaveEntity.MasterPtr">
@@ -64,8 +63,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.ICrudSlaveRepository`1">
             <summary>
-            Определяет расширенный интерфейс репозитория для работы с подчиненными
-            сущностями, реализующими <see cref="T:Ans.Net10.Common.Crud.ISlaveEntity"/>.
+            Интерфейс репозитория для работы с подчиненными сущностями, реализующими <see cref="T:Ans.Net10.Common.Crud.ISlaveEntity"/>.
             </summary>
             <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
         </member>
@@ -94,14 +92,14 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud._CrudSlaveRepository_Proto`1">
             <summary>
-            Базовый прототип класса для реализации репозиториев CRUD-операций
+            Абстрактный прототип класса для реализации репозиториев CRUD-операций
             над подчиненными сущностями с использованием Entity Framework.
             </summary>
             <typeparam name="T">Тип доменной сущности, реализующей <see cref="T:Ans.Net10.Common.Crud.ISlaveEntity"/>.</typeparam>
         </member>
         <member name="M:Ans.Net10.Common.Crud._CrudSlaveRepository_Proto`1.#ctor(Microsoft.EntityFrameworkCore.DbContext)">
             <summary>
-            Базовый прототип класса для реализации репозиториев CRUD-операций
+            Абстрактный прототип класса для реализации репозиториев CRUD-операций
             над подчиненными сущностями с использованием Entity Framework.
             </summary>
             <typeparam name="T">Тип доменной сущности, реализующей <see cref="T:Ans.Net10.Common.Crud.ISlaveEntity"/>.</typeparam>
@@ -117,50 +115,50 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.ICrudRepository`1">
             <summary>
-            Определяет интерфейс универсального репозитория для выполнения базовых
+            Интерфейс универсального репозитория для выполнения базовых
             CRUD-операций над сущностями типа <typeparamref name="T"/>.
             </summary>
-            <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
+            <typeparam name="T">Тип доменной сущности, управляемой репозиторием. Должен быть ссылочным типом (<see langword="class"/>).</typeparam>
         </member>
         <member name="P:Ans.Net10.Common.Crud.ICrudRepository`1.DbContext">
             <summary>
-            Возвращает экземпляр контекста базы данных Entity Framework.
+            Возвращает экземпляр контекста базы данных Entity Framework Core.
             </summary>
+            <value>Объект контекста <see cref="P:Ans.Net10.Common.Crud.ICrudRepository`1.DbContext"/>.</value>
         </member>
         <member name="P:Ans.Net10.Common.Crud.ICrudRepository`1.DbSet">
             <summary>
             Возвращает набор сущностей <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/> для работы с текущим типом данных.
             </summary>
+            <value>Объект набора данных <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/>.</value>
         </member>
         <member name="M:Ans.Net10.Common.Crud.ICrudRepository`1.GetItemsAsQueryable(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
-            Формирует запрос <see cref="T:System.Linq.IQueryable`1"/> без отслеживания изменений
-            (AsNoTracking) с применением фильтрации.
+            Формирует запрос <see cref="T:System.Linq.IQueryable`1"/> без отслеживания изменений (AsNoTracking) с применением фильтрации.
             </summary>
-            <param name="filter">Предекатное выражение для фильтрации сущностей.
-            Если <see langword="null"/>, фильтрация не применяется.</param>
+            <param name="filter">Предикатное выражение для фильтрации сущностей. Если равен <see langword="null"/>, фильтрация не применяется.</param>
+            <returns>Запрос <see cref="T:System.Linq.IQueryable`1"/> для извлечения сущностей.</returns>
         </member>
         <member name="M:Ans.Net10.Common.Crud.ICrudRepository`1.GetItem(System.Int32)">
             <summary>
             Возвращает сущность по её уникальному целочисленному идентификатору.
             </summary>
             <param name="id">Идентификатор искомой сущности.</param>
+            <returns>Найденная сущность типа <typeparamref name="T"/> или <see langword="null"/>, если запись не найдена.</returns>
         </member>
         <member name="M:Ans.Net10.Common.Crud.ICrudRepository`1.GetItem(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
-            Возвращает первую сущность, удовлетворяющую условию
-            фильтра, без отслеживания изменений.
+            Возвращает первую сущность, удовлетворяющую условию фильтра, без отслеживания изменений.
             </summary>
             <param name="filter">Выражение-фильтр для поиска сущности.</param>
+            <returns>Первая найденная сущность типа <typeparamref name="T"/> или <see langword="null"/>, если совпадений не найдено.</returns>
         </member>
         <member name="M:Ans.Net10.Common.Crud.ICrudRepository`1.GetItemsCount(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             Возвращает общее количество сущностей, удовлетворяющих заданному фильтру.
             </summary>
-            <param name="filter">
-            Выражение-фильтр для подсчета. Если <see langword="null"/>,
-            подсчитываются все записи в наборе.
-            </param>
+            <param name="filter">Выражение-фильтр для подсчета. Если равен <see langword="null"/>, подсчитываются все записи в наборе.</param>
+            <returns>Общее количество записей, соответствующих условию.</returns>
         </member>
         <member name="M:Ans.Net10.Common.Crud.ICrudRepository`1.Add(`0)">
             <summary>
@@ -218,15 +216,15 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.__CrudRepository_Base`1">
             <summary>
-            Базовый класс для реализации репозиториев CRUD-операций с использованием Entity Framework.
+            Абстрактный прототип класса для реализации репозиториев CRUD-операций с использованием Entity Framework Core.
             </summary>
-            <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
+            <typeparam name="T">Тип доменной сущности, управляемой репозиторием. Должен быть ссылочным типом (<see langword="class"/>).</typeparam>
         </member>
         <member name="M:Ans.Net10.Common.Crud.__CrudRepository_Base`1.#ctor(Microsoft.EntityFrameworkCore.DbContext)">
             <summary>
-            Базовый класс для реализации репозиториев CRUD-операций с использованием Entity Framework.
+            Абстрактный прототип класса для реализации репозиториев CRUD-операций с использованием Entity Framework Core.
             </summary>
-            <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
+            <typeparam name="T">Тип доменной сущности, управляемой репозиторием. Должен быть ссылочным типом (<see langword="class"/>).</typeparam>
         </member>
         <member name="P:Ans.Net10.Common.Crud.__CrudRepository_Base`1.DbContext">
             <inheritdoc />
@@ -272,7 +270,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.CrudEntityTypeEnum">
             <summary>
-            Определяет типы поведения и структуры сущностей в рамках CRUD-интерфейса.
+            Перечень типов организации сущностей в рамках CRUD-интерфейса.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.Crud.CrudEntityTypeEnum.Normal">
@@ -292,7 +290,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.CrudEntityAfterAddEnum">
             <summary>
-            Определяет варианты перенаправления пользователя в интерфейсе после успешного добавления записи.
+            Перечень вариантов перенаправления пользователя в интерфейсе после успешного добавления записи.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.Crud.CrudEntityAfterAddEnum.List">
@@ -307,7 +305,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.CrudManyrefViewEnum">
             <summary>
-            Определяет режимы отображения и фильтрации связей «многие ко многим» в пользовательском интерфейсе.
+            Перечень режимов отображения и фильтрации связей «многие ко многим» в пользовательском интерфейсе.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.Crud.CrudManyrefViewEnum.OnlyThis">
@@ -327,7 +325,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.CrudFieldTypeEnum">
             <summary>
-            Определяет типы данных и форматы валидации для полей CRUD-форм.
+            Перечень типов данных и форматов валидации для полей CRUD-форм.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.Crud.CrudFieldTypeEnum.Text50">
@@ -432,7 +430,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.CrudFieldModeEnum">
             <summary>
-            Определяет режимы работы, ограничения и правила уникальности для полей CRUD-форм.
+            Перечень режимов работы, ограничения и правила уникальности для полей CRUD-форм.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.Crud.CrudFieldModeEnum.Normal">
@@ -457,7 +455,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Crud.CrudFieldRegistryModeEnum">
             <summary>
-            Определяет режимы визуального рендеринга элементов выбора реестра для CRUD-полей.
+            Перечень режимов визуального рендеринга элементов выбора реестра для CRUD-полей.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.Crud.CrudFieldRegistryModeEnum.Auto">
@@ -477,7 +475,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Json.AutoNumberToStringConverter">
             <summary>
-            Конвертер для автоматического преобразования числовых значений из JSON
+            Конвертер для автоматического преобразования числовых и логических значений из JSON
             в строковое представление при десериализации.
             </summary>
         </member>
@@ -528,6 +526,11 @@
         </member>
         <member name="M:Ans.Net10.Common.Json.IntToStringConverter.Write(System.Text.Json.Utf8JsonWriter,System.Int32,System.Text.Json.JsonSerializerOptions)">
             <inheritdoc />
+        </member>
+        <member name="T:Ans.Net10.Common.LibCommonInfo">
+            <summary>
+            Предоставляет информацию о текущей вызывающей сборке библиотеки.
+            </summary>
         </member>
         <member name="T:Ans.Net10.Common.Resources.Common">
             <summary>
@@ -1263,16 +1266,49 @@
             Асинхронно отправляет электронное письмо на основе переданной модели.
             </summary>
             <param name="message">Модель данных отправляемого сообщения.</param>
+            <returns>Поток-задача <see cref="T:System.Threading.Tasks.Task"/>, представляющая асинхронную операцию отправки.</returns>
         </member>
         <member name="T:Ans.Net10.Common.Services.IMailerServiceOptions">
             <summary>
             Интерфейс параметров конфигурации SMTP-клиента для службы отправки писем.
             </summary>
         </member>
+        <member name="P:Ans.Net10.Common.Services.IMailerServiceOptions.SmtpServer">
+            <summary>Сетевой адрес или имя хоста SMTP-сервера.</summary>
+            <value>Строка с адресом сервера.</value>
+        </member>
+        <member name="P:Ans.Net10.Common.Services.IMailerServiceOptions.SmtpPort">
+            <summary>Сетевой порт SMTP-сервера для подключения.</summary>
+            <value>Числовое значение порта.</value>
+        </member>
+        <member name="P:Ans.Net10.Common.Services.IMailerServiceOptions.SmtpUseSsl">
+            <summary>Признак использования защищенного SSL/TLS соединения при подключении.</summary>
+            <value><see langword="true"/>, если требуется SSL; иначе — <see langword="false"/>.</value>
+        </member>
+        <member name="P:Ans.Net10.Common.Services.IMailerServiceOptions.SmtpUsername">
+            <summary>Имя пользователя (логин) для аутентификации на SMTP-сервере.</summary>
+            <value>Строка с именем пользователя.</value>
+        </member>
+        <member name="P:Ans.Net10.Common.Services.IMailerServiceOptions.SmtpPassword">
+            <summary>Пароль или токен приложения для аутентификации на SMTP-сервере.</summary>
+            <value>Строка с паролем.</value>
+        </member>
+        <member name="P:Ans.Net10.Common.Services.IMailerServiceOptions.DefaultFromAddress">
+            <summary>Адрес электронной почты отправителя, используемый по умолчанию.</summary>
+            <value>Строка с email-адресом.</value>
+        </member>
+        <member name="P:Ans.Net10.Common.Services.IMailerServiceOptions.DefaultFromTitle">
+            <summary>Отображаемое имя (заголовок) отправителя, используемое по умолчанию.</summary>
+            <value>Строка с именем отправителя.</value>
+        </member>
+        <member name="P:Ans.Net10.Common.Services.IMailerServiceOptions.DebugCc">
+            <summary>Почтовый адрес для принудительной отправки отладочных скрытых копий писем (CC).</summary>
+            <value>Строка с email-адресом отладки.</value>
+        </member>
         <member name="T:Ans.Net10.Common.Services.FakeMailerService">
             <summary>
             Заглушка службы отправки писем для использования в средах разработки или тестирования.
-            Не выполняет реальную отправку.
+            Не выполняет реальную сетевую отправку.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Services.FakeMailerService.SendAsync(Ans.Net10.Common.MailMessageModel)">
@@ -1296,12 +1332,14 @@
             </summary>
             <param name="title">Отображаемое имя адресата.</param>
             <param name="address">Электронный почтовый адрес.</param>
+            <returns>Готовый объект адреса <see cref="T:MimeKit.MailboxAddress"/>.</returns>
         </member>
         <member name="M:Ans.Net10.Common.Services.AnsMailerService.GetMailboxAddress(System.String)">
             <summary>
             Создает объект адреса <see cref="T:MimeKit.MailboxAddress"/>, где имя совпадает с электронным адресом.
             </summary>
             <param name="address">Электронный почтовый адрес.</param>
+            <returns>Готовый объект адреса <see cref="T:MimeKit.MailboxAddress"/>.</returns>
         </member>
         <member name="M:Ans.Net10.Common.Services.AnsMailerService.SendAsync(Ans.Net10.Common.MailMessageModel)">
             <inheritdoc />
@@ -1550,7 +1588,7 @@
         </member>
         <member name="T:Ans.Net10.Common.ContentGroupEnum">
             <summary>
-            Определяет категории (группы) типов контента.
+            Перечень категорий (групп) типов контента.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.ContentGroupEnum.Archive">
@@ -1674,7 +1712,7 @@
         </member>
         <member name="T:Ans.Net10.Common.ICrudFace">
             <summary>
-            Определяет интерфейс для описания визуального отображения, локализации 
+            Интерфейс для описания визуального отображения, локализации 
             и метаданных полей ввода в рамках CRUD-интерфейса.
             </summary>
         </member>
@@ -2148,7 +2186,7 @@
         </member>
         <member name="T:Ans.Net10.Common.ImageOrientationEnum">
             <summary>
-            Определяет пространственную ориентацию графического объекта (изображения) на основе соотношения его сторон.
+            Перечень вариантов ориентации графического объекта (изображения) на основе соотношения его сторон.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.ImageOrientationEnum.Unknown">
@@ -2173,7 +2211,7 @@
         </member>
         <member name="T:Ans.Net10.Common.ImageShiftEnum">
             <summary>
-            Определяет варианты фиксированного смещения рамки кадрирования (обрезки) относительно сторон изображения.
+            Перечень вариантов фиксированного смещения рамки кадрирования (обрезки) относительно сторон изображения.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.ImageShiftEnum.Center">
@@ -3590,7 +3628,7 @@
         </member>
         <member name="T:Ans.Net10.Common.RegistryModeEnum">
             <summary>
-            Определяет режимы визуального отображения элементов реестра в пользовательском интерфейсе.
+            Перечень режимов визуального отображения элементов реестра в пользовательском интерфейсе.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.RegistryModeEnum.Auto">
@@ -3628,7 +3666,7 @@
         </member>
         <member name="T:Ans.Net10.Common.RegistryItemEventHandler">
             <summary>
-            Представляет делегат для обработки событий, оперирующих элементами реестра.
+            Делегат для обработки событий, оперирующих элементами реестра.
             </summary>
             <param name="sender">Источник (объект), инициировавший данное событие.</param>
             <param name="e">Аргументы события, содержащие целевой элемент реестра <see cref="T:Ans.Net10.Common.RegistryItem"/>.</param>
@@ -4545,7 +4583,7 @@
         </member>
         <member name="T:Ans.Net10.Common.ITreeEntity">
             <summary>
-            Определяет интерфейс сущности, поддерживающей древовидную (иерархическую) структуру в базе данных.
+            Интерфейс сущности, поддерживающей древовидную (иерархическую) структуру в базе данных.
             </summary>
         </member>
         <member name="P:Ans.Net10.Common.ITreeEntity.Id">
@@ -4781,7 +4819,7 @@
         </member>
         <member name="T:Ans.Net10.Common.WidthsEnum">
             <summary>
-            Определяет варианты стандартной ширины для контентных блоков и элементов интерфейса.
+            Перечень вариантов стандартной ширины для контентных блоков и элементов интерфейса.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.WidthsEnum.Full">
@@ -4870,7 +4908,7 @@
         </member>
         <member name="T:Ans.Net10.Common._Dict_Proto`2">
             <summary>
-            Абстрактный базовый класс для словарей, поддерживающих кастомную текстовую сериализацию
+            Абстрактный прототип класса для словарей, поддерживающих кастомную текстовую сериализацию
             с автоматическим экранированием разделителей ключей (<c>=</c>) и пар (<c>;</c>).
             </summary>
             <typeparam name="TKey">Тип уникального ключа словаря. Не должен быть равен <see langword="null"/>.</typeparam>
@@ -5016,7 +5054,7 @@
         </member>
         <member name="T:Ans.Net10.Common.ITreeItem">
             <summary>
-            Определяет интерфейс для элементов, поддерживающих древовидную (иерархическую) структуру.
+            Интерфейс для элементов, поддерживающих древовидную (иерархическую) структуру.
             </summary>
         </member>
         <member name="P:Ans.Net10.Common.ITreeItem.Parent">
@@ -5750,8 +5788,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts_Assembly">
             <summary>
-            Предоставляет высокопроизводительные свойства расширения для извлечения 
-            метаданных, версий и описаний из экземпляров <see cref="T:System.Reflection.Assembly"/>.
+            Методы расширения для извлечения метаданных, версий и описаний из экземпляров <see cref="T:System.Reflection.Assembly"/>.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts_Assembly.get_Name(System.Reflection.Assembly)">
@@ -5804,8 +5841,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts_Claims">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для работы со структурой утверждений 
-            и субъектами безопасности <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.
+            Методы расширения для работы со структурой утверждений  и субъектами безопасности <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts_Claims.AddClaim(System.Security.Claims.ClaimsIdentity,System.String,System.String)">
@@ -5889,7 +5925,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts_DbSet">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для работы с объектами <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/>.
+            Методы расширения для работы с объектами <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1"/>.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts_DbSet.GetDbContext``1(Microsoft.EntityFrameworkCore.DbSet{``0})">
@@ -5904,8 +5940,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts_Exception">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для рекурсивного анализа 
-            дерева вложенных исключений <see cref="P:System.Exception.InnerException"/> и их строковых сообщений.
+            Методы расширения для рекурсивного анализа дерева вложенных исключений <see cref="P:System.Exception.InnerException"/> и их строковых сообщений.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts_Exception.GetExceptionMessage(System.Exception)">
@@ -5941,8 +5976,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts_HttpClient">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для <see cref="T:System.Net.Http.HttpClient"/>, 
-            обеспечивающие асинхронное получение и автоматическую десериализацию данных в форматах JSON, XML и GRID.
+            Методы расширения для <see cref="T:System.Net.Http.HttpClient"/>, обеспечивающие асинхронное получение и автоматическую десериализацию данных в форматах JSON, XML и GRID.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts_HttpClient.GetJsonResultAsync``1(System.Net.Http.HttpClient,System.String,Microsoft.Extensions.Caching.Memory.IMemoryCache,System.Text.Json.JsonSerializerOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions,System.Text.Encoding,System.Action{System.Net.Http.HttpRequestMessage},System.Threading.CancellationToken)">
@@ -6029,7 +6063,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts_IPAddress">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для работы с сетевыми IP-адресами <see cref="T:System.Net.IPAddress"/>.
+            Методы расширения для работы с сетевыми IP-адресами <see cref="T:System.Net.IPAddress"/>.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts_IPAddress.IsInSubnet(System.Net.IPAddress,Ans.Net10.Common.IPSubnet)">
@@ -6047,8 +6081,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts_String">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для сложной обработки, 
-            разделения, усечения и извлечения тегов из строковых данных.
+            Методы расширения для сложной обработки, разделения, усечения и извлечения тегов из строковых данных.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts_String.SplitFix(System.String,System.String,System.Int32)">
@@ -6358,8 +6391,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts_StringBuilder">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для модификации, 
-            поиска, рекурсивной замены и очистки данных внутри объектов <see cref="T:System.Text.StringBuilder"/>.
+            Методы расширения для модификации, поиска, рекурсивной замены и очистки данных внутри объектов <see cref="T:System.Text.StringBuilder"/>.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts_StringBuilder.AppendIfPresent(System.Text.StringBuilder,System.String,System.Object[])">
@@ -6433,8 +6465,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__collections">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для работы с массивами, 
-            коллекциями и последовательностями строк.
+            Методы расширения для работы с массивами, коллекциями и последовательностями строк.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts__collections.GetArrayAdd``1(``0[],``0)">
@@ -6588,8 +6619,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__datetime">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для типов 
-            <see cref="T:System.DateTime"/>, <see cref="T:System.DateOnly"/> и <see cref="T:System.TimeSpan"/>.
+            Методы расширения для типов <see cref="T:System.DateTime"/>, <see cref="T:System.DateOnly"/> и <see cref="T:System.TimeSpan"/>.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts__datetime.GetTimeOnly(System.DateTime)">
@@ -6688,7 +6718,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__di">
             <summary>
-            Предоставляет методы расширения для работы с механизмами внедрения зависимостей (Dependency Injection).
+            Методы расширения для работы с механизмами внедрения зависимостей (Dependency Injection).
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts__di.HasService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
@@ -6704,8 +6734,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__dictionary">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для безопасного
-            и типизированного извлечения данных из словарей.
+            Методы расширения для безопасного и типизированного извлечения данных из словарей.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts__dictionary.GetSerialization(System.Collections.Generic.KeyValuePair{System.String,System.String},System.String)">
@@ -7107,8 +7136,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__io">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для работы с подсистемой ввода-вывода (I/O), 
-            каталогами и файлами.
+            Методы расширения для работы с подсистемой ввода-вывода (I/O), каталогами и файлами.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.Exts__io.SEP_EXTS">
@@ -7137,8 +7165,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__linq">
             <summary>
-            Предоставляет методы расширения для динамического построения LINQ-запросов, 
-            включая строковую сортировку коллекций и комбинирование деревьев выражений (Expression Trees).
+            Методы расширения для динамического построения LINQ-запросов, включая строковую сортировку коллекций и комбинирование деревьев выражений (Expression Trees).
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts__linq.ApplyOrder``1(System.Linq.IQueryable{``0},Ans.Net10.Common.OrderBuilder)">
@@ -7213,8 +7240,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__make">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для продвинутого и безопасного 
-            форматирования строк, примитивных типов, коллекций и перечислений по шаблонам.
+            Методы расширения для продвинутого и безопасного форматирования строк, примитивных типов, коллекций и перечислений по шаблонам.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts__make.Make(System.String,System.String)">
@@ -7380,8 +7406,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__reflection">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для продвинутой работы 
-            с механизмами рефлексии (Reflection), извлечения метаданных, свойств, полей и генерации имен типов.
+            Методы расширения для продвинутой работы с механизмами рефлексии (Reflection), извлечения метаданных, свойств, полей и генерации имен типов.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.Exts__reflection.ToDynamic(System.Object)">
@@ -7503,8 +7528,7 @@
         </member>
         <member name="T:Ans.Net10.Common.Exts__to">
             <summary>
-            Предоставляет высокопроизводительные методы расширения для трансформации типов, 
-            разбиения коллекций на блоки и быстрого парсинга строк в числовые массивы.
+            Методы расширения для трансформации типов, разбиения коллекций на блоки и быстрого парсинга строк в числовые массивы.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.Exts__to.SEP_ITEMS">
@@ -7712,8 +7736,7 @@
         </member>
         <member name="T:Ans.Net10.Common.SuppApp">
             <summary>
-            Предоставляет вспомогательные свойства и методы
-            для получения метаданных и путей текущего приложения.
+            Вспомогательный класс реализующий свойства и методы для получения метаданных и путей текущего приложения.
             </summary>
         </member>
         <member name="P:Ans.Net10.Common.SuppApp.EntryAssembly">
@@ -7953,8 +7976,7 @@
         </member>
         <member name="T:Ans.Net10.Common.SuppCrypto">
             <summary>
-            Предоставляет криптографические методы для
-            работы с паролями, токенами, хэшами (SHA-256) и HMAC.
+            Вспомогательный класс реализующий криптографические методы для работы с паролями, токенами, хэшами (SHA-256) и HMAC.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.SuppCrypto.SALT_SIZE">
@@ -8134,7 +8156,7 @@
         </member>
         <member name="T:Ans.Net10.Common.TensesEnum">
             <summary>
-            Определяет временные эпохи (прошлое, настоящее, будущее) относительно контрольной точки времени.
+            Перечень временных эпох (прошлое, настоящее, будущее).
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.TensesEnum.Past">
@@ -8455,7 +8477,7 @@
         </member>
         <member name="T:Ans.Net10.Common.EncodingsEnum">
             <summary>
-            Перечисление поддерживаемых инфраструктурой библиотеки кодировок текстовых файлов.
+            Перечень кодировок текстовых файлов поддерживаемых инфраструктурой библиотеки.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.EncodingsEnum.UTF8">
@@ -9011,7 +9033,7 @@
         </member>
         <member name="T:Ans.Net10.Common.WordCasesRuEnum">
             <summary>
-            Перечисление шести основных грамматических падежей русского языка.
+            Перечень основных грамматических падежей русского языка.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.WordCasesRuEnum.Nominative">
@@ -9271,7 +9293,7 @@
         </member>
         <member name="T:Ans.Net10.Common.SuppLinq">
             <summary>
-            Предоставляет вспомогательные методы для динамического построения LINQ-выражений и подготовки запросов.
+            Вспомогательный класс для динамического построения LINQ-выражений и подготовки запросов.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.SuppLinq.ApplyFilter_Add``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
@@ -9300,7 +9322,7 @@
         </member>
         <member name="T:Ans.Net10.Common.SuppMath">
             <summary>
-            Предоставляет обобщенные и оптимизированные математические функции общего назначения.
+            Вспомогательный класс реализующий обобщенные и оптимизированные математические функции общего назначения.
             </summary>
         </member>
         <member name="M:Ans.Net10.Common.SuppMath.GetRestrict``1(``0,``0,``0)">
@@ -9460,7 +9482,7 @@
         </member>
         <member name="T:Ans.Net10.Common.LetterCasesEnum">
             <summary>
-            Определяет поддерживаемые варианты преобразования и форматирования регистра символов текстовых строк.
+            Перечень вариантов преобразования и форматирования регистра символов текстовых строк.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.LetterCasesEnum.Original">
@@ -9625,7 +9647,7 @@
         </member>
         <member name="T:Ans.Net10.Common.GenderEnum">
             <summary>
-            Определяет варианты биологического пола человека.
+            Перечень вариантов биологического пола человека.
             </summary>
         </member>
         <member name="F:Ans.Net10.Common.GenderEnum.NotSpecified">
@@ -9798,7 +9820,7 @@
         </member>
         <member name="M:Ans.Net10.Common.SuppXml.GetSoftObjectFromXmlFileAsync``1(System.String,System.Text.Encoding,System.String)">
             <summary>
-            (async) Асинхронно десериализует XML-файл небольшого или среднего размера в объект.
+            Асинхронно десериализует XML-файл небольшого или среднего размера в объект.
             </summary>
             <remarks>
             Перед десериализацией файл целиком копируется в оперативную память в объект <see cref="T:System.IO.MemoryStream"/>. 
@@ -9814,7 +9836,7 @@
         </member>
         <member name="M:Ans.Net10.Common.SuppXml.GetHardObjectFromXmlFileAsync``1(System.String,System.Text.Encoding,System.String)">
             <summary>
-            (async) Асинхронно десериализует большой XML-файл в объект, используя прямую потоковую обработку в выделенном фоновом потоке.
+            Асинхронно десериализует большой XML-файл в объект, используя прямую потоковую обработку в выделенном фоновом потоке.
             </summary>
             <remarks>
             Метод рекомендуется использовать для файлов крупного размера (более 10–20 МБ) во избежание 
@@ -9830,7 +9852,7 @@
         </member>
         <member name="M:Ans.Net10.Common.SuppXml.SaveSoftObjectToXmlFileAsync``1(``0,System.String,System.Text.Encoding,System.Xml.Serialization.XmlSerializerNamespaces,System.Boolean)">
             <summary>
-            (async) Асинхронно сериализует объект небольшого или среднего размера в файл.
+            Асинхронно сериализует объект небольшого или среднего размера в файл.
             </summary>
             <remarks>
             Сериализация сначала полностью подготавливается и формируется в оперативной памяти, 
@@ -9846,7 +9868,7 @@
         </member>
         <member name="M:Ans.Net10.Common.SuppXml.SaveHardObjectToXmlFileAsync``1(``0,System.String,System.Text.Encoding,System.Xml.Serialization.XmlSerializerNamespaces,System.Boolean)">
             <summary>
-            (async) Асинхронно сериализует объект в большой XML-файл, используя потоковую запись напрямую на диск в фоновом потоке.
+            Асинхронно сериализует объект в большой XML-файл, используя потоковую запись напрямую на диск в фоновом потоке.
             </summary>
             <remarks>
             Рекомендуется применять для тяжелых объектов сложной структуры во избежание 

@@ -1,4 +1,4 @@
-﻿// rev 2026-09-20
+﻿// rev 2026-09-26
 
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -8,7 +8,7 @@ namespace Ans.Net10.Common.Json
 {
 
 	/// <summary>
-	/// Конвертер для автоматического преобразования числовых значений из JSON
+	/// Конвертер для автоматического преобразования числовых и логических значений из JSON
 	/// в строковое представление при десериализации.
 	/// </summary>
 	public class AutoNumberToStringConverter

@@ -17,6 +17,7 @@ namespace Ans.Net10.Common.Services
 		/// Асинхронно отправляет электронное письмо на основе переданной модели.
 		/// </summary>
 		/// <param name="message">Модель данных отправляемого сообщения.</param>
+		/// <returns>Поток-задача <see cref="Task"/>, представляющая асинхронную операцию отправки.</returns>
 		Task SendAsync(MailMessageModel message);
 	}
 
@@ -27,13 +28,36 @@ namespace Ans.Net10.Common.Services
 	/// </summary>
 	public interface IMailerServiceOptions
 	{
+		/// <summary>Сетевой адрес или имя хоста SMTP-сервера.</summary>
+		/// <value>Строка с адресом сервера.</value>
 		string SmtpServer { get; }
+
+		/// <summary>Сетевой порт SMTP-сервера для подключения.</summary>
+		/// <value>Числовое значение порта.</value>
 		int SmtpPort { get; }
+
+		/// <summary>Признак использования защищенного SSL/TLS соединения при подключении.</summary>
+		/// <value><see langword="true"/>, если требуется SSL; иначе — <see langword="false"/>.</value>
 		bool SmtpUseSsl { get; }
+
+		/// <summary>Имя пользователя (логин) для аутентификации на SMTP-сервере.</summary>
+		/// <value>Строка с именем пользователя.</value>
 		string SmtpUsername { get; }
+
+		/// <summary>Пароль или токен приложения для аутентификации на SMTP-сервере.</summary>
+		/// <value>Строка с паролем.</value>
 		string SmtpPassword { get; }
+
+		/// <summary>Адрес электронной почты отправителя, используемый по умолчанию.</summary>
+		/// <value>Строка с email-адресом.</value>
 		string DefaultFromAddress { get; }
+
+		/// <summary>Отображаемое имя (заголовок) отправителя, используемое по умолчанию.</summary>
+		/// <value>Строка с именем отправителя.</value>
 		string DefaultFromTitle { get; }
+
+		/// <summary>Почтовый адрес для принудительной отправки отладочных скрытых копий писем (CC).</summary>
+		/// <value>Строка с email-адресом отладки.</value>
 		string DebugCc { get; }
 	}
 
@@ -41,7 +65,7 @@ namespace Ans.Net10.Common.Services
 
 	/// <summary>
 	/// Заглушка службы отправки писем для использования в средах разработки или тестирования.
-	/// Не выполняет реальную отправку.
+	/// Не выполняет реальную сетевую отправку.
 	/// </summary>
 	public class FakeMailerService
 		: IMailerService
@@ -76,6 +100,7 @@ namespace Ans.Net10.Common.Services
 		/// </summary>
 		/// <param name="title">Отображаемое имя адресата.</param>
 		/// <param name="address">Электронный почтовый адрес.</param>
+		/// <returns>Готовый объект адреса <see cref="MailboxAddress"/>.</returns>
 		public static MailboxAddress GetMailboxAddress(
 			string title,
 			string address)
@@ -88,6 +113,7 @@ namespace Ans.Net10.Common.Services
 		/// Создает объект адреса <see cref="MailboxAddress"/>, где имя совпадает с электронным адресом.
 		/// </summary>
 		/// <param name="address">Электронный почтовый адрес.</param>
+		/// <returns>Готовый объект адреса <see cref="MailboxAddress"/>.</returns>
 		public static MailboxAddress GetMailboxAddress(
 			string address)
 		{

@@ -1,12 +1,10 @@
 ﻿// rev 2026-09-26
 
-using System.Runtime.CompilerServices;
-
 namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Перечисление шести основных грамматических падежей русского языка.
+	/// Перечень основных грамматических падежей русского языка.
 	/// </summary>
 	public enum WordCasesRuEnum
 	{

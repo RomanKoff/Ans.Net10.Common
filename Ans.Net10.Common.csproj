@@ -18,7 +18,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include=".github\workflows\docfx.yml" />
+		<Compile Remove="_docs\api\**" />
+		<Compile Remove="_docs\_site\**" />
+		<EmbeddedResource Remove="_docs\api\**" />
+		<EmbeddedResource Remove="_docs\_site\**" />
+		<None Remove="_docs\api\**" />
+		<None Remove="_docs\_site\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include=".github\workflows\docfx.yml" />
 	</ItemGroup>
 
 	<ItemGroup>

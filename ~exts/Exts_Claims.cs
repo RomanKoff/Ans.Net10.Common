@@ -7,8 +7,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет высокопроизводительные методы расширения для работы со структурой утверждений 
-	/// и субъектами безопасности <see cref="ClaimsPrincipal"/>.
+	/// Методы расширения для работы со структурой утверждений  и субъектами безопасности <see cref="ClaimsPrincipal"/>.
 	/// </summary>
 	public static partial class Exts_Claims
 	{

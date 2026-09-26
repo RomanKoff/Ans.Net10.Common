@@ -35,7 +35,7 @@
 		"template": [
 			"default",
 			"modern",
-			"ans-template"
+			"templates/ans"
 		],
 		"globalMetadata": {
 			"lang": "ru",

@@ -7,8 +7,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Предоставляет высокопроизводительные методы расширения для модификации, 
-	/// поиска, рекурсивной замены и очистки данных внутри объектов <see cref="StringBuilder"/>.
+	/// Методы расширения для модификации, поиска, рекурсивной замены и очистки данных внутри объектов <see cref="StringBuilder"/>.
 	/// </summary>
 	public static partial class Exts_StringBuilder
 	{

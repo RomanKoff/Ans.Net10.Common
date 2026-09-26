@@ -1,4 +1,4 @@
-﻿// rev 2026-09-21
+﻿// rev 2026-09-26
 
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -7,64 +7,59 @@ namespace Ans.Net10.Common.Crud
 {
 
 	/// <summary>
-	/// Определяет интерфейс универсального репозитория для выполнения базовых
+	/// Интерфейс универсального репозитория для выполнения базовых
 	/// CRUD-операций над сущностями типа <typeparamref name="T"/>.
 	/// </summary>
-	/// <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
+	/// <typeparam name="T">Тип доменной сущности, управляемой репозиторием. Должен быть ссылочным типом (<see langword="class"/>).</typeparam>
 	public interface ICrudRepository<T>
 		where T : class
 	{
 
 		/* readonly properties */
 
-
 		/// <summary>
-		/// Возвращает экземпляр контекста базы данных Entity Framework.
+		/// Возвращает экземпляр контекста базы данных Entity Framework Core.
 		/// </summary>
+		/// <value>Объект контекста <see cref="DbContext"/>.</value>
 		DbContext DbContext { get; }
 
 		/// <summary>
 		/// Возвращает набор сущностей <see cref="DbSet{T}"/> для работы с текущим типом данных.
 		/// </summary>
+		/// <value>Объект набора данных <see cref="DbSet{T}"/>.</value>
 		DbSet<T> DbSet { get; }
-
 
 		/* functions */
 
-
 		/// <summary>
-		/// Формирует запрос <see cref="IQueryable{T}"/> без отслеживания изменений
-		/// (AsNoTracking) с применением фильтрации.
+		/// Формирует запрос <see cref="IQueryable{T}"/> без отслеживания изменений (AsNoTracking) с применением фильтрации.
 		/// </summary>
-		/// <param name="filter">Предекатное выражение для фильтрации сущностей.
-		/// Если <see langword="null"/>, фильтрация не применяется.</param>
+		/// <param name="filter">Предикатное выражение для фильтрации сущностей. Если равен <see langword="null"/>, фильтрация не применяется.</param>
+		/// <returns>Запрос <see cref="IQueryable{T}"/> для извлечения сущностей.</returns>
 		IQueryable<T> GetItemsAsQueryable(Expression<Func<T, bool>>? filter);
 
 		/// <summary>
 		/// Возвращает сущность по её уникальному целочисленному идентификатору.
 		/// </summary>
 		/// <param name="id">Идентификатор искомой сущности.</param>
+		/// <returns>Найденная сущность типа <typeparamref name="T"/> или <see langword="null"/>, если запись не найдена.</returns>
 		T? GetItem(int id);
 
 		/// <summary>
-		/// Возвращает первую сущность, удовлетворяющую условию
-		/// фильтра, без отслеживания изменений.
+		/// Возвращает первую сущность, удовлетворяющую условию фильтра, без отслеживания изменений.
 		/// </summary>
 		/// <param name="filter">Выражение-фильтр для поиска сущности.</param>
+		/// <returns>Первая найденная сущность типа <typeparamref name="T"/> или <see langword="null"/>, если совпадений не найдено.</returns>
 		T? GetItem(Expression<Func<T, bool>> filter);
 
 		/// <summary>
 		/// Возвращает общее количество сущностей, удовлетворяющих заданному фильтру.
 		/// </summary>
-		/// <param name="filter">
-		/// Выражение-фильтр для подсчета. Если <see langword="null"/>,
-		/// подсчитываются все записи в наборе.
-		/// </param>
+		/// <param name="filter">Выражение-фильтр для подсчета. Если равен <see langword="null"/>, подсчитываются все записи в наборе.</param>
+		/// <returns>Общее количество записей, соответствующих условию.</returns>
 		int GetItemsCount(Expression<Func<T, bool>>? filter);
 
-
 		/* methods */
-
 
 		/// <summary>
 		/// Добавляет новую сущность в контекст со статусом <see cref="EntityState.Added"/>.
@@ -125,9 +120,9 @@ namespace Ans.Net10.Common.Crud
 
 
 	/// <summary>
-	/// Базовый класс для реализации репозиториев CRUD-операций с использованием Entity Framework.
+	/// Абстрактный прототип класса для реализации репозиториев CRUD-операций с использованием Entity Framework Core.
 	/// </summary>
-	/// <typeparam name="T">Тип доменной сущности, управляемой репозиторием.</typeparam>
+	/// <typeparam name="T">Тип доменной сущности, управляемой репозиторием. Должен быть ссылочным типом (<see langword="class"/>).</typeparam>
 	public abstract class __CrudRepository_Base<T>(
 		DbContext db)
 		: ICrudRepository<T>

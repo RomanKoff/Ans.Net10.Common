@@ -9,7 +9,7 @@ namespace Ans.Net10.Common
 	/// </summary>
 	/// <typeparam name="TEntity">Тип исходной доменной сущности базы данных. Должен быть ссылочным типом (<see langword="class"/>).</typeparam>
 	/// <typeparam name="TModel">Тип результирующей UI-модели или объекта переноса данных (DTO). Должен быть ссылочным типом (<see langword="class"/>).</typeparam>
-	public abstract class _ListPaginatedModel_Base<TEntity, TModel>
+	public class _ListPaginatedModel_Base<TEntity, TModel>
 		where TEntity : class
 		where TModel : class
 	{

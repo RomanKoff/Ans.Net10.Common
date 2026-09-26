@@ -7,7 +7,7 @@ namespace Ans.Net10.Common
 {
 
 	/// <summary>
-	/// Определяет категории (группы) типов контента.
+	/// Перечень категорий (групп) типов контента.
 	/// </summary>
 	public enum ContentGroupEnum
 	{
